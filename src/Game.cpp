@@ -6,7 +6,7 @@
 /// 
 /// </summary>
 Game::Game() :
-	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, 0)),
+	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1200, 900, 0)),
 	m_renderer(SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC))
 {
 	//	Set the default draw colour.
@@ -23,6 +23,17 @@ Game::Game() :
 	m_screenManager.addScreen(new Credits());
 
 	m_screenManager.goToScreen("Play");
+
+	SDL_GameController *m_controller;
+	m_controller = nullptr;
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	{
+		if (SDL_IsGameController(i))
+		{
+			m_controller = SDL_GameControllerOpen(i);
+			break;
+		}
+	}
 }
 
 
@@ -74,7 +85,7 @@ void Game::run()
 
 			else if (e.type == SDL_CONTROLLERBUTTONDOWN)
 			{
-				if (e.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+				if (e.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
 					std::cout << "x pressed" << std::endl;
 				}
@@ -108,8 +119,6 @@ void Game::run()
 		else if (timePerFrame < deltaTime)
 		{
 			fps = 1000 / deltaTime;
-			system("CLS");
-			std::cout << "Framerate : " << fps << std::endl;
 		}
 
 		//	Call game functions.

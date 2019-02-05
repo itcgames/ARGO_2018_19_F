@@ -51,6 +51,9 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
