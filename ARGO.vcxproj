@@ -131,17 +131,35 @@
     <ClCompile Include="src\Components\PositionComponent.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Screens\CharacterSelect.cpp" />
+    <ClCompile Include="src\Screens\Credits.cpp" />
+    <ClCompile Include="src\Screens\LevelSelect.cpp" />
+    <ClCompile Include="src\Screens\Menu.cpp" />
+    <ClCompile Include="src\Screens\Play.cpp" />
+    <ClCompile Include="src\Screens\ScreenManager.cpp" />
+    <ClCompile Include="src\Screens\Settings.cpp" />
+    <ClCompile Include="src\Screens\Splash.cpp" />
+    <ClCompile Include="src\Screens\Title.cpp" />
+    <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Components\Component.h" />
-    <ClInclude Include="include\Components\GraphicsComponent.h" />
-    <ClInclude Include="include\Components\PhysicsComponent.h" />
-    <ClInclude Include="include\Components\PositionComponent.h" />
-    <ClInclude Include="include\Entities\Entity.h" />
+    <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\Systems\System.h" />
+    <ClInclude Include="include\ECS\Systems\System.h" />
+    <ClInclude Include="include\Screens\CharacterSelect.h" />
+    <ClInclude Include="include\Screens\Credits.h" />
+    <ClInclude Include="include\Screens\LevelSelect.h" />
+    <ClInclude Include="include\Screens\Menu.h" />
+    <ClInclude Include="include\Screens\Play.h" />
+    <ClInclude Include="include\Screens\Screen.h" />
+    <ClInclude Include="include\Screens\ScreenManager.h" />
+    <ClInclude Include="include\Screens\Settings.h" />
+    <ClInclude Include="include\Screens\Splash.h" />
+    <ClInclude Include="include\Screens\Title.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
+    <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

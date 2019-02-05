@@ -9,15 +9,18 @@ Game::Game() :
 {
 	//	Set the default draw colour.
 	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
-
-	// Initialise Entities
 	
+	//	Add all the screens to the screen manager, and then set the current screen.
+	m_screenManager.addScreen(new Splash());
+	m_screenManager.addScreen(new Title());
+	m_screenManager.addScreen(new Menu());
+	m_screenManager.addScreen(new LevelSelect());
+	m_screenManager.addScreen(new CharacterSelect());
+	m_screenManager.addScreen(new Play());
+	m_screenManager.addScreen(new Settings());
+	m_screenManager.addScreen(new Credits());
 
-	//	Add Components to Entities.
-	
-
-	//	Add Entities to Systems.
-	
+	m_screenManager.goToScreen("Play");
 }
 
 
@@ -98,7 +101,7 @@ void Game::run()
 /// <param name="dt"></param>
 void Game::update(double dt)
 {
-	
+	m_screenManager.update(dt);
 }
 
 
@@ -111,7 +114,7 @@ void Game::render()
 	//	Clear the screen.
 	SDL_RenderClear(m_renderer);
 
-	
+	m_screenManager.render(m_renderer);
 
 	//	Update screen.
 	SDL_RenderPresent(m_renderer);
