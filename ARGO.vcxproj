@@ -127,11 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\PhysicsComponent.cpp" />
+    <ClCompile Include="src\Components\PositionComponent.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\Component.h" />
+    <ClInclude Include="include\Components\GraphicsComponent.h" />
+    <ClInclude Include="include\Components\PhysicsComponent.h" />
+    <ClInclude Include="include\Components\PositionComponent.h" />
     <ClInclude Include="include\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Systems\System.h" />
