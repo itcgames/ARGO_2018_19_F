@@ -4,7 +4,21 @@
 /// /// <summary>
 /// 
 /// </summary>
-Controller::Controller()
+Controller::Controller() : 
+	Up(false),
+	Down(false),
+	Left(false),
+	Right(false),
+	Start(false),
+	Back(false),
+	LeftShoulder(false),
+	RightShoulder(false),
+	AButton(false),
+	BButton(false),
+	XButton(false),
+	YButton(false),
+	StickX(0),
+	StickY(0)
 {
 	m_controller = nullptr;
 	for (int i = 0; i < SDL_NumJoysticks(); i++)
@@ -41,28 +55,34 @@ void Controller::update()
 				quit = true;
 			}
 
-			else if (e.type == SDL_CONTROLLERBUTTONDOWN)
+			for (int ControllerIndex = 0;
+				ControllerIndex < MAX_CONTROLLERS;
+				++ControllerIndex)
 			{
-				if (e.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				if (ControllerHandles[ControllerIndex] != 0 && SDL_GameControllerGetAttached(ControllerHandles[ControllerIndex]))
 				{
-					std::cout << "x pressed" << std::endl;
-				}
-			}
+					// NOTE: We have a controller with index ControllerIndex.
+					Up = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_DPAD_UP);
+					Down = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+					Left = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+					Right = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
+					Start = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_START);
+					Back = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_BACK);
+					LeftShoulder = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
+					RightShoulder = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
+					AButton = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_A);
+					BButton = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_B);
+					XButton = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_X);
+					YButton = SDL_GameControllerGetButton(ControllerHandles[ControllerIndex], SDL_CONTROLLER_BUTTON_Y);
 
-			else if (e.type == SDL_CONTROLLERAXISMOTION)
-			{
-				if (e.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
-				{
-					std::cout << SDL_CONTROLLER_AXIS_TRIGGERRIGHT << std::endl;
+					StickX = SDL_GameControllerGetAxis(ControllerHandles[ControllerIndex], SDL_CONTROLLER_AXIS_LEFTX);
+					StickY = SDL_GameControllerGetAxis(ControllerHandles[ControllerIndex], SDL_CONTROLLER_AXIS_LEFTY);
 				}
-			}
-			else if (e.type == SDL_JOYAXISMOTION)
-			{
-				if (e.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX)
-				{
-					std::cout << SDL_JoystickGetAxis << std::endl;
-				}
-			}
 		}
+
+			if (Up == true)
+			{
+				std::cout << "UP" << std::endl;
+			}
 	}
 }
