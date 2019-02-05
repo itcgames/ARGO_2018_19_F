@@ -83,9 +83,24 @@ void Game::run()
 
 			else if (e.type == SDL_CONTROLLERBUTTONDOWN)
 			{
-				if (e.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				if (e.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				{
 					std::cout << "x pressed" << std::endl;
+				}
+			}
+
+			else if (e.type == SDL_CONTROLLERAXISMOTION)
+			{
+				if (e.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+				{
+					std::cout << SDL_CONTROLLER_AXIS_TRIGGERRIGHT << std::endl;
+				}
+			}
+			else if (e.type == SDL_JOYAXISMOTION)
+			{
+				if (e.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX)
+				{
+					std::cout << SDL_JoystickGetAxis << std::endl;
 				}
 			}
 		}
@@ -102,8 +117,8 @@ void Game::run()
 		else if (timePerFrame < deltaTime)
 		{
 			fps = 1000 / deltaTime;
-			//system("CLS");
-			//std::cout << "Framerate : " << fps << std::endl;
+			system("CLS");
+			std::cout << "Framerate : " << fps << std::endl;
 		}
 
 		//	Call game functions.
