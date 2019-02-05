@@ -5,6 +5,7 @@
 //	Project.
 #include "SDL.h"
 #include "Screens/ScreenManager.h"
+#include "SDL2_Helper/SDL2Helper.h"
 
 class Screen
 {
@@ -20,5 +21,6 @@ public:
 protected:
 	std::string m_screenID;
 	ScreenManager* m_screenManager;
+	std::string m_resourcesPath = "resources/";
 };
 #endif // !SCREEN_H

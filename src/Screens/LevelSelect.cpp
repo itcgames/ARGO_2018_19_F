@@ -3,7 +3,7 @@
 /// <summary>
 /// 
 /// </summary>
-LevelSelect::LevelSelect(ScreenManager* screenManager) :
+LevelSelect::LevelSelect(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager)
 {
 	m_screenID = "LevelSelect";
@@ -56,7 +56,7 @@ void LevelSelect::setLevelToSummer()
 /// </summary>
 void LevelSelect::setLevelToAutumn()
 {
-	m_screenManager->addScreen(new Autumn(m_screenManager));
+	m_screenManager->addScreen(new Autumn(m_screenManager, m_renderer));
 }
 
 

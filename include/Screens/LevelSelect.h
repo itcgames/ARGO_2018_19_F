@@ -9,7 +9,7 @@
 class LevelSelect : public Screen
 {
 public:
-	LevelSelect(ScreenManager* screenManager);
+	LevelSelect(ScreenManager* screenManager, SDL_Renderer* renderer);
 	virtual void update(double dt) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:
@@ -17,6 +17,8 @@ private:
 	void setLevelToSummer();
 	void setLevelToAutumn();
 	void setLevelToWinter();
+
+	SDL_Renderer* m_renderer;
 };
 #endif // !LEVEL_SELECT_H
 

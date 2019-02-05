@@ -16,7 +16,6 @@
 #include "Screens/Settings.h"
 #include "Screens/Credits.h"
 
-
 class Game
 {
 public:

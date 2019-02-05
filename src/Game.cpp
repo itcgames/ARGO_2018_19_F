@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 Game::Game() :
-	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, 0)),
+	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1600, 900, 0)),
 	m_renderer(SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC))
 {
 	//	Set the default draw colour.
@@ -14,7 +14,7 @@ Game::Game() :
 	m_screenManager.addScreen(new Splash(&m_screenManager));
 	m_screenManager.addScreen(new Title(&m_screenManager));
 	m_screenManager.addScreen(new Menu(&m_screenManager));
-	m_screenManager.addScreen(new LevelSelect(&m_screenManager));
+	m_screenManager.addScreen(new LevelSelect(&m_screenManager, m_renderer));
 	m_screenManager.addScreen(new CharacterSelect(&m_screenManager));
 	m_screenManager.addScreen(new Winter(&m_screenManager));
 	m_screenManager.addScreen(new Settings(&m_screenManager));
