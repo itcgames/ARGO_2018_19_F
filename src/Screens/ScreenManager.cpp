@@ -1,4 +1,5 @@
 #include "Screens\ScreenManager.h"
+#include "Screens/Screen.h"
 
 /// <summary>
 /// 
@@ -69,4 +70,16 @@ void ScreenManager::goToScreen(std::string screenID)
 Screen * ScreenManager::getCurrentScreen()
 {
 	return m_currentScreen;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="screenID"></param>
+/// <returns></returns>
+Screen * ScreenManager::getScreen(std::string screenID)
+{
+	return m_screens[screenID];
 }

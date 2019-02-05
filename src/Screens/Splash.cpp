@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Splash::Splash()
+Splash::Splash(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 }
 

@@ -3,7 +3,9 @@
 //	Standard.
 #include <map>
 //	Project.
-#include "Screen.h"
+#include "SDL.h"
+
+class Screen;
 
 class ScreenManager
 {
@@ -17,6 +19,7 @@ public:
 	void addScreen(Screen* screen);
 	void goToScreen(std::string screenID);
 	Screen* getCurrentScreen();
+	Screen* getScreen(std::string screenID);
 
 private:
 	std::map<std::string, Screen*> m_screens;

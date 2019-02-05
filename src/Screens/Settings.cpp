@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Settings::Settings()
+Settings::Settings(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 	m_screenID = "Settings";
 }

@@ -1,15 +1,15 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
-//	Project
+#ifndef SPRING_H
+#define SPRING_H
+
 #include "Screens/Screen.h"
 
-class Settings : public Screen
+class Spring : public Screen
 {
 public:
-	Settings(ScreenManager* screenManager);
+	Spring(ScreenManager* screenManager);
 	virtual void update(double dt) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:
 
 };
-#endif // !SETTINGS_H
+#endif // !SPRING_H

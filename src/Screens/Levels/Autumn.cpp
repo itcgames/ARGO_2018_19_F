@@ -1,12 +1,12 @@
-#include "Screens\Menu.h"
+#include "Screens/Levels/Autumn.h"
 
 /// <summary>
 /// 
 /// </summary>
-Menu::Menu(ScreenManager* screenManager) :
+Autumn::Autumn(ScreenManager* screenManager) :
 	Screen(screenManager)
 {
-	m_screenID = "Menu";
+	m_screenID = "Play";
 }
 
 
@@ -15,7 +15,7 @@ Menu::Menu(ScreenManager* screenManager) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Menu::update(double dt)
+void Autumn::update(double dt)
 {
 }
 
@@ -25,6 +25,6 @@ void Menu::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Menu::render(SDL_Renderer * renderer)
+void Autumn::render(SDL_Renderer * renderer)
 {
 }

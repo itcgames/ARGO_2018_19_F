@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-CharacterSelect::CharacterSelect()
+CharacterSelect::CharacterSelect(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 	m_screenID = "CharacterSelect";
 }

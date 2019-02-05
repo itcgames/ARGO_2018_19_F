@@ -6,7 +6,7 @@
 class Splash : public Screen
 {
 public:
-	Splash();
+	Splash(ScreenManager* screenManager);
 	virtual void update(double dt) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:

@@ -6,7 +6,7 @@
 class Menu : public Screen
 {
 public:
-	Menu();
+	Menu(ScreenManager* screenManager);
 	virtual void update(double dt) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:

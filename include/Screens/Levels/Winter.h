@@ -1,15 +1,15 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
-//	Project
+#ifndef WINTER_H
+#define WINTER_H
+
 #include "Screens/Screen.h"
 
-class Settings : public Screen
+class Winter : public Screen
 {
 public:
-	Settings(ScreenManager* screenManager);
+	Winter(ScreenManager* screenManager);
 	virtual void update(double dt) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:
 
 };
-#endif // !SETTINGS_H
+#endif // !WINTER_H

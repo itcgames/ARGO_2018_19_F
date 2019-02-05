@@ -6,7 +6,7 @@
 class Credits : public Screen
 {
 public:
-	Credits();
+	Credits(ScreenManager* screenManager);
 	virtual void update(double dt) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:

@@ -11,14 +11,14 @@ Game::Game() :
 	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
 	
 	//	Add all the screens to the screen manager, and then set the current screen.
-	m_screenManager.addScreen(new Splash());
-	m_screenManager.addScreen(new Title());
-	m_screenManager.addScreen(new Menu());
-	m_screenManager.addScreen(new LevelSelect());
-	m_screenManager.addScreen(new CharacterSelect());
-	m_screenManager.addScreen(new Play());
-	m_screenManager.addScreen(new Settings());
-	m_screenManager.addScreen(new Credits());
+	m_screenManager.addScreen(new Splash(&m_screenManager));
+	m_screenManager.addScreen(new Title(&m_screenManager));
+	m_screenManager.addScreen(new Menu(&m_screenManager));
+	m_screenManager.addScreen(new LevelSelect(&m_screenManager));
+	m_screenManager.addScreen(new CharacterSelect(&m_screenManager));
+	m_screenManager.addScreen(new Winter(&m_screenManager));
+	m_screenManager.addScreen(new Settings(&m_screenManager));
+	m_screenManager.addScreen(new Credits(&m_screenManager));
 
 	m_screenManager.goToScreen("Play");
 }

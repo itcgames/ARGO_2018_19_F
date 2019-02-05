@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-LevelSelect::LevelSelect()
+LevelSelect::LevelSelect(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 	m_screenID = "LevelSelect";
 }
@@ -26,4 +27,44 @@ void LevelSelect::update(double dt)
 /// <param name="renderer"></param>
 void LevelSelect::render(SDL_Renderer * renderer)
 {
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void LevelSelect::setLevelToSpring()
+{
+	m_screenManager->addScreen(new Spring(m_screenManager));
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void LevelSelect::setLevelToSummer()
+{
+	m_screenManager->addScreen(new Summer(m_screenManager));
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void LevelSelect::setLevelToAutumn()
+{
+	m_screenManager->addScreen(new Autumn(m_screenManager));
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void LevelSelect::setLevelToWinter()
+{
+	m_screenManager->addScreen(new Winter(m_screenManager));
 }

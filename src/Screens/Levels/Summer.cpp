@@ -1,12 +1,12 @@
-#include "Screens\Menu.h"
+#include "Screens/Levels/Summer.h"
 
 /// <summary>
 /// 
 /// </summary>
-Menu::Menu(ScreenManager* screenManager) :
+Summer::Summer(ScreenManager* screenManager) :
 	Screen(screenManager)
 {
-	m_screenID = "Menu";
+	m_screenID = "Play";
 }
 
 
@@ -15,7 +15,7 @@ Menu::Menu(ScreenManager* screenManager) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Menu::update(double dt)
+void Summer::update(double dt)
 {
 }
 
@@ -25,6 +25,6 @@ void Menu::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Menu::render(SDL_Renderer * renderer)
+void Summer::render(SDL_Renderer * renderer)
 {
 }

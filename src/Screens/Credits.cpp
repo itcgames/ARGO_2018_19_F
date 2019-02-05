@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Credits::Credits()
+Credits::Credits(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 	m_screenID = "Credits";
 }

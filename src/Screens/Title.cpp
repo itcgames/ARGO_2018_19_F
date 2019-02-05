@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Title::Title()
+Title::Title(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 	m_screenID = "Title";
 }

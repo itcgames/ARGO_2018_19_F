@@ -1,9 +1,10 @@
-#include "Screens\Play.h"
+#include "Screens/Levels/Winter.h"
 
 /// <summary>
 /// 
 /// </summary>
-Play::Play()
+Winter::Winter(ScreenManager* screenManager) :
+	Screen(screenManager)
 {
 	m_screenID = "Play";
 }
@@ -14,7 +15,7 @@ Play::Play()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Play::update(double dt)
+void Winter::update(double dt)
 {
 }
 
@@ -24,6 +25,6 @@ void Play::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Play::render(SDL_Renderer * renderer)
+void Winter::render(SDL_Renderer * renderer)
 {
 }
