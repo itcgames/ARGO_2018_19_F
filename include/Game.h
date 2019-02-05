@@ -5,8 +5,17 @@
 //	Project.
 #include "SDL2_Helper/SDL2Helper.h"
 #include "Vector/Vector.h"
+/*			Screens				*/
 #include "Screens/ScreenManager.h"
+#include "Screens/Splash.h"
+#include "Screens/Title.h"
+#include "Screens/Menu.h"
+#include "Screens/LevelSelect.h"
+#include "Screens/CharacterSelect.h"
 #include "Screens/Play.h"
+#include "Screens/Settings.h"
+#include "Screens/Credits.h"
+
 
 class Game
 {
