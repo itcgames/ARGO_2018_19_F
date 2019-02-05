@@ -1,4 +1,6 @@
 #include "Game.h"
+//#include<SDL_gamecontroller.h>
+#include<iostream>
 
 /// <summary>
 /// 
@@ -18,6 +20,18 @@ Game::Game() :
 
 	//	Add Entities to Systems.
 	
+	//initialise test
+
+	SDL_GameController *controller = nullptr;
+
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	{
+		if (SDL_IsGameController(i))
+		{
+			controller = SDL_GameControllerOpen(i);
+			break;
+		}
+	}
 }
 
 
@@ -66,6 +80,14 @@ void Game::run()
 
 				quit = true;
 			}
+
+			else if (e.type == SDL_CONTROLLERBUTTONDOWN)
+			{
+				if (e.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					std::cout << "x pressed" << std::endl;
+				}
+			}
 		}
 
 		//	Calculate deltaTime.
@@ -80,8 +102,8 @@ void Game::run()
 		else if (timePerFrame < deltaTime)
 		{
 			fps = 1000 / deltaTime;
-			system("CLS");
-			std::cout << "Framerate : " << fps << std::endl;
+			//system("CLS");
+			//std::cout << "Framerate : " << fps << std::endl;
 		}
 
 		//	Call game functions.
