@@ -6,32 +6,23 @@
 /// 
 /// </summary>
 Game::Game() :
-	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, 0)),
+	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, 0)),
 	m_renderer(SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC))
 {
 	//	Set the default draw colour.
 	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
-
-	// Initialise Entities
 	
+	//	Add all the screens to the screen manager, and then set the current screen.
+	m_screenManager.addScreen(new Splash());
+	m_screenManager.addScreen(new Title());
+	m_screenManager.addScreen(new Menu());
+	m_screenManager.addScreen(new LevelSelect());
+	m_screenManager.addScreen(new CharacterSelect());
+	m_screenManager.addScreen(new Play());
+	m_screenManager.addScreen(new Settings());
+	m_screenManager.addScreen(new Credits());
 
-	//	Add Components to Entities.
-	
-
-	//	Add Entities to Systems.
-	
-	//initialise test
-
-	SDL_GameController *controller = nullptr;
-
-	for (int i = 0; i < SDL_NumJoysticks(); i++)
-	{
-		if (SDL_IsGameController(i))
-		{
-			controller = SDL_GameControllerOpen(i);
-			break;
-		}
-	}
+	m_screenManager.goToScreen("Play");
 }
 
 
@@ -57,7 +48,7 @@ void Game::run()
 	Uint64 NOW = SDL_GetPerformanceCounter();
 	double deltaTime;
 	short fps = 60;
-	short timePerFrame = 16;	// The time per frame = 1000ms / fps
+	short timePerFrame = 1000 / fps;	// The time per frame = 1000ms / fps
 
 	//While application is running.
 	while (!quit)
@@ -135,7 +126,7 @@ void Game::run()
 /// <param name="dt"></param>
 void Game::update(double dt)
 {
-	
+	m_screenManager.update(dt);
 }
 
 
@@ -148,7 +139,7 @@ void Game::render()
 	//	Clear the screen.
 	SDL_RenderClear(m_renderer);
 
-	
+	m_screenManager.render(m_renderer);
 
 	//	Update screen.
 	SDL_RenderPresent(m_renderer);
