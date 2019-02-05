@@ -8,12 +8,12 @@ class PositionComponent : public Component
 {
 public:
 	PositionComponent();
-	PositionComponent(Vector &v);
-	void setPos(Vector &v);
-	Vector* getPos();
+	PositionComponent(Vector v);
+	void setPos(Vector v);
+	Vector getPos();
 
 private:
-	Vector* m_position;
+	Vector m_position;
 };
 
 #endif // !POSITIONCOMPONENT_H

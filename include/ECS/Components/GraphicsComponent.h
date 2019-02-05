@@ -7,17 +7,15 @@
 class GraphicsComponent : public Component 
 {
 public:
-	GraphicsComponent(SDL_Texture * texture, int srcX, int srcY, int width, int height);
+	GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
+	SDL_Texture* getTexture();
+	SDL_Rect getSourceRect();
+	SDL_Rect getDestRect();
 
 private:
 	SDL_Texture* m_texture;
 	SDL_Rect m_destRect;
 	SDL_Rect m_srcRect;
-
-	int m_w;
-	int m_h;
-	int m_srcW;
-	int m_srcH;
 };
 
 #endif // !GRAPHICSCOMPONENT_H

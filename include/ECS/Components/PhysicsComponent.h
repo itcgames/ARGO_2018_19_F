@@ -20,12 +20,12 @@ public:
 	void setVelocity(Vector& v);
 	void setAcceleration(Vector& v);
 	void setFriction(Vector& v);
-	void setGravity(bool g);
+	void useGravity(bool g);
 
 private:
-	Vector* m_velocity;
-	Vector* m_acceleration;
-	Vector* m_friction;
+	Vector m_velocity;
+	Vector m_acceleration;
+	Vector m_friction;
 
 	bool m_useGravity;
 };
