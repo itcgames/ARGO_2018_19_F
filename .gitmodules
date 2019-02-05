@@ -7,3 +7,6 @@
 [submodule "submodules/Angle"]
 	path = submodules/Angle
 	url = https://github.com/DJOLEARY/Angle
+[submodule "submodules/Simple-SDL2-Audio"]
+	path = submodules/Simple-SDL2-Audio
+	url = https://github.com/jakebesworth/Simple-SDL2-Audio.git
