@@ -1,7 +1,7 @@
 #ifndef POSITIONCOMPONENT_H
 #define POSITIONCOMPONENT_H
 
-#include "Components/Component.h"
+#include "ECS/Components/Component.h"
 #include "Vector/Vector.h"
 
 class PositionComponent : public Component 

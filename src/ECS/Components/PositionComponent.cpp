@@ -1,4 +1,4 @@
-#include "Components/PositionComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
 /// <summary>
 /// Constructor - set the ID for the component and initialize vector

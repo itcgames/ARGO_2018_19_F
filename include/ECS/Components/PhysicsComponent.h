@@ -1,7 +1,7 @@
 #ifndef PHYSICSCOMPONENT_H
 #define PHYSICSCOMPONENT_h
 
-#include "Components/Component.h"
+#include "ECS/Components/Component.h"
 #include "Vector/Vector.h"
 
 class PhysicsComponent : public Component

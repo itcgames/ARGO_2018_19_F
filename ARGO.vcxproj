@@ -127,8 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Components\PhysicsComponent.cpp" />
-    <ClCompile Include="src\Components\PositionComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Screens\CharacterSelect.cpp" />
@@ -140,11 +141,16 @@
     <ClCompile Include="src\Screens\Settings.cpp" />
     <ClCompile Include="src\Screens\Splash.cpp" />
     <ClCompile Include="src\Screens\Title.cpp" />
+    <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
+    <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
+    <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
+    <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\Screens\CharacterSelect.h" />

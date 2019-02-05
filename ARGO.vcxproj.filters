@@ -51,6 +51,18 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Components\PositionComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h">
@@ -107,13 +119,16 @@
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\PhysicsComponent.h">
+    <ClInclude Include="include\ECS\Components\GraphicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\PositionComponent.h">
+    <ClInclude Include="include\ECS\Components\PhysicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\GraphicsComponent.h">
+    <ClInclude Include="include\ECS\Components\PositionComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\PhysicsSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

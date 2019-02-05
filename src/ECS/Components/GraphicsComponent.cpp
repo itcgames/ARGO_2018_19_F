@@ -1,4 +1,4 @@
-#include "Components/GraphicsComponent.h"
+#include "ECS/Components/GraphicsComponent.h"
 
 GraphicsComponent::GraphicsComponent(SDL_Texture * texture, int srcX, int srcY, int width, int height)
 {

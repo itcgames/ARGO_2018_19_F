@@ -1,7 +1,7 @@
 #ifndef GRAPHICSCOMPONENT_H
 #define GRAPHICSCOMPONENT_H
 
-#include "Components/Component.h"
+#include "ECS/Components/Component.h"
 #include "SDL.h"
 
 class GraphicsComponent : public Component 
