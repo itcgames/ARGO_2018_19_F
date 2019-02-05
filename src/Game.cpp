@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 Game::Game() :
-	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, 0)),
+	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, 0)),
 	m_renderer(SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC))
 {
 	//	Set the default draw colour.
@@ -43,7 +43,7 @@ void Game::run()
 	Uint64 NOW = SDL_GetPerformanceCounter();
 	double deltaTime;
 	short fps = 60;
-	short timePerFrame = 16;	// The time per frame = 1000ms / fps
+	short timePerFrame = 1000 / fps;	// The time per frame = 1000ms / fps
 
 	//While application is running.
 	while (!quit)
