@@ -130,10 +130,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
+    <ClCompile Include="src\Screens\Levels\Spring.cpp" />
+    <ClCompile Include="src\Screens\Levels\Summer.cpp" />
+    <ClCompile Include="src\Screens\Levels\Winter.cpp" />
     <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
     <ClCompile Include="src\ECS\Entities\Entity.cpp" />
+    <ClCompile Include="src\ECS\Systems\ControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -141,7 +149,6 @@
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\LevelSelect.cpp" />
     <ClCompile Include="src\Screens\Menu.cpp" />
-    <ClCompile Include="src\Screens\Play.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\Settings.cpp" />
     <ClCompile Include="src\Screens\Splash.cpp" />
@@ -151,11 +158,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
+    <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
     <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
+    <ClInclude Include="include\ECS\Systems\ControlSystem.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\Game.h" />
@@ -163,8 +174,11 @@
     <ClInclude Include="include\Screens\CharacterSelect.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />
+    <ClInclude Include="include\Screens\Levels\Autumn.h" />
+    <ClInclude Include="include\Screens\Levels\Spring.h" />
+    <ClInclude Include="include\Screens\Levels\Summer.h" />
+    <ClInclude Include="include\Screens\Levels\Winter.h" />
     <ClInclude Include="include\Screens\Menu.h" />
-    <ClInclude Include="include\Screens\Play.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\Settings.h" />

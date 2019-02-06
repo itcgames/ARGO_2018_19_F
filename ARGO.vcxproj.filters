@@ -1,150 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
+    <ClCompile Include="src\Screens\Levels\Spring.cpp" />
+    <ClCompile Include="src\Screens\Levels\Summer.cpp" />
+    <ClCompile Include="src\Screens\Levels\Winter.cpp" />
+    <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
+    <ClCompile Include="src\ECS\Entities\Entity.cpp" />
+    <ClCompile Include="src\ECS\Systems\ControlSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Screens\CharacterSelect.cpp" />
+    <ClCompile Include="src\Screens\Credits.cpp" />
+    <ClCompile Include="src\Screens\LevelSelect.cpp" />
+    <ClCompile Include="src\Screens\Menu.cpp" />
+    <ClCompile Include="src\Screens\ScreenManager.cpp" />
+    <ClCompile Include="src\Screens\Settings.cpp" />
+    <ClCompile Include="src\Screens\Splash.cpp" />
+    <ClCompile Include="src\Screens\Title.cpp" />
+    <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
+    <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\ScreenManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Splash.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Title.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Play.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\LevelSelect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\CharacterSelect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Credits.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Components\PositionComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Entities\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Components\AnimationComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="submodules\Vector\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="submodules\Angle\Angle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Systems\System.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Entities\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Components\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Screen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\ScreenManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Splash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Title.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Play.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\LevelSelect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\CharacterSelect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Credits.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Components\GraphicsComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Components\PhysicsComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Components\PositionComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Systems\PhysicsSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Systems\GraphicsSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Components\AnimationComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
+    <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
+    <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
+    <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
+    <ClInclude Include="include\ECS\Components\PositionComponent.h" />
+    <ClInclude Include="include\ECS\Entities\Entity.h" />
+    <ClInclude Include="include\ECS\Systems\ControlSystem.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
+    <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
+    <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\ECS\Systems\System.h" />
+    <ClInclude Include="include\Screens\CharacterSelect.h" />
+    <ClInclude Include="include\Screens\Credits.h" />
+    <ClInclude Include="include\Screens\LevelSelect.h" />
+    <ClInclude Include="include\Screens\Levels\Autumn.h" />
+    <ClInclude Include="include\Screens\Levels\Spring.h" />
+    <ClInclude Include="include\Screens\Levels\Summer.h" />
+    <ClInclude Include="include\Screens\Levels\Winter.h" />
+    <ClInclude Include="include\Screens\Menu.h" />
+    <ClInclude Include="include\Screens\Screen.h" />
+    <ClInclude Include="include\Screens\ScreenManager.h" />
+    <ClInclude Include="include\Screens\Settings.h" />
+    <ClInclude Include="include\Screens\Splash.h" />
+    <ClInclude Include="include\Screens\Title.h" />
+    <ClInclude Include="submodules\Angle\Angle.h" />
+    <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
+    <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
+    <ClInclude Include="submodules\Vector\Vector.h" />
+    <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
   </ItemGroup>
 </Project>

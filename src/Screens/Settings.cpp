@@ -3,7 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Settings::Settings()
+Settings::Settings(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Settings";
 }
@@ -24,6 +25,6 @@ void Settings::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Settings::render(SDL_Renderer * renderer)
+void Settings::render()
 {
 }

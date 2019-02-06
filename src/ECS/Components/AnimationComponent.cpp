@@ -6,13 +6,13 @@
 /// <param name="first"></param>
 /// <param name="last"></param>
 /// <param name="time"></param>
-AnimationComponent::AnimationComponent(Vector& first, Vector& last)
+AnimationComponent::AnimationComponent(Vector* first, Vector* last)
 {
 	m_id = "ANIMATION";
 	m_frameTime = 0.0;
-	m_currentFrame = new Vector(first);
-	m_firstFrame = new Vector(first);
-	m_lastFrame = new Vector(last);
+	m_currentFrame = new Vector(*first);
+	m_firstFrame = new Vector(*first);
+	m_lastFrame = new Vector(*last);
 }
 
 

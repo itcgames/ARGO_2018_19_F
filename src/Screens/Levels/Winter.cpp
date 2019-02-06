@@ -1,12 +1,12 @@
-#include "Screens\Menu.h"
+#include "Screens/Levels/Winter.h"
 
 /// <summary>
 /// 
 /// </summary>
-Menu::Menu(ScreenManager* screenManager, SDL_Renderer* renderer) :
+Winter::Winter(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer)
 {
-	m_screenID = "Menu";
+	m_screenID = "Play";
 }
 
 
@@ -15,7 +15,7 @@ Menu::Menu(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Menu::update(double dt)
+void Winter::update(double dt, SDL_Event& e)
 {
 }
 
@@ -25,6 +25,6 @@ void Menu::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Menu::render()
+void Winter::render()
 {
 }

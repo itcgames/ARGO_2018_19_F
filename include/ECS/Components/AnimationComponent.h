@@ -7,7 +7,7 @@
 class AnimationComponent : public Component
 {
 public:
-	AnimationComponent(Vector& first, Vector& last);
+	AnimationComponent(Vector* first, Vector* last);
 
 	void setCurrentFrame(Vector& frame);
 	void setFrameTime(double time);
