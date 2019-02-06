@@ -13,14 +13,14 @@ Game::Game() :
 	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
 	
 	//	Add all the screens to the screen manager, and then set the current screen.
-	m_screenManager.addScreen(new Splash());
-	m_screenManager.addScreen(new Title());
-	m_screenManager.addScreen(new Menu());
-	m_screenManager.addScreen(new LevelSelect());
-	m_screenManager.addScreen(new CharacterSelect());
-	m_screenManager.addScreen(new Play(m_renderer));
-	m_screenManager.addScreen(new Settings());
-	m_screenManager.addScreen(new Credits());
+	m_screenManager.addScreen(new Splash(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new Title(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new Menu(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new LevelSelect(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new CharacterSelect(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new Autumn(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new Settings(&m_screenManager, m_renderer));
+	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));
 
 	m_screenManager.goToScreen("Play");
 }
@@ -99,7 +99,7 @@ void Game::run()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Game::update(double dt, SDL_Event e)
+void Game::update(double dt, SDL_Event &e)
 {
 	m_screenManager.update(dt, e);
 }
@@ -114,7 +114,7 @@ void Game::render()
 	//	Clear the screen.
 	SDL_RenderClear(m_renderer);
 
-	m_screenManager.render(m_renderer);
+	m_screenManager.render();
 
 	//	Update screen.
 	SDL_RenderPresent(m_renderer);

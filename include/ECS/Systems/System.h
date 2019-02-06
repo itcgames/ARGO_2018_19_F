@@ -1,6 +1,7 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#include <vector>
 #include "ECS/Entities/Entity.h"
 
 class System
@@ -15,7 +16,7 @@ public:
 		{
 			m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), e), m_entities.end());
 		}
-	};
+	}
 	virtual void update(double dt) = 0;
 protected:
 	std::vector<Entity*> m_entities;

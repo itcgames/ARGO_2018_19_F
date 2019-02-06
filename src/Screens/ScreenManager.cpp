@@ -1,4 +1,5 @@
 #include "Screens\ScreenManager.h"
+#include "Screens/Screen.h"
 
 /// <summary>
 /// 
@@ -22,9 +23,16 @@ ScreenManager::~ScreenManager()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void ScreenManager::update(double dt, SDL_Event e)
+void ScreenManager::update(double dt, SDL_Event &e)
 {
-	m_currentScreen->update(dt, e);
+	if (m_currentScreen->getID() == "Play")
+	{
+		m_currentScreen->update(dt, e);
+	}
+	else
+	{
+		m_currentScreen->update(dt);
+	}	
 }
 
 
@@ -33,9 +41,9 @@ void ScreenManager::update(double dt, SDL_Event e)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void ScreenManager::render(SDL_Renderer * renderer)
+void ScreenManager::render()
 {
-	m_currentScreen->render(renderer);
+	m_currentScreen->render();
 }
 
 
@@ -69,4 +77,16 @@ void ScreenManager::goToScreen(std::string screenID)
 Screen * ScreenManager::getCurrentScreen()
 {
 	return m_currentScreen;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="screenID"></param>
+/// <returns></returns>
+Screen * ScreenManager::getScreen(std::string screenID)
+{
+	return m_screens[screenID];
 }

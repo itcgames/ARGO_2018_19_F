@@ -8,12 +8,13 @@
 class ControlSytem : public System
 {
 public:
-	 virtual void update(double dt, SDL_Event e);
+	void update(double dt, SDL_Event e);
+	virtual void update(double dt) override {};
 
 private:
-	//Vector m_gravity = Vector(0, .0098, 0);
 	std::string m_btnName;
-	Controller *m_controller;
+	SDL_GameController *m_controller;
+	SDL_GameController *m_controllerHandles[MAX_CONTROLLERS];
 };
 
 #endif // !CONTROLSYSTEM_H
