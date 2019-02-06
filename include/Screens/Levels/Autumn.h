@@ -18,7 +18,7 @@ private:
 	GraphicsSystem m_graphics;
 	PhysicsSystem m_physics;
 	CollisionSystem m_collisions;
-	ControlSytem m_controller;
+	ControlSystem m_controllers;
 	std::vector<Entity*> m_entities;
 };
 #endif // !AUTUMN_H

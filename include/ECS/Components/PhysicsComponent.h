@@ -1,5 +1,5 @@
-#ifndef PHYSICSCOMPONENT_H
-#define PHYSICSCOMPONENT_h
+#ifndef PHYSICS_COMPONENT_H
+#define PHYSICS_COMPONENT_h
 
 #include "ECS/Components/Component.h"
 #include "Vector/Vector.h"
@@ -29,5 +29,4 @@ private:
 
 	bool m_useGravity;
 };
-
-#endif // !PHYSICSCOMPONENT_H
+#endif // !PHYSICS_COMPONENT_H

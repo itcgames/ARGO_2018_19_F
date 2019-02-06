@@ -6,7 +6,7 @@
 /// <param name="texture">texture pointer arguement for the component to render</param>
 /// <param name="srcRect">srcRect - location on the loaded resource to be rendered</param>
 /// <param name="destRect">destRect - the location and size of the entity in the game world</param>
-GraphicsComponent::GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect)
+GraphicsComponent::GraphicsComponent(SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect)
 {
 	m_id = "GRAPHICS";
 	m_texture = texture;
@@ -21,7 +21,7 @@ GraphicsComponent::GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SD
 /// return pointer to the source texture 
 /// </summary>
 /// <returns>SDL_Texture pointer</returns>
-SDL_Texture * GraphicsComponent::getTexture()
+SDL_Texture* GraphicsComponent::getTexture()
 {
 	return m_texture;
 }

@@ -19,10 +19,10 @@ void CollisionSystem::update(double dt)
 
 			if (entity1 != entity2)
 			{
-				if (e1Position->getPos().x <= e2Position->getPos().x + e1Collision->getCollider().w &&
-					e1Position->getPos().x + e1Collision->getCollider().w >= e2Position->getPos().x &&
-					e1Position->getPos().y <= e2Position->getPos().y + e1Collision->getCollider().h &&
-					e1Position->getPos().y + e1Collision->getCollider().h >= e2Position->getPos().y) 
+				if (e1Position->getPos()->x <= e2Position->getPos()->x + e1Collision->getCollider().w &&
+					e1Position->getPos()->x + e1Collision->getCollider().w >= e2Position->getPos()->x &&
+					e1Position->getPos()->y <= e2Position->getPos()->y + e1Collision->getCollider().h &&
+					e1Position->getPos()->y + e1Collision->getCollider().h >= e2Position->getPos()->y)
 				{
 					if (!e1Collision->IsColliding())
 					{

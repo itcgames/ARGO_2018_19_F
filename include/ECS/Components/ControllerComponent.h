@@ -1,6 +1,5 @@
-#pragma once
-#ifndef CONTROLLER
-#define CONTROLLER
+#ifndef CONTROLLER_COMPONENT_H
+#define CONTROLLER_COMPONENT_H
 #define MAX_CONTROLLERS 4
 
 #include<string>
@@ -9,12 +8,11 @@
 #include<iostream>
 #include"ECS/Components/Component.h"
 
-class Controller : public Component
+class ControllerComponent : public Component
 {
-
 public:
-	Controller();
+	ControllerComponent();
 
 	SDL_GameController *m_controller;
 };
-#endif // !CONTROLLER
+#endif // !CONTROLLER_COMPONENT_H

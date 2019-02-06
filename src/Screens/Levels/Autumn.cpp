@@ -13,10 +13,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	//	Create player entity.
 	Entity* player = new Entity();
 	player->addComponent(new PositionComponent(Vector(200, 200, 0)));
-	player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 32, 32)));
+	player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
+	player->addComponent(new AnimationComponent(new Vector(0,0,0), new Vector(5,1,0)));
 	player->addComponent(new PhysicsComponent());
 	player->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 32, 32)));
-	player->addComponent(new Controller());
+	player->addComponent(new ControllerComponent());
 	m_entities.push_back(player);
 
 	//	Create goal entity.
@@ -45,7 +46,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 		if (entity->getComponent("CONTROLLER") != nullptr)
 		{
-			m_controller.addEntity(entity);
+			m_controllers.addEntity(entity);
 		}
 	}		
 }
@@ -59,7 +60,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt, SDL_Event& e)
 {
 	m_physics.update(dt);
-	m_controller.update(dt, e);
+	m_controllers.update(dt, e);
+	m_graphics.update(dt);
 }
 
 
