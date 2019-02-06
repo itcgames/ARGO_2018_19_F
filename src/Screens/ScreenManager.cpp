@@ -23,9 +23,16 @@ ScreenManager::~ScreenManager()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void ScreenManager::update(double dt)
+void ScreenManager::update(double dt, SDL_Event &e)
 {
-	m_currentScreen->update(dt);
+	if (m_currentScreen->getID() == "Play")
+	{
+		m_currentScreen->update(dt, e);
+	}
+	else
+	{
+		m_currentScreen->update(dt);
+	}	
 }
 
 
@@ -34,9 +41,9 @@ void ScreenManager::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void ScreenManager::render(SDL_Renderer * renderer)
+void ScreenManager::render()
 {
-	m_currentScreen->render(renderer);
+	m_currentScreen->render();
 }
 
 

@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Winter::Winter(ScreenManager* screenManager) :
-	Screen(screenManager)
+Winter::Winter(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Play";
 }
@@ -15,7 +15,7 @@ Winter::Winter(ScreenManager* screenManager) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Winter::update(double dt)
+void Winter::update(double dt, SDL_Event& e)
 {
 }
 
@@ -25,6 +25,6 @@ void Winter::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Winter::render(SDL_Renderer * renderer)
+void Winter::render()
 {
 }

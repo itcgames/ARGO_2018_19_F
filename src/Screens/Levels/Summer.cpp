@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Summer::Summer(ScreenManager* screenManager) :
-	Screen(screenManager)
+Summer::Summer(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Play";
 }
@@ -15,7 +15,7 @@ Summer::Summer(ScreenManager* screenManager) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Summer::update(double dt)
+void Summer::update(double dt, SDL_Event& e)
 {
 }
 
@@ -25,6 +25,6 @@ void Summer::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Summer::render(SDL_Renderer * renderer)
+void Summer::render()
 {
 }

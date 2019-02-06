@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Spring::Spring(ScreenManager* screenManager) :
-	Screen(screenManager)
+Spring::Spring(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Play";
 }
@@ -15,7 +15,7 @@ Spring::Spring(ScreenManager* screenManager) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Spring::update(double dt)
+void Spring::update(double dt, SDL_Event& e)
 {
 }
 
@@ -25,6 +25,6 @@ void Spring::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Spring::render(SDL_Renderer * renderer)
+void Spring::render()
 {
 }

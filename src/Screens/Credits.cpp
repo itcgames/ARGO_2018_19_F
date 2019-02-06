@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Credits::Credits(ScreenManager* screenManager) :
-	Screen(screenManager)
+Credits::Credits(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Credits";
 }
@@ -25,6 +25,6 @@ void Credits::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Credits::render(SDL_Renderer * renderer)
+void Credits::render()
 {
 }

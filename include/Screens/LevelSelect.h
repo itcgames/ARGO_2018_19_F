@@ -11,7 +11,7 @@ class LevelSelect : public Screen
 public:
 	LevelSelect(ScreenManager* screenManager, SDL_Renderer* renderer);
 	virtual void update(double dt) override;
-	virtual void render(SDL_Renderer* renderer) override;
+	virtual void render() override;
 private:
 	void setLevelToSpring();
 	void setLevelToSummer();

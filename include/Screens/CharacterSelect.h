@@ -6,9 +6,9 @@
 class CharacterSelect : public Screen
 {
 public:
-	CharacterSelect(ScreenManager* screenManager);
+	CharacterSelect(ScreenManager* screenManager, SDL_Renderer* renderer);
 	virtual void update(double dt) override;
-	virtual void render(SDL_Renderer* renderer) override;
+	virtual void render() override;
 private:
 
 };

@@ -15,5 +15,4 @@ public:
 private:
 	Vector m_position;
 };
-
 #endif // !POSITIONCOMPONENT_H

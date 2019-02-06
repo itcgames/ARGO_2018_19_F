@@ -13,8 +13,8 @@ public:
 	ScreenManager();
 	~ScreenManager();
 
-	void update(double dt);
-	void render(SDL_Renderer* renderer);
+	void update(double dt, SDL_Event &e);
+	void render();
 
 	void addScreen(Screen* screen);
 	void goToScreen(std::string screenID);

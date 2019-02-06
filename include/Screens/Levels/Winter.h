@@ -6,9 +6,9 @@
 class Winter : public Screen
 {
 public:
-	Winter(ScreenManager* screenManager);
-	virtual void update(double dt) override;
-	virtual void render(SDL_Renderer* renderer) override;
+	Winter(ScreenManager* screenManager, SDL_Renderer* renderer);
+	virtual void update(double dt, SDL_Event& e) override;
+	virtual void render() override;
 private:
 
 };

@@ -3,9 +3,10 @@
 /// <summary>
 /// 
 /// </summary>
-Splash::Splash(ScreenManager* screenManager) :
-	Screen(screenManager)
+Splash::Splash(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
+	m_screenID = "Splash";
 }
 
 
@@ -25,7 +26,7 @@ void Splash::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Splash::render(SDL_Renderer * renderer)
+void Splash::render()
 {
 
 }

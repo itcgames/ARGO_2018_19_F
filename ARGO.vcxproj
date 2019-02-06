@@ -129,6 +129,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
     <ClCompile Include="src\Screens\Levels\Spring.cpp" />
     <ClCompile Include="src\Screens\Levels\Summer.cpp" />
@@ -152,11 +154,13 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
     <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\Game.h" />

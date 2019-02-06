@@ -10,17 +10,23 @@
 class Screen
 {
 public:
-	inline Screen(ScreenManager* screenManager) : m_screenManager(screenManager) {}
+	inline Screen(ScreenManager* screenManager, SDL_Renderer* renderer) : 
+		m_screenManager(screenManager),
+		m_renderer(renderer)
+	{
+	}
 	inline ~Screen() {}
 
 	virtual void reset() {};
-	virtual void update(double dt) = 0;
-	virtual void render(SDL_Renderer* renderer) = 0;
+	virtual void update(double dt) {};
+	virtual void update(double dt, SDL_Event& e) {};
+	virtual void render() = 0;
 
 	inline std::string getID() { return m_screenID; }
 protected:
 	std::string m_screenID;
 	ScreenManager* m_screenManager;
+	SDL_Renderer* m_renderer;
 	std::string m_resourcesPath = "resources/";
 };
 #endif // !SCREEN_H

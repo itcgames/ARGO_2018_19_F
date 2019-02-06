@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Title::Title(ScreenManager* screenManager) :
-	Screen(screenManager)
+Title::Title(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Title";
 }
@@ -25,6 +25,6 @@ void Title::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Title::render(SDL_Renderer * renderer)
+void Title::render()
 {
 }

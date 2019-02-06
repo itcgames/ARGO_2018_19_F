@@ -6,9 +6,9 @@
 class Summer : public Screen
 {
 public:
-	Summer(ScreenManager* screenManager);
-	virtual void update(double dt) override;
-	virtual void render(SDL_Renderer* renderer) override;
+	Summer(ScreenManager* screenManager, SDL_Renderer* renderer);
+	virtual void update(double dt, SDL_Event& e) override;
+	virtual void render() override;
 private:
 
 };

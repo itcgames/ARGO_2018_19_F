@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-CharacterSelect::CharacterSelect(ScreenManager* screenManager) :
-	Screen(screenManager)
+CharacterSelect::CharacterSelect(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "CharacterSelect";
 }
@@ -25,6 +25,6 @@ void CharacterSelect::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void CharacterSelect::render(SDL_Renderer * renderer)
+void CharacterSelect::render()
 {
 }

@@ -17,5 +17,4 @@ private:
 	SDL_Rect m_destRect;
 	SDL_Rect m_srcRect;
 };
-
 #endif // !GRAPHICSCOMPONENT_H

@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Menu::Menu(ScreenManager* screenManager) :
-	Screen(screenManager)
+Menu::Menu(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	Screen(screenManager, renderer)
 {
 	m_screenID = "Menu";
 }
@@ -25,6 +25,6 @@ void Menu::update(double dt)
 /// 
 /// </summary>
 /// <param name="renderer"></param>
-void Menu::render(SDL_Renderer * renderer)
+void Menu::render()
 {
 }
