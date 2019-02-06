@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "Components/Component.h"
+#include "ECS/Components/Component.h"
 #include <vector>
 #include <algorithm>
 

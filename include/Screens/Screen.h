@@ -4,6 +4,7 @@
 #include <string>
 //	Project.
 #include "SDL.h"
+#include "SDL2_Helper/SDL2Helper.h"
 
 class Screen
 {
@@ -18,5 +19,6 @@ public:
 	inline std::string getID() { return m_screenID; }
 protected:
 	std::string m_screenID;
+	std::string m_resourcesPath = "resources/";
 };
 #endif // !SCREEN_H

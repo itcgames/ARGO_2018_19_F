@@ -18,7 +18,7 @@ Game::Game() :
 	m_screenManager.addScreen(new Menu());
 	m_screenManager.addScreen(new LevelSelect());
 	m_screenManager.addScreen(new CharacterSelect());
-	m_screenManager.addScreen(new Play());
+	m_screenManager.addScreen(new Play(m_renderer));
 	m_screenManager.addScreen(new Settings());
 	m_screenManager.addScreen(new Credits());
 

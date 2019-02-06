@@ -21,13 +21,32 @@ Controller::Controller() :
 	StickY(0)
 {
 	m_controller = nullptr;
-	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	/*for (int i = 0; i < SDL_NumJoysticks(); i++)
 	{
 		if (SDL_IsGameController(i))
 		{
 			m_controller = SDL_GameControllerOpen(i);
 			break;
 		}
+
+		ControllerHandles[i] = SDL_GameControllerOpen(i);
+	}*/
+
+	int MaxJoysticks = SDL_NumJoysticks();
+	int ControllerIndex = 0;
+	for (int JoystickIndex = 0; JoystickIndex < MaxJoysticks; ++JoystickIndex)
+	{
+		if (!SDL_IsGameController(JoystickIndex))
+		{
+			m_controller = SDL_GameControllerOpen(JoystickIndex);
+			continue;
+		}
+		if (ControllerIndex >= MAX_CONTROLLERS)
+		{
+			break;
+		}
+		ControllerHandles[ControllerIndex] = SDL_GameControllerOpen(JoystickIndex);
+		ControllerIndex++;
 	}
 }
 
@@ -38,27 +57,17 @@ Controller::~Controller()
 
 void Controller::update()
 {
-	bool quit = false;
 	SDL_Event e;
-	Uint64 LAST;
-	Uint64 NOW = SDL_GetPerformanceCounter();
-
 										//While application is running.
-	while (!quit)
-	{
 		//Handle events on queue.
 		while (SDL_PollEvent(&e) != 0)
 		{
-			//User requests quit.
-			if (e.type == SDL_QUIT)
-			{
-				quit = true;
-			}
 
 			for (int ControllerIndex = 0;
 				ControllerIndex < MAX_CONTROLLERS;
 				++ControllerIndex)
 			{
+
 				if (ControllerHandles[ControllerIndex] != 0 && SDL_GameControllerGetAttached(ControllerHandles[ControllerIndex]))
 				{
 					// NOTE: We have a controller with index ControllerIndex.
@@ -78,11 +87,13 @@ void Controller::update()
 					StickX = SDL_GameControllerGetAxis(ControllerHandles[ControllerIndex], SDL_CONTROLLER_AXIS_LEFTX);
 					StickY = SDL_GameControllerGetAxis(ControllerHandles[ControllerIndex], SDL_CONTROLLER_AXIS_LEFTY);
 				}
-		}
-
-			if (Up == true)
-			{
-				std::cout << "UP" << std::endl;
 			}
-	}
+
+			if (AButton == false)
+			{
+				std::cout << "A button" << std::endl;
+			}
+
+
+		}
 }
