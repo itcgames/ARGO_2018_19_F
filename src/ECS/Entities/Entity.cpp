@@ -26,21 +26,7 @@ Entity::~Entity()
 /// <param name="c">component pointer to be added</param>
 void Entity::addComponent(Component * c)
 {
-	std::string componentId = c->getId();
-	bool hasComponent = false;
-	for (Component *component : m_components)
-	{
-		if (componentId == component->getId())
-		{
-			hasComponent = true;
-			break;
-		}
-	}
-
-	if (!hasComponent)
-	{
-		m_components.push_back(c);
-	}
+	m_components.try_emplace(c->getId(), c);
 }
 
 
@@ -51,7 +37,7 @@ void Entity::addComponent(Component * c)
 /// <param name="c">component pointer to be removed</param>
 void Entity::removeComponent(Component * c)
 {
-	m_components.erase(std::remove(m_components.begin(), m_components.end(), c), m_components.end());
+	m_components.erase(c->getId());
 }
 
 
@@ -60,7 +46,7 @@ void Entity::removeComponent(Component * c)
 /// return a vector of component pointers
 /// </summary>
 /// <returns></returns>
-std::vector<Component*> Entity::getComponents()
+std::map<std::string, Component*> Entity::getComponents()
 {
 	return m_components;
 }
@@ -74,13 +60,5 @@ std::vector<Component*> Entity::getComponents()
 /// <returns>pointer to component if it exists</returns>
 Component * Entity::getComponent(std::string componentId)
 {
-	for (Component *component : m_components)
-	{
-		if (componentId == component->m_id)
-		{
-			return component;
-		}
-	}
-
-	return nullptr;
+	return m_components[componentId];
 }

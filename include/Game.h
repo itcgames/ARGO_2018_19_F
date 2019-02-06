@@ -12,10 +12,9 @@
 #include "Screens/Menu.h"
 #include "Screens/LevelSelect.h"
 #include "Screens/CharacterSelect.h"
-#include "Screens/Play.h"
+#include "Screens/Levels/Winter.h"
 #include "Screens/Settings.h"
 #include "Screens/Credits.h"
-
 
 class Game
 {
@@ -24,7 +23,7 @@ public:
 	~Game();
 	void run();
 private:
-	void update(double dt);
+	void update(double dt, SDL_Event &e);
 	void render();
 
 	SDL_Window* m_window;

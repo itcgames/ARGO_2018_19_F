@@ -33,9 +33,6 @@
     <ClCompile Include="src\Screens\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Screens\Play.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Screens\LevelSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +46,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\Levels\Winter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\Levels\Summer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\Levels\Spring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\Levels\Autumn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp">
@@ -67,6 +76,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Components\CollisionComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,9 +122,6 @@
     <ClInclude Include="include\Screens\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Screens\Play.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Screens\LevelSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -125,6 +137,18 @@
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Screens\Levels\Winter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\Levels\Spring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\Levels\Summer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\Levels\Autumn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\ECS\Components\GraphicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,6 +162,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\CollisionComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
