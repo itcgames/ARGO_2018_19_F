@@ -27,10 +27,10 @@ Play::Play(SDL_Renderer *renderer)
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Play::update(double dt)
+void Play::update(double dt, SDL_Event e)
 {
 	m_physics->update(dt);
-	m_controller->update(dt);
+	m_controller->update(dt, e);
 }
 
 

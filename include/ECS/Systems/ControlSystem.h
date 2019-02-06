@@ -8,7 +8,7 @@
 class ControlSytem : public System
 {
 public:
-	 virtual void update(double dt);
+	 virtual void update(double dt, SDL_Event e);
 
 private:
 	//Vector m_gravity = Vector(0, .0098, 0);

@@ -88,7 +88,7 @@ void Game::run()
 		}
 
 		//	Call game functions.
-		update(deltaTime);
+		update(deltaTime, e);
 		render();
 	}
 }
@@ -99,9 +99,9 @@ void Game::run()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Game::update(double dt)
+void Game::update(double dt, SDL_Event e)
 {
-	m_screenManager.update(dt);
+	m_screenManager.update(dt, e);
 }
 
 

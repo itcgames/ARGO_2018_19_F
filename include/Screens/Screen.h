@@ -13,7 +13,7 @@ public:
 	inline ~Screen() {}
 
 	virtual void reset() {};
-	virtual void update(double dt) = 0;
+	virtual void update(double dt, SDL_Event e) = 0;
 	virtual void render(SDL_Renderer* renderer) = 0;
 
 	inline std::string getID() { return m_screenID; }

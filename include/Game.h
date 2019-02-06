@@ -24,7 +24,7 @@ public:
 	~Game();
 	void run();
 private:
-	void update(double dt);
+	void update(double dt, SDL_Event e);
 	void render();
 
 	SDL_Window* m_window;

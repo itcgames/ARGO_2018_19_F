@@ -55,7 +55,7 @@ Controller::~Controller()
 
 }
 
-void Controller::update()
+void Controller::update(SDL_Event e)
 {
 	SDL_Event e;
 										//While application is running.

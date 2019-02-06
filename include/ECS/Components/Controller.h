@@ -14,7 +14,7 @@ class Controller
 public:
 	Controller();
 	~Controller();
-	void update();
+	void update(SDL_Event e);
 private:
 	SDL_GameController *m_controller;
 	SDL_GameController *ControllerHandles[MAX_CONTROLLERS];

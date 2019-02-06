@@ -11,7 +11,7 @@ class Play : public Screen
 {
 public:
 	Play(SDL_Renderer* renderer);
-	virtual void update(double dt) override;
+	virtual void update(double dt, SDL_Event e) override;
 	virtual void render(SDL_Renderer* renderer) override;
 private:
 	GraphicsSystem* m_graphics;

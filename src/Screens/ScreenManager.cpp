@@ -22,9 +22,9 @@ ScreenManager::~ScreenManager()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void ScreenManager::update(double dt)
+void ScreenManager::update(double dt, SDL_Event e)
 {
-	m_currentScreen->update(dt);
+	m_currentScreen->update(dt, e);
 }
 
 
