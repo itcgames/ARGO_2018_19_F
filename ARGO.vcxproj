@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
     <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />

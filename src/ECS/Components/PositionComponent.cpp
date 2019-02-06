@@ -6,7 +6,7 @@
 PositionComponent::PositionComponent()
 {
 	m_id = "POSITION";
-	m_position = Vector();
+	m_position = new Vector();
 }
 
 
@@ -18,7 +18,7 @@ PositionComponent::PositionComponent()
 PositionComponent::PositionComponent(Vector v)
 {
 	m_id = "POSITION";
-	m_position = Vector(v);
+	m_position = new Vector(v);
 }
 
 
@@ -27,10 +27,10 @@ PositionComponent::PositionComponent(Vector v)
 /// Setter - update the component value
 /// </summary>
 /// <param name="v">vector arguement - update the current position with this value</param>
-void PositionComponent::setPos(Vector v)
+void PositionComponent::setPos(Vector &v)
 {
 	// TODO: ensure this works as DJ intended it to
-	m_position = v;
+	*m_position = v;
 }
 
 
@@ -39,7 +39,7 @@ void PositionComponent::setPos(Vector v)
 /// Getter - return the component value
 /// </summary>
 /// <returns>vector pointer for component</returns>
-Vector PositionComponent::getPos()
+Vector* PositionComponent::getPos()
 {
 	return m_position;
 }

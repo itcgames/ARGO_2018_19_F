@@ -18,7 +18,7 @@ void PhysicsSystem::update(double dt)
 			Vector friction = physicsComponent->getFriction();
 			if (physicsComponent->getGravity())
 			{
-				if (positionComponent->getPos().y < 800.f)
+				if (positionComponent->getPos()->y < 800.f)
 				{
 					acceleration += m_gravity;
 				}
@@ -32,9 +32,8 @@ void PhysicsSystem::update(double dt)
 			velocity += acceleration * dt;
 			physicsComponent->setVelocity(velocity);
 
-			Vector position = positionComponent->getPos();
+			Vector position = *positionComponent->getPos();
 			position += velocity;
-			std::cout << position.x << ", " << position.y << std::endl;
 			positionComponent->setPos(position);
 
 			acceleration = Vector(0, 0, 0);

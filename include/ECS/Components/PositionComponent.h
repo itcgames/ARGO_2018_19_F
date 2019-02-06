@@ -1,5 +1,5 @@
-#ifndef POSITIONCOMPONENT_H
-#define POSITIONCOMPONENT_H
+#ifndef POSITION_COMPONENT_H
+#define POSITION_COMPONENT_H
 
 #include "ECS/Components/Component.h"
 #include "Vector/Vector.h"
@@ -9,11 +9,10 @@ class PositionComponent : public Component
 public:
 	PositionComponent();
 	PositionComponent(Vector v);
-	void setPos(Vector v);
-	Vector getPos();
+	void setPos(Vector& v);
+	Vector* getPos();
 
 private:
-	Vector m_position;
+	Vector* m_position;
 };
-
-#endif // !POSITIONCOMPONENT_H
+#endif // !POSITION_COMPONENT_H

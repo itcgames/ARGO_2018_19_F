@@ -12,8 +12,11 @@ Play::Play(SDL_Renderer *renderer)
 	m_physics = new PhysicsSystem();
 
 	m_player->addComponent(new PositionComponent(Vector(200, 200, 0)));
-	m_player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 32, 32)));
+	m_player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
 	m_player->addComponent(new PhysicsComponent());
+	Vector first = Vector(0, 0, 0);
+	Vector last = Vector(5, 0, 0);
+	m_player->addComponent(new AnimationComponent(first, last));
 
 	m_graphics->addEntity(m_player);
 	m_physics->addEntity(m_player);
@@ -28,6 +31,7 @@ Play::Play(SDL_Renderer *renderer)
 /// <param name="dt"></param>
 void Play::update(double dt)
 {
+	m_graphics->update(dt);
 	m_physics->update(dt);
 }
 
