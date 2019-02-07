@@ -16,14 +16,15 @@ void PhysicsSystem::update(double dt)
 			Vector acceleration = physicsComponent->getAcceleration();
 			Vector velocity = physicsComponent->getVelocity();
 			Vector friction = physicsComponent->getFriction();
+			Vector position = positionComponent->getPos();
+
 			if (physicsComponent->getGravity())
 			{
 				acceleration += m_gravity;
 			}
-			velocity += acceleration * dt;
-			velocity.x *= friction.x;
 
-			Vector position = *positionComponent->getPos();
+			velocity += acceleration * dt;
+			velocity *= friction;
 			position += velocity;
 
 			Vector size = Vector(32, 32);
@@ -40,7 +41,7 @@ void PhysicsSystem::update(double dt)
 
 
 /// <summary>
-/// keeps the entity on screen - teting purposes
+/// keeps the entity on screen - testing purposes
 /// </summary>
 /// <param name="position"></param>
 /// <param name="velocity"></param>
@@ -63,6 +64,7 @@ void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dim
 
 		position.y = 900.f - dimensions.y;
 		physics->setJumping(false);
+		velocity.y = 0;
 	}
 	if (position.y < 0)
 	{

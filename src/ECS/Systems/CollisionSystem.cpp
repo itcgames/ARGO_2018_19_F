@@ -19,10 +19,10 @@ void CollisionSystem::update(double dt)
 
 			if (entity1 != entity2)
 			{
-				if (e1Position->getPos()->x <= e2Position->getPos()->x + e2Collision->getCollider().w &&
-					e1Position->getPos()->x + e1Collision->getCollider().w >= e2Position->getPos()->x &&
-					e1Position->getPos()->y <= e2Position->getPos()->y + e2Collision->getCollider().h &&
-					e1Position->getPos()->y + e1Collision->getCollider().h >= e2Position->getPos()->y)
+				if (e1Position->getPos().x <= e2Position->getPos().x + e2Collision->getCollider().w &&
+					e1Position->getPos().x + e1Collision->getCollider().w >= e2Position->getPos().x &&
+					e1Position->getPos().y <= e2Position->getPos().y + e2Collision->getCollider().h &&
+					e1Position->getPos().y + e1Collision->getCollider().h >= e2Position->getPos().y)
 				{
 					if (!e1Collision->IsColliding())
 					{
@@ -30,54 +30,49 @@ void CollisionSystem::update(double dt)
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							Vector velocity = physicsComponent->getVelocity();
+							Vector position = e1Position->getPos();
 
 							// Get the right and bottom of the colliders
-							Vector player = Vector(e1Position->getPos()->x + e1Collision->getCollider().w, e1Position->getPos()->y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos()->x + e2Collision->getCollider().w, e2Position->getPos()->y + e2Collision->getCollider().h);
+							Vector player = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
+							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
 
-							float top = player.y - e2Position->getPos()->y;
-							float bottom = entity.y - e1Position->getPos()->y;
-							float left = player.x - e2Position->getPos()->x;
-							float right = entity.x - e1Position->getPos()->x;
+							float top = player.y - e2Position->getPos().y;
+							float bottom = entity.y - e1Position->getPos().y;
+							float left = player.x - e2Position->getPos().x;
+							float right = entity.x - e1Position->getPos().x;
 
+							// check the top
 							if (top < bottom && top < left && top < right)
 							{
-								//Top collision
-								Vector position = *e1Position->getPos();
-								position.y = e2Position->getPos()->y - e1Collision->getCollider().h;
+								position.y = e2Position->getPos().y - e1Collision->getCollider().h;
 								e1Position->setPos(position);
 								velocity.y = 0;
 								physicsComponent->setVelocity(velocity);
 								physicsComponent->setJumping(false);
 							}
+							// check the bottom
 							if (bottom < top && bottom < left && bottom < right)
 							{
-								//bottom collision
-								Vector position = *e1Position->getPos();
-								position.y = e2Position->getPos()->y + e2Collision->getCollider().h;
+								position.y = e2Position->getPos().y + e2Collision->getCollider().h;
 								e1Position->setPos(position);
 								velocity.y = 0;
 								physicsComponent->setVelocity(velocity);
 							}
+							// check the left
 							if (left < right && left < top && left < bottom)
 							{
-								//Left collision
-								Vector position = *e1Position->getPos();
-								position.x = e2Position->getPos()->x - e1Collision->getCollider().w;
+								position.x = e2Position->getPos().x - e1Collision->getCollider().w;
 								e1Position->setPos(position);
 								velocity.x = 0;
 								physicsComponent->setVelocity(velocity);
-								physicsComponent->setJumping(false);
 							}
+							// check the right
 							if (right < left && right < top && right < bottom)
 							{
-								//Right collision
-								Vector position = *e1Position->getPos();
-								position.x = e2Position->getPos()->x + e2Collision->getCollider().w;
+								position.x = e2Position->getPos().x + e2Collision->getCollider().w;
 								e1Position->setPos(position);
 								velocity.x = 0;
 								physicsComponent->setVelocity(velocity);
-								physicsComponent->setJumping(false);
 							}
 						}
 					}

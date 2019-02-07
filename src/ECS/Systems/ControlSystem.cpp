@@ -52,6 +52,5 @@ void ControlSystem::update(double dt, SDL_Event e)
         }
 
         physicsComponent->setAcceleration(acceleration);
-		m_previousButtons = m_buttons;
 	}
 }

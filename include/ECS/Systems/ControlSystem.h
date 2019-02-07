@@ -15,6 +15,5 @@ public:
 	virtual void update(double dt) override {};
 private:
     const float MAX_STICK_VALUE = SDL_MAX_SINT16;
-	std::map<std::string, bool> m_previousButtons;
 };
 #endif // !CONTROL_SYSTEM_H

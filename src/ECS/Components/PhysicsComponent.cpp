@@ -8,7 +8,7 @@ PhysicsComponent::PhysicsComponent()
 	m_id = "PHYSICS";
 	m_velocity = Vector(0,0,0);
 	m_acceleration = Vector(0,0,0);
-	m_friction = Vector(.95,0,0);
+	m_friction = Vector(.95,.99,0);
 	m_useGravity = true;
 }
 

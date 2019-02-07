@@ -7,12 +7,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer)
 {
 	m_screenID = "Play";
-
 	SDL_Texture* texture = SDL2Help::LoadTexture(m_resourcesPath + "grid.png", m_renderer); // testing
 	
 	//	Create player entity.
 	Entity* player = new Entity();
-	player->addComponent(new PositionComponent(Vector(69, 200, 0)));
+	player->addComponent(new PositionComponent(Vector(100, 200, 0)));
 	player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
 	player->addComponent(new AnimationComponent(new Vector(0,0,0), new Vector(5,1,0)));
 	player->addComponent(new PhysicsComponent());
