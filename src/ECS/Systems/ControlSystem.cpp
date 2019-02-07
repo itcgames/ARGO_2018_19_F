@@ -44,11 +44,11 @@ void ControlSystem::update(double dt, SDL_Event e)
 
         if (leftStick.x > controller->DEAD_ZONE)
         {
-            acceleration.x += 0.095;
+            acceleration.x += 0.075;
         }
         else if (leftStick.x < -controller->DEAD_ZONE)
         {
-            acceleration.x -= 0.095;
+            acceleration.x -= 0.075;
         }
 
         physicsComponent->setAcceleration(acceleration);
