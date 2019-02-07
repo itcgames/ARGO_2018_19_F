@@ -3,11 +3,12 @@
 /// <summary>
 /// 
 /// </summary>
-CollisionComponent::CollisionComponent(SDL_Rect collider) :
+CollisionComponent::CollisionComponent(SDL_Rect collider, std::string tag) :
 	m_collider(collider),
 	m_isColliding(false)
 {
 	m_id = "COLLISION";
+	m_tag = tag;
 }
 
 

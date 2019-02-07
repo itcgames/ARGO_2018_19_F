@@ -15,5 +15,7 @@ public:
 	SDL_GameController* m_controller;
     const float DEAD_ZONE = 0.3f;
     static int m_controllerIndex;
+
+	bool m_isJumping;
 };
 #endif // !CONTROLLER_COMPONENT_H

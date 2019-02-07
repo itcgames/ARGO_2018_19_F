@@ -6,7 +6,7 @@
 /// 
 /// </summary>
 Game::Game() :
-	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1200, 900, 0)),
+	m_window(SDL_CreateWindow("ARGO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1600, 900, 0)),
 	m_renderer(SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC))
 {
 	//	Set the default draw colour.

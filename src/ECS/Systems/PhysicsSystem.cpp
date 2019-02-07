@@ -10,6 +10,7 @@ void PhysicsSystem::update(double dt)
 	{
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
+		ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
 		if (physicsComponent != nullptr && positionComponent != nullptr)
 		{
@@ -18,26 +19,41 @@ void PhysicsSystem::update(double dt)
 			Vector friction = physicsComponent->getFriction();
 			if (physicsComponent->getGravity())
 			{
-				if (positionComponent->getPos()->y < 800.f)
-				{
-					acceleration += m_gravity;
-				}
-				else
-				{
-					// temporary value for testing purposes
-					velocity = Vector(0, 0, 0);
-				}
+				acceleration += m_gravity;
 			}
 
 			velocity += acceleration * dt;
-			physicsComponent->setVelocity(velocity);
+			velocity.x *= friction.x;
 
 			Vector position = *positionComponent->getPos();
 			position += velocity;
+			if (position.y > 768.f)
+			{
+				controllerComponent->m_isJumping = false;
+				position.y = 768.f;
+				velocity.y = m_gravity.y;
+			}
+			Vector size = Vector (32, 32);
+			keepOnScreen(position, velocity, size);
+			physicsComponent->setVelocity(velocity);
 			positionComponent->setPos(position);
 
 			acceleration = Vector(0, 0, 0);
 			physicsComponent->setAcceleration(acceleration);
 		}
+	}
+}
+
+void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dimensions)
+{
+	if (position.x + dimensions.x> 1600.f)
+	{
+		position.x = 1600.f - dimensions.x;
+		velocity.x = 0;
+	}
+	if (position.x < 0)
+	{
+		position.x = 0;
+		velocity.x = 0;
 	}
 }
