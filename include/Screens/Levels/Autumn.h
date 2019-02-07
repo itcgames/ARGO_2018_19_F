@@ -20,5 +20,6 @@ private:
 	CollisionSystem m_collisions;
 	ControlSystem m_controllers;
 	std::vector<Entity*> m_entities;
+	Vector m_startPos;
 };
 #endif // !AUTUMN_H

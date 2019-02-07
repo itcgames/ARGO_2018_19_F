@@ -61,7 +61,7 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 			{
 				Vector* currentFrame = animationComponent->getCurrentFrame();
 				src.x = currentFrame->x * src.w;
-				src.y = currentFrame->y * src.h;
+				//src.y = currentFrame->y * src.h;
 			}
 
 			dest.x = positionComponent->getPos()->x;
