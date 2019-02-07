@@ -7,7 +7,9 @@
 class Component
 {
 public:
-	std::string getId() { return m_id; };
+	inline std::string getId() { return m_id; };
+
+protected:
 	std::string m_id;
 };
 #endif // !COMPONENT_H

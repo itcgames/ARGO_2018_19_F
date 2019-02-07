@@ -1,5 +1,5 @@
 #ifndef PHYSICS_COMPONENT_H
-#define PHYSICS_COMPONENT_h
+#define PHYSICS_COMPONENT_H
 
 #include "ECS/Components/Component.h"
 #include "Vector/Vector.h"

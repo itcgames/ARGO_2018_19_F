@@ -9,33 +9,48 @@ void ControlSystem::update(double dt, SDL_Event e)
 {	
 	for (Entity* entity : m_entities)
 	{
-		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
+        PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
+		
+        std::map<std::string, bool> m_buttons;
+        //  D-pad.
+        m_buttons["up"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_UP);
+        m_buttons["down"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+        m_buttons["left"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+        m_buttons["right"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
+        //  Centre buttons.
+        m_buttons["start"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_START);
+        m_buttons["back"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_BACK);
+        //  Shoulder buttons.
+        m_buttons["leftShoulder"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
+        m_buttons["rightShoulder"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
+        //  Face buttons.
+        m_buttons["a"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_A);
+        m_buttons["b"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_B);
+        m_buttons["x"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_X);
+        m_buttons["y"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_Y);
+        //  Left stick.
+		Vector leftStick = Vector(SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTY) / MAX_STICK_VALUE);
+        //  Right stick.
+        Vector rightStick = Vector(SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTY) / MAX_STICK_VALUE);
 			
-		// NOTE: We have a controller with index ControllerIndex.
-		bool Up = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_UP);
-		bool Down = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
-		bool Left = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
-		bool Right = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-		bool Start = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_START);
-		bool Back = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_BACK);
-		bool LeftShoulder = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
-		bool RightShoulder = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
-		bool AButton = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_A);
-		bool BButton = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_B);
-		bool XButton = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_X);
-		bool YButton = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_Y);
+        //  Handle inputs.
+        Vector acceleration;
 
-		int LeftStickX = SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTX);
-		int LeftStickY = SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTY);
-		int RightStickX = SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTX);
-		int RightStickY = SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTY);
-			
-		if (AButton == true)
-		{
-			std::cout << "A button" << std::endl;
-		}
+        if (m_buttons["a"])
+        {
+            acceleration.y -= 0.1;
+        }
 
-		std::cout << "x value: "<< LeftStickX <<"  y value: "<< LeftStickY << std::endl;
+        if (leftStick.x > controller->DEAD_ZONE)
+        {
+            acceleration.x += 0.05;
+        }
+        else if (leftStick.x < -controller->DEAD_ZONE)
+        {
+            acceleration.x -= 0.05;
+        }
+
+        physicsComponent->setAcceleration(acceleration);
 	}
 }

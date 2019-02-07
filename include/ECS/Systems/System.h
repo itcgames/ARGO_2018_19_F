@@ -17,7 +17,7 @@ public:
 			m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), e), m_entities.end());
 		}
 	}
-	virtual void update(double dt) = 0;
+    virtual void update(double dt) {};
 protected:
 	std::vector<Entity*> m_entities;
 };
