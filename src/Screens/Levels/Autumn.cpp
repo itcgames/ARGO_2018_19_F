@@ -44,7 +44,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Entity* block = new Entity();
 	block->addComponent(new PositionComponent(Vector(500, 700)));
 	block->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 25, 25)));
-	block->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 25, 25)));
+	block->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55)));
 	m_entities.push_back(block);
 
 
