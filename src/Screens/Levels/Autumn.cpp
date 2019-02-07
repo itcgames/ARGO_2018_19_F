@@ -8,12 +8,13 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 {
 	m_screenID = "Play";
 
-	SDL_Texture* texture = SDL2Help::LoadTexture(m_resourcesPath + "grid.png", m_renderer); // testing
+	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "grid.png", m_renderer); // testing
+	SDL_Texture* flagTexture = SDL2Help::LoadTexture(m_resourcesPath + "flags.png", m_renderer);
 	
 	//	Create player entity.
 	Entity* player = new Entity();
 	player->addComponent(new PositionComponent(Vector(200, 200, 0)));
-	player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
+	player->addComponent(new GraphicsComponent(playerTexture, SDL2Help::InitRect(0, 0, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
 	player->addComponent(new AnimationComponent(new Vector(0,0,0), new Vector(5,1,0)));
 	player->addComponent(new PhysicsComponent());
 	player->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 32, 32)));
@@ -22,8 +23,10 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	//	Create goal entity.
 	Entity* goal = new Entity();
-	goal->addComponent(new PositionComponent(Vector(1500, 800)));
+	goal->addComponent(new PositionComponent(Vector(1000, 700)));
 	goal->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 50, 50)));
+	goal->addComponent(new GraphicsComponent(flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100)));
+	goal->addComponent(new AnimationComponent(new Vector(0, 0, 0), new Vector(7, 0, 0)));
 	m_entities.push_back(goal);
 
 	//	Add all entities to relevant systems.
