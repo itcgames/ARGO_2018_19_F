@@ -14,9 +14,9 @@ public:
 
 	bool IsColliding();
 	void setIsColliding(bool isColliding);
+	std::string m_tag;
 private:
 	SDL_Rect m_collider;
-	std::string m_tag;
 	bool m_isColliding;
 };
 #endif // !COLLISION_COMPONENT_H

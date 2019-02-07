@@ -27,13 +27,14 @@ void PhysicsSystem::update(double dt)
 
 			Vector position = *positionComponent->getPos();
 			position += velocity;
-			if (position.y > 768.f)
+
+			Vector size = Vector(32, 32);
+			if (position.y + size.y > 900.f)
 			{
 				controllerComponent->m_isJumping = false;
-				position.y = 768.f;
+				position.y = 900.f - size.y;
 				velocity.y = m_gravity.y;
 			}
-			Vector size = Vector (32, 32);
 			keepOnScreen(position, velocity, size);
 			physicsComponent->setVelocity(velocity);
 			positionComponent->setPos(position);
