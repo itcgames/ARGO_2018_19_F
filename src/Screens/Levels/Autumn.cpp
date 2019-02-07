@@ -12,7 +12,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	
 	//	Create player entity.
 	Entity* player = new Entity();
-	player->addComponent(new PositionComponent(Vector(112, 200, 0)));
+	player->addComponent(new PositionComponent(Vector(69, 200, 0)));
 	player->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 0, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
 	player->addComponent(new AnimationComponent(new Vector(0,0,0), new Vector(5,1,0)));
 	player->addComponent(new PhysicsComponent());
@@ -22,7 +22,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	// Level Obstacle Entity
 	Entity* obstacle = new Entity();
-	obstacle->addComponent(new PositionComponent(Vector(100, 500, 0)));
+	obstacle->addComponent(new PositionComponent(Vector(100, 600, 0)));
 	obstacle->addComponent(new GraphicsComponent(texture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 100, 200)));
 	obstacle->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 100, 200), "Obstacle"));
 	m_entities.push_back(obstacle);

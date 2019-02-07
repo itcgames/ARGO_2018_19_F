@@ -8,7 +8,6 @@ int ControllerComponent::m_controllerIndex = 0;
 ControllerComponent::ControllerComponent()
 {    
 	m_id = "CONTROLLER";
-	m_isJumping = true;
 	m_controller = SDL_GameControllerOpen(m_controllerIndex);
     m_controllerIndex++;
 }

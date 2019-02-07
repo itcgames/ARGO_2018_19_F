@@ -48,6 +48,17 @@ Vector & PhysicsComponent::getFriction()
 
 
 /// <summary>
+/// Getter - return a component jumping
+/// </summary>
+/// <returns>jumping - boolean</returns>
+bool PhysicsComponent::getJumping()
+{
+	return m_isJumping;
+}
+
+
+
+/// <summary>
 /// Getter - return a reference to component gravity
 /// </summary>
 /// <returns>gravity - boolean</returns>
@@ -87,6 +98,17 @@ void PhysicsComponent::setAcceleration(Vector & v)
 void PhysicsComponent::setFriction(Vector & v)
 {
 	m_friction = v;
+}
+
+
+
+/// <summary>
+/// Setter - update component jumping value
+/// </summary>
+/// <param name="v">boolean arguement</param>
+void PhysicsComponent::setJumping(bool jump)
+{
+	m_isJumping = jump;
 }
 
 

@@ -36,9 +36,9 @@ void ControlSystem::update(double dt, SDL_Event e)
         //  Handle inputs.
         Vector acceleration;
 
-        if (m_buttons["a"] && !controller->m_isJumping)
+        if (m_buttons["a"] && !physicsComponent->getJumping())
         {
-			controller->m_isJumping = true;
+			physicsComponent->setJumping(true);
             acceleration.y -= 1.5;
         }
 

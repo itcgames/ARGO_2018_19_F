@@ -10,7 +10,6 @@ void PhysicsSystem::update(double dt)
 	{
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
-		ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
 		if (physicsComponent != nullptr && positionComponent != nullptr)
 		{
@@ -21,7 +20,6 @@ void PhysicsSystem::update(double dt)
 			{
 				acceleration += m_gravity;
 			}
-
 			velocity += acceleration * dt;
 			velocity.x *= friction.x;
 
@@ -29,13 +27,7 @@ void PhysicsSystem::update(double dt)
 			position += velocity;
 
 			Vector size = Vector(32, 32);
-			if (position.y + size.y > 900.f)
-			{
-				controllerComponent->m_isJumping = false;
-				position.y = 900.f - size.y;
-				velocity.y = m_gravity.y;
-			}
-			keepOnScreen(position, velocity, size);
+			keepOnScreen(position, velocity, size, physicsComponent);
 			physicsComponent->setVelocity(velocity);
 			positionComponent->setPos(position);
 
@@ -45,7 +37,16 @@ void PhysicsSystem::update(double dt)
 	}
 }
 
-void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dimensions)
+
+
+/// <summary>
+/// keeps the entity on screen - teting purposes
+/// </summary>
+/// <param name="position"></param>
+/// <param name="velocity"></param>
+/// <param name="dimensions"></param>
+/// <param name="physics"></param>
+void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dimensions, PhysicsComponent* physics)
 {
 	if (position.x + dimensions.x> 1600.f)
 	{
@@ -56,5 +57,16 @@ void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dim
 	{
 		position.x = 0;
 		velocity.x = 0;
+	}
+	if (position.y + dimensions.y > 900.f)
+	{
+
+		position.y = 900.f - dimensions.y;
+		physics->setJumping(false);
+	}
+	if (position.y < 0)
+	{
+		position.y = 0;
+		velocity.y = 0;
 	}
 }
