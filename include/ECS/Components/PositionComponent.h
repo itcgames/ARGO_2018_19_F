@@ -10,7 +10,7 @@ public:
 	PositionComponent();
 	PositionComponent(Vector v);
 	void setPos(Vector& v);
-	Vector* getPos();
+	Vector& getPos();
 
 private:
 	Vector* m_position;
