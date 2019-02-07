@@ -5,7 +5,7 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
-	m_startPos(100,700)
+	m_startPos(100,800)
 {
 	m_screenID = "Play";
 
@@ -26,17 +26,17 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	// Level Obstacle Entity
 	Entity* obstacle = new Entity();
-	obstacle->addComponent(new PositionComponent(Vector(100, 600, 0)));
+	obstacle->addComponent(new PositionComponent(Vector(600, 700, 0)));
 	obstacle->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 100, 200)));
 	obstacle->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 100, 200), "Obstacle"));
 	m_entities.push_back(obstacle);
 
 	//	Create goal entity.
 	Entity* goal = new Entity();
-	goal->addComponent(new PositionComponent(Vector(1000, 700)));
+	goal->addComponent(new PositionComponent(Vector(1400, 800)));
 	goal->addComponent(new GraphicsComponent(flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100)));
 	goal->addComponent(new AnimationComponent(new Vector(0, 0, 0), new Vector(7, 0, 0)));
-	goal->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 50, 50), "Goal"));
+	goal->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 50, 100), "Goal"));
 	m_entities.push_back(goal);
 
 	//	Create start entity.
@@ -49,8 +49,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	//	Create block entity.
 	Entity* block = new Entity();
-	block->addComponent(new PositionComponent(Vector(500, 700)));
-	block->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 25, 25), "Obstacle"));
+	block->addComponent(new PositionComponent(Vector(850, 700)));
+	block->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 55, 55), "Obstacle"));
 	block->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55)));
 	m_entities.push_back(block);
 
