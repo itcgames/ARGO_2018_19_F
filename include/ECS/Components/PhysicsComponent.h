@@ -15,11 +15,13 @@ public:
 	Vector& getVelocity();
 	Vector& getAcceleration();
 	Vector& getFriction();
+	bool getJumping();
 	bool getGravity();
 
 	void setVelocity(Vector& v);
 	void setAcceleration(Vector& v);
 	void setFriction(Vector& v);
+	void setJumping(bool jump);
 	void useGravity(bool g);
 
 private:
@@ -28,5 +30,6 @@ private:
 	Vector m_friction;
 
 	bool m_useGravity;
+	bool m_isJumping;
 };
 #endif // !PHYSICS_COMPONENT_H

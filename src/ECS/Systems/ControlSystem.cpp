@@ -33,22 +33,23 @@ void ControlSystem::update(double dt, SDL_Event e)
 		Vector leftStick = Vector(SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTY) / MAX_STICK_VALUE);
         //  Right stick.
         Vector rightStick = Vector(SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTY) / MAX_STICK_VALUE);
-			
         //  Handle inputs.
         Vector acceleration;
 
-        if (m_buttons["a"] && physicsComponent->getGravity() == false)
+
+        if (m_buttons["a"] && !physicsComponent->getJumping())
         {
-            acceleration.y -= 12.1;
+			physicsComponent->setJumping(true);
+            acceleration.y -= 1.5;
         }
 
         if (leftStick.x > controller->DEAD_ZONE)
         {
-            acceleration.x += 0.05;
+            acceleration.x += 0.075;
         }
         else if (leftStick.x < -controller->DEAD_ZONE)
         {
-            acceleration.x -= 0.05;
+            acceleration.x -= 0.075;
         }
 
         physicsComponent->setAcceleration(acceleration);

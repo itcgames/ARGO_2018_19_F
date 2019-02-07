@@ -7,13 +7,14 @@
 class CollisionComponent : public Component
 {
 public:
-	CollisionComponent(SDL_Rect collider);
+	CollisionComponent(SDL_Rect collider, std::string tag);
 
 	SDL_Rect& getCollider();
 	void setCollider(SDL_Rect& collider);
-
 	bool IsColliding();
 	void setIsColliding(bool isColliding);
+	std::string m_tag;
+
 private:
 	SDL_Rect m_collider;
 	bool m_isColliding;

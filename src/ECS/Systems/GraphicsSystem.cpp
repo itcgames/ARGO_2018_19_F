@@ -64,8 +64,8 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 				//src.y = currentFrame->y * src.h;
 			}
 
-			dest.x = positionComponent->getPos()->x;
-			dest.y = positionComponent->getPos()->y;
+			dest.x = positionComponent->getPos().x;
+			dest.y = positionComponent->getPos().y;
 
 			SDL_RenderCopy(renderer, texture, &src, &dest);
 		}
