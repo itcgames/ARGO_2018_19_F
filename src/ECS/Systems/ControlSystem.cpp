@@ -37,9 +37,9 @@ void ControlSystem::update(double dt, SDL_Event e)
         //  Handle inputs.
         Vector acceleration;
 
-        if (m_buttons["a"])
+        if (m_buttons["a"] && physicsComponent->getGravity() == false)
         {
-            acceleration.y -= 0.1;
+            acceleration.y -= 12.1;
         }
 
         if (leftStick.x > controller->DEAD_ZONE)
