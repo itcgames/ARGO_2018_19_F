@@ -92,7 +92,6 @@ void Autumn::update(double dt, SDL_Event& e)
 	m_physics.update(dt);
 	m_collisions.update(dt);
 	m_graphics.update(dt);
-	m_collisions.update(dt);
 }
 
 

@@ -43,11 +43,11 @@ void ControlSystem::update(double dt, SDL_Event e)
             acceleration.y -= 1.5;
         }
 
-        if (leftStick.x > controller->DEAD_ZONE)
+        if (leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
         {
             acceleration.x += 0.075;
         }
-        else if (leftStick.x < -controller->DEAD_ZONE)
+        else if (leftStick.x < -controller->DEAD_ZONE && physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
         {
             acceleration.x -= 0.075;
         }
