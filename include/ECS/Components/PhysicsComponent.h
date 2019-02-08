@@ -14,6 +14,7 @@ public:
 	/// </summary>
 	Vector& getVelocity();
 	Vector& getMaxVelocity();
+	Vector& getMaxJumpVelocity();
 	Vector& getAcceleration();
 	Vector& getFriction();
 	bool getJumping();
@@ -28,6 +29,7 @@ public:
 private:
 	Vector m_velocity;
 	Vector m_maxVelocity;
+	Vector m_maxJumpVelocity;
 	Vector m_acceleration;
 	Vector m_friction;
 

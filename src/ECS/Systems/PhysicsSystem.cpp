@@ -24,8 +24,19 @@ void PhysicsSystem::update(double dt)
 			}
 
 			velocity += acceleration * dt;
-			velocity *= friction;
-			position += velocity;
+			if (physicsComponent->getJumping() == false)
+
+			{
+				velocity *= friction;
+				position += velocity;
+			}
+			else
+			{
+				velocity.x *= (friction.x/1.25);
+				velocity.y *= friction.y;
+				position += velocity;
+			}
+			
 
 			Vector size = Vector(32, 32);
 			keepOnScreen(position, velocity, size, physicsComponent);

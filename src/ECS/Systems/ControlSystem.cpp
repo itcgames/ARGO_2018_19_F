@@ -45,10 +45,18 @@ void ControlSystem::update(double dt, SDL_Event e)
 
         if (leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
         {
+			if (physicsComponent->getJumping() == true)
+			{
+				acceleration.x += 0.025;
+			}
             acceleration.x += 0.075;
         }
         else if (leftStick.x < -controller->DEAD_ZONE && physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
         {
+			if (physicsComponent->getJumping() == true)
+			{
+				acceleration.x -= 0.025;
+			}
             acceleration.x -= 0.075;
         }
 
