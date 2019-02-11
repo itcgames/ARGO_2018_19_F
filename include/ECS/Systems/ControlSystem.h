@@ -7,6 +7,7 @@
 #include "Vector/Vector.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
+#include "States/PlayerState.h"
 
 class ControlSystem : public System
 {

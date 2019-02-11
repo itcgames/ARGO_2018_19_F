@@ -9,19 +9,23 @@ class AnimationComponent : public Component
 public:
 	AnimationComponent(Vector* first, Vector* last);
 
-	void setCurrentFrame(Vector& frame);
-	void setFrameTime(double time);
-
 	Vector* getCurrentFrame();
 	Vector* getLastFrame();
 	Vector* getFirstFrame();
 	double getFrameTime();
+
+	void setCurrentFrame(Vector& frame);
+	void setLastFrame(Vector& frame);
+	void setFirstFrame(Vector& frame);
+	void setFrameTime(double time);
 
 private:
 	Vector* m_currentFrame;
 	Vector* m_firstFrame;
 	Vector* m_lastFrame;
 	double m_frameTime;
+
+	std::map<std::string, std::map<Vector, Vector>> m_graphic;
 };
 #endif // !ANIMATION_COMPONENT_H
 

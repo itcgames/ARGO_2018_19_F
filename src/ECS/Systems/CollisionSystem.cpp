@@ -28,6 +28,7 @@ void CollisionSystem::update(double dt)
 					{
 						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Obstacle")
 						{
+							e1Collision->setIsColliding(true);
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							Vector velocity = physicsComponent->getVelocity();
 							Vector position = e1Position->getPos();

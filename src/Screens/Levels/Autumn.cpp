@@ -27,7 +27,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	// Level Obstacle Entity
 	Entity* obstacle = new Entity();
 	obstacle->addComponent(new PositionComponent(Vector(600, 700, 0)));
-	obstacle->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 100, 200)));
+	obstacle->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 200)));
 	obstacle->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 100, 200), "Obstacle"));
 	m_entities.push_back(obstacle);
 

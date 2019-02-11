@@ -184,6 +184,10 @@
     <ClInclude Include="include\Screens\Settings.h" />
     <ClInclude Include="include\Screens\Splash.h" />
     <ClInclude Include="include\Screens\Title.h" />
+    <ClInclude Include="include\States\CrouchState.h" />
+    <ClInclude Include="include\States\IdleState.h" />
+    <ClInclude Include="include\States\JumpState.h" />
+    <ClInclude Include="include\States\PlayerState.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />

@@ -10,8 +10,8 @@ public:
 	GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
 
 	SDL_Texture* getTexture();
-	SDL_Rect getSourceRect();
-	SDL_Rect getDestRect();
+	SDL_Rect& getSourceRect();
+	SDL_Rect& getDestRect();
 
 private:
 	SDL_Texture* m_texture;

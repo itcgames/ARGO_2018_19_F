@@ -13,6 +13,7 @@ void ControlSystem::update(double dt, SDL_Event e)
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
 		
         std::map<std::string, bool> m_buttons;
+		bool isMoving = false;
         //  D-pad.
         m_buttons["up"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_UP);
         m_buttons["down"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
@@ -34,7 +35,10 @@ void ControlSystem::update(double dt, SDL_Event e)
         //  Right stick.
         Vector rightStick = Vector(SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_RIGHTY) / MAX_STICK_VALUE);
         //  Handle inputs.
-        Vector acceleration;
+
+        Vector acceleration = physicsComponent->getAcceleration();
+		Vector velocity = physicsComponent->getVelocity();
+
 
 
         if (m_buttons["a"] && !physicsComponent->getJumping())
@@ -43,15 +47,23 @@ void ControlSystem::update(double dt, SDL_Event e)
             acceleration.y -= 1.5;
         }
 
-        if (leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
+        if (leftStick.x > controller->DEAD_ZONE && velocity.x <= physicsComponent->getMaxVelocity().x)
         {
             acceleration.x += 0.075;
+			isMoving = true;
         }
-        else if (leftStick.x < -controller->DEAD_ZONE && physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
+        else if (leftStick.x < -controller->DEAD_ZONE && velocity.x >= -physicsComponent->getMaxVelocity().x)
         {
             acceleration.x -= 0.075;
+			isMoving = true;
         }
 
+		if (acceleration.x < 0.055)
+		{
+			velocity.x = 0;
+		}
+
         physicsComponent->setAcceleration(acceleration);
+		physicsComponent->setVelocity(velocity);
 	}
 }

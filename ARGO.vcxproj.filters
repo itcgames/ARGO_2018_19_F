@@ -60,5 +60,9 @@
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />
     <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
+    <ClInclude Include="include\States\PlayerState.h" />
+    <ClInclude Include="include\States\JumpState.h" />
+    <ClInclude Include="include\States\IdleState.h" />
+    <ClInclude Include="include\States\CrouchState.h" />
   </ItemGroup>
 </Project>

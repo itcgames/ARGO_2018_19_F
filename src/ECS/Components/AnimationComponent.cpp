@@ -31,6 +31,28 @@ void AnimationComponent::setCurrentFrame(Vector& frame)
 /// <summary>
 /// 
 /// </summary>
+/// <param name="frame"></param>
+void AnimationComponent::setLastFrame(Vector & frame)
+{
+	*m_lastFrame = frame;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="frame"></param>
+void AnimationComponent::setFirstFrame(Vector & frame)
+{
+	*m_firstFrame = frame;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="time"></param>
 void AnimationComponent::setFrameTime(double time)
 {
