@@ -17,17 +17,17 @@ void GraphicsSystem::update(double dt)
 
 			if (frameTime > 120)
 			{
-				Vector* currentFrame = animationComponent->getCurrentFrame();
-				Vector* firstFrame = animationComponent->getFirstFrame();
-				Vector* lastFrame = animationComponent->getLastFrame();
+				Vector currentFrame = animationComponent->getCurrentFrame();
+				Vector firstFrame = animationComponent->getFirstFrame();
+				Vector lastFrame = animationComponent->getLastFrame();
 
-				currentFrame->x++;
-				if (currentFrame->x > lastFrame->x)
+				currentFrame.x++;
+				if (currentFrame.x > lastFrame.x)
 				{
-					currentFrame->x = firstFrame->x;
+					currentFrame.x = firstFrame.x;
 				}
 
-				animationComponent->setCurrentFrame(*currentFrame);
+				animationComponent->setCurrentFrame(currentFrame);
 				frameTime = 0;
 			}
 
@@ -38,13 +38,19 @@ void GraphicsSystem::update(double dt)
 
 
 
-
 /// <summary>
 /// render all graphics components, updating any postion information for the sprites using the position component
 /// </summary>
 /// <param name="renderer"></param>
 void GraphicsSystem::render(SDL_Renderer * renderer)
 {
+	std::vector<std::vector<Entity*>> sortedEntities;
+	for (Entity* entity : m_entities)
+	{
+		GraphicsComponent* layer = (GraphicsComponent*)entity->getComponent("GRAPHICS");
+
+	}
+
 	for (Entity* entity : m_entities)
 	{
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
@@ -59,8 +65,8 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 
 			if (animationComponent != nullptr)
 			{
-				Vector* currentFrame = animationComponent->getCurrentFrame();
-				src.x = currentFrame->x * src.w;
+				Vector currentFrame = animationComponent->getCurrentFrame();
+				src.x = currentFrame.x * src.w;
 				//src.y = currentFrame->y * src.h;
 			}
 

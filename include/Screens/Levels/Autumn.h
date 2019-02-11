@@ -6,7 +6,7 @@
 #include "ECS/Systems/PhysicsSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/ControlSystem.h"
-#include "ECS/Entities/Entity.h"
+#include "ECS/Entities/EntityCreator.h"
 
 class Autumn : public Screen
 {

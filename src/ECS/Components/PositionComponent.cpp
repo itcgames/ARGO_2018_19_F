@@ -6,7 +6,7 @@
 PositionComponent::PositionComponent()
 {
 	m_id = "POSITION";
-	m_position = new Vector();
+	m_position = new Vector(0, 0);
 }
 
 

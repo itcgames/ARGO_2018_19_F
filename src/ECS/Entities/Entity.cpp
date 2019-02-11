@@ -62,3 +62,13 @@ Component * Entity::getComponent(std::string componentId)
 {
 	return m_components[componentId];
 }
+
+std::string Entity::getId()
+{
+	return m_id;
+}
+
+void Entity::setId(std::string id)
+{
+	m_id = id;
+}

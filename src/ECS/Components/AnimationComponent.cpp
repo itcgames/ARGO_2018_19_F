@@ -6,13 +6,13 @@
 /// <param name="first"></param>
 /// <param name="last"></param>
 /// <param name="time"></param>
-AnimationComponent::AnimationComponent(Vector* first, Vector* last)
+AnimationComponent::AnimationComponent(Vector& first, Vector& last)
 {
 	m_id = "ANIMATION";
 	m_frameTime = 0.0;
-	m_currentFrame = new Vector(*first);
-	m_firstFrame = new Vector(*first);
-	m_lastFrame = new Vector(*last);
+	m_currentFrame = first;
+	m_firstFrame = first;
+	m_lastFrame = last;
 }
 
 
@@ -23,7 +23,7 @@ AnimationComponent::AnimationComponent(Vector* first, Vector* last)
 /// <param name="frame"></param>
 void AnimationComponent::setCurrentFrame(Vector& frame)
 {
-	*m_currentFrame = frame;
+	m_currentFrame = frame;
 }
 
 
@@ -43,7 +43,7 @@ void AnimationComponent::setFrameTime(double time)
 /// 
 /// </summary>
 /// <returns></returns>
-Vector * AnimationComponent::getCurrentFrame()
+Vector & AnimationComponent::getCurrentFrame()
 {
 	return m_currentFrame;
 }
@@ -54,7 +54,7 @@ Vector * AnimationComponent::getCurrentFrame()
 /// 
 /// </summary>
 /// <returns></returns>
-Vector * AnimationComponent::getLastFrame()
+Vector & AnimationComponent::getLastFrame()
 {
 	return m_lastFrame;
 }
@@ -65,7 +65,7 @@ Vector * AnimationComponent::getLastFrame()
 /// 
 /// </summary>
 /// <returns></returns>
-Vector * AnimationComponent::getFirstFrame()
+Vector & AnimationComponent::getFirstFrame()
 {
 	return m_firstFrame;
 }

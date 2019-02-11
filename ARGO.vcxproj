@@ -132,6 +132,7 @@
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
+    <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
     <ClCompile Include="src\Screens\Levels\Spring.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
+    <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
     <ClInclude Include="include\ECS\Systems\ControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
