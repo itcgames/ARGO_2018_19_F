@@ -12,6 +12,8 @@ public:
 	SDL_Texture* getTexture();
 	SDL_Rect getSourceRect();
 	SDL_Rect getDestRect();
+	void setDestRect(int height);
+	void setSourceRect(int height);
 
 private:
 	SDL_Texture* m_texture;

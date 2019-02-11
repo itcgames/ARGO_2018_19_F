@@ -7,6 +7,9 @@
 #include "Vector/Vector.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
+#include "ECS/Components/GraphicsComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS\Components\CollisionComponent.h"
 
 class ControlSystem : public System
 {

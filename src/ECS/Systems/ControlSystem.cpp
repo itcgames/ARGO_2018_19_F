@@ -11,6 +11,9 @@ void ControlSystem::update(double dt, SDL_Event e)
 	{
         PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
+		GraphicsComponent* graphics = (GraphicsComponent*)entity->getComponent("GRAPHICS");
+		PositionComponent* position = (PositionComponent*)entity->getComponent("POSITION");
+		CollisionComponent* collision = (CollisionComponent*)entity->getComponent("COLLISION");
 		
         std::map<std::string, bool> m_buttons;
         //  D-pad.
@@ -59,6 +62,21 @@ void ControlSystem::update(double dt, SDL_Event e)
 			}
             acceleration.x -= 0.075;
         }
+
+		if (m_buttons["b"] && !physicsComponent->getJumping())
+		{
+			graphics->setDestRect(10);
+			SDL_Rect rect = { collision->getCollider().x, collision->getCollider().y, collision->getCollider().w, 10};
+			collision->setCollider(rect);
+			Vector v = { position->getPos().x, position->getPos().y + 22};
+			position->setPos(v);
+		}
+		else
+		{
+			graphics->setDestRect(32);
+			SDL_Rect rect = { collision->getCollider().x, collision->getCollider().y, collision->getCollider().w, 32 };
+			collision->setCollider(rect);
+		}
 
         physicsComponent->setAcceleration(acceleration);
 	}

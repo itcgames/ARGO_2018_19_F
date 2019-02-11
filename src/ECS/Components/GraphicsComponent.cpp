@@ -47,3 +47,13 @@ SDL_Rect GraphicsComponent::getDestRect()
 {
 	return m_destRect;
 }
+
+void GraphicsComponent::setDestRect(int height)
+{
+	m_destRect = { m_destRect.x, m_destRect.y, m_destRect.w, height };
+}
+
+void GraphicsComponent::setSourceRect( int height)
+{
+	m_srcRect = { m_srcRect.x, m_srcRect.y, m_srcRect.w, height };
+}
