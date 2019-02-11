@@ -28,6 +28,6 @@ protected:
 	std::string m_screenID;
 	ScreenManager* m_screenManager;
 	SDL_Renderer* m_renderer;
-	std::string m_resourcesPath = "resources/";
+	std::string m_resourcesPath = ".//resources//";
 };
 #endif // !SCREEN_H

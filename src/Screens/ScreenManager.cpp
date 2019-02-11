@@ -1,4 +1,4 @@
-#include "Screens\ScreenManager.h"
+#include "Screens/ScreenManager.h"
 #include "Screens/Screen.h"
 
 /// <summary>
@@ -6,6 +6,7 @@
 /// </summary>
 ScreenManager::ScreenManager()
 {
+	m_client = new Client();	
 }
 
 
@@ -89,4 +90,9 @@ Screen * ScreenManager::getCurrentScreen()
 Screen * ScreenManager::getScreen(std::string screenID)
 {
 	return m_screens[screenID];
+}
+
+Client * ScreenManager::getClient()
+{
+	return m_client;
 }
