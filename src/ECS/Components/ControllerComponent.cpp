@@ -10,4 +10,5 @@ ControllerComponent::ControllerComponent()
 	m_id = "CONTROLLER";
 	m_controller = SDL_GameControllerOpen(m_controllerIndex);
     m_controllerIndex++;
+	m_paused = false;
 }

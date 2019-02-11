@@ -26,7 +26,7 @@ void CollisionSystem::update(double dt)
 				{
 					if (!e1Collision->IsColliding())
 					{
-						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Obstacle")
+						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Platform")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							Vector velocity = physicsComponent->getVelocity();
@@ -76,7 +76,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Spike")
+						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Obstacle")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							Vector velocity = physicsComponent->getVelocity();
@@ -95,20 +95,24 @@ void CollisionSystem::update(double dt)
 							if (top < bottom && top < left && top < right)
 							{
 								physicsComponent->alive = false;
+								std::cout << "you died" << std::endl;
 							}
 							// check the bottom
 							if (bottom < top && bottom < left && bottom < right)
 							{
+								std::cout << "you died" << std::endl;
 								physicsComponent->alive = false;
 							}
 							// check the left
 							if (left < right && left < top && left < bottom)
 							{
+								std::cout << "you died" << std::endl;
 								physicsComponent->alive = false;
 							}
 							// check the right
 							if (right < left && right < top && right < bottom)
 							{
+								std::cout << "you died" << std::endl;
 								physicsComponent->alive = false;
 							}
 						}

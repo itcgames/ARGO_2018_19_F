@@ -5,6 +5,7 @@
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
+#include "ECS/Components/GraphicsComponent.h"
 
 class PhysicsSystem : public System
 {

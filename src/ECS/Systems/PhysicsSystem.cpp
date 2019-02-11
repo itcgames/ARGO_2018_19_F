@@ -11,6 +11,8 @@ void PhysicsSystem::update(double dt)
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 		CollisionComponent* collisionComponent = (CollisionComponent*)entity->getComponent("COLLISION");
+		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("PHYSICS");
+		
 
 		if (physicsComponent != nullptr && positionComponent != nullptr)
 		{

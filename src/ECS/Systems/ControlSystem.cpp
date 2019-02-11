@@ -40,11 +40,11 @@ void ControlSystem::update(double dt, SDL_Event e)
         Vector acceleration;
 
 
-        if (m_buttons["a"] && !physicsComponent->getJumping())
-        {
+		if (m_buttons["a"] && !physicsComponent->getJumping())
+		{
 			physicsComponent->setJumping(true);
-            acceleration.y -= 1.5;
-        }
+			acceleration.y -= 1.5;
+		}
 
         if (leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
         {
@@ -79,5 +79,25 @@ void ControlSystem::update(double dt, SDL_Event e)
 		}
 
         physicsComponent->setAcceleration(acceleration);
+
+		if (m_buttons["start"] && controller->m_paused == false)
+		{
+			std::cout << "pause " + controller->m_paused << std::endl;
+			controller->m_paused = true;
+		}
+		else if (m_buttons["start"] && controller->m_paused == true)
+		{
+			std::cout << "Un pause " + controller->m_paused << std::endl;
+			controller->m_paused = false;
+		}
+	}
+}
+
+bool ControlSystem::getPause()
+{
+	for (Entity* entity : m_entities)
+	{
+		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
+		return controller->m_paused;
 	}
 }
