@@ -93,16 +93,15 @@ void Server::update()
 			SOCKET client = accept(m_listening, nullptr, nullptr);
 			FD_SET(client, &m_master);
 			playerCount++;
-			std::string message = "playerNum:" + std::to_string(playerCount);
-			send(client, message.c_str(), message.size() + 1, 0);
-			std::cout << message << std::endl;
+			Packet packet;
+			packet.playerNum = playerCount;
+			send(client, (char*)&packet, sizeof(packet) + 1, 0);
+			std::cout << "playerNum:" << std::to_string(playerCount) << std::endl;
 		}
 		else
 		{
-			char buf[4096];
-			ZeroMemory(buf, 4096);
-
-			int bytesIn = recv(sock, buf, sizeof(buf), 0);
+			Packet packet;			
+			int bytesIn = recv(sock, (char*)&packet, sizeof(packet), 0);
 			if (bytesIn <= 0)
 			{
 				closesocket(sock);
@@ -114,12 +113,8 @@ void Server::update()
 				{
 					SOCKET outSock = m_master.fd_array[j];
 					if (outSock != m_listening && outSock != sock)
-					{
-						std::ostringstream ss;
-						ss << buf << "\r\n";
-						std::string strOut = ss.str();
-
-						send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+					{						
+						send(outSock, (char*)&packet, sizeof(packet) + 1, 0);
 					}
 				}
 			}
@@ -136,11 +131,12 @@ void Server::closeSocket()
 {
 	FD_CLR(m_listening, &m_master);
 	closesocket(m_listening);
-	std::string msg = "<Server> Shutting down \r\n";
+	Packet packet;
+	packet.message = "<Server> Shutting down \r\n";
 	while (m_master.fd_count > 0)
 	{
 		SOCKET sock = m_master.fd_array[0];
-		send(sock, msg.c_str(), msg.size() + 1, 0);
+		send(sock, (char*)&packet, sizeof(packet) + 1, 0);
 		FD_CLR(sock, &m_master);
 		closesocket(sock);
 	}

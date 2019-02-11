@@ -176,6 +176,7 @@
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />
+    <ClInclude Include="include\Packet.h" />
     <ClInclude Include="include\Screens\CharacterSelect.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />

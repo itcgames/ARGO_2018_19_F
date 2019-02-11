@@ -1,10 +1,12 @@
 #ifndef SERVER_H
 #define SERVER_H
-
+//	Standard.
 #include <WS2tcpip.h>
 #include <string>
 #include <sstream>
 #include <iostream>
+//	Project.
+#include "../../include/Packet.h"
 
 class Server
 {

@@ -66,5 +66,6 @@
     <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
     <ClInclude Include="include\Client.h" />
     <ClInclude Include="include\Screens\Lobby.h" />
+    <ClInclude Include="include\Packet.h" />
   </ItemGroup>
 </Project>

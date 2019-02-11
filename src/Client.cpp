@@ -71,7 +71,7 @@ bool Client::connectToServer()
 	bool result = false;
 	m_serverHint.sin_family = AF_INET;
 	m_serverHint.sin_port = htons(PORT);	
-	inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
+	inet_pton(AF_INET, SERVER_IPS.at("local"), &m_serverHint.sin_addr);
 	int connResult = connect(m_socket, (sockaddr*)&m_serverHint, sizeof(m_serverHint));
 	if (connResult == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)
 	{
@@ -93,12 +93,12 @@ bool Client::connectToServer()
 /// 
 /// </summary>
 /// <param name="msg"></param>
-bool Client::sendMsg(std::string msg)
+bool Client::sendMsg(Packet msg)
 {
 	bool result = false;
-	if (msg.size() > 0)
+	if (sizeof(msg) > 0)
 	{
-		int sendResult = send(m_socket, msg.c_str(), msg.size() + 1, 0);
+		int sendResult = send(m_socket, (char*)&msg, sizeof(msg) + 1, 0);
 		if (sendResult == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)
 		{
 			std::cout << "<CLIENT> Message failed to send, Err #" << WSAGetLastError() << std::endl;
@@ -117,17 +117,11 @@ bool Client::sendMsg(std::string msg)
 /// 
 /// </summary>
 /// <returns></returns>
-std::string Client::receiveMsg()
+Packet Client::receiveMsg()
 {
-	std::string result;
-	char buf[4096];
-	int bytesReceived = recv(m_socket, buf, 4096, 0);
-	if (bytesReceived > 0)
-	{
-		result = std::string(buf, 0, bytesReceived);
-
-	}
-	return result;
+	Packet packet;
+	recv(m_socket, (char*)&packet, sizeof(packet), 0);
+	return packet;
 }
 
 
