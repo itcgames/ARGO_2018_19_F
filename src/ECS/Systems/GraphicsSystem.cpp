@@ -9,7 +9,6 @@ void GraphicsSystem::update(double dt)
 	for (Entity* entity : m_entities)
 	{
 		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
-
 		if (animationComponent != nullptr)
 		{
 			double frameTime = animationComponent->getFrameTime();
@@ -34,6 +33,7 @@ void GraphicsSystem::update(double dt)
 			animationComponent->setFrameTime(frameTime);
 		}
 	}
+
 }
 
 

@@ -12,6 +12,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "grid.png", m_renderer); // testing
 	SDL_Texture* flagTexture = SDL2Help::LoadTexture(m_resourcesPath + "flags.png", m_renderer);
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
+	SDL_Texture* deathTexture = SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png", m_renderer);
 
 	
 	//	Create player entity.
@@ -23,6 +24,12 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	player->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 32, 32), "Player"));
 	player->addComponent(new ControllerComponent());
 	m_entities.push_back(player);
+
+	//	Create death entity.
+	Entity* death = new Entity();
+	//death->addComponent(new PositionComponent(Vector(100, 100)));
+	death->addComponent(new GraphicsComponent(deathTexture, SDL2Help::InitRect(0, 0, 512, 512), SDL2Help::InitRect(0, 0, 50, 50)));
+	m_deaths.push_back(death);
 
 	// Level Obstacle Entity
 	Entity* obstacle = new Entity();
@@ -50,8 +57,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	//	Create block entity.
 	Entity* block = new Entity();
 	block->addComponent(new PositionComponent(Vector(850, 700)));
-	block->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 55, 55), "Obstacle"));
-	block->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55)));
+	block->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 55, 55), "Spike"));
+	block->addComponent(new GraphicsComponent(deathTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55)));
 	m_entities.push_back(block);
 
 
@@ -78,7 +85,16 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 			m_controllers.addEntity(entity);
 		}
 	}		
+
+	for (Entity* deathentity : m_deaths)
+	{
+		if (deathentity->getComponent("GRAPHICS") != nullptr)
+		{
+			m_graphics.addEntity(deathentity);
+		}
+	}
 }
+
 
 
 
