@@ -86,7 +86,10 @@ void Autumn::update(double dt, SDL_Event& e)
 
 {
 	m_boxPhysics.update(dt);
-	m_characterControl.update(dt, e);
+	if (!m_boxPhysics.getPause())
+	{
+		m_characterControl.update(dt, e);
+	}	
 	m_physics.update(dt);
 	m_collisions.update(dt);
 	m_graphics.update(dt);

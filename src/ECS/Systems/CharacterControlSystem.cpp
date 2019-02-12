@@ -20,52 +20,40 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 			ControllerState currentState = controller->getCurrentState();
 			ControllerState previousState = controller->getPreviousState();
 
-			if (!controller->getPause())
+			//  Handle inputs.
+			Vector acceleration;
+
+			if (currentState.A && !physicsComponent->getJumping())
 			{
-				//  Handle inputs.
-				Vector acceleration;
-
-				if (currentState.A && !physicsComponent->getJumping())
-				{
-					physicsComponent->setJumping(true);
-					acceleration.y -= 1.5;
-				}
-
-				if (currentState.leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
-				{
-					acceleration.x += 0.075;
-				}
-				else if (currentState.leftStick.x < -controller->DEAD_ZONE && physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
-				{
-					acceleration.x -= 0.075;
-				}
-
-				if (currentState.B && !physicsComponent->getJumping())
-				{
-					graphicsComponent->setDestRect(10);
-					SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 10 };
-					collisionComponent->setCollider(rect);
-					Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 22 };
-					positionComponent->setPos(v);
-				}
-				else
-				{
-					graphicsComponent->setDestRect(32);
-					SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 32 };
-					collisionComponent->setCollider(rect);
-				}
-
-				physicsComponent->setAcceleration(acceleration);
+				physicsComponent->setJumping(true);
+				acceleration.y -= 1.5;
 			}
 
-
-			if (!previousState.start && currentState.start)
+			if (currentState.leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
 			{
-				std::cout << "pause " + controller->getPause() << std::endl;
-				controller->setPause(!controller->getPause());
-				
+				acceleration.x += 0.075;
 			}
-				
+			else if (currentState.leftStick.x < -controller->DEAD_ZONE && physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
+			{
+				acceleration.x -= 0.075;
+			}
+
+			if (currentState.B && !physicsComponent->getJumping())
+			{
+				graphicsComponent->setDestRect(10);
+				SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 10 };
+				collisionComponent->setCollider(rect);
+				Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 22 };
+				positionComponent->setPos(v);
+			}
+			else
+			{
+				graphicsComponent->setDestRect(32);
+				SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 32 };
+				collisionComponent->setCollider(rect);
+			}
+
+			physicsComponent->setAcceleration(acceleration);					
 		}
 	}
 }
