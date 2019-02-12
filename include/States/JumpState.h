@@ -5,33 +5,9 @@
 
 class JumpState : public PlayerState
 {
+public:
 	JumpState() {};
-	inline virtual void handleInput(Entity& entity, ControllerComponent* controller, const float MAX_STICK_VALUE)
-	{
-		AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
-
-		if (animationComponent != nullptr)
-		{
-			Vector leftStick = Vector(SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controller->m_controller, SDL_CONTROLLER_AXIS_LEFTY) / MAX_STICK_VALUE);
-
-			// change state
-			if (leftStick.x > controller->DEAD_ZONE)
-			{
-				// change direction animation
-				std::cout << "going right" << std::endl;
-			}
-		}
-	}
-
-	inline virtual void update(Entity& entity)
-	{
-		// update
-		AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
-
-		if (animationComponent != nullptr)
-		{
-			// change state
-		}
-	}
+	virtual PlayerState* handleInput(Entity& entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE);
+	virtual void update(Entity& entity);
 };
 #endif // !JUMP_STATE_H

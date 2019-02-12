@@ -1,13 +1,13 @@
-#ifndef CROUCH_STATE_H
-#define CROUCH_STATE_H
+#ifndef MOVING_STATE_H
+#define MOVING_STATE_H
 
 #include "States/PlayerState.h"
 
-class CrouchState : public PlayerState
+static class MovingState : public PlayerState
 {
 public:
-	CrouchState() {};
+	MovingState() {}
 	virtual PlayerState* handleInput(Entity& entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE);
 	virtual void update(Entity& entity);
 };
-#endif // !CROUCH_STATE_H
+#endif // !MOVING_STATE_H

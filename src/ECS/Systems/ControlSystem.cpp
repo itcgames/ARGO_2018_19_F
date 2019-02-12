@@ -14,6 +14,7 @@ void ControlSystem::update(double dt, SDL_Event e)
 		
         std::map<std::string, bool> m_buttons;
 		bool isMoving = false;
+
         //  D-pad.
         m_buttons["up"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_UP);
         m_buttons["down"] = SDL_GameControllerGetButton(controller->m_controller, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
@@ -39,7 +40,14 @@ void ControlSystem::update(double dt, SDL_Event e)
         Vector acceleration = physicsComponent->getAcceleration();
 		Vector velocity = physicsComponent->getVelocity();
 
-
+		system("CLS");
+		PlayerState* state = m_state->handleInput(*entity, m_buttons, MAX_STICK_VALUE);
+		m_state->update(*entity);
+		if (state != nullptr)
+		{
+			delete(m_state);
+			m_state = state;
+		}
 
         if (m_buttons["a"] && !physicsComponent->getJumping())
         {

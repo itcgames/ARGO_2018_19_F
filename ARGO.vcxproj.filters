@@ -27,6 +27,10 @@
     <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
+    <ClCompile Include="src\States\JumpState.cpp" />
+    <ClCompile Include="src\States\IdleState.cpp" />
+    <ClCompile Include="src\States\CrouchState.cpp" />
+    <ClCompile Include="src\States\MovingState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -64,5 +68,6 @@
     <ClInclude Include="include\States\JumpState.h" />
     <ClInclude Include="include\States\IdleState.h" />
     <ClInclude Include="include\States\CrouchState.h" />
+    <ClInclude Include="include\States\MovingState.h" />
   </ItemGroup>
 </Project>

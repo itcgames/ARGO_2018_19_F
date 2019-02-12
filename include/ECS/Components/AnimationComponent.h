@@ -24,8 +24,6 @@ private:
 	Vector* m_firstFrame;
 	Vector* m_lastFrame;
 	double m_frameTime;
-
-	std::map<std::string, std::map<Vector, Vector>> m_graphic;
 };
 #endif // !ANIMATION_COMPONENT_H
 

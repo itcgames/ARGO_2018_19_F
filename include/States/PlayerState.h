@@ -9,7 +9,7 @@ class PlayerState
 {
 public:
 	~PlayerState() {};
-	virtual PlayerState* handleInput(Entity& entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE) {};
-	virtual void update(Entity &entity) {};
+	virtual PlayerState* handleInput(Entity& entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE) = 0;
+	virtual void update(Entity &entity) = 0;
 };
 #endif // !PLAYER_STATE_H
