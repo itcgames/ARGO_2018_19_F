@@ -5,7 +5,7 @@
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
-#include "ECS/Systems/ControlSystem.h"
+#include "ECS/Systems/CharacterControlSystem.h"
 #include "ECS/Entities/EntityCreator.h"
 
 class Autumn : public Screen
@@ -18,7 +18,7 @@ private:
 	GraphicsSystem m_graphics;
 	PhysicsSystem m_physics;
 	CollisionSystem m_collisions;
-	ControlSystem m_controllers;
+	CharacterControlSystem m_characterControl;
 	std::vector<Entity*> m_entities;
 	Vector m_startPos;
 };
