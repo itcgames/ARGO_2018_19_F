@@ -10,15 +10,14 @@
 /// <param name="buttons"></param>
 /// <param name="MAX_STICK_VALUE"></param>
 /// <returns></returns>
-PlayerState* IdleState::handleInput(Entity & entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE)
+PlayerState* IdleState::handleInput(Entity & entity, ControllerState& state)
 {
 	AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
 	ControllerComponent* controllerComponent = (ControllerComponent*)entity.getComponent("CONTROLLER");
 
 	if (animationComponent != nullptr)
 	{
-		Vector leftStick = Vector(SDL_GameControllerGetAxis(controllerComponent->m_controller, SDL_CONTROLLER_AXIS_LEFTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controllerComponent->m_controller, SDL_CONTROLLER_AXIS_LEFTY) / MAX_STICK_VALUE);
-
+		Vector leftStick = controllerComponent->getCurrentState().leftStick;
 		// moving state
 		if (leftStick.x > controllerComponent->DEAD_ZONE || leftStick.x < -controllerComponent->DEAD_ZONE)
 		{
@@ -27,20 +26,20 @@ PlayerState* IdleState::handleInput(Entity & entity, std::map<std::string, bool>
 		}
 
 		// jumping state
-		if (buttons["a"])
+		if (controllerComponent->getCurrentState().A)
 		{
 			return new JumpState();
 		}
 
 		// dead state
-		if (buttons["start"])
+		if (controllerComponent->getCurrentState().start)
 		{
 			std::cout << "pause" << std::endl;
 			return nullptr;
 		}
 
 		// crouch state
-		if (buttons["b"])
+		if (controllerComponent->getCurrentState().B)
 		{
 			return new CrouchState();
 		}

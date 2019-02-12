@@ -9,33 +9,36 @@ void GraphicsSystem::update(double dt)
 	for (Entity* entity : m_entities)
 	{
 		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+		PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("PHYSICS");
 
-		if (animationComponent != nullptr)
 		{
-			double frameTime = animationComponent->getFrameTime();
-			frameTime += dt;
-
-			if (frameTime > 120)
+			if (animationComponent != nullptr)
 			{
-				Vector* currentFrame = animationComponent->getCurrentFrame();
-				Vector* firstFrame = animationComponent->getFirstFrame();
-				Vector* lastFrame = animationComponent->getLastFrame();
+				double frameTime = animationComponent->getFrameTime();
+				frameTime += dt;
 
-				currentFrame->x++;
-				if (currentFrame->x > lastFrame->x)
+				if (frameTime > 120)
 				{
-					currentFrame->x = firstFrame->x;
+					Vector currentFrame = animationComponent->getCurrentFrame();
+					Vector firstFrame = animationComponent->getFirstFrame();
+					Vector lastFrame = animationComponent->getLastFrame();
+
+					currentFrame.x++;
+					if (currentFrame.x > lastFrame.x)
+					{
+						currentFrame.x = firstFrame.x;
+					}
+
+					animationComponent->setCurrentFrame(currentFrame);
+					frameTime = 0;
 				}
 
-				animationComponent->setCurrentFrame(*currentFrame);
-				frameTime = 0;
+				animationComponent->setFrameTime(frameTime);
 			}
-
-			animationComponent->setFrameTime(frameTime);
 		}
 	}
-}
 
+}
 
 
 
@@ -45,6 +48,13 @@ void GraphicsSystem::update(double dt)
 /// <param name="renderer"></param>
 void GraphicsSystem::render(SDL_Renderer * renderer)
 {
+	std::vector<std::vector<Entity*>> sortedEntities;
+	for (Entity* entity : m_entities)
+	{
+		GraphicsComponent* layer = (GraphicsComponent*)entity->getComponent("GRAPHICS");
+
+	}
+
 	for (Entity* entity : m_entities)
 	{
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
@@ -59,8 +69,8 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 
 			if (animationComponent != nullptr)
 			{
-				Vector* currentFrame = animationComponent->getCurrentFrame();
-				src.x = currentFrame->x * src.w;
+				Vector currentFrame = animationComponent->getCurrentFrame();
+				src.x = currentFrame.x * src.w;
 				//src.y = currentFrame->y * src.h;
 			}
 

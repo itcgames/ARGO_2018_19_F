@@ -9,51 +9,34 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 {
 	m_screenID = "Play";
 
+	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
 	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "grid.png", m_renderer); // testing
 	SDL_Texture* flagTexture = SDL2Help::LoadTexture(m_resourcesPath + "flags.png", m_renderer);
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
+	SDL_Texture* deathTexture = SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png", m_renderer);
+	SDL_Texture* spikeTexture = SDL2Help::LoadTexture(m_resourcesPath + "spikes.png", m_renderer);
+	SDL_Texture* pauseTexture = SDL2Help::LoadTexture(m_resourcesPath + "pause.png", m_renderer);
 
+	//	Create background entity.
+	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
 	
 	//	Create player entity.
-	Entity* player = new Entity();
-	player->addComponent(new PositionComponent(m_startPos));
-	player->addComponent(new GraphicsComponent(playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32)));
-	player->addComponent(new AnimationComponent(new Vector(0,0,0), new Vector(5,1,0)));
-	player->addComponent(new PhysicsComponent());
-	player->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 32, 32), "Player"));
-	player->addComponent(new ControllerComponent());
-	m_entities.push_back(player);
+	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32)));
 
-	// Level Obstacle Entity
-	Entity* obstacle = new Entity();
-	obstacle->addComponent(new PositionComponent(Vector(600, 700, 0)));
-	obstacle->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 200)));
-	obstacle->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 100, 200), "Obstacle"));
-	m_entities.push_back(obstacle);
+	//  Create obstacle entity.
+	m_entities.push_back(EntityCreator::createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
+	
+	//  Create Platform entity.
+	m_entities.push_back(EntityCreator::createPlatform(Vector(300, 775), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
 
 	//	Create goal entity.
-	Entity* goal = new Entity();
-	goal->addComponent(new PositionComponent(Vector(1400, 800)));
-	goal->addComponent(new GraphicsComponent(flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100)));
-	goal->addComponent(new AnimationComponent(new Vector(0, 0, 0), new Vector(7, 0, 0)));
-	goal->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 50, 100), "Goal"));
-	m_entities.push_back(goal);
+	m_entities.push_back(EntityCreator::createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 0, 0), SDL2Help::InitRect(0, 0, 50, 100)));
 
 	//	Create start entity.
-	Entity* start = new Entity();
-	start->addComponent(new PositionComponent(m_startPos));
-	start->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 50, 100), "start"));
-	start->addComponent(new GraphicsComponent(flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100)));
-	start->addComponent(new AnimationComponent(new Vector(0, 0, 0), new Vector(7, 1, 0)));
-	m_entities.push_back(start);
+	m_entities.push_back(EntityCreator::createStart(m_startPos, flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100)));
 
-	//	Create block entity.
-	Entity* block = new Entity();
-	block->addComponent(new PositionComponent(Vector(850, 700)));
-	block->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 55, 55), "Obstacle"));
-	block->addComponent(new GraphicsComponent(blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55)));
-	m_entities.push_back(block);
-
+	//create PauseBox Entity
+	m_entities.push_back(EntityCreator::createSelectionBox(Vector(500, -1000), pauseTexture, SDL2Help::InitRect(0, 0, 1181, 1475), SDL2Help::InitRect(0, 0, 600, 800)));
 
 	//	Add all entities to relevant systems.
 	for (Entity* entity : m_entities)
@@ -68,6 +51,10 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 			m_physics.addEntity(entity);
 		}
 
+		if (entity->getComponent("BOXPHYSICS") != nullptr)
+		{
+			m_boxPhysics.addEntity(entity);
+		}
 		if (entity->getComponent("COLLISION") != nullptr)
 		{
 			m_collisions.addEntity(entity);
@@ -75,10 +62,19 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 		if (entity->getComponent("CONTROLLER") != nullptr)
 		{
-			m_controllers.addEntity(entity);
+			m_characterControl.addEntity(entity);
 		}
 	}		
+
+	for (Entity* deathentity : m_deaths)
+	{
+		if (deathentity->getComponent("GRAPHICS") != nullptr)
+		{
+			m_graphics.addEntity(deathentity);
+		}
+	}
 }
+
 
 
 
@@ -87,8 +83,10 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// </summary>
 /// <param name="dt"></param>
 void Autumn::update(double dt, SDL_Event& e)
+
 {
-	m_controllers.update(dt, e);
+	m_boxPhysics.update(dt);
+	m_characterControl.update(dt, e);
 	m_physics.update(dt);
 	m_collisions.update(dt);
 	m_graphics.update(dt);

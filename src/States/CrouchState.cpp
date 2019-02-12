@@ -8,7 +8,7 @@
 /// <param name="buttons"></param>
 /// <param name="MAX_STICK_VALUE"></param>
 /// <returns></returns>
-PlayerState * CrouchState::handleInput(Entity & entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE)
+PlayerState * CrouchState::handleInput(Entity & entity, ControllerState& state)
 {
 	AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
 	ControllerComponent* controllerComponent = (ControllerComponent*)entity.getComponent("CONTROLLER");
@@ -16,7 +16,7 @@ PlayerState * CrouchState::handleInput(Entity & entity, std::map<std::string, bo
 	if (animationComponent != nullptr)
 	{
 		// change state
-		if (!buttons["b"])
+		if (!controllerComponent->getCurrentState().B)
 		{
 			// change direction animation
 			return new IdleState();

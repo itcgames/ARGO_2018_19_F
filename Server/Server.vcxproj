@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{FC0D4DBA-C710-4D4A-8267-848C698A1082}</ProjectGuid>
-    <RootNamespace>ARGO</RootNamespace>
+    <ProjectGuid>{6D803C72-8798-4196-B6E5-7E7BC7586D42}</ProjectGuid>
+    <RootNamespace>Server</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -69,9 +69,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -81,9 +79,9 @@
       <AdditionalIncludeDirectories>$(SDL2_SDK)\include;.\include;.\submodules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -95,9 +93,9 @@
       <AdditionalIncludeDirectories>$(SDL2_SDK)\include;.\include;.\submodules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,85 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
-    <ClCompile Include="src\Client.cpp" />
-    <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
-    <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
-    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
-    <ClCompile Include="src\Screens\Levels\Spring.cpp" />
-    <ClCompile Include="src\Screens\Levels\Summer.cpp" />
-    <ClCompile Include="src\Screens\Levels\Winter.cpp" />
-    <ClCompile Include="src\ECS\Components\GraphicsComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
-    <ClCompile Include="src\ECS\Entities\Entity.cpp" />
-    <ClCompile Include="src\ECS\Systems\CharacterControlSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
-    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Screens\CharacterSelect.cpp" />
-    <ClCompile Include="src\Screens\Credits.cpp" />
-    <ClCompile Include="src\Screens\LevelSelect.cpp" />
-    <ClCompile Include="src\Screens\Lobby.cpp" />
-    <ClCompile Include="src\Screens\Menu.cpp" />
-    <ClCompile Include="src\Screens\ScreenManager.cpp" />
-    <ClCompile Include="src\Screens\Settings.cpp" />
-    <ClCompile Include="src\Screens\Splash.cpp" />
-    <ClCompile Include="src\Screens\Title.cpp" />
-    <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
-    <ClCompile Include="src\States\CrouchState.cpp" />
-    <ClCompile Include="src\States\IdleState.cpp" />
-    <ClCompile Include="src\States\JumpState.cpp" />
-    <ClCompile Include="src\States\MovingState.cpp" />
-    <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
+    <ClCompile Include="src\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
-    <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
-    <ClInclude Include="include\Client.h" />
-    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
-    <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
-    <ClInclude Include="include\ECS\Components\Component.h" />
-    <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
-    <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
-    <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
-    <ClInclude Include="include\ECS\Components\PositionComponent.h" />
-    <ClInclude Include="include\ECS\Entities\Entity.h" />
-    <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
-    <ClInclude Include="include\ECS\Systems\CharacterControlSystem.h" />
-    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
-    <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
-    <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
-    <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\ECS\Systems\System.h" />
-    <ClInclude Include="include\Packet.h" />
-    <ClInclude Include="include\Screens\CharacterSelect.h" />
-    <ClInclude Include="include\Screens\Credits.h" />
-    <ClInclude Include="include\Screens\LevelSelect.h" />
-    <ClInclude Include="include\Screens\Levels\Autumn.h" />
-    <ClInclude Include="include\Screens\Levels\Spring.h" />
-    <ClInclude Include="include\Screens\Levels\Summer.h" />
-    <ClInclude Include="include\Screens\Levels\Winter.h" />
-    <ClInclude Include="include\Screens\Lobby.h" />
-    <ClInclude Include="include\Screens\Menu.h" />
-    <ClInclude Include="include\Screens\Screen.h" />
-    <ClInclude Include="include\Screens\ScreenManager.h" />
-    <ClInclude Include="include\Screens\Settings.h" />
-    <ClInclude Include="include\Screens\Splash.h" />
-    <ClInclude Include="include\Screens\Title.h" />
-    <ClInclude Include="include\States\CrouchState.h" />
-    <ClInclude Include="include\States\IdleState.h" />
-    <ClInclude Include="include\States\JumpState.h" />
-    <ClInclude Include="include\States\MovingState.h" />
-    <ClInclude Include="include\States\PlayerState.h" />
-    <ClInclude Include="submodules\Angle\Angle.h" />
-    <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
-    <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
-    <ClInclude Include="submodules\Vector\Vector.h" />
+    <ClInclude Include="include\Server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

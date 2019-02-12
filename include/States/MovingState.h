@@ -7,7 +7,7 @@ static class MovingState : public PlayerState
 {
 public:
 	MovingState() {}
-	virtual PlayerState* handleInput(Entity& entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE);
+	virtual PlayerState* handleInput(Entity& entity, ControllerState& state);
 	virtual void update(Entity& entity);
 };
 #endif // !MOVING_STATE_H

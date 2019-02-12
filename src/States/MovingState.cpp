@@ -10,20 +10,21 @@
 /// <param name="buttons"></param>
 /// <param name="MAX_STICK_VALUE"></param>
 /// <returns></returns>
-PlayerState * MovingState::handleInput(Entity & entity, std::map<std::string, bool>& buttons, const float MAX_STICK_VALUE)
+PlayerState * MovingState::handleInput(Entity & entity, ControllerState& state)
 {
 	AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
 	ControllerComponent* controllerComponent = (ControllerComponent*)entity.getComponent("CONTROLLER");
-	Vector leftStick = Vector(SDL_GameControllerGetAxis(controllerComponent->m_controller, SDL_CONTROLLER_AXIS_LEFTX) / MAX_STICK_VALUE, SDL_GameControllerGetAxis(controllerComponent->m_controller, SDL_CONTROLLER_AXIS_LEFTY) / MAX_STICK_VALUE);
+
+	Vector leftStick = controllerComponent->getCurrentState().leftStick;
 
 	if (animationComponent != nullptr)
 	{
-		if (buttons["a"])
+		if (controllerComponent->getCurrentState().A)
 		{
 			return new JumpState();
 		}
 
-		if (buttons["b"])
+		if (controllerComponent->getCurrentState().B)
 		{
 			return new CrouchState();
 		}

@@ -7,11 +7,11 @@
 class AnimationComponent : public Component
 {
 public:
-	AnimationComponent(Vector* first, Vector* last);
+	AnimationComponent(Vector& first, Vector& last);
 
-	Vector* getCurrentFrame();
-	Vector* getLastFrame();
-	Vector* getFirstFrame();
+	Vector& getCurrentFrame();
+	Vector& getLastFrame();
+	Vector& getFirstFrame();
 	double getFrameTime();
 
 	void setCurrentFrame(Vector& frame);
@@ -20,9 +20,9 @@ public:
 	void setFrameTime(double time);
 
 private:
-	Vector* m_currentFrame;
-	Vector* m_firstFrame;
-	Vector* m_lastFrame;
+	Vector m_currentFrame;
+	Vector m_firstFrame;
+	Vector m_lastFrame;
 	double m_frameTime;
 };
 #endif // !ANIMATION_COMPONENT_H
