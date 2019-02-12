@@ -133,8 +133,10 @@
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\NetworkComponent.cpp" />
     <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\NetworkSystem.cpp" />
     <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
     <ClCompile Include="src\Screens\Levels\Spring.cpp" />
     <ClCompile Include="src\Screens\Levels\Summer.cpp" />
@@ -143,7 +145,7 @@
     <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
     <ClCompile Include="src\ECS\Entities\Entity.cpp" />
-    <ClCompile Include="src\ECS\Systems\ControlSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\CharacterControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -166,13 +168,15 @@
     <ClInclude Include="include\ECS\Components\Component.h" />
     <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
     <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
+    <ClInclude Include="include\ECS\Components\NetworkComponent.h" />
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
     <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
-    <ClInclude Include="include\ECS\Systems\ControlSystem.h" />
+    <ClInclude Include="include\ECS\Systems\CharacterControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
+    <ClInclude Include="include\ECS\Systems\NetworkSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />

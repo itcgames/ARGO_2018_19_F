@@ -117,10 +117,10 @@ bool Client::sendMsg(Packet msg)
 /// 
 /// </summary>
 /// <returns></returns>
-Packet Client::receiveMsg()
+Packet* Client::receiveMsg()
 {
-	Packet packet;
-	recv(m_socket, (char*)&packet, sizeof(packet), 0);
+	Packet* packet = new Packet();
+	recv(m_socket, (char*)packet, sizeof(packet), 0);
 	return packet;
 }
 

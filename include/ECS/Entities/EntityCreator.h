@@ -3,15 +3,18 @@
 
 //	Entity
 #include "ECS/Entities/Entity.h"
-//	Systems
-#include "ECS/Systems/CollisionSystem.h"
-#include "ECS/Systems/CharacterControlSystem.h"
-#include "ECS/Systems/GraphicsSystem.h"
-#include "ECS/Systems/PhysicsSystem.h"
+//	Components
+#include "ECS/Components/AnimationComponent.h"
+#include "ECS/Components/CollisionComponent.h"
+#include "ECS/Components/ControllerComponent.h"
+#include "ECS/Components/GraphicsComponent.h"
+#include "ECS/Components/NetworkComponent.h"
+#include "ECS/Components/PhysicsComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
 namespace EntityCreator
 {
-	Entity* createPlayer(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
+	Entity* createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable);
 	Entity* createObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	Entity* createBackground(SDL_Texture* texture, SDL_Rect srcRect);
 

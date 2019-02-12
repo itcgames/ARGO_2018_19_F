@@ -11,16 +11,19 @@
 /// <param name="animEnd"></param>
 /// <param name="collider"></param>
 /// <returns></returns>
-Entity * EntityCreator::createPlayer(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider)
+Entity * EntityCreator::createPlayer(int playerNum, Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable)
 {
 	Entity* player = new Entity();
 	player->setId("player");
+	player->addComponent(new NetworkComponent(playerNum));
 	player->addComponent(new PositionComponent(startPosition));
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	player->addComponent(new AnimationComponent(animStart, animEnd));
 	player->addComponent(new PhysicsComponent());
 	player->addComponent(new CollisionComponent(collider, "Player"));
-	player->addComponent(new ControllerComponent());
+
+	if (controllable)
+		player->addComponent(new ControllerComponent());
 
 	return player;
 }

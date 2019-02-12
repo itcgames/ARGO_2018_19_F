@@ -7,7 +7,8 @@ int main()
 	{
 		if (server.createAndBindSocket())
 		{
-			while (true)
+			bool running = true;
+			while (running)
 			{
 				server.update();
 			}

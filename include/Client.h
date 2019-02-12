@@ -17,7 +17,7 @@ public:
 	bool createSocket();
 	bool connectToServer();
 	bool sendMsg(Packet msg);
-	Packet receiveMsg();
+	Packet* receiveMsg();
 	void closeConnection();
 private:
 	WSAData m_data;

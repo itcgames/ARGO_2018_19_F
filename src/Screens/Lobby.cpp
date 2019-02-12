@@ -9,12 +9,13 @@ Lobby::Lobby(ScreenManager * screenManager, SDL_Renderer * renderer) :
 	Screen(screenManager, renderer)
 {	
 	m_screenID = "Lobby";
+	m_connected = false;
 	Client* client = m_screenManager->getClient();
 	if (client->startWinSock())
 	{
 		if (client->createSocket())
 		{
-
+			
 		}
 	}
 }
@@ -22,7 +23,7 @@ Lobby::Lobby(ScreenManager * screenManager, SDL_Renderer * renderer) :
 
 
 /// <summary>
-/// 
+/// Start winsock and then attempt to connect to the server.
 /// </summary>
 /// <param name="dt"></param>
 void Lobby::update(double dt)
@@ -31,12 +32,14 @@ void Lobby::update(double dt)
 	{
 		connectToServer();
 	}
+
+	m_screenManager->goToScreen("Play");
 }
 
 
 
 /// <summary>
-/// Start winsock and then attempt to connect to the server.
+/// 
 /// </summary>
 void Lobby::render()
 {

@@ -100,8 +100,8 @@ void Server::update()
 		}
 		else
 		{
-			Packet packet;			
-			int bytesIn = recv(sock, (char*)&packet, sizeof(packet), 0);
+			Packet* packet = new Packet();			
+			int bytesIn = recv(sock, (char*)packet, sizeof(packet), 0);
 			if (bytesIn <= 0)
 			{
 				closesocket(sock);
@@ -114,7 +114,7 @@ void Server::update()
 					SOCKET outSock = m_master.fd_array[j];
 					if (outSock != m_listening && outSock != sock)
 					{						
-						send(outSock, (char*)&packet, sizeof(packet) + 1, 0);
+						send(outSock, (char*)packet, sizeof(packet) + 1, 0);
 					}
 				}
 			}

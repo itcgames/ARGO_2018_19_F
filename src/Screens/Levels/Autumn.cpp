@@ -5,7 +5,8 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
-	m_startPos(100,800)
+	m_startPos(100,800),
+	m_network(m_screenManager->getClient())
 {
 	m_screenID = "Play";
 
@@ -17,8 +18,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	//	Create background entity.
 	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
 	
-	//	Create player entity.
-	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32)));
+	//	Create player entities.
+	m_entities.push_back(EntityCreator::createPlayer(1, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), true));
+	m_entities.push_back(EntityCreator::createPlayer(2, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), false));
 
 	// Create obstacle entities.
 	m_entities.push_back(EntityCreator::createObstacle(Vector(600, 700, 0), blockTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 100, 200), SDL2Help::InitRect(0, 0, 100, 200)));
@@ -52,6 +54,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 		{
 			m_characterControl.addEntity(entity);
 		}
+
+		if (entity->getComponent("NETWORK") != nullptr)
+		{
+			m_network.addEntity(entity);
+		}
 	}		
 }
 
@@ -67,6 +74,7 @@ void Autumn::update(double dt, SDL_Event& e)
 	m_physics.update(dt);
 	m_collisions.update(dt);
 	m_graphics.update(dt);
+	m_network.update(dt);
 }
 
 

@@ -6,6 +6,7 @@
 #include "ECS/Systems/PhysicsSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/CharacterControlSystem.h"
+#include "ECS/Systems/NetworkSystem.h"
 #include "ECS/Entities/EntityCreator.h"
 
 class Autumn : public Screen
@@ -19,6 +20,7 @@ private:
 	PhysicsSystem m_physics;
 	CollisionSystem m_collisions;
 	CharacterControlSystem m_characterControl;
+	NetworkSystem m_network;
 	std::vector<Entity*> m_entities;
 	Vector m_startPos;
 };
