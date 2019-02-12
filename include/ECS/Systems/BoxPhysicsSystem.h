@@ -9,7 +9,7 @@
 
 #include "ECS/Systems/System.h"
 #include "ECS/Components/PositionComponent.h"
-#include "ECS/Components/SControllerComponent.h"
+#include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/BoxPhysicsComponent.h"
 
 class BoxPhysicsSystem :

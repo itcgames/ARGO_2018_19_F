@@ -16,5 +16,6 @@ public:
     const float DEAD_ZONE = 0.3f;
     static int m_controllerIndex;
 	bool m_paused;
+	bool getPause();
 };
 #endif // !CONTROLLER_COMPONENT_H

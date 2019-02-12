@@ -19,6 +19,7 @@ private:
 	PhysicsSystem m_physics;
 	CollisionSystem m_collisions;
 	ControlSystem m_controllers;
+	BoxPhysicsSystem m_boxPhysics;
 	std::vector<Entity*> m_entities;
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;

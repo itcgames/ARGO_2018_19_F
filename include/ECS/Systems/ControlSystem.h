@@ -15,7 +15,7 @@ class ControlSystem : public System
 {
 public:
 	void update(double dt, SDL_Event e);
-	bool getPause();
+	
 	virtual void update(double dt) override {};
 private:
     const float MAX_STICK_VALUE = SDL_MAX_SINT16;

@@ -100,8 +100,9 @@ Entity* EntityCreator::createSelectionBox(Vector startPosition, SDL_Texture* tex
 	pauseBox->setId("PauseBox");
 	pauseBox->addComponent(new PositionComponent(startPosition));
 	pauseBox->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	pauseBox->addComponent(new PhysicsComponent());
+	pauseBox->addComponent(new BoxPhysicsComponent());
 	pauseBox->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 0, 0), "pause"));
+	pauseBox->addComponent(new ControllerComponent());
 
 	return pauseBox;
 }

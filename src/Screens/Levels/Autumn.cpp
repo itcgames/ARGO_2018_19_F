@@ -51,6 +51,10 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 			m_physics.addEntity(entity);
 		}
 
+		if (entity->getComponent("BOXPHYSICS") != nullptr)
+		{
+			m_boxPhysics.addEntity(entity);
+		}
 		if (entity->getComponent("COLLISION") != nullptr)
 		{
 			m_collisions.addEntity(entity);
@@ -81,10 +85,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt, SDL_Event& e)
 {	
 	m_controllers.update(dt, e);
-	if (!m_controllers.getPause())
-	{
-		
-	}
+	m_boxPhysics.update(dt);
 	m_physics.update(dt);
 	m_collisions.update(dt);
 	m_graphics.update(dt);

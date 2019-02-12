@@ -95,11 +95,4 @@ void ControlSystem::update(double dt, SDL_Event e)
 	}
 }
 
-bool ControlSystem::getPause()
-{
-	for (Entity* entity : m_entities)
-	{
-		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
-		return controller->m_paused;
-	}
-}
+

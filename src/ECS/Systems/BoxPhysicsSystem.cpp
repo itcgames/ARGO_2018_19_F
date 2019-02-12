@@ -13,14 +13,18 @@ void BoxPhysicsSystem::update(double dt)
 		BoxPhysicsComponent* boxPhysics = (BoxPhysicsComponent*)entity->getComponent("BOXPHYSICS");
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
-
-		if (entity->getId == "PauseBox" && controller->m_paused = true)
-		{	 
-			if (positionComponent->getPos().y <= 200)
+		
+		if (boxPhysics != nullptr && positionComponent != nullptr && controller != nullptr)
+		{
+			if (controller->getPause())
 			{
-				Vector v = { boxPhysics->getVelocity().x, boxPhysics->getVelocity().y + 1, 0 };
+				if (positionComponent->getPos().y <= 200)
+				{
+					Vector v = { boxPhysics->getVelocity().x, boxPhysics->getVelocity().y + 1, 0 };
 
-				boxPhysics->setVelocity(v);
+					boxPhysics->setVelocity(v);
+					positionComponent->setPos(boxPhysics->getVelocity());
+				}
 			}
 		}
 	}

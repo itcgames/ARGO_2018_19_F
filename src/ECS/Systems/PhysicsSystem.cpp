@@ -48,12 +48,6 @@ void PhysicsSystem::update(double dt)
 			acceleration = Vector(0, 0, 0);
 			physicsComponent->setAcceleration(acceleration);
 		}
-		if (entity->getId() == "PauseBox")
-		{	
-			Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 1 };
-			positionComponent->setPos(v);
-			std::cout << positionComponent->getPos().x << ", " << positionComponent->getPos().y << std::endl;
-		}
 	}
 }
 
