@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <map>
 //	Project.
 #include "../../include/Packet.h"
 
@@ -30,7 +31,7 @@ private:
 	int playerCount;
 	sockaddr_in m_client;
 	int m_clientLength;
-	const PCSTR SERVER_IP = "127.0.0.1";
+	const std::map<std::string, const PCSTR> SERVER_IPS = { { "local", "127.0.0.1" },{ "john", "149.153.106.153" },{ "dj", "149.153.106.154" },{ "connor", "149.153.106.159" } };
 	const int PORT = 54000;
 };
 #endif // !SERVER_H

@@ -16,7 +16,7 @@ public:
 	bool startWinSock();
 	bool createSocket();
 	bool connectToServer();
-	bool sendMsg(Packet msg);
+	bool sendMsg(Packet* msg);
 	Packet* receiveMsg();
 	void closeConnection();
 private:

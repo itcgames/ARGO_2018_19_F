@@ -58,7 +58,7 @@ bool Server::createAndBindSocket()
 		m_serverHint.sin_addr.S_un.S_addr = ADDR_ANY;
 		m_serverHint.sin_family = AF_INET;
 		m_serverHint.sin_port = htons(PORT);
-		inet_pton(AF_INET, SERVER_IP, &m_serverHint.sin_addr);
+		inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
 		if (bind(m_listening, (sockaddr*)&m_serverHint, sizeof(m_serverHint)) == SOCKET_ERROR)
 		{
 			std::cout << "<SERVER> Can't bind socket! " << WSAGetLastError() << std::endl;

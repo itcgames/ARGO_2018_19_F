@@ -31,10 +31,10 @@ void NetworkSystem::update(double dt)
 		}
 		else if (controller != nullptr)
 		{
-			Packet sPacket;
-			sPacket.playerNum = network->getPlayerNum();
-			sPacket.message = "";
-			sPacket.position = position->getPos();
+			Packet* sPacket = new Packet();
+			sPacket->playerNum = network->getPlayerNum();
+			sPacket->message = "";
+			sPacket->position = Vector(position->getPos().x, position->getPos().y);
 			m_client->sendMsg(sPacket);
 		}
 	}
