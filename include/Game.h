@@ -15,6 +15,7 @@
 #include "Screens/Levels/Winter.h"
 #include "Screens/Settings.h"
 #include "Screens/Credits.h"
+#include "Screens/Lobby.h"
 
 class Game
 {

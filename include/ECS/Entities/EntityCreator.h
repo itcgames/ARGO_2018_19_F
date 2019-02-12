@@ -5,7 +5,7 @@
 #include "ECS/Entities/Entity.h"
 //	Systems
 #include "ECS/Systems/CollisionSystem.h"
-#include "ECS/Systems/ControlSystem.h"
+#include "ECS/Systems/CharacterControlSystem.h"
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
 #include "ECS/Systems/BoxPhysicsSystem.h"

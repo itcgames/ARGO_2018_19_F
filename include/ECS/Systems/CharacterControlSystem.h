@@ -1,5 +1,5 @@
-#ifndef CONTROL_SYSTEM_H
-#define CONTROL_SYSTEM_H
+#ifndef CHARACTER_CONTROL_SYSTEM_H
+#define CHARACTER_CONTROL_SYSTEM_H
 //  Standard.
 #include <map>
 //  Project.
@@ -9,15 +9,14 @@
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/GraphicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
-#include "ECS\Components\CollisionComponent.h"
+#include "ECS/Components/CollisionComponent.h"
 
-class ControlSystem : public System
+class CharacterControlSystem : public System
 {
 public:
-	void update(double dt, SDL_Event e);
-	
+	void update(double dt, SDL_Event e);	
 	virtual void update(double dt) override {};
-private:
-    const float MAX_STICK_VALUE = SDL_MAX_SINT16;
+
+
 };
-#endif // !CONTROL_SYSTEM_H
+#endif // !CHARACTER_CONTROL_SYSTEM_H

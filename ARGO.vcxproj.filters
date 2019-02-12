@@ -12,7 +12,7 @@
     <ClCompile Include="src\ECS\Components\PhysicsComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PositionComponent.cpp" />
     <ClCompile Include="src\ECS\Entities\Entity.cpp" />
-    <ClCompile Include="src\ECS\Systems\ControlSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\CharacterControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -30,6 +30,8 @@
     <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
     <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
+    <ClCompile Include="src\Client.cpp" />
+    <ClCompile Include="src\Screens\Lobby.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -39,7 +41,7 @@
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
-    <ClInclude Include="include\ECS\Systems\ControlSystem.h" />
+    <ClInclude Include="include\ECS\Systems\CharacterControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
@@ -66,5 +68,8 @@
     <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
     <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
     <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
+    <ClInclude Include="include\Client.h" />
+    <ClInclude Include="include\Screens\Lobby.h" />
+    <ClInclude Include="include\Packet.h" />
   </ItemGroup>
 </Project>
