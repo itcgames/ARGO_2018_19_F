@@ -28,6 +28,8 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
+    <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -62,5 +64,7 @@
     <ClInclude Include="submodules\Vector\Vector.h" />
     <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
     <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
+    <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
+    <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
   </ItemGroup>
 </Project>

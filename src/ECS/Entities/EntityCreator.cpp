@@ -47,15 +47,24 @@ Entity * EntityCreator::createObstacle(Vector startPosition, SDL_Texture * textu
 	return obstacle;
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <returns></returns>
 Entity * EntityCreator::createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
 {
-	Entity* obstacle = new Entity();
-	obstacle->setId("Platform");
-	obstacle->addComponent(new PositionComponent(startPosition));
-	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	obstacle->addComponent(new CollisionComponent(collider, "Platform"));
+	Entity* platform = new Entity();
+	platform->setId("Platform");
+	platform->addComponent(new PositionComponent(startPosition));
+	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	platform->addComponent(new CollisionComponent(collider, "Platform"));
 
-	return obstacle;
+	return platform;
 }
 
 
@@ -77,6 +86,25 @@ Entity * EntityCreator::createBackground(SDL_Texture * texture, SDL_Rect srcRect
 	return background;
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <returns></returns>
+Entity* EntityCreator::createSelectionBox(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect)
+{
+	Entity* pauseBox = new Entity();
+	pauseBox->setId("PauseBox");
+	pauseBox->addComponent(new PositionComponent(startPosition));
+	pauseBox->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	pauseBox->addComponent(new PhysicsComponent());
+	pauseBox->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 0, 0), "pause"));
+
+	return pauseBox;
+}
 
 
 /// <summary>

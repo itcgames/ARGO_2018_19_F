@@ -15,6 +15,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
 	SDL_Texture* deathTexture = SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png", m_renderer);
 	SDL_Texture* spikeTexture = SDL2Help::LoadTexture(m_resourcesPath + "spikes.png", m_renderer);
+	SDL_Texture* pauseTexture = SDL2Help::LoadTexture(m_resourcesPath + "pause.png", m_renderer);
 
 	//	Create background entity.
 	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
@@ -33,6 +34,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	//	Create start entity.
 	m_entities.push_back(EntityCreator::createStart(m_startPos, flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100)));
+
+	//create PauseBox Entity
+	m_entities.push_back(EntityCreator::createSelectionBox(Vector(500, -1000), pauseTexture, SDL2Help::InitRect(0, 0, 1181, 1475), SDL2Help::InitRect(0, 0, 600, 800)));
 
 	//	Add all entities to relevant systems.
 	for (Entity* entity : m_entities)
@@ -76,11 +80,12 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// <param name="dt"></param>
 void Autumn::update(double dt, SDL_Event& e)
 {	
+	m_controllers.update(dt, e);
 	if (!m_controllers.getPause())
 	{
-		m_controllers.update(dt, e);
-		m_physics.update(dt);
+		
 	}
+	m_physics.update(dt);
 	m_collisions.update(dt);
 	m_graphics.update(dt);
 }
