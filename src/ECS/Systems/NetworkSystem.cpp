@@ -25,7 +25,7 @@ void NetworkSystem::update(double dt)
 		NetworkComponent* network = (NetworkComponent*)entity->getComponent("NETWORK");
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
-		if (rPacket->playerNum == network->getPlayerNum())
+		if (rPacket->playerNum == network->getPlayerNum() && controller == nullptr)
 		{
 			position->setPos(rPacket->position);
 		}

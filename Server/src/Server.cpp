@@ -93,15 +93,17 @@ void Server::update()
 			SOCKET client = accept(m_listening, nullptr, nullptr);
 			FD_SET(client, &m_master);
 			playerCount++;
-			Packet packet;
-			packet.playerNum = playerCount;
-			send(client, (char*)&packet, sizeof(packet) + 1, 0);
+			Packet* packet = new Packet();
+			packet->playerNum = playerCount;
+			//packet.x = 0;
+			//packet.y = 0;
+			send(client, (char*)packet, sizeof(struct Packet) + 1, 0);
 			std::cout << "playerNum:" << std::to_string(playerCount) << std::endl;
 		}
 		else
 		{
 			Packet* packet = new Packet();			
-			int bytesIn = recv(sock, (char*)packet, sizeof(packet), 0);
+			int bytesIn = recv(sock, (char*)packet, sizeof(struct Packet), 0);
 			if (bytesIn <= 0)
 			{
 				closesocket(sock);
@@ -114,7 +116,7 @@ void Server::update()
 					SOCKET outSock = m_master.fd_array[j];
 					if (outSock != m_listening && outSock != sock)
 					{						
-						send(outSock, (char*)packet, sizeof(packet) + 1, 0);
+						send(outSock, (char*)packet, sizeof(struct Packet) + 1, 0);
 					}
 				}
 			}
@@ -131,12 +133,12 @@ void Server::closeSocket()
 {
 	FD_CLR(m_listening, &m_master);
 	closesocket(m_listening);
-	Packet packet;
-	packet.message = "<Server> Shutting down \r\n";
+	Packet* packet = new Packet();
+	packet->message = "<Server> Shutting down \r\n";
 	while (m_master.fd_count > 0)
 	{
 		SOCKET sock = m_master.fd_array[0];
-		send(sock, (char*)&packet, sizeof(packet) + 1, 0);
+		send(sock, (char*)packet, sizeof(struct Packet) + 1, 0);
 		FD_CLR(sock, &m_master);
 		closesocket(sock);
 	}

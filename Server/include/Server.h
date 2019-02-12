@@ -8,6 +8,7 @@
 #include <map>
 //	Project.
 #include "../../include/Packet.h"
+#include "../../submodules/Vector/Vector.h"
 
 class Server
 {

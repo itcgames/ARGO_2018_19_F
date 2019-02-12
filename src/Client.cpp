@@ -98,7 +98,7 @@ bool Client::sendMsg(Packet* msg)
 	bool result = false;
 	if (sizeof(msg) > 0)
 	{
-		int sendResult = send(m_socket, (char*)msg, sizeof(msg) + 1, 0);
+		int sendResult = send(m_socket, (char*)msg, sizeof(struct Packet) + 1, 0);
 		if (sendResult == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)
 		{
 			std::cout << "<CLIENT> Message failed to send, Err #" << WSAGetLastError() << std::endl;
@@ -120,7 +120,12 @@ bool Client::sendMsg(Packet* msg)
 Packet* Client::receiveMsg()
 {
 	Packet* packet = new Packet();
-	recv(m_socket, (char*)packet, sizeof(packet), 0);
+	char buf[sizeof(struct Packet)];
+	int bytesReceived = recv(m_socket, buf, sizeof(struct Packet), 0);
+	if (bytesReceived > 0)
+	{
+		packet = (Packet*)buf;
+	}
 	return packet;
 }
 
