@@ -35,9 +35,6 @@ void BoxPhysicsSystem::update(double dt)
 			{				
 				if (positionComponent->getPos().y <= 25)
 				{
-					//Vector v = { 500, positionComponent->getPos().y + boxPhysics->getVelocity().y};
-
-					//boxPhysics->setVelocity(v);
 					Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 20 };
 					positionComponent->setPos(v);
 				}

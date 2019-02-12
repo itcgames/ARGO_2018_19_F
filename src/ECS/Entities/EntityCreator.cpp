@@ -19,7 +19,7 @@ Entity * EntityCreator::createPlayer(Vector startPosition, SDL_Texture * texture
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	player->addComponent(new AnimationComponent(animStart, animEnd));
 	player->addComponent(new PhysicsComponent());
-	player->addComponent(new CollisionComponent(collider, "Player"));
+	player->addComponent(new CollisionComponent(collider, "player"));
 	player->addComponent(new ControllerComponent());
 
 	return player;
@@ -59,10 +59,10 @@ Entity * EntityCreator::createObstacle(Vector startPosition, SDL_Texture * textu
 Entity * EntityCreator::createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
 {
 	Entity* platform = new Entity();
-	platform->setId("Platform");
+	platform->setId("platform");
 	platform->addComponent(new PositionComponent(startPosition));
 	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	platform->addComponent(new CollisionComponent(collider, "Platform"));
+	platform->addComponent(new CollisionComponent(collider, "platform"));
 
 	return platform;
 }
@@ -97,19 +97,45 @@ Entity * EntityCreator::createBackground(SDL_Texture * texture, SDL_Rect srcRect
 Entity* EntityCreator::createSelectionBox(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect)
 {
 	Entity* pauseBox = new Entity();
-	pauseBox->setId("PauseBox");
+	pauseBox->setId("pauseBox");
 	pauseBox->addComponent(new PositionComponent(startPosition));
 	pauseBox->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	pauseBox->addComponent(new BoxPhysicsComponent());
-	pauseBox->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 0, 0), "pause"));
+	pauseBox->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 0, 0), "pauseBox"));
 	pauseBox->addComponent(new ControllerComponent(0));
 
 	return pauseBox;
 }
 
+/// <summary>
+/// The cursor for the selection rounds
+/// The cursor is used to pick up an obstacle
+/// The cursor is used to place an obstacle
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <returns></returns>
+Entity* EntityCreator::createCursor(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity* cursor = new Entity();
+	cursor->setId("cursor");
+	cursor->addComponent(new PositionComponent(startPosition));
+	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	cursor->addComponent(new CollisionComponent(collider, "cursor"));
+	//cursor->addComponent(new ControllerComponent());
+	cursor->addComponent(new PhysicsComponent());
+
+	return cursor;
+}
 
 /// <summary>
-/// 
+/// function to create a starting point
+/// Re usable for each level
+/// Player entity is always initialised to the 
+/// create start position.
 /// </summary>
 /// <param name="startPosition"></param>
 /// <param name="texture"></param>

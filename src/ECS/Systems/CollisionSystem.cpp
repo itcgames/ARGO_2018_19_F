@@ -26,7 +26,7 @@ void CollisionSystem::update(double dt)
 				{
 					if (!e1Collision->IsColliding())
 					{
-						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Platform")
+						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "platform")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							Vector velocity = physicsComponent->getVelocity();
@@ -76,7 +76,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Obstacle")
+						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "Obstacle")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							Vector velocity = physicsComponent->getVelocity();
