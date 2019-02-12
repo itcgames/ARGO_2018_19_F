@@ -10,7 +10,7 @@ class PlayerState
 {
 public:
 	~PlayerState() {};
-	virtual PlayerState* handleInput(Entity& entity, ControllerState& state) = 0;
-	virtual void update(Entity &entity) = 0;
+	virtual PlayerState* handleInput(Entity* entity, ControllerState& state) = 0;
+	virtual void update(Entity *entity) = 0;
 };
 #endif // !PLAYER_STATE_H

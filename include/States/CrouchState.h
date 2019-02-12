@@ -7,7 +7,7 @@ class CrouchState : public PlayerState
 {
 public:
 	CrouchState() {};
-	virtual PlayerState* handleInput(Entity& entity, ControllerState& state);
-	virtual void update(Entity& entity);
+	virtual PlayerState* handleInput(Entity* entity, ControllerState& state);
+	virtual void update(Entity* entity);
 };
 #endif // !CROUCH_STATE_H

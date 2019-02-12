@@ -7,17 +7,17 @@
 /// 
 /// </summary>
 /// <param name="entity"></param>
-/// <param name="buttons"></param>
-/// <param name="MAX_STICK_VALUE"></param>
+/// <param name="state"></param>
 /// <returns></returns>
-PlayerState* IdleState::handleInput(Entity & entity, ControllerState& state)
+PlayerState* IdleState::handleInput(Entity* entity, ControllerState& state)
 {
-	AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
-	ControllerComponent* controllerComponent = (ControllerComponent*)entity.getComponent("CONTROLLER");
+	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
 	if (animationComponent != nullptr)
 	{
 		Vector leftStick = controllerComponent->getCurrentState().leftStick;
+
 		// moving state
 		if (leftStick.x > controllerComponent->DEAD_ZONE || leftStick.x < -controllerComponent->DEAD_ZONE)
 		{
@@ -54,7 +54,7 @@ PlayerState* IdleState::handleInput(Entity & entity, ControllerState& state)
 /// 
 /// </summary>
 /// <param name="entity"></param>
-void IdleState::update(Entity & entity)
+void IdleState::update(Entity* entity)
 {
 	std::cout << "idle" << std::endl;
 }

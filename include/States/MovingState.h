@@ -7,7 +7,7 @@ static class MovingState : public PlayerState
 {
 public:
 	MovingState() {}
-	virtual PlayerState* handleInput(Entity& entity, ControllerState& state);
-	virtual void update(Entity& entity);
+	virtual PlayerState* handleInput(Entity* entity, ControllerState& state);
+	virtual void update(Entity* entity);
 };
 #endif // !MOVING_STATE_H

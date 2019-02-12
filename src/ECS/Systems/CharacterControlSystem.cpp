@@ -24,10 +24,11 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 			{
 				//  Handle inputs.
 				Vector acceleration;
+				Vector velocity = physicsComponent->getVelocity();
 
 				system("CLS");
-				PlayerState* state = m_state->handleInput(*entity, currentState);
-				m_state->update(*entity);
+				PlayerState* state = m_state->handleInput(entity, currentState);
+				m_state->update(entity);
 				if (state != nullptr)
 				{
 					delete(m_state);
@@ -38,6 +39,15 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 				{
 					physicsComponent->setJumping(true);
 					acceleration.y -= 1.5;
+				}
+
+				if (currentState.leftStick.x < controller->DEAD_ZONE && currentState.leftStick.x > -controller->DEAD_ZONE)
+				{
+					if (!physicsComponent->getJumping())
+					{
+						acceleration.x = 0;
+						velocity.x = 0;
+					}
 				}
 
 				if (currentState.leftStick.x > controller->DEAD_ZONE && physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
@@ -65,15 +75,14 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 				}
 
 				physicsComponent->setAcceleration(acceleration);
+				physicsComponent->setVelocity(velocity);
 			}
-
 
 			if (!previousState.start && currentState.start)
 			{
 				std::cout << "pause " + controller->getPause() << std::endl;
 				controller->setPause(!controller->getPause());
 			}
-				
 		}
 	}
 }

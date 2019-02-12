@@ -8,10 +8,10 @@
 /// <param name="buttons"></param>
 /// <param name="MAX_STICK_VALUE"></param>
 /// <returns></returns>
-PlayerState * CrouchState::handleInput(Entity & entity, ControllerState& state)
+PlayerState * CrouchState::handleInput(Entity* entity, ControllerState& state)
 {
-	AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
-	ControllerComponent* controllerComponent = (ControllerComponent*)entity.getComponent("CONTROLLER");
+	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
 	if (animationComponent != nullptr)
 	{
@@ -32,7 +32,7 @@ PlayerState * CrouchState::handleInput(Entity & entity, ControllerState& state)
 /// 
 /// </summary>
 /// <param name="entity"></param>
-void CrouchState::update(Entity & entity)
+void CrouchState::update(Entity* entity)
 {
 	std::cout << "crouching" << std::endl;
 }
