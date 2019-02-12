@@ -40,7 +40,6 @@ void ControlSystem::update(double dt, SDL_Event e)
         Vector acceleration = physicsComponent->getAcceleration();
 		Vector velocity = physicsComponent->getVelocity();
 
-		system("CLS");
 		PlayerState* state = m_state->handleInput(*entity, m_buttons, MAX_STICK_VALUE);
 		m_state->update(*entity);
 		if (state != nullptr)
@@ -65,11 +64,6 @@ void ControlSystem::update(double dt, SDL_Event e)
             acceleration.x -= 0.075;
 			isMoving = true;
         }
-
-		if (acceleration.x < 0.055)
-		{
-			velocity.x = 0;
-		}
 
         physicsComponent->setAcceleration(acceleration);
 		physicsComponent->setVelocity(velocity);

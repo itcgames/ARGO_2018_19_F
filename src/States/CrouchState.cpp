@@ -34,4 +34,5 @@ PlayerState * CrouchState::handleInput(Entity & entity, std::map<std::string, bo
 /// <param name="entity"></param>
 void CrouchState::update(Entity & entity)
 {
+	std::cout << "crouching" << std::endl;
 }
