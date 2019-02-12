@@ -58,12 +58,13 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 				physicsComponent->setAcceleration(acceleration);
 			}
 
-			if (currentState.start)
+
+			if (!previousState.start && currentState.start)
 			{
 				std::cout << "pause " + controller->getPause() << std::endl;
-				controller->setPause(true);
+				controller->setPause(!controller->getPause());
+				
 			}
-
 				
 		}
 	}
