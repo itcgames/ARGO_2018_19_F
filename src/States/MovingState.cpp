@@ -21,6 +21,12 @@ PlayerState * MovingState::handleInput(Entity* entity, ControllerState& state)
 	{
 		if (state.A)
 		{
+
+			Vector firstFrame = Vector(5, 1, 0);
+			Vector lastFrame = Vector(5, 1, 0);
+			animationComponent->setFirstFrame(firstFrame);
+			animationComponent->setCurrentFrame(firstFrame);
+			animationComponent->setLastFrame(lastFrame);
 			return new JumpState();
 		}
 
@@ -31,28 +37,11 @@ PlayerState * MovingState::handleInput(Entity* entity, ControllerState& state)
 
 		if (leftStick.x < controllerComponent->DEAD_ZONE && leftStick.x > -controllerComponent->DEAD_ZONE)
 		{
-			Vector frame = Vector(0, 0, 0);
+			Vector firstFrame = Vector(0, 0, 0);
 			Vector lastFrame = Vector(1, 0, 0);
-			animationComponent->setFirstFrame(frame);
+			animationComponent->setFirstFrame(firstFrame);
 			animationComponent->setLastFrame(lastFrame);
 			return new IdleState();
-		}
-		else
-		{
-			if (leftStick.x < controllerComponent->DEAD_ZONE)
-			{
-				Vector firstFrame = Vector(3, 0, 0);
-				Vector lastFrame = Vector(5,0,0);
-				animationComponent->setFirstFrame(firstFrame);
-				animationComponent->setLastFrame(lastFrame);
-			}
-			else
-			{
-				Vector firstFrame = Vector(3, 0, 0);
-				Vector lastFrame = Vector(5, 0, 0);
-				animationComponent->setFirstFrame(firstFrame);
-				animationComponent->setLastFrame(lastFrame);
-			}
 		}
 	}
 

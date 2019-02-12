@@ -18,32 +18,27 @@ PlayerState * JumpState::handleInput(Entity* entity, ControllerState& state)
 
 	if (physicsComponent != nullptr)
 	{
-		// change state
-		if (!physicsComponent->getJumping())
-		{
-			Vector frame = Vector(0, 0, 0);
-			animationComponent->setFirstFrame(frame);
-			// change direction animation
-			return new IdleState();
-		}
-
 		if (leftStick.x > controllerComponent->DEAD_ZONE || leftStick.x < -controllerComponent->DEAD_ZONE)
 		{
 			if (leftStick.x > controllerComponent->DEAD_ZONE)
 			{
-				Vector frame = Vector(1,0);
-				animationComponent->setFirstFrame(frame);
+				animationComponent->m_flip = SDL_FLIP_NONE;
 			}
 			else
 			{
-				Vector frame = Vector(2, 0, 0);
-				animationComponent->setFirstFrame(frame);
+				animationComponent->m_flip = SDL_FLIP_HORIZONTAL;
 			}
 		}
-		else
+
+		// change state
+		if (!physicsComponent->getJumping())
 		{
-			Vector frame = Vector(3, 0, 0);
-			animationComponent->setFirstFrame(frame);
+			Vector firstFrame = Vector(0, 0, 0);
+			Vector lastFrame = Vector(1, 0, 0);
+			animationComponent->setFirstFrame(firstFrame);
+			animationComponent->setCurrentFrame(firstFrame);
+			animationComponent->setLastFrame(lastFrame);
+			return new IdleState();
 		}
 	}
 

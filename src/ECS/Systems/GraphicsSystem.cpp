@@ -67,17 +67,25 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 			SDL_Rect dest = graphicsComponent->getDestRect();
 			SDL_Texture* texture = graphicsComponent->getTexture();
 
+
+
+			dest.x = positionComponent->getPos().x;
+			dest.y = positionComponent->getPos().y;
+
 			if (animationComponent != nullptr)
 			{
 				Vector currentFrame = animationComponent->getCurrentFrame();
 				src.x = currentFrame.x * src.w;
 				src.y = currentFrame.y * src.h;
+
+				animationComponent->m_centre = { src.x + src.w / 2, src.y + src.h / 2 };
+
+				SDL_RenderCopyEx(renderer, texture, &src, &dest, animationComponent->m_angle, &animationComponent->m_centre, animationComponent->m_flip);
 			}
-
-			dest.x = positionComponent->getPos().x;
-			dest.y = positionComponent->getPos().y;
-
-			SDL_RenderCopy(renderer, texture, &src, &dest);
+			else
+			{
+				SDL_RenderCopy(renderer, texture, &src, &dest);
+			}
 		}
 	}
 }

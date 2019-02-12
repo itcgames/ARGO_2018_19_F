@@ -36,6 +36,7 @@
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
     <ClCompile Include="src\Client.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
+    <ClCompile Include="src\States\DeathState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -80,5 +81,6 @@
     <ClInclude Include="include\Client.h" />
     <ClInclude Include="include\Screens\Lobby.h" />
     <ClInclude Include="include\Packet.h" />
+    <ClInclude Include="include\States\DeathState.h" />
   </ItemGroup>
 </Project>

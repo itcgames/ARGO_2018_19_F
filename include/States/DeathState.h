@@ -1,13 +1,13 @@
-#ifndef IDLE_STATE_H
-#define IDLE_STATE_H
+#ifndef DEATH_STATE_H
+#define DEATH_STATE_H
 
 #include "States/PlayerState.h"
 
-class IdleState : public PlayerState
+class DeathState : public PlayerState
 {
 public:
-	IdleState() { };
+	DeathState() {};
 	virtual PlayerState* handleInput(Entity* entity, ControllerState& state);
 	virtual void update(Entity* entity);
 };
-#endif // !IDLE_STATE_H
+#endif // !DEATH_STATE_H
