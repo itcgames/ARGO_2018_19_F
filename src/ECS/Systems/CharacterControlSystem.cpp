@@ -72,7 +72,6 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 			{
 				std::cout << "pause " + controller->getPause() << std::endl;
 				controller->setPause(!controller->getPause());
-				
 			}
 				
 		}

@@ -4,6 +4,7 @@
 #include "ECS/Entities/Entity.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/AnimationComponent.h"
+#include "ECS/Components/PhysicsComponent.h"
 
 class PlayerState
 {

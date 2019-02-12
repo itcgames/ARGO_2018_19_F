@@ -10,14 +10,12 @@
 /// <returns></returns>
 PlayerState * JumpState::handleInput(Entity & entity, ControllerState& state)
 {
-	AnimationComponent* animationComponent = (AnimationComponent*)entity.getComponent("ANIMATION");
-	ControllerComponent* controllerComponent = (ControllerComponent*)entity.getComponent("CONTROLLER");
+	PhysicsComponent* physicsComponent = (PhysicsComponent*)entity.getComponent("PHYSICS");
 
-	if (animationComponent != nullptr)
+	if (physicsComponent != nullptr)
 	{
-		Vector leftStick = controllerComponent->getCurrentState().leftStick;
 		// change state
-		if (leftStick.x > controllerComponent->DEAD_ZONE)
+		if (!physicsComponent->getJumping())
 		{
 			// change direction animation
 			return new IdleState();
