@@ -95,8 +95,6 @@ void Server::update()
 			playerCount++;
 			Packet* packet = new Packet();
 			packet->playerNum = playerCount;
-			//packet.x = 0;
-			//packet.y = 0;
 			send(client, (char*)packet, sizeof(struct Packet) + 1, 0);
 			std::cout << "playerNum:" << std::to_string(playerCount) << std::endl;
 		}

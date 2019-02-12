@@ -120,12 +120,7 @@ bool Client::sendMsg(Packet* msg)
 Packet* Client::receiveMsg()
 {
 	Packet* packet = new Packet();
-	char buf[sizeof(struct Packet)];
-	int bytesReceived = recv(m_socket, buf, sizeof(struct Packet), 0);
-	if (bytesReceived > 0)
-	{
-		packet = (Packet*)buf;
-	}
+	int bytesReceived = recv(m_socket, (char*)packet, sizeof(struct Packet), 0);
 	return packet;
 }
 
