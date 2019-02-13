@@ -25,7 +25,7 @@ void NetworkSystem::update(double dt)
 		NetworkComponent* network = (NetworkComponent*)entity->getComponent("NETWORK");
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
-		if (rPacket->playerNum == network->getPlayerNum() && controller == nullptr)
+		if (rPacket->playerNum == network->getPlayerNum() && rPacket->message == "Update" && controller == nullptr)
 		{
 			position->setPos(rPacket->position);
 		}
@@ -33,7 +33,7 @@ void NetworkSystem::update(double dt)
 		{
 			Packet* sPacket = new Packet();
 			sPacket->playerNum = network->getPlayerNum();
-			sPacket->message = "";
+			sPacket->message = "Update";
 			sPacket->position = Vector(position->getPos().x, position->getPos().y);
 			m_client->sendMsg(sPacket);
 		}

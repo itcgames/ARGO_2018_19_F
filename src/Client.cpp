@@ -46,7 +46,7 @@ bool Client::startWinSock()
 bool Client::createSocket()
 {
 	bool result = false;
-	m_socket = socket(AF_INET, SOCK_STREAM, 0);
+	m_socket = socket(AF_INET, SOCK_DGRAM, 0);
 	if (m_socket == INVALID_SOCKET)
 	{
 		std::cout << "<CLIENT> Can't create socket, Err #" << WSAGetLastError() << std::endl;

@@ -2,19 +2,19 @@
 
 int main()
 {
-	Server server;
-	if (server.startWinSock())
+	Server* server = new Server();
+	if (server->startWinSock())
 	{
-		if (server.createAndBindSocket())
+		if (server->createAndBindSocket())
 		{
 			bool running = true;
 			while (running)
 			{
-				server.update();
+				server->update();
 			}
 		}
 	}
 
-	server.closeSocket();
+	server->closeSocket();
 	return 0;
 }

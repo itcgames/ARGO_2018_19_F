@@ -1,9 +1,9 @@
 #ifndef SERVER_H
 #define SERVER_H
 //	Standard.
-#include <WS2tcpip.h>
+#include <Windows.h>
+#include <WinSock2.h>
 #include <string>
-#include <sstream>
 #include <iostream>
 #include <map>
 //	Project.

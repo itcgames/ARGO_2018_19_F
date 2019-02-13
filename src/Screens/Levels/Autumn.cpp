@@ -6,7 +6,7 @@
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
 	m_startPos(100,800),
-	m_network(m_screenManager->getClient())
+	m_entityManager(m_screenManager->getClient())
 {
 	m_screenID = "Play";
 
@@ -16,50 +16,21 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
 
 	//	Create background entity.
-	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
+	m_entityManager.createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762));
 	
 	//	Create player entities.
-	m_entities.push_back(EntityCreator::createPlayer(1, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), true));
-	m_entities.push_back(EntityCreator::createPlayer(2, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), false));
+	m_entityManager.createPlayer(1, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), true);
+	m_entityManager.createPlayer(2, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), false);
 
 	// Create obstacle entities.
-	m_entities.push_back(EntityCreator::createObstacle(Vector(600, 700, 0), blockTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 100, 200), SDL2Help::InitRect(0, 0, 100, 200)));
-	m_entities.push_back(EntityCreator::createObstacle(Vector(850, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55), SDL2Help::InitRect(0, 0, 55, 55)));
+	m_entityManager.createObstacle(Vector(600, 700, 0), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 200), SDL2Help::InitRect(0, 0, 100, 200));
+	m_entityManager.createObstacle(Vector(850, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 55, 55), SDL2Help::InitRect(0, 0, 55, 55));
 
 	//	Create goal entity.
-	m_entities.push_back(EntityCreator::createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 0, 0), SDL2Help::InitRect(0, 0, 50, 100)));
+	m_entityManager.createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 0, 0), SDL2Help::InitRect(0, 0, 50, 100));
 
 	//	Create start entity.
-	m_entities.push_back(EntityCreator::createStart(m_startPos, flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100)));
-
-	//	Add all entities to relevant systems.
-	for (Entity* entity : m_entities)
-	{
-		if (entity->getComponent("GRAPHICS") != nullptr)
-		{
-			m_graphics.addEntity(entity);
-		}
-
-		if (entity->getComponent("PHYSICS") != nullptr)
-		{
-			m_physics.addEntity(entity);
-		}
-
-		if (entity->getComponent("COLLISION") != nullptr)
-		{
-			m_collisions.addEntity(entity);
-		}
-
-		if (entity->getComponent("CONTROLLER") != nullptr)
-		{
-			m_characterControl.addEntity(entity);
-		}
-
-		if (entity->getComponent("NETWORK") != nullptr)
-		{
-			m_network.addEntity(entity);
-		}
-	}		
+	m_entityManager.createStart(m_startPos, flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100));	
 }
 
 
@@ -70,11 +41,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// <param name="dt"></param>
 void Autumn::update(double dt, SDL_Event& e)
 {
-	m_characterControl.update(dt, e);
-	m_physics.update(dt);
-	m_collisions.update(dt);
-	m_graphics.update(dt);
-	m_network.update(dt);
+	m_entityManager.getCharacterControlSystem()->update(dt, e);
+	m_entityManager.getPhysicsSystem()->update(dt);
+	m_entityManager.getCollisionSystem()->update(dt);
+	m_entityManager.getGraphicsSystem()->update(dt);
+	m_entityManager.getNetworkSystem()->update(dt);
 }
 
 
@@ -85,5 +56,5 @@ void Autumn::update(double dt, SDL_Event& e)
 /// <param name="renderer"></param>
 void Autumn::render()
 {
-	m_graphics.render(m_renderer);
+	m_entityManager.getGraphicsSystem()->render(m_renderer);
 }
