@@ -17,5 +17,7 @@ public:
 private:
 	Client * m_client;
 	double m_clock;
+
+	const int SEND_DELAY = 35;
 };
 #endif // !NETWORK_SYSTEM_H

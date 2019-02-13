@@ -40,11 +40,12 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	player->addComponent(new AnimationComponent(animStart, animEnd));	
 	player->addComponent(new CollisionComponent(collider, "Player"));
+	player->addComponent(new PhysicsComponent());
 
 	if (controllable)
 	{
 		player->addComponent(new ControllerComponent());
-		player->addComponent(new PhysicsComponent());
+		//player->addComponent(new PhysicsComponent());
 	}
 
 	addToSystems(player);

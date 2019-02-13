@@ -25,13 +25,11 @@ void NetworkSystem::update(double dt)
 		std::cout << "player " << rPacket->playerNum << " connected." << std::endl;
 	}
 	else
-	{
-		
-
+	{		
 		for (Entity* entity : m_entities)
 		{
 			PositionComponent* position = (PositionComponent*)entity->getComponent("POSITION");
-			PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("");
+			PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("PHYSICS");
 			NetworkComponent* network = (NetworkComponent*)entity->getComponent("NETWORK");
 			ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
@@ -41,7 +39,7 @@ void NetworkSystem::update(double dt)
 				position->setPos(rPacket->position);
 				physics->setVelocity(rPacket->velocity);
 			}
-			else if (controller != nullptr && m_clock > 100)
+			else if (controller != nullptr && m_clock > SEND_DELAY)
 			{
 				Packet* sPacket = new Packet();
 
