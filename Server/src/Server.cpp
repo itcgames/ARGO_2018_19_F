@@ -31,7 +31,7 @@ bool Server::startWinSock()
 	int wsOk = WSAStartup(m_version, &m_data);
 	if (wsOk != 0)
 	{
-		std::cout << "<SERVER> Can't start Winsock!" << wsOk << std::endl;
+		std::cout << "<SERVER> Can't start Winsock! " << wsOk << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -50,29 +50,30 @@ bool Server::startWinSock()
 bool Server::createAndBindSocket()
 {
 	bool result = false;
-	m_listening = socket(AF_INET, SOCK_DGRAM, 0);
+	m_listening = socket(AF_INET, SOCK_STREAM, 0);
 	if (m_listening == INVALID_SOCKET)
 	{
 		std::cout << "<SERVER> Can't create a socket!" << std::endl;
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		std::cout << "<SERVER> Created socket!" << std::endl;
-		m_serverHint.sin_addr.S_un.S_addr = INADDR_ANY;
+
 		m_serverHint.sin_family = AF_INET;
-		m_serverHint.sin_port = htons(PORT);
 		inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
-		if (bind(m_listening, (sockaddr*)&m_serverHint, sizeof(m_serverHint)) == SOCKET_ERROR)
+		m_serverHint.sin_port = htons(PORT);
+
+		if (bind(m_listening, (LPSOCKADDR)&m_serverHint, sizeof(m_serverHint)) == SOCKET_ERROR)
 		{
-			std::cout << "<SERVER> Can't bind socket!" << WSAGetLastError() << std::endl;
+			std::cout << "<SERVER> Can't bind socket! " << WSAGetLastError() << std::endl;
 			exit(EXIT_FAILURE);
 		}
 		else
 		{
 			std::cout << "<SERVER> Bound socket!" << std::endl;
-			listen(m_listening, SOMAXCONN);
-			FD_ZERO(&m_master);
-			FD_SET(m_listening, &m_master);
+
+			listen(m_listening, 3);
 			result = true;
 		}
 	}
@@ -84,49 +85,67 @@ bool Server::createAndBindSocket()
 /// <summary>
 /// 
 /// </summary>
-void Server::update()
+void Server::acceptConnections()
 {
-	fd_set masterCopy = m_master;
-
-	int socketCount = select(0, &masterCopy, nullptr, nullptr, nullptr);
-	for (int i = 0; i < socketCount; i++)
+	int addr_size = sizeof(struct sockaddr);
+	while (playerCount < MAX_CLIENTS)
 	{
-		SOCKET sock = masterCopy.fd_array[i];
+		m_client[playerCount] = accept(m_listening, &m_client_sock[playerCount], &addr_size);
 
-		if (sock == m_listening)
+		if (m_client[playerCount] == INVALID_SOCKET)
 		{
-			SOCKET client = accept(m_listening, nullptr, nullptr);
-			FD_SET(client, &m_master);
-			playerCount++;
-			Packet* packet = new Packet();
-			packet->message = "New";
-			packet->playerNum = playerCount;
-			send(client, (char*)packet, sizeof(struct Packet) + 1, 0);
-			std::cout << "playerNum:" << std::to_string(playerCount) << std::endl;
+			std::cout << "<SERVER> Client failed to connect!" << std::endl;
 		}
 		else
 		{
-			Packet* packet = new Packet();	
-			ZeroMemory(packet, sizeof(struct Packet));
+			//	Create a seperate thread.
+			std::thread t(&sendAndReceive, playerCount, &playerCount, m_client);
+			
+			//	Update the player count and send a packet to the client.			
+			Packet* packet = new Packet();
+			packet->message = "New";
+			packet->playerNum = playerCount;
+			send(m_client[playerCount], (char*)packet, sizeof(struct Packet) + 1, 0);
+			std::cout << "playerNum:" << std::to_string(playerCount + 1) << std::endl;
+			playerCount++;
+			//	Detach the thread.
+			t.detach();					
+		}
+	}
+}
 
-			int bytesIn = recv(sock, (char*)packet, sizeof(struct Packet), 0);
-			if (bytesIn <= 0)
+
+
+/// <summary>
+/// 
+/// </summary>
+void Server::sendAndReceive(int sock, int* playerCount, SOCKET* clients)
+{
+	SOCKET client = clients[sock];
+	while (client)
+	{
+		//	Create packet in memory.
+		Packet* packet = new Packet();
+		ZeroMemory(packet, sizeof(struct Packet));
+		//	Fill in the packet with the received bytes.
+		int bytesIn = recv(client, (char*)packet, sizeof(struct Packet), 0);
+
+		if (bytesIn <= 0)
+		{
+			shutdown(client, SD_SEND);
+			closesocket(client);
+		}
+		else
+		{
+			for (int j = 0; j < *playerCount; j++)
 			{
-				closesocket(sock);
-				FD_CLR(sock, &m_master);
-			}
-			else
-			{
-				for (u_int j = 0; j < m_master.fd_count; j++)
+				SOCKET outSock = clients[j];
+				if (outSock != client)
 				{
-					SOCKET outSock = m_master.fd_array[j];
-					if (outSock != m_listening && outSock != sock)
-					{						
-						send(outSock, (char*)packet, sizeof(struct Packet) + 1, 0);
-					}
+					send(outSock, (char*)packet, sizeof(struct Packet) + 1, 0);
 				}
 			}
-		}
+		}	
 	}
 }
 
@@ -137,16 +156,16 @@ void Server::update()
 /// </summary>
 void Server::closeSocket()
 {
-	FD_CLR(m_listening, &m_master);
 	closesocket(m_listening);
 	Packet* packet = new Packet();
 	packet->message = "<Server> Shutting down \r\n";
-	while (m_master.fd_count > 0)
+	for (int i = 0; i < playerCount; i++)
 	{
-		SOCKET sock = m_master.fd_array[0];
-		send(sock, (char*)packet, sizeof(struct Packet) + 1, 0);
-		FD_CLR(sock, &m_master);
-		closesocket(sock);
+		SOCKET client = m_client[i];
+		send(client, (char*)packet, sizeof(struct Packet) + 1, 0);
+
+		shutdown(client, SD_BOTH);
+		closesocket(client);
 	}
 	WSACleanup();
 }

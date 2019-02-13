@@ -46,7 +46,7 @@ bool Client::startWinSock()
 bool Client::createSocket()
 {
 	bool result = false;
-	m_socket = socket(AF_INET, SOCK_DGRAM, 0);
+	m_socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (m_socket == INVALID_SOCKET)
 	{
 		std::cout << "<CLIENT> Can't create socket, Err #" << WSAGetLastError() << std::endl;
@@ -69,10 +69,12 @@ bool Client::createSocket()
 bool Client::connectToServer()
 {
 	bool result = false;
+
 	m_serverHint.sin_family = AF_INET;
-	m_serverHint.sin_port = htons(PORT);	
 	inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
-	int connResult = connect(m_socket, (sockaddr*)&m_serverHint, sizeof(m_serverHint));
+	m_serverHint.sin_port = htons(PORT);	
+
+	int connResult = connect(m_socket, (LPSOCKADDR)&m_serverHint, sizeof(m_serverHint));
 	if (connResult == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)
 	{
 		std::cout << "<CLIENT> Can't connect to server, Err #" << WSAGetLastError() << std::endl;
@@ -80,7 +82,6 @@ bool Client::connectToServer()
 	else
 	{
 		std::cout << "<CLIENT> Connected to server" << std::endl;
-
 		result = true;
 	}
 

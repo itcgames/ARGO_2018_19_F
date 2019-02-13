@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;$(SDL2_SDK)\lib\x86\SDL2_net.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -94,7 +94,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;$(SDL2_SDK)\lib\x86\SDL2_net.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

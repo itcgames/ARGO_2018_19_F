@@ -15,5 +15,6 @@ public:
 
 private:
 	Client * m_client;
+	double m_clock;
 };
 #endif // !NETWORK_SYSTEM_H

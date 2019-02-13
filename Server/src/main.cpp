@@ -7,11 +7,7 @@ int main()
 	{
 		if (server->createAndBindSocket())
 		{
-			bool running = true;
-			while (running)
-			{
-				server->update();
-			}
+			server->acceptConnections();
 		}
 	}
 
