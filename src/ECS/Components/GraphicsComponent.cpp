@@ -6,13 +6,14 @@
 /// <param name="texture">texture pointer arguement for the component to render</param>
 /// <param name="srcRect">srcRect - location on the loaded resource to be rendered</param>
 /// <param name="destRect">destRect - the location and size of the entity in the game world</param>
-GraphicsComponent::GraphicsComponent(SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect)
+/// /// <param name="layer">layer - determines what textures are drawn on top</param>
+GraphicsComponent::GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, int layer) :
+	m_texture(texture),
+	m_srcRect(srcRect),
+	m_destRect(destRect),
+	m_layer(layer)
 {
 	m_id = "GRAPHICS";
-	m_texture = texture;
-
-	m_srcRect = srcRect;
-	m_destRect = destRect;
 }
 
 
@@ -32,7 +33,7 @@ SDL_Texture* GraphicsComponent::getTexture()
 /// get the texture source rectangle - used for graphics system
 /// </summary>
 /// <returns>SDL_Rect </returns>
-SDL_Rect GraphicsComponent::getSourceRect()
+SDL_Rect& GraphicsComponent::getSourceRect()
 {
 	return m_srcRect;
 }
@@ -43,7 +44,28 @@ SDL_Rect GraphicsComponent::getSourceRect()
 /// get's the destination rectangle - utilised for updating sprite location
 /// </summary>
 /// <returns>SDL_Rect</returns>
-SDL_Rect GraphicsComponent::getDestRect()
+SDL_Rect& GraphicsComponent::getDestRect()
 {
 	return m_destRect;
 }
+
+void GraphicsComponent::setDestRect(int height)
+{
+	m_destRect = { m_destRect.x, m_destRect.y, m_destRect.w, height };
+}
+
+void GraphicsComponent::setSourceRect( int height)
+{
+	m_srcRect = { m_srcRect.x, m_srcRect.y, m_srcRect.w, height };
+}
+
+
+/// <summary>
+/// Gets the layer of the texture.
+/// </summary>
+/// <returns>Integer</returns>
+int GraphicsComponent::getLayer()
+{
+	return m_layer;
+}
+

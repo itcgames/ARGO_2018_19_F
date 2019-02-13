@@ -15,9 +15,12 @@ public:
 	void removeComponent(Component * c);
 	std::map<std::string, Component*> getComponents();
 	Component* getComponent(std::string componentId);
+	
+	std::string getId();
+	void setId(std::string id);
 
-	std::string id;
 protected:
+	std::string m_id;
 	std::map<std::string, Component*> m_components;
 };
 #endif // !ENTITY_H

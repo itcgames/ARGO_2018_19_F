@@ -10,6 +10,9 @@ void PhysicsSystem::update(double dt)
 	{
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
+		CollisionComponent* collisionComponent = (CollisionComponent*)entity->getComponent("COLLISION");
+		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("PHYSICS");
+		
 
 		if (physicsComponent != nullptr && positionComponent != nullptr)
 		{
@@ -17,6 +20,7 @@ void PhysicsSystem::update(double dt)
 			Vector velocity = physicsComponent->getVelocity();
 			Vector friction = physicsComponent->getFriction();
 			Vector position = positionComponent->getPos();
+			Vector collider = positionComponent->getPos();
 
 			if (physicsComponent->getGravity())
 			{
@@ -24,11 +28,20 @@ void PhysicsSystem::update(double dt)
 			}
 
 			velocity += acceleration * dt;
-			velocity *= friction;
-			position += velocity;
+			if (physicsComponent->getJumping() == false)
 
-			Vector size = Vector(32, 32);
-			keepOnScreen(position, velocity, size, physicsComponent);
+			{
+				velocity *= friction;
+				position += velocity;
+			}
+			else
+			{
+				velocity.x *= (friction.x/1.25);
+				velocity.y *= friction.y;
+				position += velocity;
+			}
+			
+			keepOnScreen(position, velocity, collisionComponent->getCollider(), physicsComponent);
 			physicsComponent->setVelocity(velocity);
 			positionComponent->setPos(position);
 
@@ -47,11 +60,11 @@ void PhysicsSystem::update(double dt)
 /// <param name="velocity"></param>
 /// <param name="dimensions"></param>
 /// <param name="physics"></param>
-void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dimensions, PhysicsComponent* physics)
+void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, SDL_Rect& dimensions, PhysicsComponent* physics)
 {
 	if (position.x + dimensions.x> 1600.f)
 	{
-		position.x = 1600.f - dimensions.x;
+		position.x = 1600.f - dimensions.w;
 		velocity.x = 0;
 	}
 	if (position.x < 0)
@@ -59,10 +72,10 @@ void PhysicsSystem::keepOnScreen(Vector& position, Vector& velocity, Vector& dim
 		position.x = 0;
 		velocity.x = 0;
 	}
-	if (position.y + dimensions.y > 900.f)
+	if (position.y + dimensions.h > 900.f)
 	{
 
-		position.y = 900.f - dimensions.y;
+		position.y = 900.f - dimensions.h;
 		physics->setJumping(false);
 		velocity.y = 0;
 	}

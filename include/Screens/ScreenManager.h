@@ -4,6 +4,7 @@
 #include <map>
 //	Project.
 #include "SDL.h"
+#include "Client.h"
 
 class Screen;
 
@@ -22,8 +23,11 @@ public:
 	Screen* getCurrentScreen();
 	Screen* getScreen(std::string screenID);
 
+	Client* getClient();
+
 private:
 	std::map<std::string, Screen*> m_screens;
 	Screen* m_currentScreen;
+	Client* m_client;
 };
 #endif // !SCREEN_MANAGER_H

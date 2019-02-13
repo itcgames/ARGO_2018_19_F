@@ -17,8 +17,6 @@ private:
 	void setLevelToSummer();
 	void setLevelToAutumn();
 	void setLevelToWinter();
-
-	SDL_Renderer* m_renderer;
 };
 #endif // !LEVEL_SELECT_H
 
