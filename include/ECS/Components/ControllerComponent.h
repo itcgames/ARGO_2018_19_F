@@ -38,15 +38,14 @@ struct ControllerState
 class ControllerComponent : public Component
 {
 public:
-	ControllerComponent();		
+	ControllerComponent(int index = -1);		
 
 	ControllerState& getCurrentState();
 	ControllerState& getPreviousState();
 
     const float DEAD_ZONE = 0.3f;	
     static int m_controllerIndex;	
-	bool getPause();
-	void setPause(bool b);
+
 
 private:
 	ControllerState m_currentState;
@@ -56,7 +55,7 @@ private:
 
     //const float DEAD_ZONE = 0.3f;
     //static int m_controllerIndex;
-	bool m_paused;
+	
 	
 
 	const float MAX_STICK_VALUE = SDL_MAX_SINT16;
