@@ -1,14 +1,14 @@
-#ifndef MOVING_STATE_H
-#define MOVING_STATE_H
+#ifndef VICTORY_STATE_H
+#define VICTORY_STATE_H
 
 #include "States/PlayerState.h"
 
-static class MovingState : public PlayerState
+class VictoryState : public PlayerState
 {
 public:
-	MovingState() {}
+	VictoryState() {};
 	virtual PlayerState* handleState(Entity* entity, ControllerState& state);
 	virtual void update(double dt, Entity* entity);
 	virtual void enter(Entity* entity);
 };
-#endif // !MOVING_STATE_H
+#endif // !VICTORY_STATE_H

@@ -2,13 +2,14 @@
 #include "States/IdleState.h"
 
 /// <summary>
-/// 
+/// process any input updates then if any parameters are met 
+/// instansiate a new state and return it from the method transitioning the
+/// player to the new state - if no new state required return nullptr
 /// </summary>
-/// <param name="entity"></param>
-/// <param name="buttons"></param>
-/// <param name="MAX_STICK_VALUE"></param>
-/// <returns></returns>
-PlayerState * JumpState::handleInput(Entity* entity, ControllerState& state)
+/// <param name="entity">pointer to entity for component selection</param>
+/// <param name="state">controller state for animation</param>
+/// <returns>default - nullptr, pointer to a PlayerState child</returns>
+PlayerState * JumpState::handleState(Entity* entity, ControllerState& state)
 {
 	PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
@@ -33,11 +34,6 @@ PlayerState * JumpState::handleInput(Entity* entity, ControllerState& state)
 		// change state
 		if (!physicsComponent->getJumping())
 		{
-			Vector firstFrame = Vector(0, 0, 0);
-			Vector lastFrame = Vector(1, 0, 0);
-			animationComponent->setFirstFrame(firstFrame);
-			animationComponent->setCurrentFrame(firstFrame);
-			animationComponent->setLastFrame(lastFrame);
 			return new IdleState();
 		}
 	}
@@ -48,11 +44,31 @@ PlayerState * JumpState::handleInput(Entity* entity, ControllerState& state)
 
 
 /// <summary>
-/// 
+/// update the state - change the current animation frames if time constraints met
 /// </summary>
-/// <param name="entity"></param>
-void JumpState::update(Entity* entity)
+/// <param name="dt">game clock</param>
+/// <param name="entity">pointer to the entity object</param>
+void JumpState::update(double dt, Entity* entity)
 {
 	// update
 	std::cout << "jumping" << std::endl;
+}
+
+
+
+/// <summary>
+/// set up the animation frames for the state 
+/// </summary>
+/// <param name="entity">pointer to the entity object</param>
+void JumpState::enter(Entity * entity)
+{
+	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+	if (animationComponent != nullptr)
+	{
+		Vector firstFrame = Vector(5, 1, 0);
+		Vector lastFrame = Vector(5, 1, 0);
+		animationComponent->setFirstFrame(firstFrame);
+		animationComponent->setCurrentFrame(firstFrame);
+		animationComponent->setLastFrame(lastFrame);
+	}
 }

@@ -21,7 +21,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
 	
 	//	Create player entity.
-	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 32, 32)));
+	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 64, 64), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 64, 64)));
 
 	//  Create obstacle entity.
 	m_entities.push_back(EntityCreator::createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));

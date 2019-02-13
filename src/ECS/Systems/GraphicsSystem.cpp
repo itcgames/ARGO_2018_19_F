@@ -17,7 +17,7 @@ void GraphicsSystem::update(double dt)
 				double frameTime = animationComponent->getFrameTime();
 				frameTime += dt;
 
-				if (frameTime > 120)
+				if (frameTime > 180)
 				{
 					Vector currentFrame = animationComponent->getCurrentFrame();
 					Vector firstFrame = animationComponent->getFirstFrame();

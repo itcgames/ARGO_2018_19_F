@@ -1,67 +1,51 @@
 #include "States/IdleState.h"
-#include "States/JumpState.h"
-#include "States/CrouchState.h"
-#include "States/MovingState.h"
 
 /// <summary>
-/// 
+/// process any input updates then if any parameters are met 
+/// instansiate a new state and return it from the method transitioning the
+/// player to the new state - if no new state required return nullptr
 /// </summary>
-/// <param name="entity"></param>
-/// <param name="state"></param>
-/// <returns></returns>
-PlayerState* IdleState::handleInput(Entity* entity, ControllerState& state)
+/// <param name="entity">pointer to entity for component selection</param>
+/// <param name="state">controller state for animation</param>
+/// <returns>default - nullptr, pointer to a PlayerState child</returns>
+PlayerState* IdleState::handleState(Entity* entity, ControllerState& state)
 {
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
 	if (animationComponent != nullptr)
 	{
-		Vector leftStick = controllerComponent->getCurrentState().leftStick;
+		Vector leftStick = state.leftStick	;
 		// moving state
 		if (leftStick.x > controllerComponent->DEAD_ZONE || leftStick.x < -controllerComponent->DEAD_ZONE)
 		{
 			// change direction animation
-
 			if (leftStick.x < controllerComponent->DEAD_ZONE)
 			{
-				Vector firstFrame = Vector(3, 0, 0);
-				Vector lastFrame = Vector(5, 0, 0);
 				animationComponent->m_flip = SDL_FLIP_HORIZONTAL;
-				animationComponent->setFirstFrame(firstFrame);
-				animationComponent->setCurrentFrame(firstFrame);
-				animationComponent->setLastFrame(lastFrame);
 			}
 			else
 			{
-				Vector firstFrame = Vector(3, 0, 0);
-				Vector lastFrame = Vector(5, 0, 0);
 				animationComponent->m_flip = SDL_FLIP_NONE;
-				animationComponent->setFirstFrame(firstFrame);
-				animationComponent->setCurrentFrame(firstFrame);
-				animationComponent->setLastFrame(lastFrame);
 			}
+
 			return new MovingState();
 		}
 
 		// jumping state
-		if (controllerComponent->getCurrentState().A)
+		if (state.A)
 		{
-			Vector firstFrame = Vector(5, 1, 0);
-			Vector lastFrame = Vector(5, 1, 0);
-			animationComponent->setFirstFrame(firstFrame);
-			animationComponent->setCurrentFrame(firstFrame);
-			animationComponent->setLastFrame(lastFrame);
 			return new JumpState();
 		}
 
-		// dead state
-		if (controllerComponent->getCurrentState().start)
+		// dead // pause state
+		if (state.start)
 		{
 			std::cout << "pause" << std::endl;
 			return nullptr;
 		}
 
 		// crouch state
-		if (controllerComponent->getCurrentState().B)
+		if (state.B)
 		{
 			return new CrouchState();
 		}
@@ -73,10 +57,31 @@ PlayerState* IdleState::handleInput(Entity* entity, ControllerState& state)
 
 
 /// <summary>
-/// 
+/// update the state - change the current animation frames if time constraints met
 /// </summary>
-/// <param name="entity"></param>
-void IdleState::update(Entity* entity)
+/// <param name="dt">game clock</param>
+/// <param name="entity">pointer to the entity object</param>
+void IdleState::update(double dt, Entity* entity)
 {
-	std::cout << "idle" << std::endl;
+	// waiting animation switch
+}
+
+
+
+
+/// <summary>
+/// set up the animation frames for the state 
+/// </summary>
+/// <param name="entity">pointer to the entity object</param>
+void IdleState::enter(Entity* entity)
+{
+	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+	if (animationComponent != nullptr)
+	{
+		Vector firstFrame = Vector(0, 0, 0);
+		Vector lastFrame = Vector(1, 0, 0);
+		animationComponent->setFirstFrame(firstFrame);
+		animationComponent->setCurrentFrame(firstFrame);
+		animationComponent->setLastFrame(lastFrame);
+	}
 }

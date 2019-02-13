@@ -26,13 +26,14 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 				Vector acceleration;
 				Vector velocity = physicsComponent->getVelocity();
 
-				system("CLS");
-				PlayerState* state = m_state->handleInput(entity, currentState);
-				m_state->update(entity);
+				//system("CLS");
+				PlayerState* state = m_state->handleState(entity, currentState);
+				m_state->update(dt, entity);
 				if (state != nullptr)
 				{
 					delete(m_state);
 					m_state = state;
+					m_state->enter(entity);
 				}
 
 				if (currentState.A && !physicsComponent->getJumping())
@@ -69,8 +70,8 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 				}
 				else
 				{
-					graphicsComponent->setDestRect(32);
-					SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 32 };
+					graphicsComponent->setDestRect(64);
+					SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 64 };
 					collisionComponent->setCollider(rect);
 				}
 
