@@ -1,4 +1,4 @@
-#include "ECS\Entities\EntityCreator.h"
+#include "ECS\Entities\EntityManager.h"
 
 /// <summary>
 /// 
@@ -38,12 +38,14 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	player->addComponent(new NetworkComponent(playerNum));
 	player->addComponent(new PositionComponent(startPosition));
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	player->addComponent(new AnimationComponent(animStart, animEnd));
-	player->addComponent(new PhysicsComponent());
+	player->addComponent(new AnimationComponent(animStart, animEnd));	
 	player->addComponent(new CollisionComponent(collider, "Player"));
 
 	if (controllable)
+	{
 		player->addComponent(new ControllerComponent());
+		player->addComponent(new PhysicsComponent());
+	}
 
 	addToSystems(player);
 	m_entities.push_back(player);

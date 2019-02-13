@@ -26,12 +26,12 @@
     <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
-    <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
     <ClCompile Include="src\Client.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
     <ClCompile Include="src\ECS\Systems\CharacterControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\NetworkSystem.cpp" />
     <ClCompile Include="src\ECS\Components\NetworkComponent.cpp" />
+    <ClCompile Include="src\ECS\Entities\EntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -64,12 +64,12 @@
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />
     <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
-    <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
     <ClInclude Include="include\Client.h" />
     <ClInclude Include="include\Screens\Lobby.h" />
     <ClInclude Include="include\Packet.h" />
     <ClInclude Include="include\ECS\Systems\CharacterControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\NetworkSystem.h" />
     <ClInclude Include="include\ECS\Components\NetworkComponent.h" />
+    <ClInclude Include="include\ECS\Entities\EntityManager.h" />
   </ItemGroup>
 </Project>

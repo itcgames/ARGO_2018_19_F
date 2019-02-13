@@ -3,6 +3,7 @@
 
 #include "ECS/Systems/System.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/NetworkComponent.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "Client.h"

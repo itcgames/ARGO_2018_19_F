@@ -19,8 +19,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entityManager.createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762));
 	
 	//	Create player entities.
-	m_entityManager.createPlayer(1, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), true);
-	m_entityManager.createPlayer(2, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), false);
+	m_entityManager.createPlayer(0, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), true);
+	m_entityManager.createPlayer(1, m_startPos, playerTexture, SDL2Help::InitRect(0, 85, 85, 85), SDL2Help::InitRect(0, 0, 32, 32), Vector(0, 0, 0), Vector(5, 1, 0), SDL2Help::InitRect(0, 0, 32, 32), false);
 
 	// Create obstacle entities.
 	m_entityManager.createObstacle(Vector(600, 700, 0), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 200), SDL2Help::InitRect(0, 0, 100, 200));

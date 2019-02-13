@@ -2,7 +2,7 @@
 #define AUTUMN_H
 
 #include "Screens/Screen.h"
-#include "ECS/Entities/EntityCreator.h"
+#include "ECS/Entities/EntityManager.h"
 
 class Autumn : public Screen
 {

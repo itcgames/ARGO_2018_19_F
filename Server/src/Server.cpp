@@ -122,13 +122,14 @@ void Server::acceptConnections()
 void Server::sendAndReceive(int sock, int* playerCount, SOCKET* clients)
 {
 	SOCKET client = clients[sock];
-	while (client)
+	while (true)
 	{
 		//	Create packet in memory.
 		Packet* packet = new Packet();
 		ZeroMemory(packet, sizeof(struct Packet));
 		//	Fill in the packet with the received bytes.
 		int bytesIn = recv(client, (char*)packet, sizeof(struct Packet), 0);
+		std::cout << "Thread " << sock << " received." << std::endl;
 
 		if (bytesIn <= 0)
 		{
@@ -143,6 +144,7 @@ void Server::sendAndReceive(int sock, int* playerCount, SOCKET* clients)
 				if (outSock != client)
 				{
 					send(outSock, (char*)packet, sizeof(struct Packet) + 1, 0);
+					std::cout << "Thread " << sock << " sent to " << j << std::endl;
 				}
 			}
 		}	
