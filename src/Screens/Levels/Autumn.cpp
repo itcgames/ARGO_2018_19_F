@@ -5,7 +5,7 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
-	m_startPos(100,800)
+	m_startPos(200,800)
 {
 	m_screenID = "Play";
 
@@ -28,7 +28,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entities.push_back(EntityCreator::createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
 	
 	//  Create Platform entity.
-	m_entities.push_back(EntityCreator::createPlatform(Vector(300, 775), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
+	m_entities.push_back(EntityCreator::createPlatform(Vector(175, 800), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
 
 	//	Create goal entity.
 	m_entities.push_back(EntityCreator::createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 0, 0), SDL2Help::InitRect(0, 0, 50, 100)));

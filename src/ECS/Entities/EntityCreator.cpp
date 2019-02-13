@@ -20,7 +20,7 @@ Entity * EntityCreator::createPlayer(Vector startPosition, SDL_Texture * texture
 	player->addComponent(new AnimationComponent(animStart, animEnd));
 	player->addComponent(new PhysicsComponent());
 	player->addComponent(new CollisionComponent(collider, "player"));
-	player->addComponent(new ControllerComponent());
+	player->addComponent(new ControllerComponent(0));
 
 	return player;
 }
