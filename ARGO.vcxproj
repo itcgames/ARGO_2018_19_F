@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
     <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
     <ClCompile Include="src\Client.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
     <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
     <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
     <ClCompile Include="src\Screens\Levels\Spring.cpp" />
     <ClCompile Include="src\Screens\Levels\Summer.cpp" />
@@ -168,6 +170,7 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
     <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
     <ClInclude Include="include\Client.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
+    <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\Packet.h" />

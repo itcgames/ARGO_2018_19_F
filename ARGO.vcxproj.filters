@@ -38,6 +38,8 @@
     <ClCompile Include="src\Screens\Lobby.cpp" />
     <ClCompile Include="src\States\DeathState.cpp" />
     <ClCompile Include="src\States\VictoryState.cpp" />
+    <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -84,5 +86,7 @@
     <ClInclude Include="include\Packet.h" />
     <ClInclude Include="include\States\DeathState.h" />
     <ClInclude Include="include\States\VictoryState.h" />
+    <ClInclude Include="include\ECS\Components\TextComponent.h" />
+    <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
   </ItemGroup>
 </Project>
