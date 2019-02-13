@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
     <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
     <ClCompile Include="src\Client.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
     <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
     <ClInclude Include="include\Client.h" />

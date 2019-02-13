@@ -20,6 +20,7 @@ private:
 	CollisionSystem m_collisions;
 	BoxPhysicsSystem m_boxPhysics;
 	CharacterControlSystem m_characterControl;
+	CursorControlSystem m_cursorControl;
 	std::vector<Entity*> m_entities;
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;

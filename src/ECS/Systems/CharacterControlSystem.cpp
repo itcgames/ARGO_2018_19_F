@@ -21,7 +21,7 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 
 			//  Handle inputs.
 			Vector acceleration;
-			if (entity->getId() != "pauseBox")
+			if (entity->getId() != "pauseBox" && entity->getId() != "cursor")
 			{
 				if (currentState.A && !physicsComponent->getJumping())
 				{

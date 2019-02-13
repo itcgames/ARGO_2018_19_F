@@ -13,10 +13,13 @@ public:
 	void setCollider(SDL_Rect& collider);
 	bool IsColliding();
 	void setIsColliding(bool isColliding);
+	bool getObstacleCursor();
+	void setObstacleCursor(bool b);
 	std::string m_tag;
 
 private:
 	SDL_Rect m_collider;
 	bool m_isColliding;
+	bool m_obstacleCursor;
 };
 #endif // !COLLISION_COMPONENT_H

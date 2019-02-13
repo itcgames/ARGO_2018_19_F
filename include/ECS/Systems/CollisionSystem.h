@@ -5,6 +5,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
+#include "ECS/Components/ControllerComponent.h"
 #include "SDL2_Helper/SDL2Helper.h"
 
 class CollisionSystem : public System

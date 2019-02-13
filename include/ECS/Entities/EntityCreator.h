@@ -9,6 +9,7 @@
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
 #include "ECS/Systems/BoxPhysicsSystem.h"
+#include "ECS/Systems/CursorControlSystem.h"
 
 namespace EntityCreator
 {

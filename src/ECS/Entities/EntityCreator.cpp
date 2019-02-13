@@ -125,8 +125,8 @@ Entity* EntityCreator::createCursor(Vector startPosition, SDL_Texture* texture, 
 	cursor->addComponent(new PositionComponent(startPosition));
 	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	cursor->addComponent(new CollisionComponent(collider, "cursor"));
-	//cursor->addComponent(new ControllerComponent());
-	cursor->addComponent(new PhysicsComponent());
+	cursor->addComponent(new ControllerComponent(0));
+	//cursor->addComponent(new PhysicsComponent());
 
 	return cursor;
 }
