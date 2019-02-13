@@ -46,7 +46,6 @@ PlayerState * MovingState::handleState(Entity* entity, ControllerState& state)
 /// <param name="entity">pointer to the entity object</param>
 void MovingState::update(double dt, Entity* entity)
 {
-	std::cout << "moving" << std::endl;
 }
 
 

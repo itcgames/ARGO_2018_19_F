@@ -32,7 +32,6 @@ PlayerState * CrouchState::handleState(Entity* entity, ControllerState& state)
 /// <param name="entity">pointer to the entity object</param>
 void CrouchState::update(double dt, Entity* entity)
 {
-	std::cout << "crouching" << std::endl;
 }
 
 
@@ -43,9 +42,9 @@ void CrouchState::update(double dt, Entity* entity)
 /// <param name="entity">pointer to the entity object</param>
 void CrouchState::enter(Entity * entity)
 {
+	// set up sprite frames
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{
-
 	}
 }

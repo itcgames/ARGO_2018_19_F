@@ -46,6 +46,7 @@ void DeathState::update(double dt, Entity * entity)
 /// <param name="entity">pointer to the entity object</param>
 void DeathState::enter(Entity * entity)
 {
+	// set up sprite frames
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{
@@ -55,6 +56,5 @@ void DeathState::enter(Entity * entity)
 		animationComponent->setFirstFrame(firstFrame);
 		animationComponent->setCurrentFrame(firstFrame);
 		animationComponent->setLastFrame(lastFrame);
-	}
 	}
 }

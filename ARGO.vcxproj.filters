@@ -37,6 +37,7 @@
     <ClCompile Include="src\Client.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
     <ClCompile Include="src\States\DeathState.cpp" />
+    <ClCompile Include="src\States\VictoryState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -82,5 +83,6 @@
     <ClInclude Include="include\Screens\Lobby.h" />
     <ClInclude Include="include\Packet.h" />
     <ClInclude Include="include\States\DeathState.h" />
+    <ClInclude Include="include\States\VictoryState.h" />
   </ItemGroup>
 </Project>

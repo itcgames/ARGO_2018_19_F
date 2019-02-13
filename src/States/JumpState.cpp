@@ -51,7 +51,6 @@ PlayerState * JumpState::handleState(Entity* entity, ControllerState& state)
 void JumpState::update(double dt, Entity* entity)
 {
 	// update
-	std::cout << "jumping" << std::endl;
 }
 
 
@@ -62,6 +61,7 @@ void JumpState::update(double dt, Entity* entity)
 /// <param name="entity">pointer to the entity object</param>
 void JumpState::enter(Entity * entity)
 {
+	// set up sprite frames
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{

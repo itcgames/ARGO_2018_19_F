@@ -33,17 +33,10 @@ void CollisionSystem::update(double dt)
 							Vector velocity = physicsComponent->getVelocity();
 							Vector position = e1Position->getPos();
 
-							// Get the right and bottom of the colliders
-							Vector player = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
-
-							float top = player.y - e2Position->getPos().y;
-							float bottom = entity.y - e1Position->getPos().y;
-							float left = player.x - e2Position->getPos().x;
-							float right = entity.x - e1Position->getPos().x;
+							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
 
 							// check the top
-							if (top < bottom && top < left && top < right)
+							if (direction == "top")
 							{
 								position.y = e2Position->getPos().y - e1Collision->getCollider().h;
 								e1Position->setPos(position);
@@ -52,7 +45,7 @@ void CollisionSystem::update(double dt)
 								physicsComponent->setJumping(false);
 							}
 							// check the bottom
-							if (bottom < top && bottom < left && bottom < right)
+							if (direction == "bottom")
 							{
 								position.y = e2Position->getPos().y + e2Collision->getCollider().h;
 								e1Position->setPos(position);
@@ -60,7 +53,7 @@ void CollisionSystem::update(double dt)
 								physicsComponent->setVelocity(velocity);
 							}
 							// check the left
-							if (left < right && left < top && left < bottom)
+							if (direction == "left")
 							{
 								position.x = e2Position->getPos().x - e1Collision->getCollider().w;
 								e1Position->setPos(position);
@@ -68,7 +61,7 @@ void CollisionSystem::update(double dt)
 								physicsComponent->setVelocity(velocity);
 							}
 							// check the right
-							if (right < left && right < top && right < bottom)
+							if (direction == "right")
 							{
 								position.x = e2Position->getPos().x + e2Collision->getCollider().w;
 								e1Position->setPos(position);
@@ -80,38 +73,10 @@ void CollisionSystem::update(double dt)
 						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Obstacle")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
-							Vector velocity = physicsComponent->getVelocity();
-							Vector position = e1Position->getPos();
+							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
 
-							// Get the right and bottom of the colliders
-							Vector player = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
-
-							float top = player.y - e2Position->getPos().y;
-							float bottom = entity.y - e1Position->getPos().y;
-							float left = player.x - e2Position->getPos().x;
-							float right = entity.x - e1Position->getPos().x;
-
-							// check the top
-							if (top < bottom && top < left && top < right)
-							{
-								physicsComponent->alive = false;
-								std::cout << "you died" << std::endl;
-							}
-							// check the bottom
-							if (bottom < top && bottom < left && bottom < right)
-							{
-								std::cout << "you died" << std::endl;
-								physicsComponent->alive = false;
-							}
-							// check the left
-							if (left < right && left < top && left < bottom)
-							{
-								std::cout << "you died" << std::endl;
-								physicsComponent->alive = false;
-							}
-							// check the right
-							if (right < left && right < top && right < bottom)
+							// if it has collided with any side
+							if (direction != "")
 							{
 								std::cout << "you died" << std::endl;
 								physicsComponent->alive = false;
@@ -120,38 +85,12 @@ void CollisionSystem::update(double dt)
 
 						if (e1Collision->m_tag == "Player" && e2Collision->m_tag == "Goal")
 						{
-							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
-							Vector velocity = physicsComponent->getVelocity();
-							Vector position = e1Position->getPos();
+							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
 
-							// Get the right and bottom of the colliders
-							Vector player = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
-
-							float top = player.y - e2Position->getPos().y;
-							float bottom = entity.y - e1Position->getPos().y;
-							float left = player.x - e2Position->getPos().x;
-							float right = entity.x - e1Position->getPos().x;
-
-							// check the top
-							if (top < bottom && top < left && top < right)
+							// if it has collided with any side
+							if (direction != "")
 							{
-								std::cout << "You win" << std::endl;
-							}
-							// check the bottom
-							if (bottom < top && bottom < left && bottom < right)
-							{
-								std::cout << "You win" << std::endl;
-							}
-							// check the left
-							if (left < right && left < top && left < bottom)
-							{
-								std::cout << "You win" << std::endl;
-							}
-							// check the right
-							if (right < left && right < top && right < bottom)
-							{
-								std::cout << "You win" << std::endl;
+								std::cout << "you win" << std::endl;
 							}
 						}
 					}
@@ -159,4 +98,51 @@ void CollisionSystem::update(double dt)
 			}
 		}
 	}
+}
+
+
+
+/// <summary>
+/// function that returns a string
+/// </summary>
+/// <param name="p1"></param>
+/// <param name="c1"></param>
+/// <param name="p2"></param>
+/// <param name="c2"></param>
+/// <returns></returns>
+std::string CollisionSystem::handleBoxCollision(Vector & p1, SDL_Rect & c1, Vector & p2, SDL_Rect & c2)
+{
+	std::string direction = "";
+
+	// Get the right and bottom of the colliders
+	Vector player = Vector(p1.x + c1.w, p1.y + c1.h);
+	Vector entity = Vector(p2.x + c2.w, p2.y + c2.h);
+
+	float top = player.y - p2.y;
+	float bottom = entity.y - p1.y;
+	float left = player.x - p2.x;
+	float right = entity.x - p1.x;
+
+	// check the top
+	if (top < bottom && top < left && top < right)
+	{
+		direction = "top";
+	}
+	// check the bottom
+	if (bottom < top && bottom < left && bottom < right)
+	{
+		direction = "bottom";
+	}
+	// check the left
+	if (left < right && left < top && left < bottom)
+	{
+		direction = "left";
+	}
+	// check the right
+	if (right < left && right < top && right < bottom)
+	{
+		direction = "right";
+	}
+
+	return direction;
 }

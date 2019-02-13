@@ -35,4 +35,9 @@ void VictoryState::update(double dt, Entity * entity)
 /// <param name="entity"></param>
 void VictoryState::enter(Entity * entity)
 {
+	// set up sprite frames
+	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+	if (animationComponent != nullptr)
+	{
+	}
 }

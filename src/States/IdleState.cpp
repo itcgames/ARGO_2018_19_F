@@ -40,7 +40,6 @@ PlayerState* IdleState::handleState(Entity* entity, ControllerState& state)
 		// dead // pause state
 		if (state.start)
 		{
-			std::cout << "pause" << std::endl;
 			return nullptr;
 		}
 
@@ -75,6 +74,7 @@ void IdleState::update(double dt, Entity* entity)
 /// <param name="entity">pointer to the entity object</param>
 void IdleState::enter(Entity* entity)
 {
+	// set up sprite frames
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{
