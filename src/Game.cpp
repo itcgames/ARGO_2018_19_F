@@ -22,7 +22,7 @@ Game::Game() :
 	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));
 	m_screenManager.addScreen(new Lobby(&m_screenManager, m_renderer));
 
-	m_screenManager.goToScreen("Play");
+	m_screenManager.goToScreen("Menu");
 }
 
 

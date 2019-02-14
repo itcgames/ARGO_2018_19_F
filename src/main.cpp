@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
 {
 	//	Init Everything.
 	SDL_Init(SDL_INIT_EVERYTHING);
+	TTF_Init();
 	IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
 	Game* game;

@@ -13,7 +13,6 @@ class UIGraphicsSystem : public System
 public:
 	virtual void update(double dt) override;
 	void render(SDL_Renderer * renderer);
-private:
-	TTF_Font * m_font = TTF_OpenFont("resources/SHOWG.TTF", 24);
+	TTF_Font * m_font;
 };
 #endif // !UI_GRAPHICS_SYSTEM_H

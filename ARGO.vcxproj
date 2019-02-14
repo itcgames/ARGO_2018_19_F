@@ -83,7 +83,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;$(SDL2_SDK)\lib\x86\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -187,6 +187,7 @@
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
+    <ClInclude Include="include\ECS\Systems\UIControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />

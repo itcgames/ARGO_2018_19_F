@@ -88,5 +88,6 @@
     <ClInclude Include="include\States\VictoryState.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
+    <ClInclude Include="include\ECS\Systems\UIControlSystem.h" />
   </ItemGroup>
 </Project>

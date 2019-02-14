@@ -155,3 +155,24 @@ Entity * EntityCreator::createGoal(Vector startPosition, SDL_Texture * texture, 
 
 	return goal;
 }
+
+Entity * EntityCreator::createLabel(Vector position, std::string text, SDL_Color colour, int width, int height)
+{
+	const char* string = text.c_str();
+	Entity *label = new Entity();
+	label->addComponent(new PositionComponent(position));
+	label->addComponent(new TextComponent(string, width, height, colour));
+
+	return label;
+}
+
+Entity * EntityCreator::createButton(Vector position, SDL_Texture* texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height)
+{
+	Entity* button = new Entity();
+
+	button->addComponent(new PositionComponent(position));
+	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
+	button->addComponent(new GraphicsComponent(texture, src, { 0,0,width,height }, 0));
+
+	return button;
+}
