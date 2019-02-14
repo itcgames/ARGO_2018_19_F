@@ -75,6 +75,51 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
+						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "springboard")
+						{
+							e1Collision->setIsColliding(true);
+							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
+							Vector velocity = physicsComponent->getVelocity();
+							Vector position = e1Position->getPos();
+
+							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
+
+
+							// check the top
+							if (direction == "top")
+							{
+								position.y = e2Position->getPos().y - e1Collision->getCollider().h;
+								e1Position->setPos(position);
+								velocity.y = -30;
+								physicsComponent->setVelocity(velocity);
+								physicsComponent->setJumping(true);
+							}
+							// check the bottom
+							//if (direction == "bottom")
+							//{
+							//	position.y = e2Position->getPos().y + e2Collision->getCollider().h;
+							//	e1Position->setPos(position);
+							//	velocity.y = 0;
+							//	physicsComponent->setVelocity(velocity);
+							//}
+							//// check the left
+							//if (direction == "left")
+							//{
+							//	position.x = e2Position->getPos().x - e1Collision->getCollider().w;
+							//	e1Position->setPos(position);
+							//	velocity.x = 0;
+							//	physicsComponent->setVelocity(velocity);
+							//}
+							//// check the right
+							//if (direction == "right")
+							//{
+							//	position.x = e2Position->getPos().x + e2Collision->getCollider().w;
+							//	e1Position->setPos(position);
+							//	velocity.x = 0;
+							//	physicsComponent->setVelocity(velocity);
+							//}
+						}
+
 						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "Obstacle")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
@@ -99,7 +144,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "Obstacle")//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
+						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "springboard")//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							//Vector velocity = physicsComponent->getVelocity();

@@ -20,6 +20,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	SDL_Texture* spikeTexture = SDL2Help::LoadTexture(m_resourcesPath + "spikes.png", m_renderer);
 	SDL_Texture* pauseTexture = SDL2Help::LoadTexture(m_resourcesPath + "pause.png", m_renderer);
 	SDL_Texture* cursorTexture = SDL2Help::LoadTexture(m_resourcesPath + "cursor.png", m_renderer);
+	SDL_Texture* springBoardTexture = SDL2Help::LoadTexture(m_resourcesPath + "springBoard.png", m_renderer);
 
 	//	Create background entity.
 	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
@@ -53,6 +54,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	//create Cursor Entity
 	m_entities.push_back(EntityCreator::createCursor(Vector(200, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50)));
+
+	//Create Spring entity
+	m_entities.push_back(EntityCreator::createSpring(Vector(500, 750), springBoardTexture, SDL2Help::InitRect(0, 0, 1000, 667), SDL2Help::InitRect(0, 0, 50, 40), SDL2Help::InitRect(0, 0, 50, 40)));
 
 	//	Add all entities to relevant systems.
 	for (Entity* entity : m_entities)

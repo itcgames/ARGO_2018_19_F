@@ -68,6 +68,30 @@ Entity * EntityCreator::createPlatform(Vector startPosition, SDL_Texture * textu
 }
 
 
+/// <summary>
+/// Spring component
+/// It will make the player jump on collision
+/// The Spring will animate on jump
+/// It takes the following paramaters
+/// </summary>
+/// <param name="position"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <returns></returns>
+Entity * EntityCreator::createSpring(Vector position, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity * spring = new Entity();
+	spring->setId("springboard");
+	spring->addComponent(new PositionComponent(position));
+	spring->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	spring->addComponent(new CollisionComponent(collider, "springboard"));
+
+	return spring;
+}
+
+
 
 /// <summary>
 /// 
