@@ -75,7 +75,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "Obstacle")
+						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "obstacle")
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
@@ -88,7 +88,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "Goal")
+						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "goal")
 						{
 							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
 
@@ -99,7 +99,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "Obstacle")//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
+						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "obstacle")//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							//Vector velocity = physicsComponent->getVelocity();
@@ -146,9 +146,7 @@ void CollisionSystem::update(double dt)
 								e1Collision->setObstacleCursor(true);
 								e2Position->setPos(e1Position->getPos());
 								//std::cout << "cursor collide" << std::endl;
-							}
-
-							
+							}							
 						}
 					}
 				}
