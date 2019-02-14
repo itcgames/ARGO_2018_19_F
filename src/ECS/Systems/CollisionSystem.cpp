@@ -159,7 +159,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "platform" || e2Collision->m_tag == "Obstacle")
+						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "Obstacle")//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
 						{
 							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
 							//Vector velocity = physicsComponent->getVelocity();
