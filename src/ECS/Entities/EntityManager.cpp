@@ -330,4 +330,9 @@ void EntityManager::addToSystems(Entity* entity)
 		m_characterControlSystem.addEntity(entity);
 		m_cursorControlSystem.addEntity(entity);
 	}
+
+	if (entity->getComponent("NETWORK") != nullptr)
+	{
+		m_networkSystem.addEntity(entity);
+	}
 }

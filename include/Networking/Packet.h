@@ -15,8 +15,5 @@ struct Packet
 	Vector velocity;
 	//	Animation data.
 	Vector currentFrame;
-	Vector firstFrame;
-	Vector lastFrame;
-	double frameTime;
 };
 #endif // !PACKAGE_H

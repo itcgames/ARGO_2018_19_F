@@ -32,12 +32,14 @@ void NetworkSystem::update(double dt)
 			PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("PHYSICS");
 			NetworkComponent* network = (NetworkComponent*)entity->getComponent("NETWORK");
 			ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
+			AnimationComponent* animation = (AnimationComponent*)entity->getComponent("ANIMATION");
 
 			if (rPacket->playerNum == network->getPlayerNum() && rPacket->message == "Update" && controller == nullptr)
 			{
 				std::cout << "player " << rPacket->playerNum << " updated." << std::endl;
 				position->setPos(rPacket->position);
 				physics->setVelocity(rPacket->velocity);
+				animation->setCurrentFrame(rPacket->currentFrame);
 			}
 			else if (controller != nullptr)
 			{
@@ -59,6 +61,7 @@ void NetworkSystem::update(double dt)
 					sPacket->playerNum = network->getPlayerNum();
 					sPacket->message = "Update";
 					sPacket->position = Vector(position->getPos().x, position->getPos().y);
+					sPacket->currentFrame = animation->getCurrentFrame();
 
 					m_client.second->sendMsg(sPacket);
 					m_clock = 0;

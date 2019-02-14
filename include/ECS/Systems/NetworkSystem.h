@@ -6,6 +6,7 @@
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/NetworkComponent.h"
 #include "ECS/Components/ControllerComponent.h"
+#include "ECS/Components/AnimationComponent.h"
 
 #include "Networking/TCP_Client.h"
 #include "Networking/UDP_Client.h"
