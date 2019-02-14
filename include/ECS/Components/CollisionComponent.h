@@ -14,12 +14,19 @@ public:
 	bool IsColliding();
 	void setIsColliding(bool isColliding);
 	bool getObstacleCursor();
+	bool getCursorState();
+	void setCursorState(bool b);
 	void setObstacleCursor(bool b);
+	bool getCollectedObj();
+	void setCollectedObj(bool b);
+
 	std::string m_tag;
 
 private:
 	SDL_Rect m_collider;
 	bool m_isColliding;
 	bool m_obstacleCursor;
+	bool m_cursorActive;
+	bool m_collectedObj;
 };
 #endif // !COLLISION_COMPONENT_H

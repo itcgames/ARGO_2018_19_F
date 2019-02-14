@@ -13,6 +13,9 @@ class CollisionSystem : public System
 {
 public:
 	virtual void update(double dt) override;
+
+	void cursorUpdate();
+	void playerUpdate();
 private:
 	std::string handleBoxCollision(Vector& p1, SDL_Rect& c1, Vector& p2, SDL_Rect& c2);
 };

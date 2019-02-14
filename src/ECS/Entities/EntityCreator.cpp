@@ -42,7 +42,7 @@ Entity * EntityCreator::createObstacle(Vector startPosition, SDL_Texture * textu
 	obstacle->setId("obstacle");
 	obstacle->addComponent(new PositionComponent(startPosition));
 	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	obstacle->addComponent(new CollisionComponent(collider, "Obstacle"));
+	obstacle->addComponent(new CollisionComponent(collider, "obstacle"));
 
 	return obstacle;
 }

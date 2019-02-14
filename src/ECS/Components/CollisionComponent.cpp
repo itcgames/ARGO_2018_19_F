@@ -6,7 +6,8 @@
 CollisionComponent::CollisionComponent(SDL_Rect collider, std::string tag) :
 	m_collider(collider),
 	m_isColliding(false),
-	m_obstacleCursor(false)
+	m_obstacleCursor(false),
+	m_cursorActive(false)
 {
 	m_id = "COLLISION";
 	m_tag = tag;
@@ -71,4 +72,37 @@ bool CollisionComponent::getObstacleCursor()
 void CollisionComponent::setObstacleCursor(bool b)
 {
 	m_obstacleCursor = b;
+}
+
+/// <summary>
+/// get Method for cursor state
+/// </summary>
+/// <returns></returns>
+bool CollisionComponent::getCursorState()
+{
+	return m_cursorActive;
+}
+
+/// <summary>
+/// Simple method to set the state of the onjetcs
+/// </summary>
+/// <param name="b"></param>
+void CollisionComponent::setCursorState(bool b)
+{
+	m_cursorActive = b;
+}
+
+
+bool CollisionComponent::getCollectedObj()
+{
+	return m_collectedObj;
+}
+
+/// <summary>
+/// Simple method to set the state of the objects
+/// </summary>
+/// <param name="b"></param>
+void CollisionComponent::setCollectedObj(bool b)
+{
+	m_collectedObj = b;
 }
