@@ -129,7 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Client.cpp" />
+    <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
@@ -137,6 +137,7 @@
     <ClCompile Include="src\ECS\Entities\EntityManager.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\NetworkSystem.cpp" />
+    <ClCompile Include="src\Networking\UDP_Client.cpp" />
     <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
     <ClCompile Include="src\Screens\Levels\Spring.cpp" />
     <ClCompile Include="src\Screens\Levels\Summer.cpp" />
@@ -162,7 +163,8 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Client.h" />
+    <ClInclude Include="include\Networking\Client.h" />
+    <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
     <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -180,7 +182,8 @@
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />
-    <ClInclude Include="include\Packet.h" />
+    <ClInclude Include="include\Networking\Packet.h" />
+    <ClInclude Include="include\Networking\UDP_Client.h" />
     <ClInclude Include="include\Screens\CharacterSelect.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />

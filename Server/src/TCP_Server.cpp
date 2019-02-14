@@ -1,10 +1,10 @@
-#include "Server.h"
+#include "Networking/TCP_Server.h"
 
 /// <summary>
 /// 
 /// </summary>
-Server::Server() :
-	playerCount(0)
+TCPServer::TCPServer() :
+	Server()
 {
 
 }
@@ -14,40 +14,8 @@ Server::Server() :
 /// <summary>
 /// 
 /// </summary>
-Server::~Server()
-{
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
-bool Server::startWinSock()
-{
-	bool result = false;
-	m_version = MAKEWORD(2, 2);
-
-	int wsOk = WSAStartup(m_version, &m_data);
-	if (wsOk != 0)
-	{
-		std::cout << "<SERVER> Can't start Winsock! " << wsOk << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		std::cout << "<SERVER> Started Winsock!" << std::endl;
-		result = true;
-	}
-	return result;
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
-bool Server::createAndBindSocket()
+/// <returns></returns>
+bool TCPServer::createSocket()
 {
 	bool result = false;
 	m_listening = socket(AF_INET, SOCK_STREAM, 0);
@@ -59,23 +27,7 @@ bool Server::createAndBindSocket()
 	else
 	{
 		std::cout << "<SERVER> Created socket!" << std::endl;
-
-		m_serverHint.sin_family = AF_INET;
-		inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
-		m_serverHint.sin_port = htons(PORT);
-
-		if (bind(m_listening, (LPSOCKADDR)&m_serverHint, sizeof(m_serverHint)) == SOCKET_ERROR)
-		{
-			std::cout << "<SERVER> Can't bind socket! " << WSAGetLastError() << std::endl;
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			std::cout << "<SERVER> Bound socket!" << std::endl;
-
-			listen(m_listening, 3);
-			result = true;
-		}
+		result = true;
 	}
 	return result;
 }
@@ -85,7 +37,36 @@ bool Server::createAndBindSocket()
 /// <summary>
 /// 
 /// </summary>
-void Server::acceptConnections()
+bool TCPServer::bindSocket()
+{
+	bool result = false;
+
+	m_serverHint.sin_family = AF_INET;
+	inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
+	m_serverHint.sin_port = htons(PORT);
+
+	if (bind(m_listening, (LPSOCKADDR)&m_serverHint, sizeof(m_serverHint)) == SOCKET_ERROR)
+	{
+		std::cout << "<SERVER> Can't bind socket! " << WSAGetLastError() << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		std::cout << "<SERVER> Bound socket!" << std::endl;
+
+		listen(m_listening, 3);
+		result = true;
+	}
+	
+	return result;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void TCPServer::acceptConnections()
 {
 	int addr_size = sizeof(struct sockaddr);
 	while (playerCount < MAX_CLIENTS)
@@ -119,7 +100,7 @@ void Server::acceptConnections()
 /// <summary>
 /// 
 /// </summary>
-void Server::sendAndReceive(int sock, int* playerCount, SOCKET* clients)
+void TCPServer::sendAndReceive(int sock, int* playerCount, SOCKET* clients)
 {
 	SOCKET client = clients[sock];
 	while (true)
@@ -156,7 +137,7 @@ void Server::sendAndReceive(int sock, int* playerCount, SOCKET* clients)
 /// <summary>
 /// 
 /// </summary>
-void Server::closeSocket()
+void TCPServer::closeSocket()
 {
 	closesocket(m_listening);
 	Packet* packet = new Packet();

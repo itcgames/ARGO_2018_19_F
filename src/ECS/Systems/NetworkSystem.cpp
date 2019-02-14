@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 /// <param name="client"></param>
-NetworkSystem::NetworkSystem(Client * client) :
+NetworkSystem::NetworkSystem(UDPClient * client) :
 	m_client(client)
 {
 
@@ -19,7 +19,7 @@ NetworkSystem::NetworkSystem(Client * client) :
 void NetworkSystem::update(double dt)
 {
 	m_clock += dt;
-	Packet* rPacket = m_client->receiveMsg();
+	Packet* rPacket = m_client->recvMsg();
 	if (rPacket->message == "New")
 	{
 		std::cout << "player " << rPacket->playerNum << " connected." << std::endl;

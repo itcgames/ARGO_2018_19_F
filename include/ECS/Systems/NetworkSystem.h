@@ -6,16 +6,18 @@
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/NetworkComponent.h"
 #include "ECS/Components/ControllerComponent.h"
-#include "Client.h"
+
+#include "Networking/TCP_Client.h"
+#include "Networking/UDP_Client.h"
 
 class NetworkSystem : public System
 {
 public:
-	NetworkSystem(Client* client);
+	NetworkSystem(UDPClient* client);
 	virtual void update(double dt) override;
 
 private:
-	Client * m_client;
+	UDPClient * m_client;
 	double m_clock;
 
 	const int SEND_DELAY = 35;

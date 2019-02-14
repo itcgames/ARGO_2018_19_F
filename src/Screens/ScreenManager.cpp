@@ -6,7 +6,7 @@
 /// </summary>
 ScreenManager::ScreenManager()
 {
-	m_client = new Client();	
+	m_client = new UDPClient();
 }
 
 
@@ -92,7 +92,13 @@ Screen * ScreenManager::getScreen(std::string screenID)
 	return m_screens[screenID];
 }
 
-Client * ScreenManager::getClient()
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+UDPClient * ScreenManager::getClient()
 {
 	return m_client;
 }

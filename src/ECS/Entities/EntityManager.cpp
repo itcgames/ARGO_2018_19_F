@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 /// <param name="client"></param>
-EntityManager::EntityManager(Client* client) :
+EntityManager::EntityManager(UDPClient* client) :
 	m_networkSystem(client)
 {
 }

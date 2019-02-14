@@ -4,7 +4,8 @@
 #include <map>
 //	Project.
 #include "SDL.h"
-#include "Client.h"
+#include "Networking/TCP_Client.h"
+#include "Networking/UDP_Client.h"
 
 class Screen;
 
@@ -23,11 +24,11 @@ public:
 	Screen* getCurrentScreen();
 	Screen* getScreen(std::string screenID);
 
-	Client* getClient();
+	UDPClient* getClient();	
 
 private:
 	std::map<std::string, Screen*> m_screens;
 	Screen* m_currentScreen;
-	Client* m_client;
+	UDPClient* m_client;
 };
 #endif // !SCREEN_MANAGER_H

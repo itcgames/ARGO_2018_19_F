@@ -10,8 +10,8 @@ Lobby::Lobby(ScreenManager * screenManager, SDL_Renderer * renderer) :
 {	
 	m_screenID = "Lobby";
 	m_connected = false;
-	Client* client = m_screenManager->getClient();
-	if (client->startWinSock())
+	UDPClient* client = m_screenManager->getClient();
+	if (client->startWinsock())
 	{
 		if (client->createSocket())
 		{
@@ -28,10 +28,10 @@ Lobby::Lobby(ScreenManager * screenManager, SDL_Renderer * renderer) :
 /// <param name="dt"></param>
 void Lobby::update(double dt)
 {
-	if (!m_connected)
+	/*if (!m_connected)
 	{
 		connectToServer();
-	}
+	}*/
 
 	m_screenManager->goToScreen("Play");
 }
@@ -50,8 +50,8 @@ void Lobby::render()
 /// <summary>
 /// 
 /// </summary>
-void Lobby::connectToServer()
-{
-	Client* client = m_screenManager->getClient();
-	m_connected = client->connectToServer();
-}
+//void Lobby::connectToServer()
+//{
+//	TCPClient* client = m_screenManager->getClient();
+//	m_connected = client->connectToServer();
+//}

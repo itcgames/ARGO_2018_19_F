@@ -1,7 +1,7 @@
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
-#include "../submodules/Vector/Vector.h"
+#include "../../submodules/Vector/Vector.h"
 #include <string>
 
 struct Packet
