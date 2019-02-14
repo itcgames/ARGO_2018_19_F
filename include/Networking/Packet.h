@@ -2,7 +2,6 @@
 #define PACKAGE_H
 
 #include "../../submodules/Vector/Vector.h"
-#include "SDL.h"
 #include <string>
 
 struct Packet
@@ -16,6 +15,6 @@ struct Packet
 	Vector velocity;
 	//	Animation data.
 	Vector currentFrame;
-	SDL_RendererFlip flipped;
+	int flipped;
 };
 #endif // !PACKAGE_H

@@ -40,7 +40,7 @@ void NetworkSystem::update(double dt)
 				position->setPos(rPacket->position);
 				physics->setVelocity(rPacket->velocity);
 				animation->setCurrentFrame(rPacket->currentFrame);
-				animation->m_flip = rPacket->flipped;
+				animation->m_flip = (SDL_RendererFlip)rPacket->flipped;
 			}
 			else if (controller != nullptr)
 			{
@@ -51,6 +51,8 @@ void NetworkSystem::update(double dt)
 					sPacket->playerNum = network->getPlayerNum();
 					sPacket->message = "Update";
 					sPacket->position = Vector(position->getPos().x, position->getPos().y);
+					sPacket->currentFrame = animation->getCurrentFrame();
+					sPacket->flipped = animation->m_flip;
 
 					m_client.second->sendMsg(sPacket);
 					m_clock = 0;
