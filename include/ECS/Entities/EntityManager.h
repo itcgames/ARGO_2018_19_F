@@ -21,7 +21,7 @@
 class EntityManager
 {
 public:
-	EntityManager(UDPClient* client);
+	EntityManager(std::pair<std::string, Client*> client);
 	~EntityManager();
 	//	Entity Constructors.
 	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable);

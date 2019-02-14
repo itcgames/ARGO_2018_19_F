@@ -13,11 +13,11 @@
 class NetworkSystem : public System
 {
 public:
-	NetworkSystem(UDPClient* client);
+	NetworkSystem(std::pair<std::string, Client*> client);
 	virtual void update(double dt) override;
 
 private:
-	UDPClient * m_client;
+	std::pair<std::string, Client*> m_client;
 	double m_clock;
 
 	const int SEND_DELAY = 35;

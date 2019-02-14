@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 /// <param name="client"></param>
-EntityManager::EntityManager(UDPClient* client) :
+EntityManager::EntityManager(std::pair<std::string, Client*> client) :
 	m_networkSystem(client)
 {
 }
@@ -45,7 +45,6 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	if (controllable)
 	{
 		player->addComponent(new ControllerComponent());
-		//player->addComponent(new PhysicsComponent());
 	}
 
 	addToSystems(player);

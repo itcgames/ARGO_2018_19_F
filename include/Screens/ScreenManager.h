@@ -24,11 +24,11 @@ public:
 	Screen* getCurrentScreen();
 	Screen* getScreen(std::string screenID);
 
-	UDPClient* getClient();	
+	std::pair<std::string, Client*> getClient();	
 
 private:
 	std::map<std::string, Screen*> m_screens;
 	Screen* m_currentScreen;
-	UDPClient* m_client;
+	std::pair<std::string, Client*> m_client;
 };
 #endif // !SCREEN_MANAGER_H

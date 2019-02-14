@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 /// <param name="client"></param>
-NetworkSystem::NetworkSystem(UDPClient * client) :
+NetworkSystem::NetworkSystem(std::pair<std::string, Client*> client) :
 	m_client(client)
 {
 
@@ -19,7 +19,7 @@ NetworkSystem::NetworkSystem(UDPClient * client) :
 void NetworkSystem::update(double dt)
 {
 	m_clock += dt;
-	Packet* rPacket = m_client->recvMsg();
+	Packet* rPacket = m_client.second->recvMsg();
 	if (rPacket->message == "New")
 	{
 		std::cout << "player " << rPacket->playerNum << " connected." << std::endl;
@@ -39,16 +39,30 @@ void NetworkSystem::update(double dt)
 				position->setPos(rPacket->position);
 				physics->setVelocity(rPacket->velocity);
 			}
-			else if (controller != nullptr && m_clock > SEND_DELAY)
+			else if (controller != nullptr)
 			{
-				Packet* sPacket = new Packet();
+				if (m_client.first == "TCP" && m_clock > SEND_DELAY)
+				{
+					Packet* sPacket = new Packet();
 
-				sPacket->playerNum = network->getPlayerNum();
-				sPacket->message = "Update";
-				sPacket->position = Vector(position->getPos().x, position->getPos().y);
+					sPacket->playerNum = network->getPlayerNum();
+					sPacket->message = "Update";
+					sPacket->position = Vector(position->getPos().x, position->getPos().y);
 
-				m_client->sendMsg(sPacket);
-				m_clock = 0;
+					m_client.second->sendMsg(sPacket);
+					m_clock = 0;
+				}
+				else if (m_client.first == "UDP")
+				{
+					Packet* sPacket = new Packet();
+
+					sPacket->playerNum = network->getPlayerNum();
+					sPacket->message = "Update";
+					sPacket->position = Vector(position->getPos().x, position->getPos().y);
+
+					m_client.second->sendMsg(sPacket);
+					m_clock = 0;
+				}				
 			}
 		}
 	}	

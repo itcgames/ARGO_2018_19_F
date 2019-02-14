@@ -66,7 +66,7 @@ bool UDPServer::bindSocket()
 /// </summary>
 void UDPServer::sendAndRecv()
 {
-	std::map<char*, int> clientIpList;
+	std::map<std::string, int> clientIpList;
 	std::vector<sockaddr_in> clientList;
 	sockaddr_in client;
 	int clientLength = sizeof(struct sockaddr_in);
@@ -87,23 +87,21 @@ void UDPServer::sendAndRecv()
 			char clientIp[256];
 			ZeroMemory(&clientIp, 256);
 			inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
-			clientIpList.insert(clientIpList.begin(), std::pair<char*, int>(clientIp, playerCount));
-			int playerNum = clientIpList[clientIp];
 
-			if (playerNum < playerCount)
+			if (clientIpList[clientIp] == 0 || playerCount == 0)
 			{
-				clientIpList[clientIp] = playerCount;
-				clientList.push_back(client);
 				playerCount++;
+				clientIpList[clientIp] = playerCount;
+				clientList.push_back(client);				
 			}
 
 			std::cout << "<SERVER> Message received from client at " << clientIp << "!" << std::endl;
 
-			for (int i = 0; i < playerCount; i++)
+			for (int i = 1; i <= playerCount; i++)
 			{
 				if (i != clientIpList[clientIp])
 				{
-					int sendOk = sendto(m_listening, (char*)&packet, sizeof(struct Packet) + 1, 0, (LPSOCKADDR)&clientList[i], sizeof(clientList[i]));
+					int sendOk = sendto(m_listening, (char*)&packet, sizeof(struct Packet) + 1, 0, (LPSOCKADDR)&clientList[i - 1], sizeof(clientList[i - 1]));
 					if (sendOk == SOCKET_ERROR)
 					{
 						std::cout << "<SERVER> Error sending message! " << WSAGetLastError() << std::endl;
@@ -112,7 +110,7 @@ void UDPServer::sendAndRecv()
 					{
 						char sendIp[256];
 						ZeroMemory(&sendIp, 256);
-						inet_ntop(AF_INET, &clientList[i].sin_addr, sendIp, 256);
+						inet_ntop(AF_INET, &clientList[i - 1].sin_addr, sendIp, 256);
 
 						std::cout << "<SERVER> Message sent to client at " << sendIp << "!" << std::endl;
 					}
