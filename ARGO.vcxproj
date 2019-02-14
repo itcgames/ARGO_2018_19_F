@@ -160,6 +160,12 @@
     <ClCompile Include="src\Screens\Splash.cpp" />
     <ClCompile Include="src\Screens\Title.cpp" />
     <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="src\States\CrouchState.cpp" />
+    <ClCompile Include="src\States\DeathState.cpp" />
+    <ClCompile Include="src\States\IdleState.cpp" />
+    <ClCompile Include="src\States\JumpState.cpp" />
+    <ClCompile Include="src\States\MovingState.cpp" />
+    <ClCompile Include="src\States\VictoryState.cpp" />
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +203,13 @@
     <ClInclude Include="include\Screens\Settings.h" />
     <ClInclude Include="include\Screens\Splash.h" />
     <ClInclude Include="include\Screens\Title.h" />
+    <ClInclude Include="include\States\CrouchState.h" />
+    <ClInclude Include="include\States\DeathState.h" />
+    <ClInclude Include="include\States\IdleState.h" />
+    <ClInclude Include="include\States\JumpState.h" />
+    <ClInclude Include="include\States\MovingState.h" />
+    <ClInclude Include="include\States\PlayerState.h" />
+    <ClInclude Include="include\States\VictoryState.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
     <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />

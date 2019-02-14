@@ -32,8 +32,8 @@ SDL_Texture* GraphicsComponent::getTexture()
 /// <summary>
 /// get the texture source rectangle - used for graphics system
 /// </summary>
-/// <returns>SDL_Rect</returns>
-SDL_Rect GraphicsComponent::getSourceRect()
+/// <returns>SDL_Rect </returns>
+SDL_Rect& GraphicsComponent::getSourceRect()
 {
 	return m_srcRect;
 }
@@ -44,7 +44,7 @@ SDL_Rect GraphicsComponent::getSourceRect()
 /// get's the destination rectangle - utilised for updating sprite location
 /// </summary>
 /// <returns>SDL_Rect</returns>
-SDL_Rect GraphicsComponent::getDestRect()
+SDL_Rect& GraphicsComponent::getDestRect()
 {
 	return m_destRect;
 }

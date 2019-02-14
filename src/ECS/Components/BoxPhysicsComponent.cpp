@@ -4,7 +4,6 @@
 
 BoxPhysicsComponent::BoxPhysicsComponent() :
 	m_velocity(0,1,0)
-
 {
 	m_id = "BOXPHYSICS";
 }

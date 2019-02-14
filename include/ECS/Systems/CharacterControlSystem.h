@@ -5,6 +5,7 @@
 //  Project.
 #include "ECS/Systems/System.h"
 #include "Vector/Vector.h"
+#include "States/IdleState.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/GraphicsComponent.h"
@@ -17,6 +18,6 @@ public:
 	void update(double dt, SDL_Event e);	
 	virtual void update(double dt) override {};
 
-
+	PlayerState* m_state = new IdleState();
 };
 #endif // !CHARACTER_CONTROL_SYSTEM_H

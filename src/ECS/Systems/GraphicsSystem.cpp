@@ -17,7 +17,7 @@ void GraphicsSystem::update(double dt)
 				double frameTime = animationComponent->getFrameTime();
 				frameTime += dt;
 
-				if (frameTime > 120)
+				if (frameTime > 180)
 				{
 					Vector currentFrame = animationComponent->getCurrentFrame();
 					Vector firstFrame = animationComponent->getFirstFrame();
@@ -67,17 +67,25 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 			SDL_Rect dest = graphicsComponent->getDestRect();
 			SDL_Texture* texture = graphicsComponent->getTexture();
 
-			if (animationComponent != nullptr)
-			{
-				Vector currentFrame = animationComponent->getCurrentFrame();
-				src.x = currentFrame.x * src.w;
-				//src.y = currentFrame->y * src.h;
-			}
+
 
 			dest.x = positionComponent->getPos().x;
 			dest.y = positionComponent->getPos().y;
 
-			SDL_RenderCopy(renderer, texture, &src, &dest);
+			if (animationComponent != nullptr)
+			{
+				Vector currentFrame = animationComponent->getCurrentFrame();
+				src.x = currentFrame.x * src.w;
+				src.y = currentFrame.y * src.h;
+
+				animationComponent->m_centre = { src.x + src.w / 2, src.y + src.h / 2 };
+
+				SDL_RenderCopyEx(renderer, texture, &src, &dest, animationComponent->m_angle, &animationComponent->m_centre, animationComponent->m_flip);
+			}
+			else
+			{
+				SDL_RenderCopy(renderer, texture, &src, &dest);
+			}
 		}
 	}
 }
