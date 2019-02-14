@@ -5,7 +5,8 @@
 /// </summary>
 CollisionComponent::CollisionComponent(SDL_Rect collider, std::string tag) :
 	m_collider(collider),
-	m_isColliding(false)
+	m_isColliding(false),
+	m_obstacleCursor(false)
 {
 	m_id = "COLLISION";
 	m_tag = tag;
@@ -53,4 +54,21 @@ bool CollisionComponent::IsColliding()
 void CollisionComponent::setIsColliding(bool isColliding)
 {
 	m_isColliding = isColliding;
+}
+
+/// <summary>
+///  Get method for collection
+/// </summary>
+bool CollisionComponent::getObstacleCursor()
+{
+	return m_obstacleCursor;
+}
+
+/// <summary>
+/// Set method for collision response
+/// </summary>
+/// <param name="b"></param>
+void CollisionComponent::setObstacleCursor(bool b)
+{
+	m_obstacleCursor = b;
 }

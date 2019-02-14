@@ -39,7 +39,7 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	player->addComponent(new PositionComponent(startPosition));
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	player->addComponent(new AnimationComponent(animStart, animEnd));	
-	player->addComponent(new CollisionComponent(collider, "Player"));
+	player->addComponent(new CollisionComponent(collider, "player"));
 	player->addComponent(new PhysicsComponent());
 
 	if (controllable)
@@ -68,10 +68,31 @@ void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, 
 	obstacle->setId("obstacle");
 	obstacle->addComponent(new PositionComponent(startPosition));
 	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	obstacle->addComponent(new CollisionComponent(collider, "Obstacle"));
+	obstacle->addComponent(new CollisionComponent(collider, "obstacle"));
 
 	addToSystems(obstacle);
 	m_entities.push_back(obstacle);
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <returns></returns>
+void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity* platform = new Entity();
+	platform->setId("platform");
+	platform->addComponent(new PositionComponent(startPosition));
+	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	platform->addComponent(new CollisionComponent(collider, "platform"));
+
+	addToSystems(platform);
+	m_entities.push_back(platform);
 }
 
 
@@ -98,6 +119,60 @@ void EntityManager::createBackground(SDL_Texture * texture, SDL_Rect srcRect)
 
 /// <summary>
 /// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <returns></returns>
+void EntityManager::createSelectionBox(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect)
+{
+	Entity* pauseBox = new Entity();
+	pauseBox->setId("pauseBox");
+	pauseBox->addComponent(new PositionComponent(startPosition));
+	pauseBox->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	pauseBox->addComponent(new BoxPhysicsComponent());
+	pauseBox->addComponent(new CollisionComponent(SDL2Help::InitRect(0, 0, 0, 0), "pauseBox"));
+	pauseBox->addComponent(new ControllerComponent(0));
+
+	addToSystems(pauseBox);
+	m_entities.push_back(pauseBox);
+}
+
+
+
+/// <summary>
+/// The cursor for the selection rounds
+/// The cursor is used to pick up an obstacle
+/// The cursor is used to place an obstacle
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <returns></returns>
+void EntityManager::createCursor(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity* cursor = new Entity();
+	cursor->setId("cursor");
+	cursor->addComponent(new PositionComponent(startPosition));
+	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	cursor->addComponent(new CollisionComponent(collider, "cursor"));
+	cursor->addComponent(new ControllerComponent(0));
+	//cursor->addComponent(new PhysicsComponent());
+
+	addToSystems(cursor);
+	m_entities.push_back(cursor);
+}
+
+
+
+/// <summary>
+/// function to create a starting point
+/// Re usable for each level
+/// Player entity is always initialised to the 
+/// create start position.
 /// </summary>
 /// <param name="startPosition"></param>
 /// <param name="texture"></param>
@@ -140,7 +215,7 @@ void EntityManager::createGoal(Vector startPosition, SDL_Texture * texture, SDL_
 	goal->addComponent(new PositionComponent(startPosition));
 	goal->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	goal->addComponent(new AnimationComponent(animStart, animEnd));
-	goal->addComponent(new CollisionComponent(collider, "Goal"));
+	goal->addComponent(new CollisionComponent(collider, "goal"));
 
 	addToSystems(goal);
 	m_entities.push_back(goal);
@@ -206,6 +281,28 @@ NetworkSystem * EntityManager::getNetworkSystem()
 /// <summary>
 /// 
 /// </summary>
+/// <returns></returns>
+CursorControlSystem * EntityManager::getCursorControlSystem()
+{
+	return &m_cursorControlSystem;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+BoxPhysicsSystem * EntityManager::getBoxPhysicsSystem()
+{
+	return &m_boxPhysicsSystem;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 void EntityManager::addToSystems(Entity* entity)
 {
 	if (entity->getComponent("GRAPHICS") != nullptr)
@@ -218,6 +315,11 @@ void EntityManager::addToSystems(Entity* entity)
 		m_physicsSystem.addEntity(entity);
 	}
 
+	if (entity->getComponent("BOXPHYSICS") != nullptr)
+	{
+		m_boxPhysicsSystem.addEntity(entity);
+	}
+
 	if (entity->getComponent("COLLISION") != nullptr)
 	{
 		m_collisionSystem.addEntity(entity);
@@ -226,10 +328,6 @@ void EntityManager::addToSystems(Entity* entity)
 	if (entity->getComponent("CONTROLLER") != nullptr)
 	{
 		m_characterControlSystem.addEntity(entity);
-	}
-
-	if (entity->getComponent("NETWORK") != nullptr)
-	{
-		m_networkSystem.addEntity(entity);
+		m_cursorControlSystem.addEntity(entity);
 	}
 }

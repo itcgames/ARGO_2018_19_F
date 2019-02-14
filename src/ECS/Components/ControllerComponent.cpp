@@ -5,13 +5,19 @@ int ControllerComponent::m_controllerIndex = 0;
 /// <summary>
 /// 
 /// </summary>
-ControllerComponent::ControllerComponent()
+ControllerComponent::ControllerComponent(int index)
 {    
 	m_id = "CONTROLLER";
-	m_controller = SDL_GameControllerOpen(m_controllerIndex);
-    m_controllerIndex++;
+	if (index == -1)
+	{
+		m_controller = SDL_GameControllerOpen(m_controllerIndex);
+		m_controllerIndex++;
+	}
+	else
+	{
+		m_controller = SDL_GameControllerOpen(index);
+	}
 }
-
 
 
 /// <summary>

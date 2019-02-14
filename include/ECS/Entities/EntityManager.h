@@ -17,6 +17,8 @@
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/CharacterControlSystem.h"
 #include "ECS/Systems/NetworkSystem.h"
+#include "ECS/Systems/BoxPhysicsSystem.h"
+#include "ECS/Systems/CursorControlSystem.h"
 
 class EntityManager
 {
@@ -26,7 +28,10 @@ public:
 	//	Entity Constructors.
 	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable);
 	void createObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
+	void createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createBackground(SDL_Texture* texture, SDL_Rect srcRect);
+	void createSelectionBox(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
+	void createCursor(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createStart(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createGoal(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 
@@ -35,6 +40,8 @@ public:
 	CollisionSystem * getCollisionSystem();
 	CharacterControlSystem * getCharacterControlSystem();
 	NetworkSystem * getNetworkSystem();
+	CursorControlSystem * getCursorControlSystem();
+	BoxPhysicsSystem * getBoxPhysicsSystem();
 
 private:
 	void addToSystems(Entity* entity);
@@ -45,6 +52,8 @@ private:
 	CollisionSystem m_collisionSystem;
 	CharacterControlSystem m_characterControlSystem;
 	NetworkSystem m_networkSystem;
+	CursorControlSystem m_cursorControlSystem;
+	BoxPhysicsSystem m_boxPhysicsSystem;
 	//	Entity master list.
 	std::vector<Entity*> m_entities;
 };

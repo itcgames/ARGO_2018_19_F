@@ -1,6 +1,7 @@
 #ifndef PHYSICS_COMPONENT_H
 #define PHYSICS_COMPONENT_H
 
+//  Project.
 #include "ECS/Components/Component.h"
 #include "Vector/Vector.h"
 
@@ -14,6 +15,7 @@ public:
 	/// </summary>
 	Vector& getVelocity();
 	Vector& getMaxVelocity();
+	Vector& getMaxJumpVelocity();
 	Vector& getAcceleration();
 	Vector& getFriction();
 	bool getJumping();
@@ -23,11 +25,13 @@ public:
 	void setAcceleration(Vector& v);
 	void setFriction(Vector& v);
 	void setJumping(bool jump);
+	bool alive = true; 
 	void useGravity(bool g);
 
 private:
 	Vector m_velocity;
 	Vector m_maxVelocity;
+	Vector m_maxJumpVelocity;
 	Vector m_acceleration;
 	Vector m_friction;
 

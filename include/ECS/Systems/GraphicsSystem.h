@@ -1,10 +1,12 @@
 #ifndef GRAPHICS_SYSTEM_H
 #define GRAPHICS_SYSTEM_H
 
+//  Project.
 #include "ECS/Systems/System.h"
 #include "ECS/Components/GraphicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/AnimationComponent.h"
+#include "ECS/Components/PhysicsComponent.h"
 
 class GraphicsSystem : public System
 {

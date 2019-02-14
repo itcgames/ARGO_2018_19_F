@@ -12,6 +12,8 @@ public:
 	virtual void render() override;
 private:
 	EntityManager m_entityManager;
+	
+	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
 };
 #endif // !AUTUMN_H

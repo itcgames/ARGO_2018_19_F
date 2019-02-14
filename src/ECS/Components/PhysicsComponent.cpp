@@ -3,13 +3,19 @@
 /// <summary>
 /// Default Constructor - initialise component variables
 /// </summary>
-PhysicsComponent::PhysicsComponent()
+PhysicsComponent::PhysicsComponent() :
+	m_velocity(Vector(0, 0, 0)),
+	m_maxVelocity(Vector(10, 10)),
+	m_maxJumpVelocity(Vector(5, 5)),
+	m_acceleration(Vector(0, 0, 0)),
+	m_friction(Vector(.95, .99, 0))
 {
 	m_id = "PHYSICS";
-	m_velocity = Vector(0,0,0);
+	/*m_velocity = Vector(0,0,0);
 	m_maxVelocity = Vector(10, 10);
+	m_maxJumpVelocity = Vector(5, 5);
 	m_acceleration = Vector(0,0,0);
-	m_friction = Vector(.95,.99,0);
+	m_friction = Vector(.95,.99,0);*/
 	m_useGravity = true;
 }
 
@@ -28,6 +34,11 @@ Vector & PhysicsComponent::getVelocity()
 Vector & PhysicsComponent::getMaxVelocity()
 {
 	return m_maxVelocity;
+}
+
+Vector & PhysicsComponent::getMaxJumpVelocity()
+{
+	return m_maxJumpVelocity;
 }
 
 /// <summary>
