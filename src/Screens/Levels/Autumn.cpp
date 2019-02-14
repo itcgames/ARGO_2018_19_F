@@ -5,12 +5,14 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
-	m_startPos(200,800)
+	m_startPos(100,800)
 {
 	m_screenID = "Play";
 
 	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
 	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "redGhost.png", m_renderer); // testing
+	SDL_Texture* player1Texture = SDL2Help::LoadTexture(m_resourcesPath + "santaYellow.png", m_renderer); // testing
+	SDL_Texture* player2Texture = SDL2Help::LoadTexture(m_resourcesPath + "PumpkinNormal.png", m_renderer); // testing
 	SDL_Texture* flagTexture = SDL2Help::LoadTexture(m_resourcesPath + "flags.png", m_renderer);
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
 	SDL_Texture* deathTexture = SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png", m_renderer);
@@ -22,13 +24,19 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
 	
 	//	Create player entity.
-	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 0, 771, 1384), SDL2Help::InitRect(0, 0, 43, 64), Vector(0, 0, 0), Vector(0, 1, 0), SDL2Help::InitRect(0, 0, 43, 64)));
-
+	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 0, 922, 1267), SDL2Help::InitRect(0, 0, 43, 64), Vector(0, 0, 0), Vector(0, 1, 0), SDL2Help::InitRect(0, 0, 43, 64)));
+	
+	//	Create player entity.
+	//m_entities.push_back(EntityCreator::createPlayer(m_startPos, player1Texture, SDL2Help::InitRect(0, 0, 972, 1388), SDL2Help::InitRect(0, 0, 43, 64), Vector(0, 0, 0), Vector(0, 1, 0), SDL2Help::InitRect(0, 0, 43, 64)));
+	
+	//	Create player entity.
+	//m_entities.push_back(EntityCreator::createPlayer(m_startPos, player2Texture, SDL2Help::InitRect(0, 0, 771, 1384), SDL2Help::InitRect(0, 0, 43, 64), Vector(0, 0, 0), Vector(0, 1, 0), SDL2Help::InitRect(0, 0, 43, 64)));
+	
 	//  Create obstacle entity.
 	m_entities.push_back(EntityCreator::createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
 	
 	//  Create Platform entity.
-	m_entities.push_back(EntityCreator::createPlatform(Vector(175, 800), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
+	m_entities.push_back(EntityCreator::createPlatform(Vector(375, 650), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
 
 	//	Create goal entity.
 	m_entities.push_back(EntityCreator::createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 0, 0), SDL2Help::InitRect(0, 0, 50, 100)));

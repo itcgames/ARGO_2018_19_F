@@ -170,43 +170,45 @@ void CollisionSystem::update(double dt)
 							ControllerState previousState = controller->getPreviousState();
 
 							// Get the right and bottom of the colliders
-							Vector player = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
+							Vector cursor = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
 							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
 
-							float top = player.y - e2Position->getPos().y;
+							float top = cursor.y - e2Position->getPos().y;
 							float bottom = entity.y - e1Position->getPos().y;
-							float left = player.x - e2Position->getPos().x;
+							float left = cursor.x - e2Position->getPos().x;
 							float right = entity.x - e1Position->getPos().x;
 
 							 //check the top
-							if (top < bottom && top < left && top < right && controller->getCurrentState().A)
+							if (top < bottom && controller->getCurrentState().A) //top < left && top < right &&
 							{	
 								//bool b = true;
 								e1Collision->setObstacleCursor(true);
 								e2Position->setPos(e1Position->getPos());
 								//std::cout << "cursor collide" << std::endl;
 							}
-							// check the bottom
+							 //check the bottom
 							if (bottom < top && bottom < left && bottom < right && controller->getCurrentState().A)
 							{
 								e1Collision->setObstacleCursor(true);
 								e2Position->setPos(e1Position->getPos());
 								//std::cout << "cursor collide" << std::endl;
 							}
-							// check the left
+							 //check the left
 							if (left < right && left < top && left < bottom && controller->getCurrentState().A)
 							{
 								e1Collision->setObstacleCursor(true);
 								e2Position->setPos(e1Position->getPos());
 								//std::cout << "cursor collide" << std::endl;
 							}
-							// check the right
+							 //check the right
 							if (right < left && right < top && right < bottom&& controller->getCurrentState().A)
 							{
 								e1Collision->setObstacleCursor(true);
 								e2Position->setPos(e1Position->getPos());
 								//std::cout << "cursor collide" << std::endl;
 							}
+
+							
 						}
 					}
 				}

@@ -27,14 +27,14 @@ void CursorControlSystem::update(double dt)
 			if (currentState.leftStick.x > controller->DEAD_ZONE )
 			{
 				Vector v = positionComponent->getPos();
-				v.x = positionComponent->getPos().x + 1;
+				v.x = positionComponent->getPos().x + 5;
 
 				positionComponent->setPos(v);// += 0.075;
 			}
 			else if (currentState.leftStick.x < -controller->DEAD_ZONE)
 			{
 				Vector v = positionComponent->getPos();
-				v.x = positionComponent->getPos().x - 1;
+				v.x = positionComponent->getPos().x - 5;
 
 				positionComponent->setPos(v);
 			}
@@ -42,14 +42,14 @@ void CursorControlSystem::update(double dt)
 			if (currentState.leftStick.y > controller->DEAD_ZONE)
 			{
 				Vector v = positionComponent->getPos();
-				v.y = positionComponent->getPos().y + 1;
+				v.y = positionComponent->getPos().y + 5;
 
 				positionComponent->setPos(v);
 			}
 			else if (currentState.leftStick.y < -controller->DEAD_ZONE)
 			{
 				Vector v = positionComponent->getPos();
-				v.y = positionComponent->getPos().y - 1;
+				v.y = positionComponent->getPos().y - 5;
 				positionComponent->setPos(v);
 			}
 		}
