@@ -40,6 +40,7 @@ void NetworkSystem::update(double dt)
 				position->setPos(rPacket->position);
 				physics->setVelocity(rPacket->velocity);
 				animation->setCurrentFrame(rPacket->currentFrame);
+				animation->m_flip = rPacket->flipped;
 			}
 			else if (controller != nullptr)
 			{
@@ -62,6 +63,7 @@ void NetworkSystem::update(double dt)
 					sPacket->message = "Update";
 					sPacket->position = Vector(position->getPos().x, position->getPos().y);
 					sPacket->currentFrame = animation->getCurrentFrame();
+					sPacket->flipped = animation->m_flip;
 
 					m_client.second->sendMsg(sPacket);
 					m_clock = 0;
