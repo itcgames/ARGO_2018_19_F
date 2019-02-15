@@ -1,40 +1,11 @@
-#include "Client.h"
+#include "Networking/TCP_Client.h"
 
 /// <summary>
 /// 
 /// </summary>
-Client::Client()
+TCPClient::TCPClient()
 {
-}
 
-
-
-/// <summary>
-/// 
-/// </summary>
-Client::~Client()
-{
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
-bool Client::startWinSock()
-{
-	bool result = false;
-	m_version = MAKEWORD(2, 2);
-	int wsOk = WSAStartup(m_version, &m_data);
-	if (wsOk != 0)
-	{
-		std::cout << "<CLIENT> Can't start Winsock! " << wsOk << std::endl;
-	}
-	else
-	{
-		result = true;
-	}
-	return result;
 }
 
 
@@ -43,7 +14,7 @@ bool Client::startWinSock()
 /// 
 /// </summary>
 /// <returns></returns>
-bool Client::createSocket()
+bool TCPClient::createSocket()
 {
 	bool result = false;
 	m_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -66,13 +37,15 @@ bool Client::createSocket()
 /// 
 /// </summary>
 /// <returns></returns>
-bool Client::connectToServer()
+bool TCPClient::connectToServer()
 {
 	bool result = false;
+
 	m_serverHint.sin_family = AF_INET;
+	inet_pton(AF_INET, SERVER_IPS.at("dj"), &m_serverHint.sin_addr);
 	m_serverHint.sin_port = htons(PORT);	
-	inet_pton(AF_INET, SERVER_IPS.at("local"), &m_serverHint.sin_addr);
-	int connResult = connect(m_socket, (sockaddr*)&m_serverHint, sizeof(m_serverHint));
+
+	int connResult = connect(m_socket, (LPSOCKADDR)&m_serverHint, sizeof(m_serverHint));
 	if (connResult == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)
 	{
 		std::cout << "<CLIENT> Can't connect to server, Err #" << WSAGetLastError() << std::endl;
@@ -80,7 +53,6 @@ bool Client::connectToServer()
 	else
 	{
 		std::cout << "<CLIENT> Connected to server" << std::endl;
-
 		result = true;
 	}
 
@@ -93,12 +65,12 @@ bool Client::connectToServer()
 /// 
 /// </summary>
 /// <param name="msg"></param>
-bool Client::sendMsg(Packet msg)
+bool TCPClient::sendMsg(Packet* msg)
 {
 	bool result = false;
 	if (sizeof(msg) > 0)
 	{
-		int sendResult = send(m_socket, (char*)&msg, sizeof(msg) + 1, 0);
+		int sendResult = send(m_socket, (char*)msg, sizeof(struct Packet) + 1, 0);
 		if (sendResult == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)
 		{
 			std::cout << "<CLIENT> Message failed to send, Err #" << WSAGetLastError() << std::endl;
@@ -117,20 +89,10 @@ bool Client::sendMsg(Packet msg)
 /// 
 /// </summary>
 /// <returns></returns>
-Packet Client::receiveMsg()
+Packet* TCPClient::recvMsg()
 {
-	Packet packet;
-	recv(m_socket, (char*)&packet, sizeof(packet), 0);
+	Packet* packet = new Packet();
+	int addr_len = sizeof(m_serverHint);
+	int bytesReceived = recv(m_socket, (char*)packet, sizeof(struct Packet), 0);
 	return packet;
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
-void Client::closeConnection()
-{
-	closesocket(m_socket);
-	WSACleanup();
 }

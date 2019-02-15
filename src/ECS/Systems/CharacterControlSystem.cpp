@@ -25,7 +25,7 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 		{
 			Vector velocity = physicsComponent->getVelocity();
 
-			system("CLS");
+			//system("CLS");
 			PlayerState* state = m_state->handleState(entity, currentState);
 			m_state->update(dt, entity);
 			if (state != nullptr)

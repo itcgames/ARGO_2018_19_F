@@ -119,7 +119,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "Goal")
+						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "goal")
 						{
 							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
 
@@ -276,6 +276,7 @@ void CollisionSystem::update(double dt)
 								cursorCount = 0;
 							}
 
+														
 						}
 						else
 						{
