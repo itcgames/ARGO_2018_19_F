@@ -38,10 +38,8 @@
     <ClCompile Include="src\States\IdleState.cpp" />
     <ClCompile Include="src\States\CrouchState.cpp" />
     <ClCompile Include="src\States\MovingState.cpp" />
-    <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
     <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
-    <ClCompile Include="src\Client.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\States\DeathState.cpp" />
@@ -93,12 +91,9 @@
     <ClInclude Include="include\States\IdleState.h" />
     <ClInclude Include="include\States\CrouchState.h" />
     <ClInclude Include="include\States\MovingState.h" />
-    <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
     <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
     <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
-    <ClInclude Include="include\Client.h" />
     <ClInclude Include="include\Screens\Lobby.h" />
-    <ClInclude Include="include\Packet.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
     <ClInclude Include="include\States\DeathState.h" />
     <ClInclude Include="include\States\VictoryState.h" />
