@@ -19,10 +19,12 @@
 #include "ECS/Systems/NetworkSystem.h"
 #include "ECS/Systems/BoxPhysicsSystem.h"
 #include "ECS/Systems/CursorControlSystem.h"
+#include "ECS/Systems/UIGraphicsSystem.h"
 
 class EntityManager
 {
 public:
+	EntityManager();
 	EntityManager(std::pair<std::string, Client*> client);
 	~EntityManager();
 	//	Entity Constructors.
@@ -35,6 +37,8 @@ public:
 	void createCursor(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createStart(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createGoal(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
+	void createLabel(Vector position, std::string text, SDL_Color colour, int width, int height);
+	void createButton(Vector position, SDL_Texture* texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height);
 
 	GraphicsSystem * getGraphicsSystem();
 	PhysicsSystem * getPhysicsSystem();
@@ -43,19 +47,17 @@ public:
 	NetworkSystem * getNetworkSystem();
 	CursorControlSystem * getCursorControlSystem();
 	BoxPhysicsSystem * getBoxPhysicsSystem();
+	UIGraphicsSystem * getUIGraphicsSystem();
 
 private:
 	void addToSystems(Entity* entity);
 
 	//	Systems	
-	GraphicsSystem m_graphicsSystem;
-	PhysicsSystem m_physicsSystem;
-	CollisionSystem m_collisionSystem;
-	CharacterControlSystem m_characterControlSystem;
-	NetworkSystem m_networkSystem;
-	CursorControlSystem m_cursorControlSystem;
-	BoxPhysicsSystem m_boxPhysicsSystem;
+	std::map<std::string, System*> m_systems;
+
 	//	Entity master list.
 	std::vector<Entity*> m_entities;
+
+	std::pair<std::string, Client*> m_client;
 };
 #endif // !ENTITY_MANAGER_H

@@ -9,8 +9,6 @@ void GraphicsSystem::update(double dt)
 	for (Entity* entity : m_entities)
 	{
 		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
-		PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("PHYSICS");
-
 		{
 			if (animationComponent != nullptr)
 			{
@@ -66,8 +64,6 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 			SDL_Rect src = graphicsComponent->getSourceRect();
 			SDL_Rect dest = graphicsComponent->getDestRect();
 			SDL_Texture* texture = graphicsComponent->getTexture();
-
-
 
 			dest.x = positionComponent->getPos().x;
 			dest.y = positionComponent->getPos().y;

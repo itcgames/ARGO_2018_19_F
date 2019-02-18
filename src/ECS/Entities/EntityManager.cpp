@@ -3,9 +3,18 @@
 /// <summary>
 /// 
 /// </summary>
+EntityManager::EntityManager()
+{
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="client"></param>
 EntityManager::EntityManager(std::pair<std::string, Client*> client) :
-	m_networkSystem(client)
+	m_client(client)
 {
 }
 
@@ -185,7 +194,6 @@ void EntityManager::createCursor(Vector startPosition, SDL_Texture* texture, SDL
 	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	cursor->addComponent(new CollisionComponent(collider, "cursor"));
 	cursor->addComponent(new ControllerComponent(0));
-	//cursor->addComponent(new PhysicsComponent());
 
 	addToSystems(cursor);
 	m_entities.push_back(cursor);
@@ -251,10 +259,54 @@ void EntityManager::createGoal(Vector startPosition, SDL_Texture * texture, SDL_
 /// <summary>
 /// 
 /// </summary>
+/// <param name="position"></param>
+/// <param name="text"></param>
+/// <param name="colour"></param>
+/// <param name="width"></param>
+/// <param name="height"></param>
+void EntityManager::createLabel(Vector position, std::string text, SDL_Color colour, int width, int height)
+{
+	const char* string = text.c_str();
+	Entity* label = new Entity();
+	label->addComponent(new PositionComponent(position));
+	label->addComponent(new TextComponent(string, width, height, colour));
+
+	addToSystems(label);
+	m_entities.push_back(label);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="position"></param>
+/// <param name="texture"></param>
+/// <param name="src"></param>
+/// <param name="text"></param>
+/// <param name="colour"></param>
+/// <param name="width"></param>
+/// <param name="height"></param>
+void EntityManager::createButton(Vector position, SDL_Texture * texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height)
+{
+	Entity* button = new Entity();
+	button->addComponent(new PositionComponent(position));
+	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
+	button->addComponent(new GraphicsComponent(texture, src, { 0,0,width,height }, 0));
+
+	addToSystems(button);
+	m_entities.push_back(button);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <returns></returns>
 GraphicsSystem * EntityManager::getGraphicsSystem()
 {
-	return &m_graphicsSystem;
+	return (GraphicsSystem*)m_systems["GRAPHICS"];
 }
 
 
@@ -265,7 +317,7 @@ GraphicsSystem * EntityManager::getGraphicsSystem()
 /// <returns></returns>
 PhysicsSystem * EntityManager::getPhysicsSystem()
 {
-	return &m_physicsSystem;
+	return (PhysicsSystem*)m_systems["PHYSICS"];
 }
 
 
@@ -276,7 +328,7 @@ PhysicsSystem * EntityManager::getPhysicsSystem()
 /// <returns></returns>
 CollisionSystem * EntityManager::getCollisionSystem()
 {
-	return &m_collisionSystem;
+	return (CollisionSystem*) m_systems["COLLISION"];
 }
 
 
@@ -287,7 +339,7 @@ CollisionSystem * EntityManager::getCollisionSystem()
 /// <returns></returns>
 CharacterControlSystem * EntityManager::getCharacterControlSystem()
 {
-	return &m_characterControlSystem;
+	return (CharacterControlSystem*) m_systems["CHARACTER_CONTROLLER"];
 }
 
 
@@ -298,7 +350,7 @@ CharacterControlSystem * EntityManager::getCharacterControlSystem()
 /// <returns></returns>
 NetworkSystem * EntityManager::getNetworkSystem()
 {
-	return &m_networkSystem;
+	return (NetworkSystem*) m_systems["NETWORK"];
 }
 
 
@@ -309,7 +361,7 @@ NetworkSystem * EntityManager::getNetworkSystem()
 /// <returns></returns>
 CursorControlSystem * EntityManager::getCursorControlSystem()
 {
-	return &m_cursorControlSystem;
+	return (CursorControlSystem*) m_systems["CURSOR_CONTROLLER"];
 }
 
 
@@ -320,7 +372,18 @@ CursorControlSystem * EntityManager::getCursorControlSystem()
 /// <returns></returns>
 BoxPhysicsSystem * EntityManager::getBoxPhysicsSystem()
 {
-	return &m_boxPhysicsSystem;
+	return (BoxPhysicsSystem*) m_systems["BOXPHYSICS"];
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+UIGraphicsSystem * EntityManager::getUIGraphicsSystem()
+{
+	return (UIGraphicsSystem*) m_systems["UI_GRAPHICS"];
 }
 
 
@@ -332,32 +395,78 @@ void EntityManager::addToSystems(Entity* entity)
 {
 	if (entity->getComponent("GRAPHICS") != nullptr)
 	{
-		m_graphicsSystem.addEntity(entity);
+		if (m_systems["GRAPHICS"] == nullptr)
+		{
+			m_systems["GRAPHICS"] = new GraphicsSystem();
+		}
+
+		m_systems["GRAPHICS"]->addEntity(entity);
+	}
+
+	if (entity->getComponent("TEXT") != nullptr)
+	{
+		if (m_systems["UI_GRAPHICS"] == nullptr)
+		{
+			m_systems["UI_GRAPHICS"] = new UIGraphicsSystem();
+		}
+
+		m_systems["UI_GRAPHICS"]->addEntity(entity);
 	}
 
 	if (entity->getComponent("PHYSICS") != nullptr)
 	{
-		m_physicsSystem.addEntity(entity);
+		if (m_systems["PHYSICS"] == nullptr)
+		{
+			m_systems["PHYSICS"] = new PhysicsSystem();
+		}
+
+		m_systems["PHYSICS"]->addEntity(entity);
 	}
 
 	if (entity->getComponent("BOXPHYSICS") != nullptr)
 	{
-		m_boxPhysicsSystem.addEntity(entity);
+		if (m_systems["BOXPHYSICS"] == nullptr)
+		{
+			m_systems["BOXPHYSICS"] = new BoxPhysicsSystem();
+		}
+
+		m_systems["BOXPHYSICS"]->addEntity(entity);
 	}
 
 	if (entity->getComponent("COLLISION") != nullptr)
 	{
-		m_collisionSystem.addEntity(entity);
+		if (m_systems["COLLISION"] == nullptr)
+		{
+			m_systems["COLLISION"] = new CollisionSystem();
+		}
+
+		m_systems["COLLISION"]->addEntity(entity);
 	}
 
 	if (entity->getComponent("CONTROLLER") != nullptr)
 	{
-		m_characterControlSystem.addEntity(entity);
-		m_cursorControlSystem.addEntity(entity);
+		if (m_systems["CHARACTER_CONTROLLER"] == nullptr)
+		{
+			m_systems["CHARACTER_CONTROLLER"] = new CharacterControlSystem();
+		}
+
+		m_systems["CHARACTER_CONTROLLER"]->addEntity(entity);
+
+		if (m_systems["CURSOR_CONTROLLER"] == nullptr)
+		{
+			m_systems["CURSOR_CONTROLLER"] = new CursorControlSystem();
+		}
+		
+		m_systems["CURSOR_CONTROLLER"]->addEntity(entity);
 	}
 
 	if (entity->getComponent("NETWORK") != nullptr)
 	{
-		m_networkSystem.addEntity(entity);
+		if (m_systems["NETWORK"] == nullptr)
+		{
+			m_systems["NETWORK"] = new NetworkSystem(m_client);
+		}
+
+		m_systems["NETWORK"]->addEntity(entity);
 	}
 }
