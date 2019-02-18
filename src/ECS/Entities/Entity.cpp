@@ -63,12 +63,57 @@ Component * Entity::getComponent(std::string componentId)
 	return m_components[componentId];
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
 std::string Entity::getId()
 {
 	return m_id;
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="id"></param>
 void Entity::setId(std::string id)
 {
 	m_id = id;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+std::vector<Entity*> Entity::getLinkedEntities()
+{
+	return m_linkedEntities;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="entity"></param>
+void Entity::addLink(Entity * entity)
+{
+	m_linkedEntities.push_back(entity);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="entity"></param>
+void Entity::removeLink(Entity * entity)
+{
+	m_linkedEntities.erase(std::remove(m_linkedEntities.begin(), m_linkedEntities.end(), entity), m_linkedEntities.end());
 }

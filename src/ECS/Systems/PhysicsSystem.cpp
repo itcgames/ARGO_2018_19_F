@@ -14,7 +14,7 @@ void PhysicsSystem::update(double dt)
 		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("PHYSICS");
 		
 
-		if (physicsComponent != nullptr && positionComponent != nullptr)
+		if (physicsComponent != nullptr && positionComponent != nullptr && entity->getId() != "cursor")
 		{
 			Vector acceleration = physicsComponent->getAcceleration();
 			Vector velocity = physicsComponent->getVelocity();
@@ -48,6 +48,7 @@ void PhysicsSystem::update(double dt)
 			acceleration = Vector(0, 0, 0);
 			physicsComponent->setAcceleration(acceleration);
 		}
+
 	}
 }
 

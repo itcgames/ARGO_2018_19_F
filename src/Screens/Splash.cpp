@@ -8,15 +8,7 @@ Splash::Splash(ScreenManager* screenManager, SDL_Renderer* renderer) :
 {
 	m_screenID = "Splash";
 
-	m_entities.push_back(EntityCreator::createLabel(Vector(800, 450), "ARGO", { 125,255,255 }, 400, 100));
-
-	for (Entity* entity : m_entities)
-	{
-		if (entity->getComponent("TEXT") != nullptr || entity->getComponent("GRAPHICS") != nullptr)
-		{
-			m_ui.addEntity(entity);
-		}
-	}
+	m_entityManager.createLabel(Vector(800, 450), "ARGO", { 125,255,255 }, 400, 100);
 }
 
 
@@ -27,7 +19,7 @@ Splash::Splash(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// <param name="dt"></param>
 void Splash::update(double dt)
 {
-	m_ui.update(dt);
+	m_entityManager.getUIGraphicsSystem()->update(dt);
 }
 
 
@@ -38,5 +30,5 @@ void Splash::update(double dt)
 /// <param name="renderer"></param>
 void Splash::render()
 {
-	m_ui.render(m_renderer);
+	m_entityManager.getUIGraphicsSystem()->render(m_renderer);
 }

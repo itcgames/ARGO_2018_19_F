@@ -6,12 +6,16 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
+#include "ECS/Components/ControllerComponent.h"
 #include "SDL2_Helper/SDL2Helper.h"
 
 class CollisionSystem : public System
 {
 public:
 	virtual void update(double dt) override;
+
+	void cursorUpdate(CollisionComponent *e1Collision, CollisionComponent *e2Collision, PositionComponent *e1Position, PositionComponent *e2Position);
+	void playerUpdate(CollisionComponent *e1Collision, CollisionComponent *e2Collision, PositionComponent *e1Position, PositionComponent *e2Position);
 private:
 	std::string handleBoxCollision(Vector& p1, SDL_Rect& c1, Vector& p2, SDL_Rect& c2);
 };

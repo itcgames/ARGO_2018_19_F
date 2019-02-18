@@ -5,74 +5,49 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
-	m_startPos(100,800)
+	m_startPos(100,800),
+	m_entityManager(m_screenManager->getClient())
 {
 	m_screenID = "Play";
 
 	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
-	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "test-sheet.png", m_renderer); // testing
+	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "redGhost.png", m_renderer); // testing
+	SDL_Texture* player1Texture = SDL2Help::LoadTexture(m_resourcesPath + "santaYellow.png", m_renderer); // testing
+	SDL_Texture* player2Texture = SDL2Help::LoadTexture(m_resourcesPath + "PumpkinNormal.png", m_renderer); // testing
+	SDL_Texture* player3Texture = SDL2Help::LoadTexture(m_resourcesPath + "test-sheet.png", m_renderer); // testing
 	SDL_Texture* flagTexture = SDL2Help::LoadTexture(m_resourcesPath + "flags.png", m_renderer);
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
 	SDL_Texture* deathTexture = SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png", m_renderer);
 	SDL_Texture* spikeTexture = SDL2Help::LoadTexture(m_resourcesPath + "spikes.png", m_renderer);
 	SDL_Texture* pauseTexture = SDL2Help::LoadTexture(m_resourcesPath + "pause.png", m_renderer);
+	SDL_Texture* cursorTexture = SDL2Help::LoadTexture(m_resourcesPath + "cursor.png", m_renderer);
+	SDL_Texture* springBoardTexture = SDL2Help::LoadTexture(m_resourcesPath + "springBoard.png", m_renderer);
 
 	//	Create background entity.
-	m_entities.push_back(EntityCreator::createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762)));
+	m_entityManager.createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762));
 	
-	//	Create player entity.
-	m_entities.push_back(EntityCreator::createPlayer(m_startPos, playerTexture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 64, 64), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 64, 64)));
+	//	Create player entities.
+	m_entityManager.createPlayer(0, m_startPos, player3Texture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 64, 64), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 64, 64), true);	
+	m_entityManager.createPlayer(1, m_startPos, player3Texture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 64, 64), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 64, 64), false);
 
-	//  Create obstacle entity.
-	m_entities.push_back(EntityCreator::createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
-	
-	//  Create Platform entity.
-	m_entities.push_back(EntityCreator::createPlatform(Vector(300, 775), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100)));
+	// Create obstacle entities.
+	m_entityManager.createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+	m_entityManager.createPlatform(Vector(375, 650), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+
+	//Create Spring entity.
+	m_entityManager.createSpring(Vector(500, 700), springBoardTexture, SDL2Help::InitRect(0, 0, 512, 512), SDL2Help::InitRect(0, 0, 50, 75), SDL2Help::InitRect(0, 0, 50, 75));
 
 	//	Create goal entity.
-	m_entities.push_back(EntityCreator::createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 1, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100)));
+	m_entityManager.createGoal(Vector(1400, 800), flagTexture, SDL2Help::InitRect(0, 0, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 0, 0), SDL2Help::InitRect(0, 0, 50, 100));
 
 	//	Create start entity.
-	m_entities.push_back(EntityCreator::createStart(m_startPos, flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 0, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100)));
+	m_entityManager.createStart(m_startPos, flagTexture, SDL2Help::InitRect(0, 314, 158, 314), SDL2Help::InitRect(0, 0, 50, 100), Vector(0, 1, 0), Vector(7, 1, 0), SDL2Help::InitRect(0, 0, 50, 100));	
 
 	//create PauseBox Entity
-	m_entities.push_back(EntityCreator::createSelectionBox(Vector(500, -1000), pauseTexture, SDL2Help::InitRect(0, 0, 1181, 1475), SDL2Help::InitRect(0, 0, 600, 800)));
+	m_entityManager.createSelectionBox(Vector(500, -1000), pauseTexture, SDL2Help::InitRect(0, 0, 1181, 1475), SDL2Help::InitRect(0, 0, 600, 800));
 
-	//	Add all entities to relevant systems.
-	for (Entity* entity : m_entities)
-	{
-		if (entity->getComponent("GRAPHICS") != nullptr)
-		{
-			m_graphics.addEntity(entity);
-		}
-
-		if (entity->getComponent("PHYSICS") != nullptr)
-		{
-			m_physics.addEntity(entity);
-		}
-
-		if (entity->getComponent("BOXPHYSICS") != nullptr)
-		{
-			m_boxPhysics.addEntity(entity);
-		}
-		if (entity->getComponent("COLLISION") != nullptr)
-		{
-			m_collisions.addEntity(entity);
-		}
-
-		if (entity->getComponent("CONTROLLER") != nullptr)
-		{
-			m_characterControl.addEntity(entity);
-		}
-	}		
-
-	for (Entity* deathentity : m_deaths)
-	{
-		if (deathentity->getComponent("GRAPHICS") != nullptr)
-		{
-			m_graphics.addEntity(deathentity);
-		}
-	}
+	//create Cursor Entity
+	m_entityManager.createCursor(Vector(200, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));	
 }
 
 
@@ -85,14 +60,22 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt, SDL_Event& e)
 
 {
-	m_boxPhysics.update(dt);
-	if (!m_boxPhysics.getPause())
+	BoxPhysicsSystem* boxPhy = m_entityManager.getBoxPhysicsSystem();
+	boxPhy->update(dt);
+	if (!boxPhy->getPause())
 	{
-		m_characterControl.update(dt, e);
+		m_entityManager.getCharacterControlSystem()->update(dt, e);
+	}
+
+	if (boxPhy->getPause())
+	{
+		m_entityManager.getCursorControlSystem()->update(dt);
 	}	
-	m_physics.update(dt);
-	m_collisions.update(dt);
-	m_graphics.update(dt);
+
+	m_entityManager.getPhysicsSystem()->update(dt);
+	m_entityManager.getCollisionSystem()->update(dt);
+	m_entityManager.getGraphicsSystem()->update(dt);
+	m_entityManager.getNetworkSystem()->update(dt);
 }
 
 
@@ -103,5 +86,5 @@ void Autumn::update(double dt, SDL_Event& e)
 /// <param name="renderer"></param>
 void Autumn::render()
 {
-	m_graphics.render(m_renderer);
+	m_entityManager.getGraphicsSystem()->render(m_renderer);
 }

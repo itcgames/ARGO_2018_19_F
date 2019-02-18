@@ -2,7 +2,7 @@
 #define SPLASH_H
 //	Project
 #include "Screens/Screen.h"
-#include "ECS/Entities/EntityCreator.h"
+#include "ECS/Entities/EntityManager.h"
 
 class Splash : public Screen
 {
@@ -13,7 +13,6 @@ public:
 private:
 	double m_clock;
 
-	UIGraphicsSystem m_ui;
-	std::vector<Entity*> m_entities;
+	EntityManager m_entityManager;
 };
 #endif // !SPLASH_H

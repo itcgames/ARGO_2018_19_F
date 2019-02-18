@@ -2,11 +2,7 @@
 #define AUTUMN_H
 
 #include "Screens/Screen.h"
-#include "ECS/Systems/GraphicsSystem.h"
-#include "ECS/Systems/PhysicsSystem.h"
-#include "ECS/Systems/CollisionSystem.h"
-#include "ECS/Systems/CharacterControlSystem.h"
-#include "ECS/Entities/EntityCreator.h"
+#include "ECS/Entities/EntityManager.h"
 
 class Autumn : public Screen
 {
@@ -15,12 +11,8 @@ public:
 	virtual void update(double dt, SDL_Event& e) override;
 	virtual void render() override;
 private:
-	GraphicsSystem m_graphics;
-	PhysicsSystem m_physics;
-	CollisionSystem m_collisions;
-	BoxPhysicsSystem m_boxPhysics;
-	CharacterControlSystem m_characterControl;
-	std::vector<Entity*> m_entities;
+	EntityManager m_entityManager;
+	
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
 };

@@ -78,12 +78,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SDL2_SDK)\include;.\include;.\submodules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\lib\SDL2-2.0.8\include;.\include;.\submodules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\lib\SDL2-2.0.8\lib;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;$(SDL2_SDK)\lib\x86\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -92,12 +92,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SDL2_SDK)\include;.\include;.\submodules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\lib\SDL2-2.0.8\include;.\include;.\submodules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SDL2_SDK)\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\lib\SDL2-2.0.8\lib;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SDL2_SDK)\lib\x86\SDL2.lib;$(SDL2_SDK)\lib\x86\SDL2main.lib;$(SDL2_SDK)\lib\x86\SDL2_image.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -130,15 +130,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
+    <ClCompile Include="src\Networking\TCP_Client.cpp" />
+    <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
     <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
-    <ClCompile Include="src\Client.cpp" />
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
-    <ClCompile Include="src\ECS\Entities\EntityCreator.cpp" />
+    <ClCompile Include="src\ECS\Components\NetworkComponent.cpp" />
+    <ClCompile Include="src\ECS\Entities\EntityManager.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\NetworkSystem.cpp" />
+    <ClCompile Include="src\Networking\UDP_Client.cpp" />
     <ClCompile Include="src\Screens\Levels\Autumn.cpp" />
     <ClCompile Include="src\Screens\Levels\Spring.cpp" />
     <ClCompile Include="src\Screens\Levels\Summer.cpp" />
@@ -171,27 +175,32 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
+    <ClInclude Include="include\Networking\Client.h" />
+    <ClInclude Include="include\Networking\TCP_Client.h" />
+    <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
     <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
-    <ClInclude Include="include\Client.h" />
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
     <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
     <ClInclude Include="include\ECS\Components\ControllerComponent.h" />
     <ClInclude Include="include\ECS\Components\GraphicsComponent.h" />
+    <ClInclude Include="include\ECS\Components\NetworkComponent.h" />
     <ClInclude Include="include\ECS\Components\PhysicsComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Entities\Entity.h" />
-    <ClInclude Include="include\ECS\Entities\EntityCreator.h" />
+    <ClInclude Include="include\ECS\Entities\EntityManager.h" />
     <ClInclude Include="include\ECS\Systems\CharacterControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\GraphicsSystem.h" />
+    <ClInclude Include="include\ECS\Systems\NetworkSystem.h" />
     <ClInclude Include="include\ECS\Systems\PhysicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\UIControlSystem.h" />
     <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />
-    <ClInclude Include="include\Packet.h" />
+    <ClInclude Include="include\Networking\Packet.h" />
+    <ClInclude Include="include\Networking\UDP_Client.h" />
     <ClInclude Include="include\Screens\CharacterSelect.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />
