@@ -287,12 +287,14 @@ void EntityManager::createLabel(Vector position, std::string text, SDL_Color col
 /// <param name="colour"></param>
 /// <param name="width"></param>
 /// <param name="height"></param>
-void EntityManager::createButton(Vector position, SDL_Texture * texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height)
+void EntityManager::createButton(int order, bool selected, Vector position, SDL_Texture * texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height)
 {
 	Entity* button = new Entity();
 	button->addComponent(new PositionComponent(position));
 	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
-	button->addComponent(new GraphicsComponent(texture, src, { 0,0,width,height }, 0));
+	button->addComponent(new GraphicsComponent(texture, src, { 0, 0, width, height }, 0));
+	button->addComponent(new ControllerComponent(0));
+	button->addComponent(new UIComponent(order, selected));
 
 	addToSystems(button);
 	m_entities.push_back(button);

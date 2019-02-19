@@ -85,6 +85,9 @@
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /y "$(GoogleDir)ARGO_2018_19_F\Hoppy Holidays" "$(SolutionDir)resources"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -99,6 +102,9 @@
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /y "$(GoogleDir)ARGO_2018_19_F\Hoppy Holidays" "$(SolutionDir)resources"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -113,6 +119,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /y "$(GoogleDir)ARGO_2018_19_F\Hoppy Holidays" "$(SolutionDir)resources"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -127,9 +136,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /y "$(GoogleDir)ARGO_2018_19_F\Hoppy Holidays" "$(SolutionDir)resources"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
@@ -175,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
+    <ClInclude Include="include\ECS\Components\UIComponent.h" />
     <ClInclude Include="include\Networking\Client.h" />
     <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />

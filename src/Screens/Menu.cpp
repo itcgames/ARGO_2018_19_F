@@ -9,9 +9,9 @@ Menu::Menu(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_screenID = "Menu";
 	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
 
-	m_entityManager.createButton(Vector(800, 350), blockTexture, { 0,0,1599,1594 }, "Play", { 125, 255, 255 }, 400, 100);
-	m_entityManager.createButton(Vector(800, 500), blockTexture, { 0,0,1599,1594 }, "Settings", { 125, 255, 255 }, 400, 100);
-	m_entityManager.createButton(Vector(800, 650), blockTexture, { 0,0,1599,1594 }, "Quit", { 125, 255, 255 }, 400, 100);
+	//m_entityManager.createButton(1, true, Vector(800, 350), blockTexture, { 0,0,1599,1594 }, "Play", { 125, 255, 255 }, 400, 100);
+	//m_entityManager.createButton(2, false, Vector(800, 500), blockTexture, { 0,0,1599,1594 }, "Settings", { 125, 255, 255 }, 400, 100);
+	//m_entityManager.createButton(3, false, Vector(800, 650), blockTexture, { 0,0,1599,1594 }, "Quit", { 125, 255, 255 }, 400, 100);
 }
 
 

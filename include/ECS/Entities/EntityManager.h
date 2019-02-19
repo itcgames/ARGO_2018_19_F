@@ -11,6 +11,8 @@
 #include "ECS/Components/NetworkComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/UIComponent.h"
+#include "ECS/Components/TextComponent.h"
 //	Systems.
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
@@ -38,7 +40,7 @@ public:
 	void createStart(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createGoal(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createLabel(Vector position, std::string text, SDL_Color colour, int width, int height);
-	void createButton(Vector position, SDL_Texture* texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height);
+	void createButton(int order, bool selected, Vector position, SDL_Texture* texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height);
 
 	GraphicsSystem * getGraphicsSystem();
 	PhysicsSystem * getPhysicsSystem();

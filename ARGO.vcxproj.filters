@@ -46,6 +46,7 @@
     <ClCompile Include="src\States\VictoryState.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -102,5 +103,6 @@
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\UIControlSystem.h" />
+    <ClInclude Include="include\ECS\Components\UIComponent.h" />
   </ItemGroup>
 </Project>
