@@ -10,18 +10,18 @@ ScreenManager::ScreenManager()
 	{
 		std::cout << "What protocol do you wish to use?" << std::endl;
 		std::string input;
-		std::cin >> input;
+		//std::cin >> input;
 
-		if (input == "TCP" || input == "tcp" || input == "Tcp")
-		{
-			m_client.first = "TCP";
-			m_client.second = new TCPClient();
-		}
-		else if (input == "UDP" || input == "udp" || input == "Udp")
-		{
+		//if (input == "TCP" || input == "tcp" || input == "Tcp")
+		//{
+		//	m_client.first = "TCP";
+		//	m_client.second = new TCPClient();
+		//}
+		//else if (input == "UDP" || input == "udp" || input == "Udp")
+		//{
 			m_client.first = "UDP";
-			m_client.second = new UDPClient();
-		}
+			m_client.second = new UDPClient();/*
+		}*/
 	}
 }
 

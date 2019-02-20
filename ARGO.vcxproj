@@ -141,6 +141,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AI\Grid.cpp" />
+    <ClCompile Include="src\AI\Node.cpp" />
+    <ClCompile Include="src\AI\Tile.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
@@ -187,6 +190,10 @@
     <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AI\Grid.h" />
+    <ClInclude Include="include\AI\Node.h" />
+    <ClInclude Include="include\AI\Tile.h" />
+    <ClInclude Include="include\ECS\Components\AIComponent.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Components\UIComponent.h" />
     <ClInclude Include="include\Networking\Client.h" />

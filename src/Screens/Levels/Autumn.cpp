@@ -10,6 +10,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 {
 	m_screenID = "Play";
 
+	Vector screen = Vector(1600, 900);
+	m_grid = Grid(screen, 50, 50);
+
 	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
 	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "redGhost.png", m_renderer); // testing
 	SDL_Texture* player1Texture = SDL2Help::LoadTexture(m_resourcesPath + "santaYellow.png", m_renderer); // testing
@@ -32,7 +35,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	// Create obstacle entities.
 	m_entityManager.createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-	m_entityManager.createPlatform(Vector(375, 650), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+	m_entityManager.createPlatform(Vector(500, 650), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+	m_entityManager.createPlatform(Vector(500, 225), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 
 	//Create Spring entity.
 	m_entityManager.createSpring(Vector(500, 700), springBoardTexture, SDL2Help::InitRect(0, 0, 512, 512), SDL2Help::InitRect(0, 0, 50, 75), SDL2Help::InitRect(0, 0, 50, 75));
@@ -48,6 +52,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	//create Cursor Entity
 	m_entityManager.createCursor(Vector(200, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));	
+
+	m_grid.processObstacles(m_entityManager.getCollisionSystem());
 }
 
 
@@ -87,4 +93,5 @@ void Autumn::update(double dt, SDL_Event& e)
 void Autumn::render()
 {
 	m_entityManager.getGraphicsSystem()->render(m_renderer);
+	m_grid.render(m_renderer);
 }

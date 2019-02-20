@@ -3,6 +3,7 @@
 
 #include "Screens/Screen.h"
 #include "ECS/Entities/EntityManager.h"
+#include "AI/Grid.h"
 
 class Autumn : public Screen
 {
@@ -13,6 +14,7 @@ public:
 private:
 	EntityManager m_entityManager;
 	
+	Grid m_grid;
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
 };

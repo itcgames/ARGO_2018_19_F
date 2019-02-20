@@ -18,7 +18,8 @@ public:
 		}
 	}
     virtual void update(double dt) {};
-protected:
+
 	std::vector<Entity*> m_entities;
+protected:
 };
 #endif // !SYSTEM_H
