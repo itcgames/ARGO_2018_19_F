@@ -90,6 +90,16 @@ void ScreenManager::goToScreen(std::string screenID)
 /// <summary>
 /// 
 /// </summary>
+void ScreenManager::backToPrevious()
+{
+	goToScreen(m_currentScreen->getPrevious());
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <returns></returns>
 Screen * ScreenManager::getCurrentScreen()
 {

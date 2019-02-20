@@ -24,8 +24,12 @@ public:
 	virtual void render() = 0;
 
 	inline std::string getID() { return m_screenID; }
+
+	inline std::string getPrevious() { return m_previousScreenID; }
+
 protected:
 	std::string m_screenID;
+	std::string m_previousScreenID;
 	ScreenManager* m_screenManager;
 	SDL_Renderer* m_renderer;
 	std::string m_resourcesPath = ".//resources//";

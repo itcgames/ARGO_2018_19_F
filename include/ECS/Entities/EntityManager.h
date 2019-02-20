@@ -22,12 +22,12 @@
 #include "ECS/Systems/BoxPhysicsSystem.h"
 #include "ECS/Systems/CursorControlSystem.h"
 #include "ECS/Systems/UIGraphicsSystem.h"
+#include "ECS/Systems/UIControlSystem.h"
 
 class EntityManager
 {
 public:
-	EntityManager();
-	EntityManager(std::pair<std::string, Client*> client);
+	EntityManager(ScreenManager* screenManager, SDL_Renderer* renderer);
 	~EntityManager();
 	//	Entity Constructors.
 	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable);
@@ -40,7 +40,8 @@ public:
 	void createStart(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createGoal(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createLabel(Vector position, std::string text, SDL_Color colour, int width, int height);
-	void createButton(int order, bool selected, Vector position, SDL_Texture* texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height);
+	void createButton(int index, bool selected, std::string goTo, Vector position, std::string text, SDL_Color colour, int width, int height);
+	void createImage(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
 
 	GraphicsSystem * getGraphicsSystem();
 	PhysicsSystem * getPhysicsSystem();
@@ -50,6 +51,7 @@ public:
 	CursorControlSystem * getCursorControlSystem();
 	BoxPhysicsSystem * getBoxPhysicsSystem();
 	UIGraphicsSystem * getUIGraphicsSystem();
+	UIControlSystem * getUIControlSystem();
 
 private:
 	void addToSystems(Entity* entity);
@@ -60,6 +62,8 @@ private:
 	//	Entity master list.
 	std::vector<Entity*> m_entities;
 
-	std::pair<std::string, Client*> m_client;
+	ScreenManager* m_screenManager;
+	SDL_Renderer* m_renderer;
+	const std::string RESOURCES_PATH = ".//resources//";
 };
 #endif // !ENTITY_MANAGER_H

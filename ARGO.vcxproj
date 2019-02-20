@@ -141,6 +141,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />

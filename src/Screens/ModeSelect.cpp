@@ -1,18 +1,19 @@
-#include "Screens\Title.h"
+#include "Screens\ModeSelect.h"
 
 /// <summary>
 /// 
 /// </summary>
-Title::Title(ScreenManager* screenManager, SDL_Renderer* renderer) :
+/// <param name="screenManager"></param>
+/// <param name="renderer"></param>
+ModeSelect::ModeSelect(ScreenManager * screenManager, SDL_Renderer * renderer) :
 	Screen(screenManager, renderer),
 	m_entityManager(screenManager, renderer)
 {
-	m_screenID = "Title";
+	m_screenID = "ModeSelect";
 	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//menubackground.png", renderer), { 0, 0, 1603, 909 });
-	m_entityManager.createImage({100, 100}, SDL2Help::LoadTexture(m_resourcesPath + "Hoppy Holidays Title//title.png", renderer), { 0, 0, 1205, 401 }, {0, 0, 1400, 400});
-	m_entityManager.createButton(0, true, "Menu", {775, 650}, "Press A", { 125, 255, 255 }, 400, 100);
+	m_entityManager.createImage({ 430, -100 }, SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 500, 700 }, { 0, 0, 700, 1100 });
 
-	m_entityManager.getUIControlSystem()->initSystem();;
+	m_entityManager.getUIControlSystem()->initSystem();
 }
 
 
@@ -21,7 +22,7 @@ Title::Title(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Title::update(double dt)
+void ModeSelect::update(double dt)
 {
 	m_entityManager.getUIControlSystem()->update(dt);
 }
@@ -31,8 +32,7 @@ void Title::update(double dt)
 /// <summary>
 /// 
 /// </summary>
-/// <param name="renderer"></param>
-void Title::render()
+void ModeSelect::render()
 {
 	m_entityManager.getGraphicsSystem()->render(m_renderer);
 	m_entityManager.getUIGraphicsSystem()->render(m_renderer);

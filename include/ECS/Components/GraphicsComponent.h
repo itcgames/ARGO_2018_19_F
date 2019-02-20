@@ -11,10 +11,14 @@ public:
 	GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, int layer = 0);
 
 	SDL_Texture* getTexture();
+	void setTexture(SDL_Texture * texture);
+
 	SDL_Rect& getSourceRect();
+	void setSourceRect(SDL_Rect rect);
+
 	SDL_Rect& getDestRect();
-	void setDestRect(int height);
-	void setSourceRect(int height);
+	void setDestRect(SDL_Rect rect);
+
 	int getLayer();
 
 private:

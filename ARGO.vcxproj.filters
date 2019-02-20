@@ -47,6 +47,7 @@
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />

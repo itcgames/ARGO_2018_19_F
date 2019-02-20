@@ -30,12 +30,34 @@ SDL_Texture* GraphicsComponent::getTexture()
 
 
 /// <summary>
+/// 
+/// </summary>
+/// <param name="texture"></param>
+void GraphicsComponent::setTexture(SDL_Texture* texture)
+{
+	m_texture = texture;
+}
+
+
+
+/// <summary>
 /// get the texture source rectangle - used for graphics system
 /// </summary>
 /// <returns>SDL_Rect </returns>
 SDL_Rect& GraphicsComponent::getSourceRect()
 {
 	return m_srcRect;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="height"></param>
+void GraphicsComponent::setSourceRect(SDL_Rect rect)
+{
+	m_srcRect = rect;
 }
 
 
@@ -49,15 +71,17 @@ SDL_Rect& GraphicsComponent::getDestRect()
 	return m_destRect;
 }
 
-void GraphicsComponent::setDestRect(int height)
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="height"></param>
+void GraphicsComponent::setDestRect(SDL_Rect rect)
 {
-	m_destRect = { m_destRect.x, m_destRect.y, m_destRect.w, height };
+	m_destRect = rect;
 }
 
-void GraphicsComponent::setSourceRect( int height)
-{
-	m_srcRect = { m_srcRect.x, m_srcRect.y, m_srcRect.w, height };
-}
 
 
 /// <summary>

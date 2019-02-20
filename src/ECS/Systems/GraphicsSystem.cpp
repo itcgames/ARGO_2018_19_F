@@ -58,8 +58,9 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("GRAPHICS");
 		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+		UIComponent* uiComponent = (UIComponent*)entity->getComponent("UI");
 
-		if (graphicsComponent != nullptr && positionComponent != nullptr)
+		if (uiComponent == nullptr && graphicsComponent != nullptr && positionComponent != nullptr)
 		{
 			SDL_Rect src = graphicsComponent->getSourceRect();
 			SDL_Rect dest = graphicsComponent->getDestRect();

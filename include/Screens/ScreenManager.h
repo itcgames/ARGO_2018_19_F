@@ -21,6 +21,7 @@ public:
 
 	void addScreen(Screen* screen);
 	void goToScreen(std::string screenID);
+	void backToPrevious();
 	Screen* getCurrentScreen();
 	Screen* getScreen(std::string screenID);
 
