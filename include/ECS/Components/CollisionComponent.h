@@ -2,6 +2,7 @@
 #define COLLISION_COMPONENT_H
 //	Project
 #include "ECS/Components/Component.h"
+#include "Simple-SDL2-Audio/src/audio.h"
 #include "SDL.h"
 
 class CollisionComponent : public Component
@@ -28,5 +29,7 @@ private:
 	bool m_obstacleCursor;
 	bool m_cursorActive;
 	bool m_collectedObj;
+
+	//bools for collecting and dropping items
 };
 #endif // !COLLISION_COMPONENT_H

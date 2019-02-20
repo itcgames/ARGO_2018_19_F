@@ -8,6 +8,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_startPos(100,800),
 	m_entityManager(m_screenManager->getClient())
 {
+	music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
+	
+
 	m_screenID = "Play";
 
 	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
@@ -48,6 +51,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	//create Cursor Entity
 	m_entityManager.createCursor(Vector(200, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));	
+
+	//playMusic(".//submodules//Simple-SDL2-Audio//music//highlands.wav", SDL_MIX_MAXVOLUME);
+	
 }
 
 
@@ -76,6 +82,10 @@ void Autumn::update(double dt, SDL_Event& e)
 	m_entityManager.getCollisionSystem()->update(dt);
 	m_entityManager.getGraphicsSystem()->update(dt);
 	m_entityManager.getNetworkSystem()->update(dt);
+	
+	//playMusicFromMemory(music, SDL_MIX_MAXVOLUME);
+	
+	
 }
 
 

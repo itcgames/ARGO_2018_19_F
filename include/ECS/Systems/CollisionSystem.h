@@ -18,5 +18,8 @@ public:
 	void playerUpdate(CollisionComponent *e1Collision, CollisionComponent *e2Collision, PositionComponent *e1Position, PositionComponent *e2Position);
 private:
 	std::string handleBoxCollision(Vector& p1, SDL_Rect& c1, Vector& p2, SDL_Rect& c2);
+	//Audio * sound;
+	Audio * sound = createAudio(".//resources//Sounds//spiketrap.wav", 0, SDL_MIX_MAXVOLUME / 2);
+	bool m_grabbed = false;
 };
 #endif // !COLLISION_SYSTEM_H

@@ -3,6 +3,7 @@
 
 #include "Screens/Screen.h"
 #include "ECS/Entities/EntityManager.h"
+#include "Simple-SDL2-Audio/src/audio.h"
 
 class Autumn : public Screen
 {
@@ -15,5 +16,6 @@ private:
 	
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
+	Audio * music;
 };
 #endif // !AUTUMN_H
