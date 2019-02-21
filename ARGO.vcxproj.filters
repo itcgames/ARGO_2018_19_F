@@ -50,6 +50,7 @@
     <ClCompile Include="src\AI\Node.cpp" />
     <ClCompile Include="src\AI\Tile.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
+    <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -111,5 +112,6 @@
     <ClInclude Include="include\AI\Node.h" />
     <ClInclude Include="include\AI\Tile.h" />
     <ClInclude Include="include\AI\Grid.h" />
+    <ClInclude Include="include\ECS\Systems\AISystem.h" />
   </ItemGroup>
 </Project>

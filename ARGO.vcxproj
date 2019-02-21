@@ -144,6 +144,7 @@
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\Node.cpp" />
     <ClCompile Include="src\AI\Tile.cpp" />
+    <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="include\ECS\Components\AIComponent.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Components\UIComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AISystem.h" />
     <ClInclude Include="include\Networking\Client.h" />
     <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />

@@ -4,6 +4,16 @@ Node::Node()
 {
 }
 
+Node::Node(Vector & pos)
+{
+	m_position = pos;
+}
+
+void Node::render(SDL_Renderer * renderer)
+{
+	DrawCircle(renderer, m_position.x, m_position.y, 5);
+}
+
 void Node::setPosition(Vector & pos)
 {
 	m_position = pos;
@@ -12,24 +22,4 @@ void Node::setPosition(Vector & pos)
 Vector & Node::getPosition()
 {
 	return m_position;
-}
-
-void Node::setWeight(float weight)
-{
-	m_weight = weight;
-}
-
-float Node::getWeight()
-{
-	return m_weight;
-}
-
-void Node::addNeighbour(Node * node)
-{
-	m_neighbours.push_back(node);
-}
-
-std::vector<Node*>& Node::getNeighbours()
-{
-	return m_neighbours;
 }

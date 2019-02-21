@@ -43,6 +43,11 @@ void Grid::render(SDL_Renderer * renderer)
 			m_grid[i][j]->render(renderer);
 		}
 	}
+
+	for (Node* node : m_nodes)
+	{
+		node->render(renderer);
+	}
 }
 
 void Grid::processObstacles(CollisionSystem * system)
@@ -66,13 +71,47 @@ void Grid::processObstacles(CollisionSystem * system)
 						m_grid[i][j]->getRect()->y <= position->getPos().y + collider->getCollider().h / 1.25 &&
 						m_grid[i][j]->getRect()->y + m_grid[i][j]->getRect()->h / 1.25 >= position->getPos().y)
 					{
+						if (j != 0)
+						{
+							if (m_grid[i][j - 1]->getTraversable() && collider->m_tag != "obstacle")
+							{
+								Vector pos = Vector(m_grid[i][j - 1]->getRect()->x + (m_grid[i][j - 1]->getRect()->w / 2), m_grid[i][j - 1]->getRect()->y + m_grid[i][j - 1]->getRect()->h / 2);
+								m_nodes.push_back(new Node(pos));
+							}
+						}
 						m_grid[i][j]->setTraversable(false);
 					}
 				}
 			}
 		}
 	}
+	moddedDijkstra();
 
 	time = SDL_GetTicks();
 	std::cout << time << std::endl;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void Grid::moddedDijkstra()
+{
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (!m_grid[i][j]->getTraversable())
+			{
+				m_grid[i][j]->setWeight(INT_MAX);
+			}
+			else
+			{
+				m_grid[i][j]->setWeight(-1);
+			}
+		}
+	}
+
+
 }

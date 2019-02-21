@@ -12,9 +12,11 @@ public:
 	Grid(Vector& screen, int width, int height);
 	void render(SDL_Renderer* renderer);
 	void processObstacles(CollisionSystem* system);
+	void moddedDijkstra();
 
 private:
 	std::vector<std::vector<Tile*>> m_grid;
+	std::vector<Node*> m_nodes;
 	int m_width;
 	int m_height;
 };

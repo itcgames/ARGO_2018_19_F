@@ -9,13 +9,13 @@ Tile::Tile(int x, int y, int width, int height)
 
 void Tile::render(SDL_Renderer* renderer)
 {
-	if (m_traversable)
+	if (m_weight == INT_MAX)
 	{
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 	}
 	else
 	{
-		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	}
 
 	SDL_RenderDrawRect(renderer, m_rect);
@@ -34,4 +34,25 @@ bool Tile::getTraversable()
 SDL_Rect* Tile::getRect()
 {
 	return m_rect;
+}
+
+
+void Tile::setWeight(float weight)
+{
+	m_weight = weight;
+}
+
+float Tile::getWeight()
+{
+	return m_weight;
+}
+
+void Tile::addNeighbour(Tile * tile)
+{
+	m_neighbours.push_back(tile);
+}
+
+std::vector<Tile*>& Tile::getNeighbours()
+{
+	return m_neighbours;
 }
