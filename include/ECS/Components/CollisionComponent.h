@@ -2,7 +2,6 @@
 #define COLLISION_COMPONENT_H
 //	Project
 #include "ECS/Components/Component.h"
-#include "Simple-SDL2-Audio/src/audio.h"
 #include "SDL.h"
 
 class CollisionComponent : public Component

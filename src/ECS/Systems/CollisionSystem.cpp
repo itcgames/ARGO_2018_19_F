@@ -114,7 +114,6 @@ void CollisionSystem::update(double dt)
 							if (direction != "")
 							{
 								std::cout << "you died" << std::endl;
-								playSoundFromMemory(sound, 100);
 								physicsComponent->alive = false;
 							}
 						}
