@@ -20,7 +20,7 @@ public:
 private:
 	std::string handleBoxCollision(Vector& p1, SDL_Rect& c1, Vector& p2, SDL_Rect& c2);
 	//Audio * sound;
-	//Mix_Chunk  sound = (".//resources//Sounds//spiketrap.wav", 0, SDL_MIX_MAXVOLUME / 2);
+	Mix_Chunk * m_spikeSound = Mix_LoadWAV(".//resources//Sounds//spiketrap.wav");
 	bool m_grabbed = false;
 };
 #endif // !COLLISION_SYSTEM_H

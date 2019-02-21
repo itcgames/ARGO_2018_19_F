@@ -38,6 +38,7 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 			if (currentState.A && !physicsComponent->getJumping())
 			{
 				physicsComponent->setJumping(true);
+				Mix_PlayChannel(3, m_jumpSound, 0);
 				acceleration.y -= 1.5;
 			}
 

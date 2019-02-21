@@ -91,7 +91,6 @@ void Autumn::update(double dt, SDL_Event& e)
 	if (m_startMusic)
 	{
 		Mix_PlayChannel(2, m_effect, -1);
-		//Mix_PlayChannelTimed(2, m_effect, -1, 500);
 		m_startMusic = false;
 	}
 
