@@ -141,9 +141,10 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\ButtonComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
@@ -169,7 +170,6 @@
     <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Screens\CharacterSelect.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\LevelSelect.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
@@ -186,11 +186,11 @@
     <ClCompile Include="src\States\JumpState.cpp" />
     <ClCompile Include="src\States\MovingState.cpp" />
     <ClCompile Include="src\States\VictoryState.cpp" />
-    <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
-    <ClInclude Include="include\ECS\Components\UIComponent.h" />
+    <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
     <ClInclude Include="include\Networking\Client.h" />
     <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
@@ -217,7 +217,6 @@
     <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\Networking\Packet.h" />
     <ClInclude Include="include\Networking\UDP_Client.h" />
-    <ClInclude Include="include\Screens\CharacterSelect.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />
     <ClInclude Include="include\Screens\Levels\Autumn.h" />
@@ -241,7 +240,6 @@
     <ClInclude Include="include\States\VictoryState.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
-    <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,7 +11,6 @@ void UIGraphicsSystem::render(SDL_Renderer * renderer)
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("GRAPHICS");
 		TextComponent* textComponent = (TextComponent*)entity->getComponent("TEXT");	
-		UIComponent* uiComponent = (UIComponent*)entity->getComponent("UI");
 
 		if (positionComponent != nullptr)
 		{

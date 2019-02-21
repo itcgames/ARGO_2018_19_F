@@ -44,7 +44,7 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 
 	if (controllable)
 	{
-		player->addComponent(new ControllerComponent());
+		player->addComponent(new ControllerComponent(playerNum));
 	}
 
 	addToSystems(player);
@@ -302,7 +302,7 @@ void EntityManager::createButton(int index, bool selected, std::string goTo, Vec
 	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
 	button->addComponent(new GraphicsComponent(normal.texture, {0, 0, attributes.width, attributes.height}, { 0, 0, width, height }, 0));
 	button->addComponent(new ControllerComponent(0));
-	button->addComponent(new UIComponent(index, selected, goTo, normal, highlight, pressed));
+	button->addComponent(new ButtonComponent(index, selected, goTo, normal, highlight, pressed));
 
 	addToSystems(button);
 	m_entities.push_back(button);
@@ -324,6 +324,30 @@ void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect
 
 	addToSystems(image);
 	m_entities.push_back(image);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="position"></param>
+/// <param name="func"></param>
+/// <param name="texture"></param>
+/// <param name="srcWidth"></param>
+/// <param name="srcHeight"></param>
+/// <param name="destWidth"></param>
+/// <param name="destHeight"></param>
+void EntityManager::createCustomButton(Vector position, int index, bool selected, std::function<void()> func, SDL_Texture * texture, int srcWidth, int srcHeight, int destWidth, int destHeight)
+{
+	Entity* button = new Entity();
+	button->addComponent(new PositionComponent(position));
+	button->addComponent(new GraphicsComponent(texture, { 0, 0, srcWidth, srcHeight }, { 0, 0, destWidth, destHeight }));
+	button->addComponent(new FuncButtonComponent(index, selected, func, {0, 0, destWidth, destHeight}));
+	button->addComponent(new ControllerComponent(0));
+
+	addToSystems(button);
+	m_entities.push_back(button);
 }
 
 
@@ -452,7 +476,7 @@ void EntityManager::addToSystems(Entity* entity)
 		m_systems["UI_GRAPHICS"]->addEntity(entity);
 	}
 
-	if (entity->getComponent("UI") != nullptr)
+	if (entity->getComponent("BUTTON") != nullptr || entity->getComponent("FUNC_BUTTON") != nullptr)
 	{
 		if (m_systems["UI_CONTROL"] == nullptr)
 		{

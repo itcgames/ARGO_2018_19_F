@@ -16,16 +16,15 @@ Game::Game() :
 
 	
 	//	Add all the screens to the screen manager, and then set the current screen.
-	m_screenManager.addScreen(new Splash(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new Title(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new Menu(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new ModeSelect(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new Lobby(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new LevelSelect(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new CharacterSelect(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new Autumn(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new Settings(&m_screenManager, m_renderer));
-	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));	
+	m_screenManager.addScreen(new Splash(&m_screenManager, m_renderer));			//	done.
+	m_screenManager.addScreen(new Title(&m_screenManager, m_renderer));				//	done.
+	m_screenManager.addScreen(new Menu(&m_screenManager, m_renderer));				//	done.
+	m_screenManager.addScreen(new ModeSelect(&m_screenManager, m_renderer));		//	done.
+	m_screenManager.addScreen(new Lobby(&m_screenManager, m_renderer));				//	not finished.
+	m_screenManager.addScreen(new LevelSelect(&m_screenManager, m_renderer));		//	done.
+	m_screenManager.addScreen(new Autumn(&m_screenManager, m_renderer));			//	not finished. see also spring, summer, and winter.
+	m_screenManager.addScreen(new Settings(&m_screenManager, m_renderer));			//	done.
+	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));			//	done.
 
 	m_screenManager.goToScreen("Splash");
 }

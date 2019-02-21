@@ -7,7 +7,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/AnimationComponent.h"
 #include "ECS/Components/PhysicsComponent.h"
-#include "ECS/Components/UIComponent.h"
+#include "ECS/Components/ButtonComponent.h"
 
 class GraphicsSystem : public System
 {
