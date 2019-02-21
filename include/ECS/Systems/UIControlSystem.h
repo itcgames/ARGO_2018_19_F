@@ -6,7 +6,8 @@
 #include "ECS/Components/GraphicsComponent.h"
 #include "ECS/Components/TextComponent.h"
 #include "ECS/Components/AnimationComponent.h"
-#include "ECS/Components/UIComponent.h"
+#include "ECS/Components/ButtonComponent.h"
+#include "ECS/Components/FuncButtonComponent.h"
 
 #include "Screens/ScreenManager.h"
 

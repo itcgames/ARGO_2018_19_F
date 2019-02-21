@@ -1,5 +1,5 @@
-#ifndef UI_COMPONENT_H
-#define UI_COMPONENT_H
+#ifndef BUTTON_COMPONENT_H
+#define BUTTON_COMPONENT_H
 
 #include "ECS/Components/Component.h"
 #include "../submodules/SDL2_Helper/SDL2Helper.h"
@@ -17,10 +17,10 @@ struct Texture
 	SDL_Rect srcRect;
 };
 
-class UIComponent : public Component
+class ButtonComponent : public Component
 {
 public:
-	UIComponent(int index, bool selected, std::string goTo, Texture normalTexture, Texture highlightedTexture, Texture pressedTexture);
+	ButtonComponent(int index, bool selected, std::string goTo, Texture normalTexture, Texture highlightedTexture, Texture pressedTexture);
 
 	int getIndex();
 	void setIndex(int index);
@@ -50,4 +50,4 @@ private:
 
 	std::string m_goTo;
 };
-#endif // !UI_COMPONENT_H
+#endif // !BUTTON_COMPONENT_H

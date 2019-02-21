@@ -2,6 +2,7 @@
 #define SETTINGS_H
 //	Project
 #include "Screens/Screen.h"
+#include "ECS/Entities/EntityManager.h"
 
 class Settings : public Screen
 {
@@ -10,6 +11,6 @@ public:
 	virtual void update(double dt) override;
 	virtual void render() override;
 private:
-
+	EntityManager m_entityManager;
 };
 #endif // !SETTINGS_H

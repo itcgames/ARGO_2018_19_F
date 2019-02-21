@@ -20,19 +20,20 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_effect = Mix_LoadWAV("./resources//Sounds/background.wav");
 
 	m_screenID = "Play";
+	m_previousScreenID = "ModeSelect";
 
-	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
-	SDL_Texture* playerTexture = SDL2Help::LoadTexture(m_resourcesPath + "redGhost.png", m_renderer); // testing
-	SDL_Texture* player1Texture = SDL2Help::LoadTexture(m_resourcesPath + "santaYellow.png", m_renderer); // testing
-	SDL_Texture* player2Texture = SDL2Help::LoadTexture(m_resourcesPath + "PumpkinNormal.png", m_renderer); // testing
-	SDL_Texture* player3Texture = SDL2Help::LoadTexture(m_resourcesPath + "test-sheet.png", m_renderer); // testing
-	SDL_Texture* flagTexture = SDL2Help::LoadTexture(m_resourcesPath + "flags.png", m_renderer);
-	SDL_Texture* blockTexture = SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png", m_renderer);
-	SDL_Texture* deathTexture = SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png", m_renderer);
-	SDL_Texture* spikeTexture = SDL2Help::LoadTexture(m_resourcesPath + "spikes.png", m_renderer);
-	SDL_Texture* pauseTexture = SDL2Help::LoadTexture(m_resourcesPath + "pause.png", m_renderer);
-	SDL_Texture* cursorTexture = SDL2Help::LoadTexture(m_resourcesPath + "cursor.png", m_renderer);
-	SDL_Texture* springBoardTexture = SDL2Help::LoadTexture(m_resourcesPath + "springBoard.png", m_renderer);
+	SDL_Texture* backgroundTexture  = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png",	m_renderer);
+	SDL_Texture* playerTexture  	= SDL2Help::LoadTexture(m_resourcesPath + "redGhost.png",			m_renderer); // testing
+	SDL_Texture* player1Texture  	= SDL2Help::LoadTexture(m_resourcesPath + "santaYellow.png",		m_renderer); // testing
+	SDL_Texture* player2Texture 	= SDL2Help::LoadTexture(m_resourcesPath + "PumpkinNormal.png",		m_renderer); // testing
+	SDL_Texture* player3Texture 	= SDL2Help::LoadTexture(m_resourcesPath + "test-sheet.png",			m_renderer); // testing
+	SDL_Texture* flagTexture 		= SDL2Help::LoadTexture(m_resourcesPath + "flags.png",				m_renderer);
+	SDL_Texture* blockTexture 		= SDL2Help::LoadTexture(m_resourcesPath + "woodBlock.png",			m_renderer);
+	SDL_Texture* deathTexture		= SDL2Help::LoadTexture(m_resourcesPath + "tombstone.png",			m_renderer);
+	SDL_Texture* spikeTexture 		= SDL2Help::LoadTexture(m_resourcesPath + "spikes.png",				m_renderer);
+	SDL_Texture* pauseTexture 		= SDL2Help::LoadTexture(m_resourcesPath + "pause.png",				m_renderer);
+	SDL_Texture* cursorTexture		= SDL2Help::LoadTexture(m_resourcesPath + "cursor.png",				m_renderer);
+	SDL_Texture* springBoardTexture = SDL2Help::LoadTexture(m_resourcesPath + "springBoard.png",		m_renderer);
 
 	//	Create background entity.
 	m_entityManager.createBackground(backgroundTexture, SDL2Help::InitRect(0, 0, 6703, 3762));

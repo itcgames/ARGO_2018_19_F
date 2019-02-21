@@ -13,8 +13,11 @@ UIControlSystem::UIControlSystem(ScreenManager * screenManager) :
 void UIControlSystem::initSystem()
 {
 	updateMinMax();
-	UIComponent* uiComponent = (UIComponent*)m_entities[m_selected]->getComponent("UI");
-	uiComponent->setState(ButtonStates::Highlighted);
+	ButtonComponent* buttonComponent = (ButtonComponent*)m_entities[m_selected]->getComponent("BUTTON");
+	if (buttonComponent != nullptr)
+	{
+		buttonComponent->setState(ButtonStates::Highlighted);
+	}	
 }
 
 
@@ -25,17 +28,19 @@ void UIControlSystem::initSystem()
 /// <param name="dt"></param>
 void UIControlSystem::update(double dt)
 {
-	UIComponent* uiComponent = (UIComponent*)m_entities[m_selected]->getComponent("UI");
+	ButtonComponent* buttonComponent = (ButtonComponent*)m_entities[m_selected]->getComponent("BUTTON");
+	FuncButtonComponent* funcButtonComponent = (FuncButtonComponent*)m_entities[m_selected]->getComponent("FUNC_BUTTON");
 	ControllerComponent* controllerComponent = (ControllerComponent*)m_entities[m_selected]->getComponent("CONTROLLER");	
 
-	if (uiComponent != nullptr)
+	//	If the button just switches the screen of the game.
+	if (buttonComponent != nullptr)
 	{
 		//	Set m_selected to the index of the selected ui element.
-		if (!uiComponent->isSelected() && m_selected == uiComponent->getIndex())
+		if (!buttonComponent->isSelected() && m_selected == buttonComponent->getIndex())
 		{
-			m_selected = uiComponent->getIndex();
-			uiComponent->setSelected(true);
-			uiComponent->setState(ButtonStates::Highlighted);
+			m_selected = buttonComponent->getIndex();
+			buttonComponent->setSelected(true);
+			buttonComponent->setState(ButtonStates::Highlighted);
 		}
 
 		updateTextures();
@@ -48,8 +53,8 @@ void UIControlSystem::update(double dt)
 			if (m_currentState.leftStick.y < -controllerComponent->DEAD_ZONE && m_previousState.leftStick.y > -controllerComponent->DEAD_ZONE)
 			{
 				//	Update which is selected.
-				uiComponent->setSelected(false);
-				uiComponent->setState(ButtonStates::Up);
+				buttonComponent->setSelected(false);
+				buttonComponent->setState(ButtonStates::Up);
 				//	Update the selected value.
 				m_selected--;
 				clampSelected();				
@@ -59,8 +64,8 @@ void UIControlSystem::update(double dt)
 			if (m_currentState.leftStick.y > controllerComponent->DEAD_ZONE && m_previousState.leftStick.y < controllerComponent->DEAD_ZONE)
 			{
 				//	Update which is selected.
-				uiComponent->setSelected(false);
-				uiComponent->setState(ButtonStates::Up);
+				buttonComponent->setSelected(false);
+				buttonComponent->setState(ButtonStates::Up);
 				//	Update the selected value.
 				m_selected++;
 				clampSelected();				
@@ -68,13 +73,65 @@ void UIControlSystem::update(double dt)
 
 			if (m_currentState.A && !m_previousState.A)
 			{
-				uiComponent->setState(ButtonStates::Pressed);
+				buttonComponent->setState(ButtonStates::Pressed);
 			}
 
 			if (!m_currentState.A && m_previousState.A)
 			{
-				uiComponent->setState(ButtonStates::Highlighted);
-				m_screenManager->goToScreen(uiComponent->getGoTo());
+				buttonComponent->setState(ButtonStates::Highlighted);
+				m_screenManager->goToScreen(buttonComponent->getGoTo());
+			}
+
+			if (!m_currentState.B && m_previousState.B)
+			{
+				m_screenManager->backToPrevious();
+			}			
+
+			m_previousState = m_currentState;
+		}		
+	}
+	//	If the button needs to call a function on press.
+	else if (funcButtonComponent != nullptr)
+	{
+		//	Set m_selected to the index of the selected ui element.
+		if (!funcButtonComponent->isSelected() && m_selected == funcButtonComponent->getIndex())
+		{
+			m_selected = funcButtonComponent->getIndex();
+			funcButtonComponent->setSelected(true);
+			funcButtonComponent->setButtonState(FuncButtonStates::Selected);
+		}
+
+		updateTextures();
+
+		if (controllerComponent != nullptr)
+		{
+			m_currentState = controllerComponent->getCurrentState();
+
+			//	If the left stick is pushed up move the selected value back one.
+			if (m_currentState.leftStick.y < -controllerComponent->DEAD_ZONE && m_previousState.leftStick.y > -controllerComponent->DEAD_ZONE)
+			{
+				//	Update which is selected.
+				funcButtonComponent->setSelected(false);
+				funcButtonComponent->setButtonState(FuncButtonStates::NotSelected);
+				//	Update the selected value.
+				m_selected--;
+				clampSelected();
+			}
+
+			//	If the left stick is push down move the selected value forward one.
+			if (m_currentState.leftStick.y > controllerComponent->DEAD_ZONE && m_previousState.leftStick.y < controllerComponent->DEAD_ZONE)
+			{
+				//	Update which is selected.
+				funcButtonComponent->setSelected(false);
+				funcButtonComponent->setButtonState(FuncButtonStates::NotSelected);
+				//	Update the selected value.
+				m_selected++;
+				clampSelected();
+			}
+
+			if (!m_currentState.A && m_previousState.A)
+			{
+				funcButtonComponent->callFunction();
 			}
 
 			if (!m_currentState.B && m_previousState.B)
@@ -83,7 +140,7 @@ void UIControlSystem::update(double dt)
 			}
 
 			m_previousState = m_currentState;
-		}		
+		}
 	}
 }
 
@@ -97,17 +154,31 @@ void UIControlSystem::updateMinMax()
 {
 	for (Entity* entity : m_entities)
 	{
-		UIComponent* uiComponent = (UIComponent*)entity->getComponent("UI");
-		if (uiComponent != nullptr)
+		ButtonComponent* buttonComponent = (ButtonComponent*)entity->getComponent("BUTTON");
+		if (buttonComponent != nullptr)
 		{
-			if (uiComponent->getIndex() < m_min)
+			if (buttonComponent->getIndex() < m_min)
 			{
-				m_min = uiComponent->getIndex();
+				m_min = buttonComponent->getIndex();
 			}
 
-			if (uiComponent->getIndex() > m_max)
+			if (buttonComponent->getIndex() > m_max)
 			{
-				m_max = uiComponent->getIndex();
+				m_max = buttonComponent->getIndex();
+			}
+		}
+
+		FuncButtonComponent* funcButtonComponent = (FuncButtonComponent*)entity->getComponent("FUNC_BUTTON");
+		if (funcButtonComponent != nullptr)
+		{
+			if (funcButtonComponent->getIndex() < m_min)
+			{
+				m_min = funcButtonComponent->getIndex();
+			}
+
+			if (funcButtonComponent->getIndex() > m_max)
+			{
+				m_max = funcButtonComponent->getIndex();
 			}
 		}
 	}
@@ -134,9 +205,21 @@ void UIControlSystem::updateTextures()
 	for (Entity* entity : m_entities)
 	{
 		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("GRAPHICS");
-		UIComponent* uiComponent = (UIComponent*)entity->getComponent("UI");
-		Texture texture = uiComponent->getTexture();
-		graphicsComponent->setTexture(texture.texture);
-		graphicsComponent->setSourceRect(texture.srcRect);
+		if (graphicsComponent != nullptr)
+		{
+			ButtonComponent* buttonComponent = (ButtonComponent*)entity->getComponent("BUTTON");
+			if (buttonComponent != nullptr)
+			{
+				Texture texture = buttonComponent->getTexture();
+				graphicsComponent->setTexture(texture.texture);
+				graphicsComponent->setSourceRect(texture.srcRect);
+			}
+
+			FuncButtonComponent* funcButtonComponent = (FuncButtonComponent*)entity->getComponent("FUNC_BUTTON");
+			if (funcButtonComponent != nullptr)
+			{
+				graphicsComponent->setDestRect(funcButtonComponent->getDestRect());
+			}
+		}
 	}
 }

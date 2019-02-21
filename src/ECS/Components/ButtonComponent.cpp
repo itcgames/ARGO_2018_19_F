@@ -1,9 +1,9 @@
-#include "ECS\Components\UIComponent.h"
+#include "ECS\Components\ButtonComponent.h"
 
 /// <summary>
 /// 
 /// </summary>
-UIComponent::UIComponent(int index, bool selected, std::string goTo, Texture normalTexture, Texture highlightedTexture, Texture pressedTexture) :
+ButtonComponent::ButtonComponent(int index, bool selected, std::string goTo, Texture normalTexture, Texture highlightedTexture, Texture pressedTexture) :
 	m_index(index),
 	m_selected(selected),
 	m_goTo(goTo),
@@ -11,7 +11,7 @@ UIComponent::UIComponent(int index, bool selected, std::string goTo, Texture nor
 	m_highlightedTexture(highlightedTexture),
 	m_pressedTexture(pressedTexture)
 {
-	m_id = "UI";
+	m_id = "BUTTON";
 	m_texture = normalTexture;
 }
 
@@ -21,7 +21,7 @@ UIComponent::UIComponent(int index, bool selected, std::string goTo, Texture nor
 /// 
 /// </summary>
 /// <returns></returns>
-int UIComponent::getIndex()
+int ButtonComponent::getIndex()
 {
 	return m_index;
 }
@@ -32,7 +32,7 @@ int UIComponent::getIndex()
 /// 
 /// </summary>
 /// <param name="order"></param>
-void UIComponent::setIndex(int index)
+void ButtonComponent::setIndex(int index)
 {
 	m_index = index;
 }
@@ -43,7 +43,7 @@ void UIComponent::setIndex(int index)
 /// 
 /// </summary>
 /// <returns></returns>
-bool UIComponent::isSelected()
+bool ButtonComponent::isSelected()
 {
 	return m_selected;
 }
@@ -54,7 +54,7 @@ bool UIComponent::isSelected()
 /// 
 /// </summary>
 /// <param name="selected"></param>
-void UIComponent::setSelected(bool selected)
+void ButtonComponent::setSelected(bool selected)
 {
 	m_selected = selected;
 }
@@ -65,7 +65,7 @@ void UIComponent::setSelected(bool selected)
 /// 
 /// </summary>
 /// <param name="state"></param>
-void UIComponent::setState(ButtonStates state)
+void ButtonComponent::setState(ButtonStates state)
 {
 	switch (state)
 	{
@@ -90,7 +90,7 @@ void UIComponent::setState(ButtonStates state)
 /// 
 /// </summary>
 /// <returns></returns>
-Texture UIComponent::getTexture()
+Texture ButtonComponent::getTexture()
 {
 	return m_texture;
 }
@@ -101,7 +101,7 @@ Texture UIComponent::getTexture()
 /// 
 /// </summary>
 /// <returns></returns>
-std::string UIComponent::getGoTo()
+std::string ButtonComponent::getGoTo()
 {
 	return m_goTo;
 }

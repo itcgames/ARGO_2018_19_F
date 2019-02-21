@@ -29,7 +29,6 @@ public:
 	UDPClient* getClient();
 	void setClient(UDPClient* client);
 
-
 private:
 	std::map<std::string, Screen*> m_screens;
 	Screen* m_currentScreen;

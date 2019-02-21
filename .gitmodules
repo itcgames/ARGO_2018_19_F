@@ -1,12 +1,11 @@
 [submodule "submodules/Vector"]
 	path = submodules/Vector
 	url = https://github.com/DJOLEARY/Vector.git
+
 [submodule "submodules/SDL2_Helper"]
 	path = submodules/SDL2_Helper
 	url = https://github.com/DJOLEARY/SDL2_Helper.git
+
 [submodule "submodules/Angle"]
 	path = submodules/Angle
-	url = https://github.com/DJOLEARY/Angle
-[submodule "submodules/Simple-SDL2-Audio"]
-	path = submodules/Simple-SDL2-Audio
-	url = https://github.com/jakebesworth/Simple-SDL2-Audio.git
+	url = https://github.com/DJOLEARY/Angle.git

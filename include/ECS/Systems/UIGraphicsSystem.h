@@ -7,7 +7,6 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/AnimationComponent.h"
 #include "ECS/Components/TextComponent.h"
-#include "ECS/Components/UIComponent.h"
 
 class UIGraphicsSystem : public System
 {

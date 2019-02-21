@@ -16,7 +16,7 @@ Menu::Menu(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	m_entityManager.createButton(0, true,  "ModeSelect", Vector(775, 350), "Play",     { 125, 255, 255 }, 400, 100);
 	m_entityManager.createButton(1, false, "Settings",   Vector(775, 500), "Settings", { 125, 255, 255 }, 400, 100);
-	m_entityManager.createButton(2, false, "Quit",       Vector(775, 650), "Quit",     { 125, 255, 255 }, 400, 100);
+	m_entityManager.createButton(2, false, "Credits",    Vector(775, 650), "Quit",     { 125, 255, 255 }, 400, 100);
 
 	m_entityManager.getUIControlSystem()->initSystem();
 }
