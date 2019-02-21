@@ -4,6 +4,7 @@
 #include "Screens/Screen.h"
 #include "ECS/Entities/EntityManager.h"
 #include "Simple-SDL2-Audio/src/audio.h"
+#include <SDL_mixer.h>
 
 class Autumn : public Screen
 {
@@ -17,5 +18,8 @@ private:
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
 	Audio * music;
+	Mix_Music * m_music;
+	Mix_Chunk * m_effect;
+	bool m_startMusic;
 };
 #endif // !AUTUMN_H

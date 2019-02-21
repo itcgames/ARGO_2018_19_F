@@ -6,11 +6,19 @@
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
 	m_startPos(100,800),
-	m_entityManager(m_screenManager, renderer)
+	m_entityManager(m_screenManager, renderer),
+	m_startMusic(false)
 {
-	music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
+	//music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
 	
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 0, 2048) < 0)
+	{
+		std::cout << "error: " << Mix_GetError() << std::endl;
+	}
 
+	m_music = Mix_LoadMUS(".//resources//Sounds//backgroundMenuMusic.mp3");
+	m_effect = Mix_LoadWAV("./resources//Sounds/backgroundMenuMusic.wav");
+	
 	m_screenID = "Play";
 
 	SDL_Texture* backgroundTexture = SDL2Help::LoadTexture(m_resourcesPath + "AutumnBackground.png", m_renderer);
@@ -53,7 +61,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entityManager.createCursor(Vector(200, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));	
 
 	//playMusic(".//submodules//Simple-SDL2-Audio//music//highlands.wav", SDL_MIX_MAXVOLUME);
-	
+	//Mix_PlayChannel(-1, m_effect, -1);
 }
 
 
@@ -66,6 +74,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt, SDL_Event& e)
 
 {
+	
 	BoxPhysicsSystem* boxPhy = m_entityManager.getBoxPhysicsSystem();
 	boxPhy->update(dt);
 	if (!boxPhy->getPause())
@@ -76,7 +85,19 @@ void Autumn::update(double dt, SDL_Event& e)
 	if (boxPhy->getPause())
 	{
 		m_entityManager.getCursorControlSystem()->update(dt);
-	}	
+		//m_startMusic = true;
+			
+			//Mix_PlayMusic(m_music, -1);
+			//std::cout << "played music" << std::endl;
+
+		
+	}
+		
+	if (m_startMusic)
+	{
+		Mix_PlayChannel(-1, m_effect, -1);
+		m_startMusic = false;
+	}
 
 	m_entityManager.getPhysicsSystem()->update(dt);
 	m_entityManager.getCollisionSystem()->update(dt);

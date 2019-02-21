@@ -8,6 +8,7 @@
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "SDL2_Helper/SDL2Helper.h"
+#include <SDL_mixer.h>
 
 class CollisionSystem : public System
 {
