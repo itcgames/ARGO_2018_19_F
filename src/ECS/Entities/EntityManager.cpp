@@ -16,6 +16,50 @@ EntityManager::EntityManager(ScreenManager* screenManager, SDL_Renderer* rendere
 /// </summary>
 EntityManager::~EntityManager()
 {
+	for (Entity* entity : m_entities)
+	{
+		delete(entity);
+	}
+	
+	for (std::pair<std::string, System*> system : m_systems)
+	{
+		delete(system.second);
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="dt"></param>
+void EntityManager::update(double dt)
+{
+	for (std::pair<std::string, System*> systemPair : m_systems)
+	{
+		System* system = systemPair.second;
+		if (system != nullptr)
+		{
+			system->update(dt);
+		}
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void EntityManager::render()
+{
+	for (std::pair<std::string, System*> systemPair : m_systems)
+	{
+		System* system = systemPair.second;
+		if (system != nullptr)
+		{
+			system->render(m_renderer);
+		}
+	}
 }
 
 
@@ -31,14 +75,13 @@ EntityManager::~EntityManager()
 /// <param name="animEnd"></param>
 /// <param name="collider"></param>
 /// <returns></returns>
-void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable)
+void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable, bool online)
 {
 	Entity* player = new Entity();
-	player->setId("player");
-	player->addComponent(new NetworkComponent(playerNum));
+	player->setId("player");	
 	player->addComponent(new PositionComponent(startPosition));
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	player->addComponent(new AnimationComponent(animStart, animEnd));	
+	//player->addComponent(new AnimationComponent(animStart, animEnd));	
 	player->addComponent(new CollisionComponent(collider, "player"));
 	player->addComponent(new PhysicsComponent());
 
@@ -47,8 +90,26 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 		player->addComponent(new ControllerComponent(playerNum));
 	}
 
+	if (online)
+	{
+		player->addComponent(new NetworkComponent(playerNum));
+	}
+
 	addToSystems(player);
 	m_entities.push_back(player);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="collider"></param>
+void EntityManager::createKillBox(Vector startPosition, SDL_Rect collider)
+{
+	Entity* killBox = new Entity();
+
 }
 
 
@@ -283,17 +344,17 @@ void EntityManager::createButton(int index, bool selected, std::string goTo, Vec
 	TextureAttributes attributes;
 
 	Texture highlight;
-	highlight.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//RectangleHighlight.png", m_renderer);
+	highlight.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle//RectangleHighlight.png", m_renderer);
 	attributes = SDL2Help::getTextureAttributes(highlight.texture);
 	highlight.srcRect = { 0, 0, attributes.width, attributes.height };
 	
 	Texture normal;
-	normal.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle.png", m_renderer);	
+	normal.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle//Rectangle.png", m_renderer);	
 	attributes = SDL2Help::getTextureAttributes(normal.texture);
 	normal.srcRect = { 0, 0, attributes.width, attributes.height };
 
 	Texture pressed;
-	pressed.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//RectanglePressed.png", m_renderer);
+	pressed.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle//RectanglePressed.png", m_renderer);
 	attributes = SDL2Help::getTextureAttributes(pressed.texture);
 	pressed.srcRect = { 0, 0, attributes.width, attributes.height };
 

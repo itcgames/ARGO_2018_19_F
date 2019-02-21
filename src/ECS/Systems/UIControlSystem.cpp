@@ -1,7 +1,8 @@
 #include "ECS/Systems/UIControlSystem.h"
 
 UIControlSystem::UIControlSystem(ScreenManager * screenManager) :
-	m_screenManager(screenManager)
+	m_screenManager(screenManager),
+	m_initialised(false)
 {
 }
 
@@ -28,6 +29,12 @@ void UIControlSystem::initSystem()
 /// <param name="dt"></param>
 void UIControlSystem::update(double dt)
 {
+	if (!m_initialised)
+	{
+		initSystem();
+		m_initialised = true;
+	}
+
 	ButtonComponent* buttonComponent = (ButtonComponent*)m_entities[m_selected]->getComponent("BUTTON");
 	FuncButtonComponent* funcButtonComponent = (FuncButtonComponent*)m_entities[m_selected]->getComponent("FUNC_BUTTON");
 	ControllerComponent* controllerComponent = (ControllerComponent*)m_entities[m_selected]->getComponent("CONTROLLER");	

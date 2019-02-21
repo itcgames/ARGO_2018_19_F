@@ -220,6 +220,7 @@
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />
     <ClInclude Include="include\Screens\Levels\Autumn.h" />
+    <ClInclude Include="include\Screens\Levels\Level.h" />
     <ClInclude Include="include\Screens\Levels\Spring.h" />
     <ClInclude Include="include\Screens\Levels\Summer.h" />
     <ClInclude Include="include\Screens\Levels\Winter.h" />

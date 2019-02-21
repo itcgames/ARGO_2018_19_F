@@ -30,8 +30,13 @@ class EntityManager
 public:
 	EntityManager(ScreenManager* screenManager, SDL_Renderer* renderer);
 	~EntityManager();
+
+	void update(double dt);
+	void render();
+
 	//	Entity Constructors.
-	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable);
+	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable, bool online);
+	void createKillBox(Vector startPosition, SDL_Rect collider);
 	void createObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createSpring(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);

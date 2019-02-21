@@ -15,9 +15,11 @@
 class CharacterControlSystem : public System
 {
 public:
-	void update(double dt, SDL_Event e);	
-	virtual void update(double dt) override {};
+	virtual void update(double dt) override;
 
 	PlayerState* m_state = new IdleState();
+
+	const int CROUCH_HEIGHT = 80;
+	const int STAND_HEIGHT  = 96;
 };
 #endif // !CHARACTER_CONTROL_SYSTEM_H
