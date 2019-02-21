@@ -60,7 +60,7 @@ void Grid::processObstacles(CollisionSystem * system)
 		CollisionComponent* collider = (CollisionComponent*)entity->getComponent("COLLISION");
 		PositionComponent* position = (PositionComponent*)entity->getComponent("POSITION");
 
-		if (collider->m_tag == "obstacle" || collider->m_tag == "platform")
+		if (collider->m_tag != "player" && collider->m_tag != "cursor")
 		{
 			for (int i = 0; i < m_width; i++)
 			{
@@ -71,24 +71,101 @@ void Grid::processObstacles(CollisionSystem * system)
 						m_grid[i][j]->getRect()->y <= position->getPos().y + collider->getCollider().h / 1.25 &&
 						m_grid[i][j]->getRect()->y + m_grid[i][j]->getRect()->h / 1.25 >= position->getPos().y)
 					{
-						if (j != 0)
+						if (collider->m_tag == "goal")
 						{
-							if (m_grid[i][j - 1]->getTraversable() && collider->m_tag != "obstacle")
+							if (m_goal == 0)
 							{
-								Vector pos = Vector(m_grid[i][j - 1]->getRect()->x + (m_grid[i][j - 1]->getRect()->w / 2), m_grid[i][j - 1]->getRect()->y + m_grid[i][j - 1]->getRect()->h / 2);
-								m_nodes.push_back(new Node(pos));
+								m_goal = m_grid[i][j + 1];
+								m_grid[i][j + 1]->setGoal();
 							}
 						}
-						m_grid[i][j]->setTraversable(false);
+						else if (collider->m_tag == "start")
+						{
+							if (m_start == 0)
+							{
+								m_start = m_grid[i][j + 1];
+								m_grid[i][j + 1]->setStart();
+							}
+						}
+						else
+						{
+							if (j != 0)
+							{
+								if (m_grid[i][j - 1]->getTraversable() && collider->m_tag != "obstacle")
+								{
+									Vector pos = Vector(m_grid[i][j - 1]->getRect()->x + (m_grid[i][j - 1]->getRect()->w / 2), m_grid[i][j - 1]->getRect()->y + m_grid[i][j - 1]->getRect()->h / 2);
+									m_nodes.push_back(new Node(pos));
+									m_grid[i][j-1]->setWeight(-1);
+								}
+							}
+
+							m_grid[i][j]->setTraversable(false);
+						}
 					}
 				}
 			}
 		}
 	}
+	assignNeighbours();
 	moddedDijkstra();
+	getBestPath();
 
 	time = SDL_GetTicks();
 	std::cout << time << std::endl;
+}
+
+void Grid::assignNeighbours()
+{
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (i - 1 >= 0)
+			{
+				m_grid[i][j]->addNeighbour(m_grid[i - 1][j]); // top
+			}
+			if (i + 1 < m_width)
+			{
+				m_grid[i][j]->addNeighbour(m_grid[i + 1][j]); // bottom
+			}
+			if (j - 1 >= 0)
+			{
+				m_grid[i][j]->addNeighbour(m_grid[i][j - 1]); // left
+			}
+			if (j + 1 < m_height)
+			{
+				m_grid[i][j]->addNeighbour(m_grid[i][j + 1]); // right
+			}
+		}
+	}
+}
+
+void Grid::getBestPath()
+{
+	std::list<Tile*> nodeList;
+	nodeList.push_back(m_start);
+
+	while (nodeList.size() > 0 && nodeList.front() != m_goal)
+	{
+		Tile* tile = nodeList.front();
+		if (tile != m_start)
+		{
+			tile->setPath();
+		}
+		nodeList.pop_front();
+
+		int tileWeight = tile->getWeight();
+		std::vector<Tile*> neighbours = tile->getNeighbours();
+		for (int i = 0; i < neighbours.size(); i++)
+		{
+			Vector gridPos = Vector(neighbours[i]->getRect()->x / neighbours[i]->getRect()->w, neighbours[i]->getRect()->y / neighbours[i]->getRect()->h);
+			if(neighbours[i]->getWeight() < tileWeight)
+			{
+				nodeList.push_front(neighbours[i]);
+				break;
+			}
+		}
+	}
 }
 
 
@@ -106,12 +183,37 @@ void Grid::moddedDijkstra()
 			{
 				m_grid[i][j]->setWeight(INT_MAX);
 			}
-			else
+			else if (m_grid[i][j]->getWeight() == 0)
 			{
-				m_grid[i][j]->setWeight(-1);
+				m_grid[i][j]->setWeight(1);
 			}
 		}
 	}
 
+	if (m_goal != 0)
+	{
+		std::list<Tile*> tileList;
+		m_goal->setWeight(0);
+		tileList.push_back(m_goal);
 
+		while (tileList.size() > 0)
+		{
+			Tile* currentID = tileList.front();
+			tileList.pop_front();
+			std::vector<Tile*> neighbours = currentID->getNeighbours();
+			for (int i = 0; i < neighbours.size(); i++)
+			{
+				Tile* n = neighbours[i];
+				int endNodeCost = currentID->getWeight() + 1;
+				if (n->getWeight() <= 1)
+				{
+					if (std::find(tileList.begin(), tileList.end(), n) != tileList.end() == false)
+					{
+						tileList.push_back(n);
+					}
+					n->setWeight(endNodeCost);
+				}
+			}
+		}
+	}
 }

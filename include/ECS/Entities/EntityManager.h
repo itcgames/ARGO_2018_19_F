@@ -22,6 +22,7 @@
 #include "ECS/Systems/BoxPhysicsSystem.h"
 #include "ECS/Systems/CursorControlSystem.h"
 #include "ECS/Systems/UIGraphicsSystem.h"
+#include "ECS/Systems/AISystem.h"
 
 class EntityManager
 {
@@ -32,6 +33,7 @@ public:
 
 	//	Entity Constructors.
 	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable);
+	void createAI(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createSpring(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
@@ -51,6 +53,7 @@ public:
 	CursorControlSystem * getCursorControlSystem();
 	BoxPhysicsSystem * getBoxPhysicsSystem();
 	UIGraphicsSystem * getUIGraphicsSystem();
+	AISystem * getAISystem();
 
 private:
 	void addToSystems(Entity* entity);

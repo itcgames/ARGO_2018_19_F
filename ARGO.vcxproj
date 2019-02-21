@@ -147,6 +147,7 @@
     <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />

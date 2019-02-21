@@ -60,6 +60,21 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	m_entities.push_back(player);
 }
 
+void EntityManager::createAI(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider)
+{
+	Entity* ai = new Entity();
+	ai->setId("ai");
+	ai->addComponent(new PositionComponent(startPosition));
+	ai->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	ai->addComponent(new AnimationComponent(animStart, animEnd));
+	ai->addComponent(new CollisionComponent(collider, "player"));
+	ai->addComponent(new PhysicsComponent());
+	ai->addComponent(new AIComponent());
+
+	addToSystems(ai);
+	m_entities.push_back(ai);
+}
+
 
 
 /// <summary>
@@ -388,6 +403,11 @@ UIGraphicsSystem * EntityManager::getUIGraphicsSystem()
 	return (UIGraphicsSystem*) m_systems["UI_GRAPHICS"];
 }
 
+AISystem * EntityManager::getAISystem()
+{
+	return (AISystem*)m_systems["AI"];
+}
+
 
 
 /// <summary>
@@ -470,5 +490,15 @@ void EntityManager::addToSystems(Entity* entity)
 		}
 
 		m_systems["NETWORK"]->addEntity(entity);
+	}
+
+	if (entity->getComponent("AI") != nullptr)
+	{
+		if (m_systems["AI"] == nullptr)
+		{
+			m_systems["AI"] = new AISystem();
+		}
+
+		m_systems["AI"]->addEntity(entity);
 	}
 }

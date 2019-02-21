@@ -85,7 +85,6 @@ void UIGraphicsSystem::render(SDL_Renderer * renderer)
 				SDL_DestroyTexture(message);
 				SDL_FreeSurface(surface);
 			}
-
 		}
 	}
 }

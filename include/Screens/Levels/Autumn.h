@@ -13,8 +13,6 @@ public:
 	virtual void render() override;
 private:
 	EntityManager m_entityManager;
-	
-	Grid m_grid;
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
 };
