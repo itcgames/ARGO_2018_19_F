@@ -8,17 +8,16 @@
 #include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/AnimationComponent.h"
 
-#include "Networking/TCP_Client.h"
 #include "Networking/UDP_Client.h"
 
 class NetworkSystem : public System
 {
 public:
-	NetworkSystem(std::pair<std::string, Client*> client);
+	NetworkSystem(UDPClient* client);
 	virtual void update(double dt) override;
 
 private:
-	std::pair<std::string, Client*> m_client;
+	UDPClient* m_client;
 	double m_clock;
 
 	const int SEND_DELAY = 35;
