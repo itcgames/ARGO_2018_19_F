@@ -10,7 +10,7 @@ Tile::Tile(int x, int y, int width, int height)
 	m_path = false;
 	m_traversable = true;
 	m_rect = new SDL_Rect({ x, y, width, height });
-	m_position = Vector(x,y);
+	m_position = Vector(x,y,0);
 	m_colour = { 125, 125, 0, 255 };
 }
 

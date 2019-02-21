@@ -50,6 +50,39 @@ void Grid::render(SDL_Renderer * renderer)
 	}
 }
 
+void Grid::update(Entity * ai)
+{
+	CollisionComponent* collider = (CollisionComponent*)ai->getComponent("COLLISION");
+	PositionComponent* position = (PositionComponent*)ai->getComponent("POSITION");
+	AIComponent* aiComponent = (AIComponent*)ai->getComponent("AI");
+
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (m_grid[i][j]->getRect()->x <= position->getPos().x + collider->getCollider().w / 2  &&
+				m_grid[i][j]->getRect()->x + m_grid[i][j]->getRect()->w / 2  >= position->getPos().x &&
+				m_grid[i][j]->getRect()->y <= position->getPos().y + collider->getCollider().h / 2 &&
+				m_grid[i][j]->getRect()->y + m_grid[i][j]->getRect()->h / 2  >= position->getPos().y)
+			{
+				if (j >= m_height - 1)
+				{
+					aiComponent->m_onGround = true;
+					aiComponent->m_onPlatform = false;
+				}
+				else
+				{
+					if (!m_grid[i][j+1]->getTraversable())
+					{
+						aiComponent->m_onPlatform = true;
+						aiComponent->m_onGround = false;
+					}
+				}
+			}
+		}
+	}
+}
+
 void Grid::processObstacles(CollisionSystem * system)
 {
 	Uint32 time = SDL_GetTicks();
@@ -73,7 +106,7 @@ void Grid::processObstacles(CollisionSystem * system)
 					{
 						if (collider->m_tag == "goal")
 						{
-							if (m_goal == 0)
+							if (m_goal == NULL)
 							{
 								m_goal = m_grid[i][j + 1];
 								m_grid[i][j + 1]->setGoal();
@@ -106,6 +139,7 @@ void Grid::processObstacles(CollisionSystem * system)
 			}
 		}
 	}
+
 	assignNeighbours();
 	moddedDijkstra();
 	getBestPath();
@@ -143,12 +177,12 @@ void Grid::assignNeighbours()
 void Grid::getBestPath()
 {
 	std::list<Tile*> nodeList;
-	nodeList.push_back(m_start);
+	nodeList.push_back(m_goal);
 
-	while (nodeList.size() > 0 && nodeList.front() != m_goal)
+	while (nodeList.size() > 0 && nodeList.front() != m_start)
 	{
 		Tile* tile = nodeList.front();
-		if (tile != m_start)
+		if (tile != m_goal)
 		{
 			tile->setPath();
 		}
@@ -183,18 +217,18 @@ void Grid::moddedDijkstra()
 			{
 				m_grid[i][j]->setWeight(INT_MAX);
 			}
-			else if (m_grid[i][j]->getWeight() == 0)
+			else
 			{
-				m_grid[i][j]->setWeight(1);
+				m_grid[i][j]->setWeight(0);
 			}
 		}
 	}
 
-	if (m_goal != 0)
+	if (m_start != 0)
 	{
 		std::list<Tile*> tileList;
-		m_goal->setWeight(0);
-		tileList.push_back(m_goal);
+		m_start->setWeight(0);
+		tileList.push_back(m_start);
 
 		while (tileList.size() > 0)
 		{

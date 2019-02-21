@@ -30,10 +30,13 @@ public:
 
 private:
 	TTF_Font * m_font;
+	Vector parent;
 	Vector m_position;
 	SDL_Rect* m_rect;
 	SDL_Color m_colour;
 	std::vector<Tile*> m_neighbours;
+
+	int m_jumpLength;
 	int m_weight;
 	bool m_traversable;
 	bool m_path;

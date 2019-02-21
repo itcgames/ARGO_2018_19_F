@@ -8,6 +8,14 @@ AISystem::AISystem()
 
 void AISystem::update(double dt)
 {
+	for (Entity* entity : m_entities)
+	{
+		PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("PHYSICS");
+		Vector accel = physics->getAcceleration();
+		accel.x += .075;
+		physics->setAcceleration(accel);
+		m_grid.update(entity);
+	}
 }
 
 void AISystem::processLevelEntities(CollisionSystem* collisionSystem)
