@@ -6,7 +6,7 @@
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
 	m_startPos(100,800),
-	m_entityManager(m_screenManager->getClient())
+	m_entityManager(m_screenManager, renderer)
 {
 	music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
 	

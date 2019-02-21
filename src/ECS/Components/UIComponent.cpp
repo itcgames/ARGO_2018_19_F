@@ -3,11 +3,16 @@
 /// <summary>
 /// 
 /// </summary>
-UIComponent::UIComponent(int order, bool selected) :
-	m_order(order),
-	m_selected(selected)
+UIComponent::UIComponent(int index, bool selected, std::string goTo, Texture normalTexture, Texture highlightedTexture, Texture pressedTexture) :
+	m_index(index),
+	m_selected(selected),
+	m_goTo(goTo),
+	m_normalTexture(normalTexture),
+	m_highlightedTexture(highlightedTexture),
+	m_pressedTexture(pressedTexture)
 {
 	m_id = "UI";
+	m_texture = normalTexture;
 }
 
 
@@ -16,9 +21,9 @@ UIComponent::UIComponent(int order, bool selected) :
 /// 
 /// </summary>
 /// <returns></returns>
-int UIComponent::getOrder()
+int UIComponent::getIndex()
 {
-	return m_order;
+	return m_index;
 }
 
 
@@ -27,9 +32,9 @@ int UIComponent::getOrder()
 /// 
 /// </summary>
 /// <param name="order"></param>
-void UIComponent::setOrder(int order)
+void UIComponent::setIndex(int index)
 {
-	m_order = order;
+	m_index = index;
 }
 
 
@@ -52,4 +57,51 @@ bool UIComponent::isSelected()
 void UIComponent::setSelected(bool selected)
 {
 	m_selected = selected;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="state"></param>
+void UIComponent::setState(ButtonStates state)
+{
+	switch (state)
+	{
+	case ButtonStates::Up:
+		m_texture = m_normalTexture;
+		break;
+	case ButtonStates::Pressed:
+		m_texture = m_pressedTexture;
+		break;
+	case ButtonStates::Highlighted:
+		m_texture = m_highlightedTexture;
+		break;
+	default:
+		m_texture = m_normalTexture;
+		break;
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+Texture UIComponent::getTexture()
+{
+	return m_texture;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+std::string UIComponent::getGoTo()
+{
+	return m_goTo;
 }

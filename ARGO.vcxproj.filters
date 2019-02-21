@@ -47,6 +47,8 @@
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
+    <ClCompile Include="src\Screens\ModeSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -104,5 +106,6 @@
     <ClInclude Include="include\ECS\Systems\UIGraphicsSystem.h" />
     <ClInclude Include="include\ECS\Systems\UIControlSystem.h" />
     <ClInclude Include="include\ECS\Components\UIComponent.h" />
+    <ClInclude Include="include\Screens\ModeSelect.h" />
   </ItemGroup>
 </Project>

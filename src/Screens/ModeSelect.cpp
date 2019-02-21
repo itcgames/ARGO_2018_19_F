@@ -1,21 +1,22 @@
-#include "Screens\Lobby.h"
+#include "Screens\ModeSelect.h"
 
 /// <summary>
 /// 
 /// </summary>
 /// <param name="screenManager"></param>
 /// <param name="renderer"></param>
-Lobby::Lobby(ScreenManager * screenManager, SDL_Renderer * renderer) :
+ModeSelect::ModeSelect(ScreenManager * screenManager, SDL_Renderer * renderer) :
 	Screen(screenManager, renderer),
 	m_entityManager(screenManager, renderer)
-{	
-	m_screenID = "Lobby";
-	m_previousScreenID = "ModeSelect";	
+{
+	m_screenID = "ModeSelect";
+	m_previousScreenID = "Menu";
 
 	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//menubackground.png", renderer), { 0, 0, 1603, 909 });
 	m_entityManager.createImage({ 430, -100 }, SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 500, 700 }, { 0, 0, 700, 1100 });
 
-	m_entityManager.createButton(0, true,  "Play",  Vector(775, 750), "Start Game", { 125, 255, 255 }, 400, 100);
+	m_entityManager.createButton(0, true,  "Play",  Vector(775, 350), "Vs. A.I.", { 125, 255, 255 }, 400, 100);
+	m_entityManager.createButton(1, false, "Lobby", Vector(775, 500), "Online",   { 125, 255, 255 }, 400, 100);
 
 	m_entityManager.getUIControlSystem()->initSystem();
 }
@@ -23,11 +24,11 @@ Lobby::Lobby(ScreenManager * screenManager, SDL_Renderer * renderer) :
 
 
 /// <summary>
-/// Start winsock and then attempt to connect to the server.
+/// 
 /// </summary>
 /// <param name="dt"></param>
-void Lobby::update(double dt)
-{	
+void ModeSelect::update(double dt)
+{
 	m_entityManager.getUIControlSystem()->update(dt);
 }
 
@@ -36,7 +37,7 @@ void Lobby::update(double dt)
 /// <summary>
 /// 
 /// </summary>
-void Lobby::render()
+void ModeSelect::render()
 {
 	m_entityManager.getGraphicsSystem()->render(m_renderer);
 	m_entityManager.getUIGraphicsSystem()->render(m_renderer);

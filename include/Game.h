@@ -10,6 +10,7 @@
 #include "Screens/Splash.h"
 #include "Screens/Title.h"
 #include "Screens/Menu.h"
+#include "Screens/ModeSelect.h"
 #include "Screens/LevelSelect.h"
 #include "Screens/CharacterSelect.h"
 #include "Screens/Levels/Winter.h"

@@ -141,6 +141,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\Screens\LevelSelect.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
     <ClCompile Include="src\Screens\Menu.cpp" />
+    <ClCompile Include="src\Screens\ModeSelect.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\Settings.cpp" />
     <ClCompile Include="src\Screens\Splash.cpp" />
@@ -224,6 +226,7 @@
     <ClInclude Include="include\Screens\Levels\Winter.h" />
     <ClInclude Include="include\Screens\Lobby.h" />
     <ClInclude Include="include\Screens\Menu.h" />
+    <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\Settings.h" />

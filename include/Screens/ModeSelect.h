@@ -1,18 +1,17 @@
-#ifndef LOBBY_H
-#define LOBBY_H
+#ifndef MODE_SELECT_H
+#define MODE_SELECT_H
 
 #include "Screen.h"
 #include "ECS/Entities/EntityManager.h"
 
-class Lobby : public Screen
+class ModeSelect : public Screen
 {
 public:
-	Lobby(ScreenManager* screenManager, SDL_Renderer* renderer);
+	ModeSelect(ScreenManager* screenManager, SDL_Renderer* renderer);
 
 	virtual void update(double dt) override;
 	virtual void render() override;
-
 private:
 	EntityManager m_entityManager;
 };
-#endif // !LOBBY_H
+#endif // !MODE_SELECT_H

@@ -6,21 +6,14 @@
 /// </summary>
 ScreenManager::ScreenManager()
 {
-	while (m_client.second == nullptr)
-	{
-		std::cout << "What protocol do you wish to use?" << std::endl;
-		std::string input;
-		std::cin >> input;
+	//	Initialise the client.
+	m_client = new UDPClient();
 
-		if (input == "TCP" || input == "tcp" || input == "Tcp")
+	if (m_client->startWinsock())
+	{
+		if (m_client->createSocket())
 		{
-			m_client.first = "TCP";
-			m_client.second = new TCPClient();
-		}
-		else if (input == "UDP" || input == "udp" || input == "Udp")
-		{
-			m_client.first = "UDP";
-			m_client.second = new UDPClient();
+
 		}
 	}
 }
@@ -90,6 +83,16 @@ void ScreenManager::goToScreen(std::string screenID)
 /// <summary>
 /// 
 /// </summary>
+void ScreenManager::backToPrevious()
+{
+	goToScreen(m_currentScreen->getPrevious());
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <returns></returns>
 Screen * ScreenManager::getCurrentScreen()
 {
@@ -114,7 +117,18 @@ Screen * ScreenManager::getScreen(std::string screenID)
 /// 
 /// </summary>
 /// <returns></returns>
-std::pair<std::string, Client*> ScreenManager::getClient()
+UDPClient* ScreenManager::getClient()
 {
 	return m_client;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="client"></param>
+void ScreenManager::setClient(UDPClient* client)
+{
+	m_client = client;
 }
