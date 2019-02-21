@@ -11,6 +11,7 @@
 #include "ECS/Components/GraphicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
+#include <SDL_mixer.h>
 
 class CharacterControlSystem : public System
 {
