@@ -135,7 +135,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "springboard" && !e1Collision->getCursorState())//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
+						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "springboard" && !e1Collision->getCursorState() && !m_platGrab && !m_obGrab)//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
 						{
 							ControllerState currentState = e1Controller->getCurrentState();
 							ControllerState previousState = e1Controller->getPreviousState();
@@ -153,27 +153,28 @@ void CollisionSystem::update(double dt)
 							if (top < bottom && previousState.A)// && !previousState.A ) //top < left && top < right &&
 							{
 								m_grabbed = !m_grabbed;
-
+								m_springGrab = !m_springGrab;
 							}
 
 							//check the bottom
 							if (bottom < top && bottom < left && bottom < right && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
-
+								m_springGrab = !m_springGrab;
 							}
 
 							//check the left
 							if (left < right && left < top && left < bottom && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
-
+								m_springGrab = !m_springGrab;
 							}
 
 							//check the right
 							if (right < left && right < top && right < bottom && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
+								m_springGrab = !m_springGrab;
 							}
 
 							if (m_grabbed == true)
@@ -203,7 +204,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "platform" && !e1Collision->getCursorState())//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
+						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "platform" && !e1Collision->getCursorState() && !m_obGrab && !m_springGrab)//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
 						{
 							ControllerState currentState = e1Controller->getCurrentState();
 							ControllerState previousState = e1Controller->getPreviousState();
@@ -221,27 +222,28 @@ void CollisionSystem::update(double dt)
 							if (top < bottom && previousState.A)// && !previousState.A ) //top < left && top < right &&
 							{
 								m_grabbed = !m_grabbed;
-
+								m_platGrab = !m_platGrab;
 							}
 
 							//check the bottom
 							if (bottom < top && bottom < left && bottom < right && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
-
+								m_platGrab = !m_platGrab;
 							}
 
 							//check the left
 							if (left < right && left < top && left < bottom && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
-
+								m_platGrab = !m_platGrab;
 							}
 
 							//check the right
 							if (right < left && right < top && right < bottom && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
+								m_platGrab = !m_platGrab;
 							}
 
 							if (m_grabbed == true)
@@ -271,7 +273,7 @@ void CollisionSystem::update(double dt)
 							}
 						}
 
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "obstacle" && !e1Collision->getCursorState())//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
+						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "obstacle" && !e1Collision->getCursorState() && !m_platGrab && !m_springGrab)//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
 						{
 							ControllerState currentState = e1Controller->getCurrentState();
 							ControllerState previousState = e1Controller->getPreviousState();
@@ -289,27 +291,28 @@ void CollisionSystem::update(double dt)
 							if (top < bottom && previousState.A)// && !previousState.A ) //top < left && top < right &&
 							{
 								m_grabbed = !m_grabbed;
-
+								m_obGrab = !m_obGrab;
 							}
 
 							//check the bottom
 							if (bottom < top && bottom < left && bottom < right && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
-
+								m_obGrab = !m_obGrab;
 							}
 
 							//check the left
 							if (left < right && left < top && left < bottom && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
-
+								m_obGrab = !m_obGrab;
 							}
 
 							//check the right
 							if (right < left && right < top && right < bottom && previousState.A)
 							{
 								m_grabbed = !m_grabbed;
+								m_obGrab = !m_obGrab;
 							}
 
 							if (m_grabbed == true)
