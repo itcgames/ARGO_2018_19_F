@@ -16,6 +16,54 @@ EntityManager::EntityManager(ScreenManager* screenManager, SDL_Renderer* rendere
 /// </summary>
 EntityManager::~EntityManager()
 {
+	for (Entity* entity : m_entities)
+	{
+		for (auto component : entity->getComponents())
+		{
+			delete(component.second);
+		}
+		delete(entity);
+	}
+	
+	for (std::pair<std::string, System*> system : m_systems)
+	{
+		delete(system.second);
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="dt"></param>
+void EntityManager::update(double dt)
+{
+	for (std::pair<std::string, System*> systemPair : m_systems)
+	{
+		System* system = systemPair.second;
+		if (system != nullptr)
+		{
+			system->update(dt);
+		}
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void EntityManager::render()
+{
+	for (std::pair<std::string, System*> systemPair : m_systems)
+	{
+		System* system = systemPair.second;
+		if (system != nullptr)
+		{
+			system->render(m_renderer);
+		}
+	}
 }
 
 
@@ -31,14 +79,13 @@ EntityManager::~EntityManager()
 /// <param name="animEnd"></param>
 /// <param name="collider"></param>
 /// <returns></returns>
-void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable)
+void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable, bool online)
 {
 	Entity* player = new Entity();
-	player->setId("player");
-	player->addComponent(new NetworkComponent(playerNum));
+	player->setId("player");	
 	player->addComponent(new PositionComponent(startPosition));
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	player->addComponent(new AnimationComponent(animStart, animEnd));	
+	//player->addComponent(new AnimationComponent(animStart, animEnd));	
 	player->addComponent(new CollisionComponent(collider, "player"));
 	player->addComponent(new PhysicsComponent());
 
@@ -47,8 +94,31 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 		player->addComponent(new ControllerComponent(playerNum));
 	}
 
+	if (online)
+	{
+		player->addComponent(new NetworkComponent(playerNum));
+	}
+
 	addToSystems(player);
 	m_entities.push_back(player);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="collider"></param>
+void EntityManager::createKillBox(Vector startPosition, SDL_Rect collider)
+{
+	Entity* killBox = new Entity();
+	killBox->setId("killBox");
+	killBox->addComponent(new PositionComponent(startPosition));
+	killBox->addComponent(new CollisionComponent(collider, "obstacle"));
+
+	addToSystems(killBox);
+	m_entities.push_back(killBox);
 }
 
 
@@ -259,6 +329,7 @@ void EntityManager::createLabel(Vector position, std::string text, SDL_Color col
 {
 	const char* string = text.c_str();
 	Entity* label = new Entity();
+	label->setId("label");
 	label->addComponent(new PositionComponent(position));
 	label->addComponent(new TextComponent(string, width, height, colour));
 
@@ -283,21 +354,22 @@ void EntityManager::createButton(int index, bool selected, std::string goTo, Vec
 	TextureAttributes attributes;
 
 	Texture highlight;
-	highlight.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//RectangleHighlight.png", m_renderer);
+	highlight.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle//RectangleHighlight.png", m_renderer);
 	attributes = SDL2Help::getTextureAttributes(highlight.texture);
 	highlight.srcRect = { 0, 0, attributes.width, attributes.height };
 	
 	Texture normal;
-	normal.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle.png", m_renderer);	
+	normal.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle//Rectangle.png", m_renderer);	
 	attributes = SDL2Help::getTextureAttributes(normal.texture);
 	normal.srcRect = { 0, 0, attributes.width, attributes.height };
 
 	Texture pressed;
-	pressed.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//RectanglePressed.png", m_renderer);
+	pressed.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle//RectanglePressed.png", m_renderer);
 	attributes = SDL2Help::getTextureAttributes(pressed.texture);
 	pressed.srcRect = { 0, 0, attributes.width, attributes.height };
 
 	Entity* button = new Entity();
+	button->setId("button");
 	button->addComponent(new PositionComponent(position));
 	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
 	button->addComponent(new GraphicsComponent(normal.texture, {0, 0, attributes.width, attributes.height}, { 0, 0, width, height }, 0));
@@ -319,6 +391,7 @@ void EntityManager::createButton(int index, bool selected, std::string goTo, Vec
 void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect)
 {
 	Entity* image = new Entity();
+	image->setId("image");
 	image->addComponent(new PositionComponent(position));
 	image->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 
@@ -338,9 +411,10 @@ void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect
 /// <param name="srcHeight"></param>
 /// <param name="destWidth"></param>
 /// <param name="destHeight"></param>
-void EntityManager::createCustomButton(Vector position, int index, bool selected, std::function<void()> func, SDL_Texture * texture, int srcWidth, int srcHeight, int destWidth, int destHeight)
+void EntityManager::createFunctionButton(Vector position, int index, bool selected, std::function<void()> func, SDL_Texture * texture, int srcWidth, int srcHeight, int destWidth, int destHeight)
 {
 	Entity* button = new Entity();
+	button->setId("funcButton");
 	button->addComponent(new PositionComponent(position));
 	button->addComponent(new GraphicsComponent(texture, { 0, 0, srcWidth, srcHeight }, { 0, 0, destWidth, destHeight }));
 	button->addComponent(new FuncButtonComponent(index, selected, func, {0, 0, destWidth, destHeight}));

@@ -1,15 +1,17 @@
 #ifndef SPRING_H
 #define SPRING_H
 
-#include "Screens/Screen.h"
+#include "Screens/Levels/Level.h"
 
-class Spring : public Screen
+class Spring : public Level
 {
 public:
 	Spring(ScreenManager* screenManager, SDL_Renderer* renderer);
-	virtual void update(double dt, SDL_Event& e) override;
+	virtual void update(double dt) override;
 	virtual void render() override;
-private:
 
+private:
+	virtual void spawnLevelObstacles() override;
+	virtual void loadTextures() override;
 };
 #endif // !SPRING_H

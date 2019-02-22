@@ -27,6 +27,8 @@ private:
 	int m_max;
 	int m_min;
 
+	bool m_initialised;
+
 	ControllerState m_currentState;
 	ControllerState m_previousState;
 	ScreenManager* m_screenManager;

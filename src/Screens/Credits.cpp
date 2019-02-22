@@ -9,7 +9,7 @@ Credits::Credits(ScreenManager* screenManager, SDL_Renderer* renderer) :
 {
 	m_screenID = "Credits";
 	
-	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//menubackground.png", renderer), { 0, 0, 1603, 909 });
+	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Menu.png", renderer), { 0, 0, 1603, 909 });
 
 	m_entityManager.createLabel(Vector(595, 120), "Game Created by:", { 0, 0, 0 },       420, 120);
 	m_entityManager.createLabel(Vector(600, 125), "Game Created by:", { 255, 255, 255 }, 400, 100);
@@ -44,6 +44,5 @@ void Credits::update(double dt)
 /// <param name="renderer"></param>
 void Credits::render()
 {
-	m_entityManager.getGraphicsSystem()->render(m_renderer);
-	m_entityManager.getUIGraphicsSystem()->render(m_renderer);
+	m_entityManager.render();
 }
