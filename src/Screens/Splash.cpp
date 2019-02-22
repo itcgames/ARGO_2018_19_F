@@ -55,6 +55,5 @@ void Splash::update(double dt)
 /// <param name="renderer"></param>
 void Splash::render()
 {
-	m_entityManager.getUIGraphicsSystem()->render(m_renderer);
-	m_entityManager.getGraphicsSystem()->render(m_renderer);
+	m_entityManager.render();
 }

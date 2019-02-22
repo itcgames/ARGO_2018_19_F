@@ -16,10 +16,14 @@
 class CharacterControlSystem : public System
 {
 public:
-	void update(double dt, SDL_Event e);	
-	virtual void update(double dt) override {};
+	CharacterControlSystem();
+	virtual void update(double dt) override;
 
 	PlayerState* m_state = new IdleState();
-	Mix_Chunk * m_jumpSound = Mix_LoadWAV("./resources/Sounds/jump.wav");
+
+	const int CROUCH_HEIGHT = 80;
+	const int STAND_HEIGHT  = 96;
+
+	Mix_Chunk * m_jumpSound;
 };
 #endif // !CHARACTER_CONTROL_SYSTEM_H

@@ -37,7 +37,7 @@ void ScreenManager::update(double dt, SDL_Event &e)
 {
 	if (m_currentScreen->getID() == "Play")
 	{
-		m_currentScreen->update(dt, e);
+		m_currentScreen->update(dt);
 	}
 	else
 	{

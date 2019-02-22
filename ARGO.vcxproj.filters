@@ -105,5 +105,6 @@
     <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
+    <ClInclude Include="include\Screens\Levels\Level.h" />
   </ItemGroup>
 </Project>
