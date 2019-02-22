@@ -13,10 +13,10 @@ LevelSelect::LevelSelect(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Menu.png", renderer), { 0, 0, 1603, 909 });
 	m_entityManager.createImage(Vector(430, -100), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 500, 700 }, { 0, 0, 700, 1100 });
 	
-	m_entityManager.createCustomButton(Vector(640, 32),  0, true,  std::bind(&LevelSelect::setLevelToSpring, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Spring.png", m_renderer),	6705, 3793, 320, 180);
-	m_entityManager.createCustomButton(Vector(640, 244), 1, false, std::bind(&LevelSelect::setLevelToSummer, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer.png", m_renderer),	1613, 922,  320, 180);
-	m_entityManager.createCustomButton(Vector(640, 456), 2, false, std::bind(&LevelSelect::setLevelToAutumn, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Autumn.png", m_renderer),	6708, 3805, 320, 180);
-	m_entityManager.createCustomButton(Vector(640, 668), 3, false, std::bind(&LevelSelect::setLevelToWinter, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Winter.png", m_renderer),	1596, 911,  320, 180);
+	m_entityManager.createFunctionButton(Vector(640, 32),  0, true,  std::bind(&LevelSelect::setLevelToSpring, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Spring.png", m_renderer),	6705, 3793, 320, 180);
+	m_entityManager.createFunctionButton(Vector(640, 244), 1, false, std::bind(&LevelSelect::setLevelToSummer, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer.png", m_renderer),	1613, 922,  320, 180);
+	m_entityManager.createFunctionButton(Vector(640, 456), 2, false, std::bind(&LevelSelect::setLevelToAutumn, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Autumn.png", m_renderer),	6708, 3805, 320, 180);
+	m_entityManager.createFunctionButton(Vector(640, 668), 3, false, std::bind(&LevelSelect::setLevelToWinter, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Winter.png", m_renderer),	1596, 911,  320, 180);
 }
 
 

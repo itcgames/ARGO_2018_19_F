@@ -48,7 +48,7 @@ public:
 	void createLabel(Vector position, std::string text, SDL_Color colour, int width, int height);
 	void createButton(int index, bool selected, std::string goTo, Vector position, std::string text, SDL_Color colour, int width, int height);
 	void createImage(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
-	void createCustomButton(Vector position, int index, bool selected, std::function<void()>  func, SDL_Texture* texture, int srcWidth, int srcHeight, int destWidth, int destHeight);
+	void createFunctionButton(Vector position, int index, bool selected, std::function<void()>  func, SDL_Texture* texture, int srcWidth, int srcHeight, int destWidth, int destHeight);
 
 	GraphicsSystem * getGraphicsSystem();
 	PhysicsSystem * getPhysicsSystem();

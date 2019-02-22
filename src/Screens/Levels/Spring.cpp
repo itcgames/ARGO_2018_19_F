@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 Spring::Spring(ScreenManager* screenManager, SDL_Renderer* renderer) :
-	Level(screenManager, renderer, Vector(), Vector())
+	Level(screenManager, renderer, Vector(0,700), Vector(0, 300))
 {
 	m_screenID = "Play";
 
@@ -46,7 +46,9 @@ void Spring::render()
 void Spring::spawnLevelObstacles()
 {
 	//	Load platforms the players can stand on.
-	m_entityManager.createPlatform(Vector(0, 700), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 80, 200 }, { 0,0, 80, 200 });
+	m_entityManager.createPlatform(Vector(0, 800), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 80, 100 }, { 0,0, 80, 100 });
+	m_entityManager.createPlatform(Vector(0, 400), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 800, 100 }, { 0,0, 800, 100 });
+	m_entityManager.createKillBox(Vector(0, 850), { 0, 0, 1600, 50 });
 }
 
 

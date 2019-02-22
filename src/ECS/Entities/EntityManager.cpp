@@ -18,6 +18,10 @@ EntityManager::~EntityManager()
 {
 	for (Entity* entity : m_entities)
 	{
+		for (auto component : entity->getComponents())
+		{
+			delete(component.second);
+		}
 		delete(entity);
 	}
 	
@@ -109,7 +113,12 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 void EntityManager::createKillBox(Vector startPosition, SDL_Rect collider)
 {
 	Entity* killBox = new Entity();
+	killBox->setId("killBox");
+	killBox->addComponent(new PositionComponent(startPosition));
+	killBox->addComponent(new CollisionComponent(collider, "obstacle"));
 
+	addToSystems(killBox);
+	m_entities.push_back(killBox);
 }
 
 
@@ -320,6 +329,7 @@ void EntityManager::createLabel(Vector position, std::string text, SDL_Color col
 {
 	const char* string = text.c_str();
 	Entity* label = new Entity();
+	label->setId("label");
 	label->addComponent(new PositionComponent(position));
 	label->addComponent(new TextComponent(string, width, height, colour));
 
@@ -359,6 +369,7 @@ void EntityManager::createButton(int index, bool selected, std::string goTo, Vec
 	pressed.srcRect = { 0, 0, attributes.width, attributes.height };
 
 	Entity* button = new Entity();
+	button->setId("button");
 	button->addComponent(new PositionComponent(position));
 	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
 	button->addComponent(new GraphicsComponent(normal.texture, {0, 0, attributes.width, attributes.height}, { 0, 0, width, height }, 0));
@@ -380,6 +391,7 @@ void EntityManager::createButton(int index, bool selected, std::string goTo, Vec
 void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect)
 {
 	Entity* image = new Entity();
+	image->setId("image");
 	image->addComponent(new PositionComponent(position));
 	image->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 
@@ -399,9 +411,10 @@ void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect
 /// <param name="srcHeight"></param>
 /// <param name="destWidth"></param>
 /// <param name="destHeight"></param>
-void EntityManager::createCustomButton(Vector position, int index, bool selected, std::function<void()> func, SDL_Texture * texture, int srcWidth, int srcHeight, int destWidth, int destHeight)
+void EntityManager::createFunctionButton(Vector position, int index, bool selected, std::function<void()> func, SDL_Texture * texture, int srcWidth, int srcHeight, int destWidth, int destHeight)
 {
 	Entity* button = new Entity();
+	button->setId("funcButton");
 	button->addComponent(new PositionComponent(position));
 	button->addComponent(new GraphicsComponent(texture, { 0, 0, srcWidth, srcHeight }, { 0, 0, destWidth, destHeight }));
 	button->addComponent(new FuncButtonComponent(index, selected, func, {0, 0, destWidth, destHeight}));
