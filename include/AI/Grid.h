@@ -23,6 +23,7 @@ public:
 private:
 	std::vector<std::vector<Tile*>> m_grid;
 	std::vector<Tile*> m_visited;
+	std::vector<Node*> m_nodes;
 	int m_width;
 	int m_height;
 	Tile* m_goal = nullptr;

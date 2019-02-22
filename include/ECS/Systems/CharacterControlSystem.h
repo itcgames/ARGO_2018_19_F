@@ -11,6 +11,7 @@
 #include "ECS/Components/GraphicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
+#include <SDL_mixer.h>
 
 class CharacterControlSystem : public System
 {
@@ -19,5 +20,6 @@ public:
 	virtual void update(double dt) override {};
 
 	PlayerState* m_state = new IdleState();
+	Mix_Chunk * m_jumpSound = Mix_LoadWAV("./resources/Sounds/jump.wav");
 };
 #endif // !CHARACTER_CONTROL_SYSTEM_H

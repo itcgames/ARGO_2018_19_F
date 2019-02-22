@@ -38,6 +38,7 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 			if (currentState.A && !physicsComponent->getJumping())
 			{
 				physicsComponent->setJumping(true);
+				Mix_PlayChannel(3, m_jumpSound, 0);
 				acceleration.y -= 1.5;
 			}
 
@@ -61,7 +62,8 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 
 			if (currentState.B && !physicsComponent->getJumping())
 			{
-				graphicsComponent->setDestRect(43);
+				SDL_Rect destRect = graphicsComponent->getDestRect();
+				graphicsComponent->setDestRect({ destRect.x, destRect.y, destRect.w , 43});
 				SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 43 };
 				collisionComponent->setCollider(rect);
 				Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 21 };
@@ -69,7 +71,8 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 			}
 			else
 			{
-				graphicsComponent->setDestRect(64);
+				SDL_Rect destRect = graphicsComponent->getDestRect();
+				graphicsComponent->setDestRect({ destRect.x, destRect.y, destRect.w , 64});
 				SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, 64 };
 				collisionComponent->setCollider(rect);
 			}

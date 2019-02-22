@@ -4,6 +4,7 @@
 #include "Screens/Screen.h"
 #include "ECS/Entities/EntityManager.h"
 #include "AI/Grid.h"
+#include <SDL_mixer.h>
 
 class Autumn : public Screen
 {
@@ -15,5 +16,8 @@ private:
 	EntityManager m_entityManager;
 	std::vector<Entity*> m_deaths;
 	Vector m_startPos;
+	Mix_Music * m_music;
+	Mix_Chunk * m_effect;
+	bool m_startMusic;
 };
 #endif // !AUTUMN_H

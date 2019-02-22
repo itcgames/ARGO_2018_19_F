@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,7 +83,7 @@
     <Link>
       <AdditionalLibraryDirectories>.\lib\SDL2-2.0.8\lib;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;.\lib\SDL2-2.0.8\lib\SDL2_mixer.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy /e /y "$(GoogleDir)ARGO_2018_19_F\Hoppy Holidays" "$(SolutionDir)resources"</Command>
@@ -145,9 +145,11 @@
     <ClCompile Include="src\AI\Node.cpp" />
     <ClCompile Include="src\AI\Tile.cpp" />
     <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
-    <ClCompile Include="src\ECS\Components\UIComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
+    <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\ButtonComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
@@ -173,11 +175,11 @@
     <ClCompile Include="src\ECS\Systems\GraphicsSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Screens\CharacterSelect.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\LevelSelect.cpp" />
     <ClCompile Include="src\Screens\Lobby.cpp" />
     <ClCompile Include="src\Screens\Menu.cpp" />
+    <ClCompile Include="src\Screens\ModeSelect.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\Settings.cpp" />
     <ClCompile Include="src\Screens\Splash.cpp" />
@@ -189,16 +191,16 @@
     <ClCompile Include="src\States\JumpState.cpp" />
     <ClCompile Include="src\States\MovingState.cpp" />
     <ClCompile Include="src\States\VictoryState.cpp" />
-    <ClCompile Include="submodules\Simple-SDL2-Audio\src\audio.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\Node.h" />
     <ClInclude Include="include\AI\Tile.h" />
     <ClInclude Include="include\ECS\Components\AIComponent.h" />
-    <ClInclude Include="include\ECS\Components\TextComponent.h" />
-    <ClInclude Include="include\ECS\Components\UIComponent.h" />
     <ClInclude Include="include\ECS\Systems\AISystem.h" />
+    <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
+    <ClInclude Include="include\ECS\Components\TextComponent.h" />
+    <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
     <ClInclude Include="include\Networking\Client.h" />
     <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
@@ -225,7 +227,6 @@
     <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\Networking\Packet.h" />
     <ClInclude Include="include\Networking\UDP_Client.h" />
-    <ClInclude Include="include\Screens\CharacterSelect.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />
     <ClInclude Include="include\Screens\Levels\Autumn.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="include\Screens\Levels\Winter.h" />
     <ClInclude Include="include\Screens\Lobby.h" />
     <ClInclude Include="include\Screens\Menu.h" />
+    <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\Settings.h" />
@@ -248,7 +250,6 @@
     <ClInclude Include="include\States\VictoryState.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
-    <ClInclude Include="submodules\Simple-SDL2-Audio\src\audio.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

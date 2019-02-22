@@ -2,6 +2,7 @@
 #define LOBBY_H
 
 #include "Screen.h"
+#include "ECS/Entities/EntityManager.h"
 
 class Lobby : public Screen
 {
@@ -10,8 +11,8 @@ public:
 
 	virtual void update(double dt) override;
 	virtual void render() override;
+
 private:
-	void connectToServer();
-	bool m_connected;
+	EntityManager m_entityManager;
 };
 #endif // !LOBBY_H

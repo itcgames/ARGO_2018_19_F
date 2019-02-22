@@ -6,22 +6,15 @@
 /// </summary>
 ScreenManager::ScreenManager()
 {
-	while (m_client.second == nullptr)
-	{
-		std::cout << "What protocol do you wish to use?" << std::endl;
-		std::string input;
-		//std::cin >> input;
+	//	Initialise the client.
+	m_client = new UDPClient();
 
-		//if (input == "TCP" || input == "tcp" || input == "Tcp")
-		//{
-		//	m_client.first = "TCP";
-		//	m_client.second = new TCPClient();
-		//}
-		//else if (input == "UDP" || input == "udp" || input == "Udp")
-		//{
-			m_client.first = "UDP";
-			m_client.second = new UDPClient();/*
-		}*/
+	if (m_client->startWinsock())
+	{
+		if (m_client->createSocket())
+		{
+
+		}
 	}
 }
 
@@ -61,6 +54,9 @@ void ScreenManager::update(double dt, SDL_Event &e)
 void ScreenManager::render()
 {
 	m_currentScreen->render();
+	Mix_Quit();
+	//Mix_CloseAudio();
+	//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 0, 2048);
 }
 
 
@@ -82,7 +78,23 @@ void ScreenManager::addScreen(Screen * screen)
 /// <param name="screenID"></param>
 void ScreenManager::goToScreen(std::string screenID)
 {
+	if (screenID == "Play")
+	{
+		Mix_FadeOutChannel(1, 1000);
+		//Mix_Quit();
+		//Mix_FadeInChannel(-1, -1, -1, 0);
+	}
 	m_currentScreen = m_screens[screenID];
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void ScreenManager::backToPrevious()
+{
+	goToScreen(m_currentScreen->getPrevious());
 }
 
 
@@ -114,7 +126,18 @@ Screen * ScreenManager::getScreen(std::string screenID)
 /// 
 /// </summary>
 /// <returns></returns>
-std::pair<std::string, Client*> ScreenManager::getClient()
+UDPClient* ScreenManager::getClient()
 {
 	return m_client;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="client"></param>
+void ScreenManager::setClient(UDPClient* client)
+{
+	m_client = client;
 }

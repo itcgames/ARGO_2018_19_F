@@ -6,6 +6,7 @@
 #include "SDL.h"
 #include "Networking/TCP_Client.h"
 #include "Networking/UDP_Client.h"
+#include <SDL_mixer.h>
 
 class Screen;
 
@@ -21,14 +22,16 @@ public:
 
 	void addScreen(Screen* screen);
 	void goToScreen(std::string screenID);
+	void backToPrevious();
 	Screen* getCurrentScreen();
 	Screen* getScreen(std::string screenID);
 
-	std::pair<std::string, Client*> getClient();	
+	UDPClient* getClient();
+	void setClient(UDPClient* client);
 
 private:
 	std::map<std::string, Screen*> m_screens;
 	Screen* m_currentScreen;
-	std::pair<std::string, Client*> m_client;
+	UDPClient* m_client;
 };
 #endif // !SCREEN_MANAGER_H

@@ -3,18 +3,9 @@
 /// <summary>
 /// 
 /// </summary>
-EntityManager::EntityManager()
-{
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="client"></param>
-EntityManager::EntityManager(std::pair<std::string, Client*> client) :
-	m_client(client)
+EntityManager::EntityManager(ScreenManager* screenManager, SDL_Renderer* renderer) :
+	m_screenManager(screenManager),
+	m_renderer(renderer)
 {
 }
 
@@ -53,7 +44,7 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 
 	if (controllable)
 	{
-		player->addComponent(new ControllerComponent());
+		player->addComponent(new ControllerComponent(playerNum));
 	}
 
 	addToSystems(player);
@@ -302,14 +293,73 @@ void EntityManager::createLabel(Vector position, std::string text, SDL_Color col
 /// <param name="colour"></param>
 /// <param name="width"></param>
 /// <param name="height"></param>
-void EntityManager::createButton(int order, bool selected, Vector position, SDL_Texture * texture, SDL_Rect src, std::string text, SDL_Color colour, int width, int height)
+void EntityManager::createButton(int index, bool selected, std::string goTo, Vector position, std::string text, SDL_Color colour, int width, int height)
 {
+	TextureAttributes attributes;
+
+	Texture highlight;
+	highlight.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//RectangleHighlight.png", m_renderer);
+	attributes = SDL2Help::getTextureAttributes(highlight.texture);
+	highlight.srcRect = { 0, 0, attributes.width, attributes.height };
+	
+	Texture normal;
+	normal.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//Rectangle.png", m_renderer);	
+	attributes = SDL2Help::getTextureAttributes(normal.texture);
+	normal.srcRect = { 0, 0, attributes.width, attributes.height };
+
+	Texture pressed;
+	pressed.texture = SDL2Help::LoadTexture(RESOURCES_PATH + "buttons//RectanglePressed.png", m_renderer);
+	attributes = SDL2Help::getTextureAttributes(pressed.texture);
+	pressed.srcRect = { 0, 0, attributes.width, attributes.height };
+
 	Entity* button = new Entity();
 	button->addComponent(new PositionComponent(position));
 	button->addComponent(new TextComponent(text, width / 2, height / 2, colour));
-	button->addComponent(new GraphicsComponent(texture, src, { 0, 0, width, height }, 0));
+	button->addComponent(new GraphicsComponent(normal.texture, {0, 0, attributes.width, attributes.height}, { 0, 0, width, height }, 0));
 	button->addComponent(new ControllerComponent(0));
-	button->addComponent(new UIComponent(order, selected));
+	button->addComponent(new ButtonComponent(index, selected, goTo, normal, highlight, pressed));
+
+	addToSystems(button);
+	m_entities.push_back(button);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="position"></param>
+/// <param name="texture"></param>
+/// <param name="destRect"></param>
+void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect)
+{
+	Entity* image = new Entity();
+	image->addComponent(new PositionComponent(position));
+	image->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+
+	addToSystems(image);
+	m_entities.push_back(image);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="position"></param>
+/// <param name="func"></param>
+/// <param name="texture"></param>
+/// <param name="srcWidth"></param>
+/// <param name="srcHeight"></param>
+/// <param name="destWidth"></param>
+/// <param name="destHeight"></param>
+void EntityManager::createCustomButton(Vector position, int index, bool selected, std::function<void()> func, SDL_Texture * texture, int srcWidth, int srcHeight, int destWidth, int destHeight)
+{
+	Entity* button = new Entity();
+	button->addComponent(new PositionComponent(position));
+	button->addComponent(new GraphicsComponent(texture, { 0, 0, srcWidth, srcHeight }, { 0, 0, destWidth, destHeight }));
+	button->addComponent(new FuncButtonComponent(index, selected, func, {0, 0, destWidth, destHeight}));
+	button->addComponent(new ControllerComponent(0));
 
 	addToSystems(button);
 	m_entities.push_back(button);
@@ -413,6 +463,17 @@ AISystem * EntityManager::getAISystem()
 /// <summary>
 /// 
 /// </summary>
+/// <returns></returns>
+UIControlSystem * EntityManager::getUIControlSystem()
+{
+	return (UIControlSystem*) m_systems["UI_CONTROL"];
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 void EntityManager::addToSystems(Entity* entity)
 {
 	if (entity->getComponent("GRAPHICS") != nullptr)
@@ -433,6 +494,16 @@ void EntityManager::addToSystems(Entity* entity)
 		}
 
 		m_systems["UI_GRAPHICS"]->addEntity(entity);
+	}
+
+	if (entity->getComponent("BUTTON") != nullptr || entity->getComponent("FUNC_BUTTON") != nullptr)
+	{
+		if (m_systems["UI_CONTROL"] == nullptr)
+		{
+			m_systems["UI_CONTROL"] = new UIControlSystem(m_screenManager);
+		}
+
+		m_systems["UI_CONTROL"]->addEntity(entity);
 	}
 
 	if (entity->getComponent("PHYSICS") != nullptr)
@@ -486,7 +557,7 @@ void EntityManager::addToSystems(Entity* entity)
 	{
 		if (m_systems["NETWORK"] == nullptr)
 		{
-			m_systems["NETWORK"] = new NetworkSystem(m_client);
+			m_systems["NETWORK"] = new NetworkSystem(m_screenManager->getClient());
 		}
 
 		m_systems["NETWORK"]->addEntity(entity);

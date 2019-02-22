@@ -3,16 +3,6 @@
 /// <summary>
 /// 
 /// </summary>
-/// <param name="dt"></param>
-void UIGraphicsSystem::update(double dt)
-{
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
 /// <param name="renderer"></param>
 void UIGraphicsSystem::render(SDL_Renderer * renderer)
 {	
@@ -20,38 +10,7 @@ void UIGraphicsSystem::render(SDL_Renderer * renderer)
 	{
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("GRAPHICS");
-		TextComponent* textComponent = (TextComponent*)entity->getComponent("TEXT");
-		UIComponent* uiComponent = (UIComponent*)entity->getComponent("UI");
-		ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
-
-		if (uiComponent != nullptr)
-		{
-			if (uiComponent->isSelected())
-			{
-				m_selected = uiComponent->getOrder();
-			}
-
-			if (controllerComponent != nullptr)
-			{
-				ControllerState currentState = controllerComponent->getCurrentState();
-				ControllerState previousState = controllerComponent->getPreviousState();
-
-				if (currentState.leftStick.y > controllerComponent->DEAD_ZONE)
-				{
-
-				}
-
-				if (currentState.leftStick.y < controllerComponent->DEAD_ZONE)
-				{
-
-				}
-			}
-
-			if (uiComponent->getOrder() == m_selected && uiComponent->isSelected() == false)
-			{
-				uiComponent->setSelected(true);
-			}
-		}
+		TextComponent* textComponent = (TextComponent*)entity->getComponent("TEXT");	
 
 		if (positionComponent != nullptr)
 		{

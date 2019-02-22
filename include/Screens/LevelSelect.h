@@ -6,6 +6,8 @@
 #include "Screens/Levels/Autumn.h"
 #include "Screens/Levels/Winter.h"
 
+#include "ECS/Entities/EntityManager.h"
+
 class LevelSelect : public Screen
 {
 public:
@@ -17,6 +19,8 @@ private:
 	void setLevelToSummer();
 	void setLevelToAutumn();
 	void setLevelToWinter();
+
+	EntityManager m_entityManager;
 };
 #endif // !LEVEL_SELECT_H
 
