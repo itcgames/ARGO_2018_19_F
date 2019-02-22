@@ -38,7 +38,7 @@ void Autumn::update(double dt)
 
 	if (m_startMusic)
 	{
-		Mix_PlayChannel(2, m_effect, -1);
+		//Mix_PlayChannel(2, m_effect, -1);
 		m_startMusic = false;
 	}
 }
