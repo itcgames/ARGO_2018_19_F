@@ -2,6 +2,7 @@
 #define AUTUMN_H
 
 #include "Screens/Levels/Level.h"
+#include <SDL_mixer.h>
 
 class Autumn : public Level
 {
@@ -13,5 +14,9 @@ public:
 private:
 	virtual void spawnLevelObstacles() override;	
 	virtual void loadTextures() override;
+
+	Mix_Music * m_music;
+	Mix_Chunk * m_effect;
+	bool m_startMusic;
 };
 #endif // !AUTUMN_H

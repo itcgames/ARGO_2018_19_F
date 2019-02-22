@@ -3,6 +3,16 @@
 /// <summary>
 /// 
 /// </summary>
+CharacterControlSystem::CharacterControlSystem()
+{
+	m_jumpSound = Mix_LoadWAV("./resources/Sounds/jump.wav");
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="dt"></param>
 void CharacterControlSystem::update(double dt)
 {
@@ -38,6 +48,7 @@ void CharacterControlSystem::update(double dt)
 				if (currentState.A && !physicsComponent->getJumping())
 				{
 					physicsComponent->setJumping(true);
+					Mix_PlayChannel(3, m_jumpSound, 0);
 					acceleration.y -= 1.5;
 				}
 

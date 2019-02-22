@@ -28,5 +28,7 @@ private:
 	bool m_obstacleCursor;
 	bool m_cursorActive;
 	bool m_collectedObj;
+
+	//bools for collecting and dropping items
 };
 #endif // !COLLISION_COMPONENT_H

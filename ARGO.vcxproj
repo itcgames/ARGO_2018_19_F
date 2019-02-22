@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,7 +83,7 @@
     <Link>
       <AdditionalLibraryDirectories>.\lib\SDL2-2.0.8\lib;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\lib\SDL2-2.0.8\lib\SDL2.lib;.\lib\SDL2-2.0.8\lib\SDL2main.lib;.\lib\SDL2-2.0.8\lib\SDL2_image.lib;.\lib\SDL2-2.0.8\lib\SDL2_ttf.lib;.\lib\SDL2-2.0.8\lib\SDL2_mixer.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy /e /y "$(GoogleDir)ARGO_2018_19_F\Hoppy Holidays" "$(SolutionDir)resources"</Command>

@@ -4,8 +4,19 @@
 /// 
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
-	Level(screenManager, renderer, { 100, 800 }, {})
+	Level(screenManager, renderer, { 100, 800 }, {}),
+	m_startMusic(true)
 {
+	//music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		std::cout << "error: " << Mix_GetError() << std::endl;
+	}
+
+	m_music = Mix_LoadMUS(".//resources//Sounds//backgroundMenuMusic.mp3");
+	m_effect = Mix_LoadWAV("./resources//Sounds/background.wav");
+
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
 
@@ -17,7 +28,6 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 
 
-
 /// <summary>
 /// 
 /// </summary>
@@ -25,6 +35,12 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt)
 {
 	m_entityManager.update(dt);
+
+	if (m_startMusic)
+	{
+		Mix_PlayChannel(2, m_effect, -1);
+		m_startMusic = false;
+	}
 }
 
 

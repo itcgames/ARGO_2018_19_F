@@ -54,6 +54,9 @@ void ScreenManager::update(double dt, SDL_Event &e)
 void ScreenManager::render()
 {
 	m_currentScreen->render();
+	Mix_Quit();
+	//Mix_CloseAudio();
+	//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 0, 2048);
 }
 
 
@@ -75,6 +78,12 @@ void ScreenManager::addScreen(Screen * screen)
 /// <param name="screenID"></param>
 void ScreenManager::goToScreen(std::string screenID)
 {
+	if (screenID == "Play")
+	{
+		Mix_FadeOutChannel(1, 1000);
+		//Mix_Quit();
+		//Mix_FadeInChannel(-1, -1, -1, 0);
+	}
 	m_currentScreen = m_screens[screenID];
 }
 

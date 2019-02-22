@@ -6,6 +6,7 @@
 #include "SDL.h"
 #include "Networking/TCP_Client.h"
 #include "Networking/UDP_Client.h"
+#include <SDL_mixer.h>
 
 class Screen;
 

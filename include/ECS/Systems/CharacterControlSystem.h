@@ -11,15 +11,19 @@
 #include "ECS/Components/GraphicsComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
+#include <SDL_mixer.h>
 
 class CharacterControlSystem : public System
 {
 public:
+	CharacterControlSystem();
 	virtual void update(double dt) override;
 
 	PlayerState* m_state = new IdleState();
 
 	const int CROUCH_HEIGHT = 80;
 	const int STAND_HEIGHT  = 96;
+
+	Mix_Chunk * m_jumpSound;
 };
 #endif // !CHARACTER_CONTROL_SYSTEM_H

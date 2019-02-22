@@ -8,6 +8,7 @@
 #include "ECS/Components/PhysicsComponent.h"
 #include "ECS/Components/ControllerComponent.h"
 #include "SDL2_Helper/SDL2Helper.h"
+#include <SDL_mixer.h>
 
 class CollisionSystem : public System
 {
@@ -18,5 +19,8 @@ public:
 	void playerUpdate(CollisionComponent *e1Collision, CollisionComponent *e2Collision, PositionComponent *e1Position, PositionComponent *e2Position);
 private:
 	std::string handleBoxCollision(Vector& p1, SDL_Rect& c1, Vector& p2, SDL_Rect& c2);
+	//Audio * sound;
+	Mix_Chunk * m_spikeSound = Mix_LoadWAV(".//resources//Sounds//spiketrap.wav");
+	bool m_grabbed = false;
 };
 #endif // !COLLISION_SYSTEM_H
