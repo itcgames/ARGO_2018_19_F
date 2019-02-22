@@ -7,7 +7,6 @@ Spring::Spring(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Level(screenManager, renderer, Vector(0,700), Vector(0, 300))
 {
 	m_screenID = "Play";
-
 	m_previousScreenID = "ModeSelect";
 
 	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds/Spring.png", m_renderer), { 0, 0, 6708, 3805 });
