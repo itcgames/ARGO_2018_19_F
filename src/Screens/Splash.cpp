@@ -32,7 +32,7 @@ void Splash::update(double dt)
 	m_clock += dt;
 	if (m_playMusic)
 	{
-		Mix_PlayChannel(1, m_bkg, -1);
+		//Mix_PlayChannel(1, m_bkg, -1);
 		
 		m_playMusic = false;
 		
