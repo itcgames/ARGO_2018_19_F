@@ -7,6 +7,19 @@
 #include <string>
 #include "SDL_ttf.h"
 
+struct Location
+{
+public:
+	Location(int x, int y, int z)
+	{
+		xy = x + y;
+		z = z;
+	}
+
+	int xy;
+	int z;
+};
+
 class Node
 {
 public:
@@ -18,9 +31,10 @@ public:
 	int getHeuristic();
 	void setHeuristic(int h);
 
+	SDL_Rect* getRect();
 
-	void addNeighbour(Node* node);
-	std::vector<Node*>& getNeighbours();
+	void addNeighbour(std::shared_ptr<Node> node);
+	std::vector<std::shared_ptr<Node>>& getNeighbours();
 
 private:
 	// visualisation
@@ -30,9 +44,9 @@ private:
 	// node logic
 	SDL_Rect* m_rect; // used for detection of world obstacles
 	Vector m_location; // location and jump value within the grid
-	std::vector<Node*> m_neighbours; // adjacent cells
+	std::vector<std::shared_ptr<Node>> m_neighbours; // adjacent cells
 
-	Node* m_parent; // parent node that we got to his node from
+	std::shared_ptr<Node> m_parent; // parent node that we got to his node from
 	Vector m_parentIndex; // used to get the parent in neighbours list
 	int m_weight; // weight of the node
 	int m_heuristic; // F - a star hueristic
@@ -45,7 +59,6 @@ private:
 	bool m_path;
 
 	//void setLocation(Vector& location);
-	//SDL_Rect* getRect();
 	//Vector& getLocation();
 	//void setGoal();
 	//void setStart();

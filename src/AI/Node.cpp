@@ -23,12 +23,12 @@ Node::Node(Vector & pos)
 	m_location = pos;
 }
 
-void Node::addNeighbour(Node * node)
+void Node::addNeighbour(std::shared_ptr<Node> node)
 {
 	m_neighbours.push_back(node);
 }
 
-std::vector<Node*>& Node::getNeighbours()
+std::vector<std::shared_ptr<Node>>& Node::getNeighbours()
 {
 	// TODO: insert return statement here
 	return m_neighbours;
