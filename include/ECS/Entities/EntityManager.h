@@ -14,6 +14,7 @@
 #include "ECS/Components/ButtonComponent.h"
 #include "ECS/Components/TextComponent.h"
 #include "ECS/Components/FuncButtonComponent.h"
+#include "ECS/Components/PlayerStateComponent.h"
 //	Systems.
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
@@ -31,8 +32,12 @@ public:
 	EntityManager(ScreenManager* screenManager, SDL_Renderer* renderer);
 	~EntityManager();
 
-	void update(double dt);
+	void update(double dt);	
 	void render();
+
+	void gameLoop(double dt, bool gameInProgress, bool online);
+	void placement(double dt, bool online);
+	void playing(double dt, bool online);
 
 	//	Entity Constructors.
 	void createPlayer(int playerNum, Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider, bool controllable, bool online);

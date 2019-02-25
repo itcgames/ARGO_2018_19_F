@@ -55,10 +55,10 @@ protected:
 			bool controllable = false;
 			SDL_Texture* texture = randomPlayerTexture(i);
 			TextureAttributes textureAttributes = SDL2Help::getTextureAttributes(texture);
-			SDL_Rect srcRect = { 0, 0, textureAttributes.width, textureAttributes.height };
+			SDL_Rect srcRect = { 0, 0, 600, 925 };
 			SDL_Rect destRect = { 0, 0, 80, 96 };
-			Vector animStart = {};
-			Vector animEnd = {};
+			Vector animStart = {0, 0};
+			Vector animEnd = {3, 0};
 
 			if (i < controllablePlayers)
 			{
@@ -97,6 +97,11 @@ protected:
 		int sizeOfVec = m_playerTextures[colour].size();
 		int random = rand() % sizeOfVec;
 		return m_playerTextures[colour][random];
+	}
+
+	void spawnNewItems()
+	{
+
 	}
 
 	virtual void spawnLevelObstacles() = 0;

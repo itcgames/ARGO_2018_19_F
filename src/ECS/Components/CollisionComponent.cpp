@@ -3,14 +3,14 @@
 /// <summary>
 /// 
 /// </summary>
-CollisionComponent::CollisionComponent(SDL_Rect collider, std::string tag) :
+CollisionComponent::CollisionComponent(SDL_Rect collider, std::string mainTag, std::string secondaryTag) :
 	m_collider(collider),
-	m_isColliding(false),
 	m_obstacleCursor(false),
-	m_cursorActive(false)
+	m_cursorActive(false),
+	m_mainTag(mainTag),
+	m_secondaryTag(secondaryTag)
 {
 	m_id = "COLLISION";
-	m_tag = tag;
 }
 
 
@@ -38,32 +38,14 @@ void CollisionComponent::setCollider(SDL_Rect & collider)
 
 
 /// <summary>
-/// 
-/// </summary>
-/// <returns></returns>
-bool CollisionComponent::IsColliding()
-{
-	return m_isColliding;
-}
-
-
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="isColliding"></param>
-void CollisionComponent::setIsColliding(bool isColliding)
-{
-	m_isColliding = isColliding;
-}
-
-/// <summary>
 ///  Get method for collection
 /// </summary>
 bool CollisionComponent::getObstacleCursor()
 {
 	return m_obstacleCursor;
 }
+
+
 
 /// <summary>
 /// Set method for collision response
@@ -74,6 +56,8 @@ void CollisionComponent::setObstacleCursor(bool b)
 	m_obstacleCursor = b;
 }
 
+
+
 /// <summary>
 /// get Method for cursor state
 /// </summary>
@@ -82,6 +66,8 @@ bool CollisionComponent::getCursorState()
 {
 	return m_cursorActive;
 }
+
+
 
 /// <summary>
 /// Simple method to set the state of the onjetcs
@@ -93,10 +79,17 @@ void CollisionComponent::setCursorState(bool b)
 }
 
 
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
 bool CollisionComponent::getCollectedObj()
 {
 	return m_collectedObj;
 }
+
+
 
 /// <summary>
 /// Simple method to set the state of the objects
@@ -105,4 +98,26 @@ bool CollisionComponent::getCollectedObj()
 void CollisionComponent::setCollectedObj(bool b)
 {
 	m_collectedObj = b;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+std::string CollisionComponent::getMainTag()
+{
+	return m_mainTag;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+std::string CollisionComponent::getSecondaryTag()
+{
+	return m_secondaryTag;
 }

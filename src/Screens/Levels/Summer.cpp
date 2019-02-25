@@ -9,7 +9,7 @@ Summer::Summer(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
 
-	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds/Summer.png", m_renderer), { 0, 0, 6708, 3805 });
+	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds/Summer/Summer.png", m_renderer), { 0, 0, 6708, 3805 });
 
 	spawnPlayers(1, false);
 	spawnLevelObstacles();

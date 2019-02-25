@@ -18,5 +18,9 @@ private:
 	Mix_Music * m_music;
 	Mix_Chunk * m_effect;
 	bool m_startMusic;
+
+	bool m_gameInProgress;
+	bool m_online;
+	double m_clock;
 };
 #endif // !AUTUMN_H

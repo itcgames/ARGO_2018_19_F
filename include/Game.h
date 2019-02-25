@@ -13,7 +13,6 @@
 #include "Screens/ModeSelect.h"
 #include "Screens/LevelSelect.h"
 #include "Screens/Levels/Winter.h"
-#include "Screens/Settings.h"
 #include "Screens/Credits.h"
 #include "Screens/Lobby.h"
 

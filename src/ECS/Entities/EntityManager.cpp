@@ -71,6 +71,57 @@ void EntityManager::render()
 /// <summary>
 /// 
 /// </summary>
+/// <param name="dt"></param>
+void EntityManager::gameLoop(double dt, bool gameInProgress, bool online)
+{
+	if (gameInProgress)
+	{
+		playing(dt, online);
+	}
+	else
+	{
+		placement(dt, online);
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="dt"></param>
+void EntityManager::placement(double dt, bool online)
+{
+	getCursorControlSystem()->update(dt);
+	getBoxPhysicsSystem()->update(dt);
+	if (online)
+	{
+		getNetworkSystem()->update(dt);
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="dt"></param>
+void EntityManager::playing(double dt, bool online)
+{
+	getCharacterControlSystem()->update(dt);
+	getCollisionSystem()->update(dt);
+	getPhysicsSystem()->update(dt);
+	if (online)
+	{
+		getNetworkSystem()->update(dt);
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="startPosition"></param>
 /// <param name="texture"></param>
 /// <param name="srcRect"></param>
@@ -85,9 +136,10 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	player->setId("player");	
 	player->addComponent(new PositionComponent(startPosition));
 	player->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	//player->addComponent(new AnimationComponent(animStart, animEnd));	
+	player->addComponent(new AnimationComponent(animStart, animEnd));	
 	player->addComponent(new CollisionComponent(collider, "player"));
 	player->addComponent(new PhysicsComponent());
+	player->addComponent(new PlayerStateComponent());
 
 	if (controllable)
 	{
