@@ -20,15 +20,17 @@ Grid::Grid(Vector & screen, int width, int height)
 
 	for (int i = 0; i < m_width; i++)
 	{
-		std::vector<Tile*> column;
+		std::vector<Node*> column;
 		for (int j = 0; j < m_height; j++)
 		{
-			column.push_back(new Tile(i * width, j * height, width, height));
+			column.push_back(new Node(i * width, j * height, width, height));
 		}
 
 		m_grid.push_back(column);
 	}
 }
+
+
 
 /// <summary>
 /// 
@@ -43,13 +45,14 @@ void Grid::render(SDL_Renderer * renderer)
 			m_grid[i][j]->render(renderer);
 		}
 	}
-
-	for (Node* node : m_nodes)
-	{
-		node->render(renderer);
-	}
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="ai"></param>
 void Grid::update(Entity * ai)
 {
 	CollisionComponent* collider = (CollisionComponent*)ai->getComponent("COLLISION");
@@ -83,6 +86,12 @@ void Grid::update(Entity * ai)
 	}
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="system"></param>
 void Grid::processObstacles(CollisionSystem * system)
 {
 	Uint32 time = SDL_GetTicks();
@@ -126,8 +135,6 @@ void Grid::processObstacles(CollisionSystem * system)
 							{
 								if (m_grid[i][j - 1]->getTraversable() && collider->m_tag != "obstacle")
 								{
-									Vector pos = Vector(m_grid[i][j - 1]->getRect()->x + (m_grid[i][j - 1]->getRect()->w / 2), m_grid[i][j - 1]->getRect()->y + m_grid[i][j - 1]->getRect()->h / 2);
-									m_nodes.push_back(new Node(pos));
 									m_grid[i][j-1]->setWeight(-1);
 								}
 							}
@@ -148,6 +155,11 @@ void Grid::processObstacles(CollisionSystem * system)
 	std::cout << time << std::endl;
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
 void Grid::assignNeighbours()
 {
 	for (int i = 0; i < m_width; i++)
@@ -174,14 +186,19 @@ void Grid::assignNeighbours()
 	}
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
 void Grid::getBestPath()
 {
-	std::list<Tile*> nodeList;
+	std::list<Node*> nodeList;
 	nodeList.push_back(m_goal);
 
 	while (nodeList.size() > 0 && nodeList.front() != m_start)
 	{
-		Tile* tile = nodeList.front();
+		Node* tile = nodeList.front();
 		if (tile != m_goal)
 		{
 			tile->setPath();
@@ -189,7 +206,7 @@ void Grid::getBestPath()
 		nodeList.pop_front();
 
 		int tileWeight = tile->getWeight();
-		std::vector<Tile*> neighbours = tile->getNeighbours();
+		std::vector<Node*> neighbours = tile->getNeighbours();
 		for (int i = 0; i < neighbours.size(); i++)
 		{
 			Vector gridPos = Vector(neighbours[i]->getRect()->x / neighbours[i]->getRect()->w, neighbours[i]->getRect()->y / neighbours[i]->getRect()->h);
@@ -226,18 +243,18 @@ void Grid::moddedDijkstra()
 
 	if (m_start != 0)
 	{
-		std::list<Tile*> tileList;
+		std::list<Node*> tileList;
 		m_start->setWeight(0);
 		tileList.push_back(m_start);
 
 		while (tileList.size() > 0)
 		{
-			Tile* currentID = tileList.front();
+			Node* currentID = tileList.front();
 			tileList.pop_front();
-			std::vector<Tile*> neighbours = currentID->getNeighbours();
+			std::vector<Node*> neighbours = currentID->getNeighbours();
 			for (int i = 0; i < neighbours.size(); i++)
 			{
-				Tile* n = neighbours[i];
+				Node* n = neighbours[i];
 				int endNodeCost = currentID->getWeight() + 1;
 				if (n->getWeight() <= 1)
 				{

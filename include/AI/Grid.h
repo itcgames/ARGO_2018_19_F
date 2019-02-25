@@ -1,7 +1,6 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include "AI/Tile.h"
 #include "AI/Node.h"
 #include <list>
 #include "ECS/Systems/CollisionSystem.h"
@@ -21,12 +20,12 @@ public:
 	void getBestPath();
 
 private:
-	std::vector<std::vector<Tile*>> m_grid;
-	std::vector<Tile*> m_visited;
-	std::vector<Node*> m_nodes;
+	std::vector<std::vector<Node*>> m_grid;
+	std::vector<Vector> m_visited;
 	int m_width;
 	int m_height;
-	Tile* m_goal = nullptr;
-	Tile* m_start = nullptr;
+
+	Node* m_goal = nullptr;
+	Node* m_start = nullptr;
 };
 #endif // !GRID_H
