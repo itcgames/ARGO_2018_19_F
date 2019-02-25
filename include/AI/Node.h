@@ -15,6 +15,8 @@ public:
 	Node(Vector& pos);
 
 	// getters and setters
+	int getHeuristic();
+	void setHeuristic(int h);
 
 
 	void addNeighbour(Node* node);
@@ -32,11 +34,11 @@ private:
 
 	Node* m_parent; // parent node that we got to his node from
 	Vector m_parentIndex; // used to get the parent in neighbours list
-	int m_jumpLength; // the current jump distance of the node
 	int m_weight; // weight of the node
 	int m_heuristic; // F - a star hueristic
-	int m_G; // ??
-	int m_status; // nodes open / closed status
+	short m_G; // ??
+	short m_status; // nodes open / closed status
+	short m_jumpLength; // the current jump distance of the node
 
 	// future 
 	bool m_traversable;

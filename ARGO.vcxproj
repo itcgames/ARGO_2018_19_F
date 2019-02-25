@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\Node.cpp" />
+    <ClCompile Include="src\AI\NodePriorityQueue.cpp" />
     <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
@@ -195,7 +196,7 @@
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\Node.h" />
     <ClInclude Include="include\AI\NodeComparer.h" />
-    <ClInclude Include="include\AI\PriorityQueue.h" />
+    <ClInclude Include="include\AI\NodePriorityQueue.h" />
     <ClInclude Include="include\ECS\Components\AIComponent.h" />
     <ClInclude Include="include\ECS\Systems\AISystem.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />

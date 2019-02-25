@@ -3,16 +3,27 @@
 
 #include "AI/Node.h"
 
+template<class Node>
 class NodeComparer
 {
 public:
-	NodeComparer(std::vector<std::vector<Node*>> nodes)
+	inline NodeComparer(std::vector<std::vector<Node*>>& nodes)
 	{
 		m_nodes = nodes;
 	}
-	void compare(Vector& a, Vector& b)
+
+	inline int compare(Vector& a, Vector& b)
 	{
-		if (m_nodes[a.x][a.y]);
+		if (m_nodes[a.x][a.y]->getHeuristic() > m_nodes[b.x][b.y]->getHeuristic())
+		{
+			return 1;
+		}
+		else if (m_nodes[a.x][a.y]->getHeuristic() < m_nodes[b.x][b.y]->getHeuristic())
+		{
+			return -1;
+		}
+		
+		return 0;
 	}
 
 private:
