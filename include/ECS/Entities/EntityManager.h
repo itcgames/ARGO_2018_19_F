@@ -14,6 +14,7 @@
 #include "ECS/Components/ButtonComponent.h"
 #include "ECS/Components/TextComponent.h"
 #include "ECS/Components/FuncButtonComponent.h"
+#include "ECS/Components/PlacedComponent.h"
 //	Systems.
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
@@ -25,6 +26,7 @@
 #include "ECS/Systems/UIGraphicsSystem.h"
 #include "ECS/Systems/AISystem.h"
 #include "ECS/Systems/UIControlSystem.h"
+#include "ECS/Systems/AICursorControlSystem.h"
 
 class EntityManager
 {
@@ -61,6 +63,7 @@ public:
 	UIGraphicsSystem * getUIGraphicsSystem();
 	AISystem * getAISystem();
 	UIControlSystem * getUIControlSystem();
+	AICursorControlSystem * getAICursorControlSystem();
 
 private:
 	void addToSystems(Entity* entity);

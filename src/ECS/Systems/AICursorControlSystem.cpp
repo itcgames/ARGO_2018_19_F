@@ -11,6 +11,12 @@ AICursorControlSystem::~AICursorControlSystem()
 {
 }
 
+/// <summary>
+/// Test method for placement AI
+/// Here's hoping
+/// </summary>
+/// <param name="dt"></param>
+/// <param name="picking"></param>
 void AICursorControlSystem::update(double dt, bool picking)
 {
 	bool pick = true;
@@ -25,14 +31,16 @@ void AICursorControlSystem::update(double dt, bool picking)
 
 			CollisionComponent* collision2 = (CollisionComponent*)entity2->getComponent("COLLISION");
 			PositionComponent* position2 = (PositionComponent*)entity2->getComponent("POSITION");
+			PlacedComponent* placed = (PlacedComponent*)entity2->getComponent("PLACED");
 
 			if (pick)
 			{
-				if (entity1->getId() == "AIcursor" && entity2 ->getId() == "Platform")
+				if (entity1->getId() == "AIcursor" && entity2 ->getId() == "platMove")
 				{
-					if (entity2)
+					if (!placed->getPlaced())
 					{
 						position1->setPos(position2->getPos());
+
 					}
 				}
 			}

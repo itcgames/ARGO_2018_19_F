@@ -484,6 +484,11 @@ UIControlSystem * EntityManager::getUIControlSystem()
 	return (UIControlSystem*) m_systems["UI_CONTROL"];
 }
 
+//AICursorControlSystem * EntityManager::getAICursorControlSystem()
+//{
+//	//return (AICursorControlSystem*) m_systems[""]
+//
+//}
 
 
 /// <summary>

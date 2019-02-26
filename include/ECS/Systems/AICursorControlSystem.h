@@ -4,6 +4,7 @@
 #include "ECS\Systems\System.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
+#include "ECS/Components/PlacedComponent.h"
 #include "AI/Tile.h"
 #include "AI/Grid.h"
 

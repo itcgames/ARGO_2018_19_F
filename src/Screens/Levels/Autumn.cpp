@@ -53,6 +53,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entityManager.createPlatform(Vector(800, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));*/
 	m_entityManager.createPlatform(Vector(900, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 
+	//Test Obstacle
+	m_entityManager.PlatMove(Vector(500, 500), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 200, 200), SDL2Help::InitRect(0, 0, 100, 100));
+
 	//Create Spring entity.
 	//m_entityManager.createSpring(Vector(500, 700), springBoardTexture, SDL2Help::InitRect(0, 0, 512, 512), SDL2Help::InitRect(0, 0, 50, 75), SDL2Help::InitRect(0, 0, 50, 75));
 
@@ -94,11 +97,12 @@ void Autumn::update(double dt, SDL_Event& e)
 
 	if (boxPhy->getPause())
 	{
-		if (m_count = 0)
+		if (m_count = 10)
 		{
 			m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 			m_count++;
 		}
+		//m_entityMa
 		m_entityManager.getCursorControlSystem()->update(dt);
 	}
 		
@@ -107,6 +111,8 @@ void Autumn::update(double dt, SDL_Event& e)
 		//Mix_PlayChannel(2, m_effect, -1);
 		m_startMusic = false;
 	}
+
+	
 
 	m_entityManager.getAISystem()->update(dt);
 	m_entityManager.getPhysicsSystem()->update(dt);
