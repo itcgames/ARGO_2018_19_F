@@ -7,7 +7,8 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
 	m_startPos(100, 800),
 	m_entityManager(m_screenManager, renderer),
-	m_startMusic(true)
+	m_startMusic(true),
+	m_count(0)
 {
 	//music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
 
@@ -88,10 +89,16 @@ void Autumn::update(double dt, SDL_Event& e)
 	if (!boxPhy->getPause())
 	{
 		m_entityManager.getCharacterControlSystem()->update(dt, e);
+		m_count = 0;
 	}
 
 	if (boxPhy->getPause())
 	{
+		if (m_count = 0)
+		{
+			m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
+			m_count++;
+		}
 		m_entityManager.getCursorControlSystem()->update(dt);
 	}
 		

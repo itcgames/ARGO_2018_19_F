@@ -141,6 +141,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\AICursorControlSystem.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\Node.cpp" />
     <ClCompile Include="src\AI\Tile.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="src\States\VictoryState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Systems\AICursorControlSystem.h" />
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\Node.h" />
     <ClInclude Include="include\AI\Tile.h" />

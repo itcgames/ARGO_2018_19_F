@@ -19,5 +19,6 @@ private:
 	Mix_Music * m_music;
 	Mix_Chunk * m_effect;
 	bool m_startMusic;
+	int m_count;
 };
 #endif // !AUTUMN_H

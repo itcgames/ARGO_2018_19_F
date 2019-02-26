@@ -4,6 +4,7 @@
 BoxPhysicsSystem::BoxPhysicsSystem() :
 	m_paused(false)
 {
+	m_grid = new Grid();
 }
 
 /// <summary>
@@ -38,6 +39,8 @@ void BoxPhysicsSystem::update(double dt)
 					Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 20 };
 					positionComponent->setPos(v);
 				}
+
+				
 			}
 			
 			if (!m_paused)

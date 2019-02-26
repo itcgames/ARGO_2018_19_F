@@ -53,6 +53,7 @@
     <ClCompile Include="src\Screens\ModeSelect.cpp" />
     <ClCompile Include="src\ECS\Components\ButtonComponent.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\AICursorControlSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -115,5 +116,6 @@
     <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AICursorControlSystem.h" />
   </ItemGroup>
 </Project>
