@@ -4,57 +4,63 @@ Node::Node()
 {
 }
 
-Node::Node(int x, int y, int width, int height)
-{
-	if (m_font == nullptr)
-	{
-		m_font = TTF_OpenFont(".//resources//AGENCYR.TTF", 50);
-	}
 
-	m_path = false;
-	m_traversable = true;
-	m_rect = new SDL_Rect({ x, y, width, height });
-	m_location = Vector(x, y, 0);
-	m_colour = { 125, 125, 0, 255 };
+int Node::getHeuristic()
+{
+	return m_heuristic;
 }
 
-Node::Node(Vector & pos)
+void Node::setHeuristic(int h)
 {
-	m_location = pos;
+	m_heuristic = h;
 }
 
-void Node::addNeighbour(std::shared_ptr<Node> node)
+int Node::getEstimate()
 {
-	m_neighbours.push_back(node);
+	return m_estimate;
 }
 
-std::vector<std::shared_ptr<Node>>& Node::getNeighbours()
+void Node::setEstimate(int e)
 {
-	// TODO: insert return statement here
-	return m_neighbours;
+	m_estimate = e;
 }
 
-//void Node::render(SDL_Renderer * renderer)
-//{
-//	SDL_Surface* surface = TTF_RenderText_Solid(m_font, _strdup(std::to_string(m_weight).c_str()), m_colour);
-//	SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surface);
-//
-//	SDL_Rect dest = *m_rect;
-//	dest.w = dest.w / 2;
-//	dest.h = dest.h / 2;
-//
-//
-//	SDL_SetRenderDrawColor(renderer, m_colour.r, m_colour.g, m_colour.b, m_colour.a);
-//	if (m_path)
-//	{
-//		SDL_RenderFillRect(renderer, m_rect);
-//	}
-//	else
-//	{
-//		SDL_RenderDrawRect(renderer, m_rect);
-//	}
-//
-//	SDL_RenderCopy(renderer, message, NULL, &dest);
-//	SDL_DestroyTexture(message);
-//	SDL_FreeSurface(surface);
-//}
+std::shared_ptr<Node> Node::getParent()
+{
+	return m_parent;
+}
+
+void Node::setParent(std::shared_ptr<Node> parent)
+{
+	m_parent = parent;
+}
+
+Vector Node::getParentIndex()
+{
+	return m_parentIndex;
+}
+
+void Node::setParentIndex(Vector parentIndex)
+{
+	m_parentIndex = parentIndex;
+}
+
+short Node::getJumpValue()
+{
+	return m_jumpValue;
+}
+
+void Node::setJumpValue(short value)
+{
+	m_jumpValue = value;
+}
+
+short Node::getStatus()
+{
+	return m_status;
+}
+
+void Node::setStatus(short status)
+{
+	m_status = status;
+}

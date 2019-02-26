@@ -52,7 +52,6 @@
     <ClCompile Include="src\Screens\ModeSelect.cpp" />
     <ClCompile Include="src\ECS\Components\ButtonComponent.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
-    <ClCompile Include="src\AI\NodePriorityQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -116,5 +115,6 @@
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
     <ClInclude Include="include\AI\NodeComparer.h" />
     <ClInclude Include="include\AI\NodePriorityQueue.h" />
+    <ClInclude Include="include\AI\Tile.h" />
   </ItemGroup>
 </Project>

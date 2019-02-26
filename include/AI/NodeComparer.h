@@ -3,22 +3,29 @@
 
 #include "AI/Node.h"
 
-template<typename NodeType>
+class Node;
+
+template<typename VectorType, typename NodeType>
 class NodeComparer
 {
 public:
-	inline NodeComparer(std::vector<std::vector<std::shared_ptr<NodeType>>>& nodes)
+	inline NodeComparer()
+	{
+
+	}
+
+	inline NodeComparer(std::vector<std::vector<NodeType>> nodes)
 	{
 		m_nodes = nodes;
 	}
 
-	inline int compare(Location a, Location b)
+	inline int compare(VectorType a, VectorType b)
 	{
-		if (m_nodes[a.xy][a.z]->getHeuristic() > m_nodes[b.xy][b.z]->getHeuristic())
+		if (m_nodes[a.x][a.y]->getHeuristic() > m_nodes[b.x][b.y]->getHeuristic())
 		{
 			return 1;
 		}
-		else if (m_nodes[a.xy][a.z]->getHeuristic() < m_nodes[b.xy][b.z]->getHeuristic())
+		else if (m_nodes[a.x][a.y]->getHeuristic() < m_nodes[b.x][b.y]->getHeuristic())
 		{
 			return -1;
 		}
@@ -27,7 +34,7 @@ public:
 	}
 
 private:
-	std::vector<std::vector<std::shared_ptr<NodeType>>> m_nodes;
+	// list of vectors of nodes
+	std::vector<std::vector<NodeType>> m_nodes;
 };
-
 #endif // !NODE_COMPARER_H
