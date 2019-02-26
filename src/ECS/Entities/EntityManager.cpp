@@ -112,6 +112,21 @@ void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, 
 
 
 /// <summary>
+/// testing function
+/// </summary>
+void EntityManager::PlatMove(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity* platMove = new Entity();
+	platMove->setId("platMove");
+	platMove->addComponent(new PositionComponent(startPosition));
+	platMove->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	platMove->addComponent(new CollisionComponent(collider, "platform"));
+
+	addToSystems(platMove);
+	m_entities.push_back(platMove);
+}
+
+/// <summary>
 /// Spring component
 /// It will make the player jump on collision
 /// The Spring will animate on jump

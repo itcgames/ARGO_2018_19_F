@@ -48,6 +48,9 @@ public:
 	void createImage(Vector position, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
 	void createCustomButton(Vector position, int index, bool selected, std::function<void()>  func, SDL_Texture* texture, int srcWidth, int srcHeight, int destWidth, int destHeight);
 
+	//testing
+	void PlatMove(Vector startPos, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
+
 	GraphicsSystem * getGraphicsSystem();
 	PhysicsSystem * getPhysicsSystem();
 	CollisionSystem * getCollisionSystem();
