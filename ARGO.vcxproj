@@ -141,15 +141,17 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Components\CursorComponent.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PlayerStateComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\PlayerStateSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ButtonComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\SelectionBoxSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\SelectionBoxComponent.cpp" />
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
@@ -188,15 +190,17 @@
     <ClCompile Include="src\States\VictoryState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\CursorComponent.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\PlayerStateComponent.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
+    <ClInclude Include="include\ECS\Systems\PlayerStateSystem.h" />
     <ClInclude Include="include\Networking\Client.h" />
     <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
-    <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
-    <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
+    <ClInclude Include="include\ECS\Systems\SelectionBoxSystem.h" />
+    <ClInclude Include="include\ECS\Components\SelectionBoxComponent.h" />
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
     <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />

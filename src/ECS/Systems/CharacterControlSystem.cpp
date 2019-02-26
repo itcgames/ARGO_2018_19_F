@@ -22,19 +22,16 @@ void CharacterControlSystem::update(double dt)
 		PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
 
-		if (physicsComponent != nullptr && controller != nullptr)
+		if (entity->getId() == "player" && physicsComponent != nullptr && controller != nullptr)
 		{
-			if (entity->getId() == "player")
+			PlayerState* state = m_state->handleState(entity, controller->getCurrentState());
+			m_state->update(dt, entity);
+			if (state != nullptr)
 			{
-				PlayerState* state = m_state->handleState(entity, controller->getCurrentState());
-				m_state->update(dt, entity);
-				if (state != nullptr)
-				{
-					delete(m_state);
-					m_state = state;
-					m_state->enter(entity);
-				}
+				delete(m_state);
+				m_state = state;
+				m_state->enter(entity);
 			}
-		}
+		}		
 	}
 }

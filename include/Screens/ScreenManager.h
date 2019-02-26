@@ -17,7 +17,7 @@ public:
 	~ScreenManager();
 
 
-	void update(double dt, SDL_Event &e);
+	void update(double dt);
 	void render();
 
 	void addScreen(Screen* screen);

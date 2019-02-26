@@ -1,12 +1,28 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#define MAX_PLAYERS 4
+#define MAX_PLAYERS 1
 
 #include <random>
 
 #include "Screens/Screen.h"
 #include "ECS/Entities/EntityManager.h"
+
+enum ObstacleTypes
+{
+	Spike,
+	Platform,
+	Springboard,
+	Teleporter,
+	Dynamite,
+	Bomb,
+	Nuke,
+	FerrisWheel,
+	BallLauncher,
+	HurleyMachine,
+	Crossbow,
+	last	//	This must always be the last on the list as it is used for picking one at random.
+};
 
 class Level : public Screen
 {
@@ -99,9 +115,46 @@ protected:
 		return m_playerTextures[colour][random];
 	}
 
-	void spawnNewItems()
+	std::vector<Entity*> spawnNewObstacles()
 	{
-
+		int i = 0;
+		while (i++ < 5)
+		{
+			ObstacleTypes newObstacleType = static_cast<ObstacleTypes>(rand() % ObstacleTypes::last);
+			switch (newObstacleType)
+			{
+			case Spike:
+				m_entityManager.createObstacle(Vector(), SDL2Help::LoadTexture("", m_renderer), {}, {}, "Spike");
+				break;
+			case Platform:
+				m_entityManager.createPlatform(Vector(), SDL2Help::LoadTexture("", m_renderer), {}, {});
+				break;
+			case Springboard:
+				m_entityManager.createPlatform(Vector(), SDL2Help::LoadTexture("", m_renderer), {}, {}, "Spring");
+				break;
+			case Teleporter:
+				break;
+			case Dynamite:
+				break;
+			case Bomb:
+				break;
+			case Nuke:
+				break;
+			case FerrisWheel:
+				break;
+			case BallLauncher:
+				break;
+			case HurleyMachine:
+				break;
+			case Crossbow:
+				break;
+			case last:
+				std::cout << "Oops!" << std::endl;
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	virtual void spawnLevelObstacles() = 0;

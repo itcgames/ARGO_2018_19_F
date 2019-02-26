@@ -9,7 +9,7 @@ Spring::Spring(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
 
-	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds/Spring/Spring.png", m_renderer), { 0, 0, 6708, 3805 });
+	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Spring//Spring.png", m_renderer));
 
 	spawnPlayers(1, false);
 	spawnLevelObstacles();
@@ -45,9 +45,9 @@ void Spring::render()
 void Spring::spawnLevelObstacles()
 {
 	//	Load platforms the players can stand on.
-	m_entityManager.createPlatform(Vector(0, 800), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 80, 100 }, { 0,0, 80, 100 });
-	m_entityManager.createPlatform(Vector(0, 400), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 800, 100 }, { 0,0, 800, 100 });
-	m_entityManager.createKillBox(Vector(0, 850), { 0, 0, 1600, 50 });
+	m_entityManager.createPlatform(Vector(0, 800), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//rock.png", m_renderer),  { 0,0, 80, 100 }, { 0,0, 80, 100 });
+	m_entityManager.createPlatform(Vector(0, 400), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Spring//Branch.png", m_renderer),  { 0,0, 800, 100 }, { 0,0, 800, 100 });
+	m_entityManager.createObstacle(Vector(0, 850), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Spring//Swarm.png", m_renderer), { 0, 0, 1600, 50 }, {0, 0, }, "Bees");
 }
 
 

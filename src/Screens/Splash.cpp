@@ -16,7 +16,7 @@ Splash::Splash(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	}
 
 	m_entityManager.createLabel(Vector(800, 250), "Scary Claus Studio", { 125,255,255 }, 400, 100);
-	m_entityManager.createImage({600, 350}, SDL2Help::LoadTexture(m_resourcesPath + "Logo.png", m_renderer), { 0, 0, 631, 716}, {0, 0, 400, 400});
+	m_entityManager.createImage({600, 350}, SDL2Help::LoadTexture(m_resourcesPath + "Logo.png", m_renderer), {0, 0, 400, 400});
 	m_bkg = Mix_LoadWAV("./resources//Sounds/backgroundMenuMusic.wav");
 	//Mix_FreeChunk(m_bkg);
 }

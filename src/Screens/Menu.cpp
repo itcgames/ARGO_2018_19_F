@@ -10,9 +10,9 @@ Menu::Menu(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_screenID = "Menu";	
 	m_previousScreenID = "Title";
 
-	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Menu.png", renderer), {0, 0, 1603, 909});
-	m_entityManager.createImage({ 430, -100 }, SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), {0, 0, 500, 700}, { 0, 0, 700, 1100 });
-	m_entityManager.createImage({ 432, 10 }, SDL2Help::LoadTexture(m_resourcesPath + "Hoppy Holidays Title//title.png", m_renderer), {0, 0, 1205, 401}, { 0, 0, 700, 200 });
+	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Menu.png", renderer));
+	m_entityManager.createImage({ 430, -100 }, SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 700, 1100 });
+	m_entityManager.createImage({ 432, 10 }, SDL2Help::LoadTexture(m_resourcesPath + "Hoppy Holidays Title//title.png", m_renderer), { 0, 0, 700, 200 });
 
 	m_entityManager.createButton(0, true,  "ModeSelect",  Vector(775, 350), "Play",         { 125, 255, 255 }, 400, 100);
 	m_entityManager.createButton(1, false, "LevelSelect", Vector(775, 500), "Level Select", { 125, 255, 255 }, 400, 100);

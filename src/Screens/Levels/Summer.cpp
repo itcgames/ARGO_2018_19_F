@@ -9,7 +9,7 @@ Summer::Summer(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
 
-	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds/Summer/Summer.png", m_renderer), { 0, 0, 6708, 3805 });
+	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//Summer.png", m_renderer));
 
 	spawnPlayers(1, false);
 	spawnLevelObstacles();
@@ -44,10 +44,9 @@ void Summer::render()
 /// </summary>
 void Summer::spawnLevelObstacles()
 {
-	m_entityManager.createPlatform(Vector(300, 750), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 200, 150 }, { 0,0, 200, 150 });
-	m_entityManager.createPlatform(Vector(800, 650), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 150, 250 }, { 0,0, 150, 250 });
-	m_entityManager.createPlatform(Vector(1300, 300), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 200, 600 }, { 0,0, 200, 600 });
-	m_entityManager.createPlatform(Vector(1300, 150), SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), { 0, 0, 200, 200 }, { 0,0, 200, 50 }, { 0,0, 200, 50 });
+	m_entityManager.createPlatform(Vector(300, 750), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//rock.png", m_renderer), { 0,0, 200, 150 }, { 0,0, 200, 150 });
+	m_entityManager.createPlatform(Vector(800, 650), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//parasol.png", m_renderer), { 0,0, 150, 250 }, { 0,0, 150, 250 });
+	m_entityManager.createPlatform(Vector(1300, 300), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//lifegaurd tower.png", m_renderer),{ 0,0, 200, 600 }, { 0,0, 200, 600 });
 }
 
 

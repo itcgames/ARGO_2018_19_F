@@ -12,25 +12,12 @@ public:
 
 	SDL_Rect& getCollider();
 	void setCollider(SDL_Rect& collider);
-	
-	bool getCursorState();
-	void setCursorState(bool b);
-
-	bool getObstacleCursor();
-	void setObstacleCursor(bool b);
-
-	bool getCollectedObj();
-	void setCollectedObj(bool b);
 
 	std::string getMainTag();
 	std::string getSecondaryTag();
 
 private:
 	SDL_Rect m_collider;
-
-	bool m_obstacleCursor;
-	bool m_cursorActive;
-	bool m_collectedObj;
 
 	std::string m_mainTag;
 	std::string m_secondaryTag;

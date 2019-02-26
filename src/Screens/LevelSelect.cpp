@@ -10,8 +10,8 @@ LevelSelect::LevelSelect(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_screenID = "LevelSelect";
 	m_previousScreenID = "Menu";
 
-	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Menu.png", renderer), { 0, 0, 1603, 909 });
-	m_entityManager.createImage(Vector(430, -100), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 500, 700 }, { 0, 0, 700, 1100 });
+	m_entityManager.createBackground(SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Menu.png", renderer));
+	m_entityManager.createImage(Vector(430, -100), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 700, 1100 });
 	
 	m_entityManager.createFunctionButton(Vector(640, 32),  0, true,  std::bind(&LevelSelect::setLevelToSpring, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Spring//Spring.png", m_renderer),	6705, 3793, 320, 180);
 	m_entityManager.createFunctionButton(Vector(640, 244), 1, false, std::bind(&LevelSelect::setLevelToSummer, this), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//Summer.png", m_renderer),	1613, 922,  320, 180);
