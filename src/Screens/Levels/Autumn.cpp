@@ -5,7 +5,7 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Screen(screenManager, renderer),
-	m_startPos(100, 800),
+	m_startPos(50, 800),
 	m_entityManager(m_screenManager, renderer),
 	m_startMusic(true)
 {

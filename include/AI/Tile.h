@@ -50,6 +50,17 @@ public:
 		m_index = index;
 	}
 
+	void fill(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+	{
+		m_colour = {r,g,b,a};
+	}
+
+	void render(SDL_Renderer* renderer)
+	{
+		SDL_SetRenderDrawColor(renderer, m_colour.r, m_colour.g, m_colour.b, m_colour.a);
+		SDL_RenderFillRect(renderer, m_rect);
+	}
+
 private:
 	bool m_traversable;
 	Vector m_location;

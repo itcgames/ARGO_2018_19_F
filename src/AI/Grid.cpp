@@ -31,10 +31,9 @@ Grid::Grid(Vector & screen, int width, int height)
 		std::vector<std::shared_ptr<Tile>> column;
 		for (int j = 0; j < m_height; j++)
 		{
-			column.push_back(std::make_shared<Tile>(i * width, j * width, m_width, m_height, count));
+			column.push_back(std::make_shared<Tile>(i * width, j * height, width, height, count));
 			count++;
 		}
-		count++;
 		m_grid.push_back(column);
 	}
 
@@ -44,7 +43,7 @@ Grid::Grid(Vector & screen, int width, int height)
 		m_close = std::vector<Vector>(m_width * m_height);
 	}
 
-	m_open = NodePriorityQueue<Vector, std::shared_ptr<Node>>(NodeComparer<Vector, std::shared_ptr<Node>>(m_nodes));
+	m_open = NodePriorityQueue<int, Vector, std::shared_ptr<Node>>(NodeComparer<int, Vector, std::shared_ptr<Node>>(m_nodes));
 }
 
 
@@ -59,7 +58,7 @@ void Grid::render(SDL_Renderer * renderer)
 	{
 		for (int j = 0; j < m_height; j++)
 		{
-			//m_grid[i][j]->render(renderer);
+			m_grid[i][j]->render(renderer);
 		}
 	}
 }
@@ -75,6 +74,13 @@ void Grid::update(Entity * ai)
 	CollisionComponent* collider = (CollisionComponent*)ai->getComponent("COLLISION");
 	PositionComponent* position = (PositionComponent*)ai->getComponent("POSITION");
 	AIComponent* aiComponent = (AIComponent*)ai->getComponent("AI");
+
+	std::vector<std::pair<int, Vector>> m_path = processPath(m_start, m_goal, 60, 60, 3);
+	for (std::pair<int, Vector> pair : m_open.getQueue())
+	{
+		m_grid[pair.second.x][pair.second.y]->fill(255, 0, 0, 255);
+	}
+
 }
 
 
@@ -120,6 +126,7 @@ void Grid::processObstacles(CollisionSystem * system)
 						}
 						if (entity->getId() == "obstacle" || entity->getId() == "platform")
 						{
+							m_grid[i][j]->fill(0,255,0,255);
 							m_grid[i][j]->setTraversable(false);
 						}
 					}
@@ -128,13 +135,11 @@ void Grid::processObstacles(CollisionSystem * system)
 		}
 	}
 
-	processPath(m_start, m_goal, 60,60, 6);
-
 	time = SDL_GetTicks();
 	std::cout << time << std::endl;
 }
 
-std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWidth, int charHeight, int jumpHeight)
+std::vector<std::pair<int, Vector>> Grid::processPath(Vector & start, Vector & goal, int charWidth, int charHeight, int jumpHeight)
 {
 	// setup variables for path
 	bool found = false;
@@ -146,6 +151,7 @@ std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWid
 	m_open.clear();
 
 	m_location = start;
+	m_goal = goal;
 
 	// clear any visited neighbours paths in nodes
 	while (m_touchedNodes.size() > 0)
@@ -158,35 +164,41 @@ std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWid
 	// if the goal is unreachable
 	if (!m_grid[goal.x][goal.y]->getTraversable())
 	{
-		return std::vector<Vector>();
+		return std::vector<std::pair<int, Vector>>();
 	}
 
 	Node startNode = Node();
-	startNode.setHeuristic(0);
-	startNode.setEstimate(m_stepHeuristic);
+	startNode.setHeuristic(m_stepHeuristic);
+	startNode.setEstimate(0);
 	startNode.setParentIndex(start);
 	startNode.setStatus(m_openNode);
 
-	if (start.y < m_height - 1)
+	if (m_location.y < m_height - 1)
 	{
-		if(!m_grid[start.x][start.y + 1]->getTraversable())
+		if(m_grid[m_location.x][m_location.y + 1]->getTraversable())
 		{
-			start.z = 0;
-			startNode.setJumpValue(start.z);
+			m_location.z = 0;
+			startNode.setJumpValue(m_location.z);
 		}
 		else
 		{
 			startNode.setJumpValue(jumpHeight * 2);
 		}
 	}
+	else
+	{
+		start.z = 0;
+		startNode.setJumpValue(start.z);
+	}
 
 	m_nodes[m_grid[m_location.x][m_location.y]->getIndex()].push_back(std::make_shared<Node>(startNode));
 	m_touchedNodes.push_back(m_grid[m_location.x][m_location.y]->getIndex());
-	m_open.push(m_location);
+	m_open.push(m_grid[m_location.x][m_location.y]->getIndex(), m_location, m_nodes);
 
-	while (m_open.count() > 0 && !stop)
+	while (m_open.count() > 0 && !found)
 	{
-		m_location = m_open.pop();
+		std::pair<int, Vector> pair = m_open.pop();
+		m_location = pair.second;
 		if (m_nodes[m_grid[m_location.x][m_location.y]->getIndex()][m_location.z]->getStatus() == m_closeNode)
 		{
 			continue;
@@ -204,16 +216,22 @@ std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWid
 		{
 			// returns a vector which is adjacent to the current location
 			Vector newLocation = m_location + m_nextCell[(Direction)i];
+			if (newLocation.x < 0 || newLocation.x >= m_width || newLocation.y < 0 || newLocation.y >= m_height)
+			{
+				continue; // if the neighbour can't be accesed ignore it
+			}
 			if (!m_grid[newLocation.x][newLocation.y]->getTraversable())
 			{
-				goto endLoop; // if the neighbour can't be accesed ignore it
+				continue; // if the neighbour can't be accesed ignore it
 			}
+
+			m_grid[newLocation.x][newLocation.y]->fill(255, 255, 255, 255);
 
 			// bools to check if the neighbour will cause the character to be at the roof or on a ground tile
 			bool onGround = false;
 			bool onCeiling = false;
 
-			if (!m_grid[newLocation.x][newLocation.y + 1]->getTraversable())
+			if (newLocation.y == m_height - 1 || !m_grid[newLocation.x][newLocation.y + 1]->getTraversable())
 			{
 				onGround = true; // if the tile below the neighbour cant be accesed
 			}
@@ -223,48 +241,130 @@ std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWid
 			}
 
 			int jumpLength = m_nodes[m_grid[m_location.x][m_location.y]->getIndex()][m_location.z]->getJumpValue();
-			short newJumpLength = jumpLength;
+			int newJumpLength = jumpLength;
+
 			if (onCeiling)
 			{
-				newJumpLength = (newLocation.x != m_location.x) ? std::max(jumpHeight * 2 + 1, jumpLength + 1) : std::max(jumpHeight * 2, jumpLength + 2);
+				if (newLocation.x != m_location.x)
+				{
+					newJumpLength = std::max(jumpHeight * 2 + 1, jumpLength + 1);
+				}
+				else
+				{
+					newJumpLength = std::max(jumpHeight * 2, jumpLength + 2);
+				}
 			}
 			else if (onGround)
 			{
 				newJumpLength = 0;
 			}
-			else if (newLocation.y > m_location.y) // neighbour above
+			else if (newLocation.y < m_location.y) // neighbour above
 			{
-				if (jumpLength < 2)
+				if (jumpLength < 2 && jumpHeight > 2)
 				{
 					newJumpLength = 3;
 				}
+				else if (jumpLength % 2 == 0)
+				{
+					newJumpLength = jumpLength + 2;
+				}
 				else
 				{
-					newJumpLength = jumpLength % 2 == 0 ? (std::max(jumpLength + 2,2)) : (std::max(jumpLength + 1, 2));
+					newJumpLength = jumpLength + 1;
 				}
 			}
-			else if(newLocation.y < m_location.y)
+			else if (newLocation.y > m_location.y)
 			{
-				newJumpLength = jumpLength % 2 == 0 ? (std::max(jumpHeight * 2, jumpLength + 2)) : (std::max(jumpHeight * 2, jumpLength + 1));
+				if (jumpLength % 2 == 0)
+				{
+					newJumpLength = std::max(jumpHeight * 2, jumpLength + 2);
+				}
+				else
+				{
+					newJumpLength = std::max(jumpHeight * 2, jumpLength + 1);
+				}
 			}
-			else if(!onGround && newLocation.x != m_location.x)
+			else if (!onGround && newLocation.x != m_location.x)
 			{
 				newJumpLength = jumpLength + 1;
 			}
 
-			// if jump value is odd charater just moved in the x direction or the character is falling and the neighbour is above
-			if ((jumpLength % 2 != 0 && newLocation.x != m_location.x) || (jumpLength >= jumpHeight * 2 && newLocation.y > m_location.y)
-				|| (newJumpLength >= jumpHeight * 2 + (jumpHeight * 2) && newLocation.x != m_location.x && (newJumpLength - (jumpHeight * 2 + (jumpHeight * 2)) % 8 != 3)))
+			if (jumpLength >= 0 && jumpLength % 2 != 0 && newLocation.x != m_location.x)
 			{
 				continue;
 			}
 
+			if (newJumpLength > 3)
+			{
+				std::cout << "check" << std::endl;
+			}
 
+			if ((newJumpLength == 0 && newLocation.x != m_location.x && jumpLength + 1 >= jumpHeight * 2 + 6 && (jumpLength + 1 - (jumpHeight * 2 + 6)) % 8 <= 1)
+				|| (newJumpLength >= jumpHeight * 2 + 6 && newLocation.x != m_location.x && (newJumpLength - (jumpHeight * 2 + 6)) % 8 != 7))
+			{
+				continue;
+			}
+
+			if (jumpLength >= jumpHeight * 2 && newLocation.y < m_location.y)
+			{
+				continue;
+			}
+
+			int value = (int)m_grid[m_location.x][m_location.y]->getTraversable();
+			int newG = m_nodes[m_grid[m_location.x][m_location.y]->getIndex()][m_location.z]->getEstimate() + value + (newJumpLength / 4);
+
+			if (m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()].size() > 0)
+			{
+				int lowestJump = INT_MAX;
+				int lowestG = INT_MAX;
+				bool moveHorizontal = false;
+
+				for (int j = 0; j < m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()].size(); ++j)
+				{
+					if (m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()][j]->getJumpValue() < lowestJump)
+					{
+						lowestJump = m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()][j]->getJumpValue();
+					}
+					if (m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()][j]->getEstimate() < lowestG)
+					{
+						lowestG = m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()][j]->getEstimate();
+					}
+					if (m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()][j]->getJumpValue() % 2 == 0
+						&& m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()][j]->getJumpValue() < jumpHeight * 2 + 6)
+					{
+						moveHorizontal = true;
+					}
+				}
+
+				if (lowestG <= newG && lowestJump <= newJumpLength && (newJumpLength % 2 != 0 || newJumpLength >= jumpHeight * 2 + 6) || moveHorizontal)
+				{
+					continue;
+				}
+			}
+
+			int heuristic = m_stepHeuristic * ((std::abs(newLocation.x - m_goal.x) + std::abs(newLocation.y - m_goal.y)));
+
+			Node nextNode = Node();
+			nextNode.setJumpValue(newJumpLength);
+			nextNode.setParentIndex(m_location);
+			nextNode.setEstimate(newG);
+			nextNode.setHeuristic(newG + heuristic);
+			nextNode.setStatus(m_openNode);
+
+			if (m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()].size() == 0)
+			{
+				m_touchedNodes.push_back(m_grid[newLocation.x][newLocation.y]->getIndex());
+			}
+
+			m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()].push_back(std::make_shared<Node>(nextNode));
+			m_open.push(m_grid[newLocation.x][newLocation.y]->getIndex(), Vector(newLocation.x, newLocation.y, m_nodes[m_grid[newLocation.x][newLocation.y]->getIndex()].size() - 1), m_nodes);
 		}
 
-	endLoop:
-		continue;
+		m_nodes[m_grid[m_location.x][m_location.y]->getIndex()][m_location.z]->setStatus(m_closeNode);
+		m_closeNodeCounter++;
 	}
 
-	return std::vector<Vector>();
+	stopped = true;
+
+	return m_open.getQueue();
 }

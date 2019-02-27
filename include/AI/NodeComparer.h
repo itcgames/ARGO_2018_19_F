@@ -5,13 +5,12 @@
 
 class Node;
 
-template<typename VectorType, typename NodeType>
+template<typename IntType, typename VectorType, typename NodeType>
 class NodeComparer
 {
 public:
 	inline NodeComparer()
 	{
-
 	}
 
 	inline NodeComparer(std::vector<std::vector<NodeType>> nodes)
@@ -19,13 +18,18 @@ public:
 		m_nodes = nodes;
 	}
 
-	inline int compare(VectorType a, VectorType b)
+	inline void update(std::vector<std::vector<NodeType>> nodes)
 	{
-		if (m_nodes[a.x][a.y]->getHeuristic() > m_nodes[b.x][b.y]->getHeuristic())
+		m_nodes = nodes;
+	}
+
+	inline int compare(IntType iA, IntType iB, VectorType a, VectorType b)
+	{
+		if (m_nodes[iA][a.z]->getHeuristic() > m_nodes[iB][b.z]->getHeuristic())
 		{
 			return 1;
 		}
-		else if (m_nodes[a.x][a.y]->getHeuristic() < m_nodes[b.x][b.y]->getHeuristic())
+		else if (m_nodes[iA][a.z]->getHeuristic() < m_nodes[iB][b.z]->getHeuristic())
 		{
 			return -1;
 		}

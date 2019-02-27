@@ -2,69 +2,71 @@
 #define NODE_PRIORITY_QUEUE_H
 
 #include "AI/NodeComparer.h"
-#include "Vector/Vector.h"
 #include <queue>
 #include <vector>
 #include <functional>
 #include <stack>
 
-class Vector;
-
-template <typename VectorType, typename NodeType>
+template <typename IntType, typename VectorType, typename NodeType>
 class NodePriorityQueue
 {
 public:
 	NodePriorityQueue();
-	NodePriorityQueue(NodeComparer<VectorType, NodeType> comparer);
-
+	NodePriorityQueue(NodeComparer<IntType, VectorType, NodeType> comparer);
 	int compare(int a, int b);
 	void swap(int a, int b);
-	int push(VectorType& i);
-	VectorType pop();
+	int push(IntType index, VectorType vector, std::vector<std::vector<NodeType>> nodes);
+	std::pair<IntType, VectorType> pop();
 	void clear();
 	int count();
+	std::vector<std::pair<IntType, VectorType>> getQueue();
 
 private:
-	std::vector<VectorType> m_queue;
-	NodeComparer<VectorType, NodeType> m_comparer;
+	std::vector<std::pair<IntType,VectorType>> m_queue;
+	NodeComparer<IntType, VectorType, NodeType> m_comparer;
 };
 
-template<typename VectorType, typename NodeType>
-NodePriorityQueue<VectorType, NodeType>::NodePriorityQueue()
+template <typename IntType, typename VectorType, typename NodeType>
+NodePriorityQueue<IntType,VectorType, NodeType>::NodePriorityQueue()
 {
-	m_comparer = NodeComparer<VectorType, NodeType>();
+	m_comparer = NodeComparer<IntType, VectorType, NodeType>();
 }
 
-template<typename VectorType, typename NodeType>
-NodePriorityQueue<VectorType, NodeType>::NodePriorityQueue(NodeComparer<VectorType, NodeType> comparer)
+template <typename IntType, typename VectorType, typename NodeType>
+NodePriorityQueue<IntType, VectorType, NodeType>::NodePriorityQueue(NodeComparer<IntType,VectorType, NodeType> comparer)
 {
 	m_comparer = comparer;
 }
 
-template<typename VectorType, typename NodeType>
-int NodePriorityQueue<VectorType, NodeType>::compare(int a, int b)
+template <typename IntType, typename VectorType, typename NodeType>
+int NodePriorityQueue<IntType, VectorType, NodeType>::compare(int a, int b)
 {
-	return m_comparer.compare(m_queue[a], m_queue[b]);
+	return m_comparer.compare(m_queue[a].first, m_queue[b].first, m_queue[a].second, m_queue[b].second);
 }
 
-template<typename VectorType, typename NodeType>
-void NodePriorityQueue<VectorType, NodeType>::swap(int a, int b)
+template <typename IntType, typename VectorType, typename NodeType>
+void NodePriorityQueue<IntType, VectorType, NodeType>::swap(int a, int b)
 {
-	std::swap(m_queue[a], m_queue[b]);
+	std::pair<IntType, VectorType> temp = m_queue[a];
+	m_queue[a] = m_queue[b];
+	m_queue[b] = temp;
 }
 
-template<typename VectorType, typename NodeType>
-int NodePriorityQueue<VectorType, NodeType>::push(VectorType& i)
+template <typename IntType, typename VectorType, typename NodeType>
+int NodePriorityQueue<IntType, VectorType, NodeType>::push(IntType index, VectorType vector, std::vector<std::vector<NodeType>> nodes)
 {
 	int a = m_queue.size();
 	int b;
 
-	m_queue.push_back(i);
+	std::pair<IntType, VectorType> pair = std::make_pair<IntType, VectorType>((int)index, (Vector)vector);
+	m_queue.push_back(pair);
+	m_comparer.update(nodes);
+
 	while (true)
 	{
 		if (a == 0)
 			break;
-		b = (a - 1) / 2;
+		b = (a - 1);
 		if (compare(a, b) < 0)
 		{
 			swap(a, b);
@@ -77,17 +79,17 @@ int NodePriorityQueue<VectorType, NodeType>::push(VectorType& i)
 	return a;
 }
 
-template<typename VectorType, typename NodeType>
-VectorType NodePriorityQueue<VectorType, NodeType>::pop()
+template<typename IntType, typename VectorType, typename NodeType>
+std::pair<IntType, VectorType> NodePriorityQueue<IntType, VectorType, NodeType>::pop()
 {
-	VectorType result = m_queue[0];
+	std::pair<IntType, VectorType> result = m_queue[0];
 	int a = 0;
 	int b;
 	int c;
 	int d;
 
-	m_queue[0] = m_queue[m_queue.size() - 1];
-	m_queue.erase(std::remove(m_queue.begin(), m_queue.end(), m_queue[m_queue.size() - 1]), m_queue.end());
+	m_queue.erase(m_queue.begin());
+
 	while (true)
 	{
 		d = a;
@@ -111,16 +113,22 @@ VectorType NodePriorityQueue<VectorType, NodeType>::pop()
 	return result;
 }
 
-template<typename VectorType, typename NodeType>
-void NodePriorityQueue<VectorType, NodeType>::clear()
+template<typename IntType, typename VectorType, typename NodeType>
+void NodePriorityQueue<IntType, VectorType, NodeType>::clear()
 {
 	m_queue.clear();
 }
 
-template<typename VectorType, typename NodeType>
-int NodePriorityQueue<VectorType, NodeType>::count()
+template<typename IntType, typename VectorType, typename NodeType>
+int NodePriorityQueue<IntType, VectorType, NodeType>::count()
 {
 	return m_queue.size();
+}
+
+template<typename IntType, typename VectorType, typename NodeType>
+inline std::vector<std::pair<IntType, VectorType>> NodePriorityQueue<IntType, VectorType, NodeType>::getQueue()
+{
+	return m_queue;
 }
 
 #endif // !NODE_PRIORITY_QUEUE_H

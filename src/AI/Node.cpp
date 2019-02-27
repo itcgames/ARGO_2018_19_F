@@ -45,22 +45,22 @@ void Node::setParentIndex(Vector parentIndex)
 	m_parentIndex = parentIndex;
 }
 
-short Node::getJumpValue()
+int Node::getJumpValue()
 {
 	return m_jumpValue;
 }
 
-void Node::setJumpValue(short value)
+void Node::setJumpValue(int value)
 {
 	m_jumpValue = value;
 }
 
-short Node::getStatus()
+int Node::getStatus()
 {
 	return m_status;
 }
 
-void Node::setStatus(short status)
+void Node::setStatus(int status)
 {
 	m_status = status;
 }
