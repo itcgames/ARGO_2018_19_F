@@ -15,7 +15,7 @@ void SelectionBoxSystem::update(double dt)
 		{
 			if (selectionBox->isVisible())
 			{
-				if (positionComponent->getPos().y <= -10)
+				if (positionComponent->getPos().y <= -100)
 				{
 					Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + 20 };
 					positionComponent->setPos(v);

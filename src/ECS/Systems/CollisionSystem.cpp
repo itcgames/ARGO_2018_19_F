@@ -33,10 +33,10 @@ void CollisionSystem::update(double dt)
 				PhysicsComponent* e2PhysicsComponent	= (PhysicsComponent*)entity2->getComponent("PHYSICS");
 				CollisionComponent* e2Collision			= (CollisionComponent*)entity2->getComponent("COLLISION");
 			
-				if (e1Position->getPos().x <= e2Position->getPos().x + e2Collision->getCollider().w &&
-					e1Position->getPos().x + e1Collision->getCollider().w >= e2Position->getPos().x &&
-					e1Position->getPos().y <= e2Position->getPos().y + e2Collision->getCollider().h &&
-					e1Position->getPos().y + e1Collision->getCollider().h >= e2Position->getPos().y)
+				if (e1Position->getPos().x + e1Collision->getCollider().x <= e2Position->getPos().x + e2Collision->getCollider().x + e2Collision->getCollider().w &&
+					e1Position->getPos().x + e1Collision->getCollider().x + e1Collision->getCollider().w >= e2Position->getPos().x + e2Collision->getCollider().x &&
+					e1Position->getPos().y + e1Collision->getCollider().y <= e2Position->getPos().y + e2Collision->getCollider().y + e2Collision->getCollider().h &&
+					e1Position->getPos().y + e1Collision->getCollider().y + e1Collision->getCollider().h >= e2Position->getPos().y + e2Collision->getCollider().y)
 				{
 					/// <summary>
 					/// Collisions involving players
@@ -59,7 +59,7 @@ void CollisionSystem::update(double dt)
 								// check the top
 								if (direction == "top")
 								{
-									position.y = e2Position->getPos().y - e1Collision->getCollider().h;
+									position.y = e2Position->getPos().y + e2Collision->getCollider().y - e1Collision->getCollider().h;
 									e1Position->setPos(position);
 									velocity.y = 0;
 									e1PhysicsComponent->setVelocity(velocity);
@@ -68,7 +68,7 @@ void CollisionSystem::update(double dt)
 								// check the bottom
 								if (direction == "bottom")
 								{
-									position.y = e2Position->getPos().y + e2Collision->getCollider().h;
+									position.y = e2Position->getPos().y + e2Collision->getCollider().y + e2Collision->getCollider().h;
 									e1Position->setPos(position);
 									velocity.y = 0;
 									e1PhysicsComponent->setVelocity(velocity);
@@ -76,7 +76,7 @@ void CollisionSystem::update(double dt)
 								// check the left
 								if (direction == "left")
 								{
-									position.x = e2Position->getPos().x - e1Collision->getCollider().w;
+									position.x = e2Position->getPos().x + e2Collision->getCollider().x - e1Collision->getCollider().w;
 									e1Position->setPos(position);
 									velocity.x = 0;
 									e1PhysicsComponent->setVelocity(velocity);
@@ -84,7 +84,7 @@ void CollisionSystem::update(double dt)
 								// check the right
 								if (direction == "right")
 								{
-									position.x = e2Position->getPos().x + e2Collision->getCollider().w;
+									position.x = e2Position->getPos().x + e2Collision->getCollider().x + e2Collision->getCollider().w;
 									e1Position->setPos(position);
 									velocity.x = 0;
 									e1PhysicsComponent->setVelocity(velocity);
@@ -200,8 +200,8 @@ std::string CollisionSystem::handleBoxCollision(Vector & p1, SDL_Rect & c1, Vect
 	std::string direction = "";
 
 	// Get the right and bottom of the colliders
-	Vector player = Vector(p1.x + c1.w, p1.y + c1.h);
-	Vector entity = Vector(p2.x + c2.w, p2.y + c2.h);
+	Vector player = Vector(p1.x  + c1.x + c1.w, p1.y + c1.y + c1.h);
+	Vector entity = Vector(p2.x  + c2.x + c2.w, p2.y + c2.y + c2.h);
 
 	float top = player.y - p2.y;
 	float bottom = entity.y - p1.y;

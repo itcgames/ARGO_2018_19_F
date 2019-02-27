@@ -50,6 +50,7 @@
     <ClCompile Include="src\ECS\Systems\SelectionBoxSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\PlayerStateSystem.cpp" />
     <ClCompile Include="src\ECS\Components\CursorComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\ItemComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -110,5 +111,6 @@
     <ClInclude Include="include\ECS\Systems\SelectionBoxSystem.h" />
     <ClInclude Include="include\ECS\Systems\PlayerStateSystem.h" />
     <ClInclude Include="include\ECS\Components\CursorComponent.h" />
+    <ClInclude Include="include\ECS\Components\ItemComponent.h" />
   </ItemGroup>
 </Project>

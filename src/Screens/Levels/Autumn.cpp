@@ -103,8 +103,7 @@ void Autumn::spawnLevelObstacles()
 	m_entityManager.createPlatform(Vector(0, 810), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Autumn//Coffin.png", m_renderer), { 0, 0, 300, 100 }, { 0, 0, 300, 100 });	
 
 	//	Load start and goal.
-	m_entityManager.createStart(m_startPos, SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), {0, 0, 50, 100}, Vector(0,0), Vector(0,0), {0, 0, 50, 100});
-	m_entityManager.createGoal(m_endPos, SDL2Help::LoadTexture(m_resourcesPath + "Missing.png", m_renderer), {0, 0, 50, 100}, Vector(0, 0), Vector(0, 0), {0, 0, 50, 100});
+	m_entityManager.createGoal(m_endPos, { 0, 0, 50, 100 });
 }
 
 
@@ -115,15 +114,15 @@ void Autumn::spawnLevelObstacles()
 void Autumn::loadTextures()
 {
 	//	Red
-	m_playerTextures["Red"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Red_Ghost.png", m_renderer));
-	m_playerTextures["Red"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Red_Pumpkin.png", m_renderer));
+	//m_playerTextures["Red"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Red_Ghost.png", m_renderer)));
+	m_playerTextures["Red"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({ 0, 0, 558, 931 }, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Run Animation//Red_Pumpkin_Walking.png", m_renderer)));
 	//	Blue
-	m_playerTextures["Blue"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Blue_Ghost.png", m_renderer));
-	m_playerTextures["Blue"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Blue_Pumpkin.png", m_renderer));
+	//m_playerTextures["Blue"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Blue_Ghost.png", m_renderer)));
+	m_playerTextures["Blue"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({ 0, 0, 558, 931 }, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Run Animation//Blue_Pumpkin_Walking.png", m_renderer)));
 	//	Green
-	m_playerTextures["Green"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Green_Ghost.png", m_renderer));
-	m_playerTextures["Green"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Green_Pumpkin.png", m_renderer));
+	//m_playerTextures["Green"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Green_Ghost.png", m_renderer)));
+	m_playerTextures["Green"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({ 0, 0, 558, 931 }, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Run Animation//Green_Pumpkin_Walking.png", m_renderer)));
 	//	Yellow
-	m_playerTextures["Yellow"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Yellow_Ghost.png", m_renderer));
-	m_playerTextures["Yellow"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Yellow_Pumpkin.png", m_renderer));
+	//m_playerTextures["Yellow"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Ghost//Yellow_Ghost.png", m_renderer)));
+	m_playerTextures["Yellow"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({ 0, 0, 558, 931 }, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Autumn//Pumpkin//Run Animation//Yellow_Pumpkin_Walking.png", m_renderer)));
 }

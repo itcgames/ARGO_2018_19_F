@@ -44,9 +44,12 @@ void Summer::render()
 /// </summary>
 void Summer::spawnLevelObstacles()
 {
-	m_entityManager.createPlatform(Vector(300, 750), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//rock.png", m_renderer), { 0,0, 200, 150 }, { 0,0, 200, 150 });
-	m_entityManager.createPlatform(Vector(800, 650), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//parasol.png", m_renderer), { 0,0, 150, 250 }, { 0,0, 150, 250 });
-	m_entityManager.createPlatform(Vector(1300, 300), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//lifegaurd tower.png", m_renderer),{ 0,0, 200, 600 }, { 0,0, 200, 600 });
+	m_entityManager.createPlatform(Vector(300, 750), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//rock.png", m_renderer), { 0, 0, 200, 150 }, { 0, 0, 200, 150 });
+	m_entityManager.createPlatform(Vector(800, 650), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//parasol.png", m_renderer), { 0, 0, 150, 250 }, { 0, 0, 150, 250 });
+	
+	m_entityManager.createPlatform(Vector(1300, 300), SDL2Help::LoadTexture(m_resourcesPath + "Backgrounds//Summer//lifegaurd tower.png", m_renderer),{ 0, 0, 200, 600 }, { 0, 0, 200, 600 });	
+
+	m_entityManager.createGoal(Vector(1300, 200), { 0, 0, 50, 100 });
 }
 
 
@@ -57,11 +60,11 @@ void Summer::spawnLevelObstacles()
 void Summer::loadTextures()
 {
 	//	Red
-	m_playerTextures["Red"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Red_Lifeguard.png", m_renderer));
+	m_playerTextures["Red"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Red_Lifeguard.png", m_renderer)));
 	//	Blue
-	m_playerTextures["Blue"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Blue_Lifeguard.png", m_renderer));
+	m_playerTextures["Blue"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Blue_Lifeguard.png", m_renderer)));
 	//	Green
-	m_playerTextures["Green"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Green_Lifeguard.png", m_renderer));
+	m_playerTextures["Green"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Green_Lifeguard.png", m_renderer)));
 	//	Yellow
-	m_playerTextures["Yellow"].push_back(SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Yellow_Lifeguard.png", m_renderer));
+	m_playerTextures["Yellow"].push_back(std::make_pair<SDL_Rect, SDL_Texture*>({}, SDL2Help::LoadTexture(m_resourcesPath + "Characters//Summer//Lifeguard//Yellow_Lifeguard.png", m_renderer)));
 }

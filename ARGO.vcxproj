@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="src\ECS\Components\CursorComponent.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\ItemComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PlayerStateComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\PlayerStateSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
@@ -192,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\CursorComponent.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
+    <ClInclude Include="include\ECS\Components\ItemComponent.h" />
     <ClInclude Include="include\ECS\Components\PlayerStateComponent.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />

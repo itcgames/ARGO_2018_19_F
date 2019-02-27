@@ -69,19 +69,18 @@ protected:
 		for (int i = 0; i < MAX_PLAYERS; i++)
 		{
 			bool controllable = false;
-			SDL_Texture* texture = randomPlayerTexture(i);
-			TextureAttributes textureAttributes = SDL2Help::getTextureAttributes(texture);
-			SDL_Rect srcRect = { 0, 0, 600, 925 };
+			std::pair<SDL_Rect, SDL_Texture*> pair = randomPlayerTexture(i);
+			TextureAttributes textureAttributes = SDL2Help::getTextureAttributes(pair.second);
 			SDL_Rect destRect = { 0, 0, 80, 96 };
 			Vector animStart = {0, 0};
-			Vector animEnd = {3, 0};
+			Vector animEnd = {0, 0};
 
 			if (i < controllablePlayers)
 			{
 				controllable = true;
 			}
 
-			m_entityManager.createPlayer(i, m_startPos, texture, srcRect, destRect, animStart, animEnd, destRect, controllable, online);
+			m_entityManager.createPlayer(i, m_startPos, pair.second, pair.first, destRect, animStart, animEnd, destRect, controllable, online);
 		}
 	}
 
@@ -90,7 +89,7 @@ protected:
 	/// </summary>
 	/// <param name="playerNum"></param>
 	/// <returns></returns>
-	virtual SDL_Texture*  randomPlayerTexture(int playerNum)
+	virtual std::pair<SDL_Rect, SDL_Texture*> randomPlayerTexture(int playerNum)
 	{
 		std::string colour;
 		if (playerNum == 0)
@@ -118,39 +117,58 @@ protected:
 	std::vector<Entity*> spawnNewObstacles()
 	{
 		int i = 0;
+		std::vector<Entity*> newObstacles;
 		while (i++ < 5)
 		{
+			Vector newObstaclePosition = {rand() % 1400, rand() % 700};
 			ObstacleTypes newObstacleType = static_cast<ObstacleTypes>(rand() % ObstacleTypes::last);
 			switch (newObstacleType)
 			{
 			case Spike:
-				m_entityManager.createObstacle(Vector(), SDL2Help::LoadTexture("", m_renderer), {}, {}, "Spike");
+				newObstacles.push_back(m_entityManager.returnObstacle(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "Obstacles//TriggeredSpike//TriggeredSpikeSheet.png", m_renderer), {0 ,0, 20, 100}, {0, 0, 20, 100}, "Spike", true, Vector( 0, 0 ), Vector( 0, 3 )));
 				break;
+
 			case Platform:
-				m_entityManager.createPlatform(Vector(), SDL2Help::LoadTexture("", m_renderer), {}, {});
+				newObstacles.push_back(m_entityManager.returnPlatform(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {0, 0, }, {0, 0, }));
 				break;
+
 			case Springboard:
-				m_entityManager.createPlatform(Vector(), SDL2Help::LoadTexture("", m_renderer), {}, {}, "Spring");
+				newObstacles.push_back(m_entityManager.returnPlatform(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, "Spring"));
 				break;
+
 			case Teleporter:
+				newObstacles.push_back(m_entityManager.returnPlatform(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, "Teleporter"));
 				break;
+
 			case Dynamite:
+
 				break;
 			case Bomb:
+
 				break;
+
 			case Nuke:
 				break;
+
 			case FerrisWheel:
 				break;
+
 			case BallLauncher:
+				m_entityManager.createAnimatedImage(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), { 0, 0, }, Vector(), Vector());
 				break;
+
 			case HurleyMachine:
+				m_entityManager.createAnimatedImage(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), { 0, 0, }, Vector(), Vector());
 				break;
+
 			case Crossbow:
+				m_entityManager.createAnimatedImage(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), { 0, 0, }, Vector(), Vector());
 				break;
+
 			case last:
 				std::cout << "Oops!" << std::endl;
 				break;
+
 			default:
 				break;
 			}
@@ -165,6 +183,6 @@ protected:
 	Vector m_startPos;
 	Vector m_endPos;
 
-	std::map<std::string, std::vector<SDL_Texture*>> m_playerTextures;
+	std::map<std::string, std::vector<std::pair<SDL_Rect, SDL_Texture*>>> m_playerTextures;
 };
 #endif // !LEVEL_H

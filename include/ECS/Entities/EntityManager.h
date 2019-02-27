@@ -49,8 +49,13 @@ public:
 	/// <summary>
 	/// Game entities.
 	/// </summary>
-	void createObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag = "");
-	void createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag = "");
+	void createObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag = "", bool animated = false, Vector firstFrame = { 0, 0 }, Vector lastFrame = {0, 0});
+	Entity* returnObstacle(Vector startPosition, SDL_Texture* texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag = "", bool animated = false, Vector firstFrame = { 0, 0 }, Vector lastFrame = { 0, 0 });
+
+	Entity* returnEmitter(Vector startPosition, SDL_Texture* texture, SDL_Rect dest, SDL_Rect collider, Vector firstFrame, Vector lastFrame);
+	
+	void createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag = "", bool animated = false, Vector firstFrame = { 0, 0 }, Vector lastFrame = { 0, 0 });
+	Entity* returnPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag = "", bool animated = false, Vector firstFrame = { 0, 0 }, Vector lastFrame = { 0, 0 });
 
 	/// <summary>
 	/// Background entity.
@@ -64,16 +69,16 @@ public:
 	void createCursor(int index, Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider);
 
 	/// <summary>
-	/// Start and goal entities.
+	/// Goal entity.
 	/// </summary>
-	void createStart(Vector startPosition, SDL_Texture* texture, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
-	void createGoal(Vector startPosition, SDL_Texture* texture, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
+	void createGoal(Vector startPosition, SDL_Rect collider, SDL_Texture* texture = nullptr, SDL_Rect destRect = {0, 0, 0});
 
 	/// <summary>
 	/// UI Elements
 	/// </summary>
 	void createLabel(Vector position, std::string text, SDL_Color colour, int width, int height);	
 	void createImage(Vector position, SDL_Texture * texture, SDL_Rect destRect);
+	void createAnimatedImage(Vector position, SDL_Texture * texture, SDL_Rect destRect, Vector firstFrame, Vector lastFrame);
 	void createButton(int index, bool selected, std::string goTo, Vector position, std::string text, SDL_Color colour, int width, int height);
 	void createFunctionButton(Vector position, int index, bool selected, std::function<void()>  func, SDL_Texture* texture, int srcWidth, int srcHeight, int destWidth, int destHeight);
 
@@ -97,6 +102,7 @@ public:
 	std::vector<Entity*> getEntities();
 	Entity* getEntityById(std::string id, int number = 0);
 	std::vector<Entity*> getEntitiesWithTag(std::string id);
+	void removeEntity(Entity* entity);
 
 private:
 	void addToSystems(Entity* entity);

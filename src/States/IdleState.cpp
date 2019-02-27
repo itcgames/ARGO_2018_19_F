@@ -88,8 +88,8 @@ void IdleState::enter(Entity* entity)
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{
-		Vector firstFrame = Vector(0, 0, 0);
-		Vector lastFrame = Vector(1, 0, 0);
+		Vector firstFrame = Vector(0, 0);
+		Vector lastFrame = Vector(0, 0);
 		animationComponent->setFirstFrame(firstFrame);
 		animationComponent->setCurrentFrame(firstFrame);
 		animationComponent->setLastFrame(lastFrame);

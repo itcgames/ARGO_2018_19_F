@@ -109,6 +109,7 @@ void EntityManager::placement(double dt, bool online)
 void EntityManager::playing(double dt, bool online)
 {
 	getCharacterControlSystem()->update(dt);
+	getGraphicsSystem()->update(dt);
 	getCollisionSystem()->update(dt);
 	getPlayerStateSystem()->update(dt);
 	getPhysicsSystem()->update(dt);
@@ -168,7 +169,7 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 /// <param name="destRect">The dest rectangle the texture will use.</param>
 /// <param name="collider">The obstacles collider.</param>
 /// <param name="secondaryTag">The secondary tag of the obstacle.</param>
-void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag)
+void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag, bool animated, Vector firstFrame, Vector lastFrame)
 {
 	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
 	SDL_Rect srcRect = {0, 0, attributes.width, attributes.height};
@@ -179,8 +180,72 @@ void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, 
 	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	obstacle->addComponent(new CollisionComponent(collider, "obstacle", secondaryTag));
 
+	if (animated)
+	{
+		obstacle->addComponent(new AnimationComponent(firstFrame, lastFrame));
+	}
+
 	addToSystems(obstacle);
 	m_entities.push_back(obstacle);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <param name="secondaryTag"></param>
+/// <param name="animated"></param>
+/// <param name="firstFrame"></param>
+/// <param name="lastFrame"></param>
+Entity* EntityManager::returnObstacle(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag, bool animated, Vector firstFrame, Vector lastFrame)
+{
+	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
+	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
+
+	Entity* obstacle = new Entity();
+	obstacle->setId("obstacle");
+	obstacle->addComponent(new PositionComponent(startPosition));
+	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	obstacle->addComponent(new CollisionComponent(collider, "obstacle", secondaryTag));
+
+	if (animated)
+	{
+		obstacle->addComponent(new AnimationComponent(firstFrame, lastFrame));
+	}
+
+	addToSystems(obstacle);
+	m_entities.push_back(obstacle);
+	return obstacle;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="dest"></param>
+/// <param name="collider"></param>
+/// <param name="firstFrame"></param>
+/// <param name="lastFrame"></param>
+/// <returns></returns>
+Entity * EntityManager::returnEmitter(Vector startPosition, SDL_Texture * texture, SDL_Rect dest, SDL_Rect collider, Vector firstFrame, Vector lastFrame)
+{
+	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
+	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
+
+	Entity* emitter = new Entity();
+	emitter->setId("emitter");
+	emitter->addComponent(new PositionComponent(startPosition));
+	emitter->addComponent();
+
+	return emitter;
 }
 
 
@@ -193,7 +258,7 @@ void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, 
 /// <param name="destRect">the dest rectangle the texture will use.</param>
 /// <param name="collider">The platforms collider.</param>
 /// <param name="secondaryTag">The secondary tag of the platform.</param>
-void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag)
+void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag, bool animated, Vector firstFrame, Vector lastFrame)
 {
 	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
 	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
@@ -204,8 +269,47 @@ void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, 
 	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	platform->addComponent(new CollisionComponent(collider, "platform", secondaryTag));
 
+	if (animated)
+	{
+		platform->addComponent(new AnimationComponent(firstFrame, lastFrame));
+	}
+
 	addToSystems(platform);
 	m_entities.push_back(platform);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+/// <param name="secondaryTag"></param>
+/// <param name="animated"></param>
+/// <param name="firstFrame"></param>
+/// <param name="lastFrame"></param>
+Entity* EntityManager::returnPlatform(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider, std::string secondaryTag, bool animated, Vector firstFrame, Vector lastFrame)
+{
+	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
+	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
+
+	Entity* platform = new Entity();
+	platform->setId("platform");
+	platform->addComponent(new PositionComponent(startPosition));
+	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	platform->addComponent(new CollisionComponent(collider, "platform", secondaryTag));
+
+	if (animated)
+	{
+		platform->addComponent(new AnimationComponent(firstFrame, lastFrame));
+	}
+
+	addToSystems(platform);
+	m_entities.push_back(platform);
+	return platform;
 }
 
 
@@ -239,8 +343,8 @@ void EntityManager::createSelectionBox()
 {
 	Entity* pauseBox = new Entity();
 	pauseBox->setId("selection_box");
-	pauseBox->addComponent(new PositionComponent(Vector(-10, -1000)));
-	pauseBox->addComponent(new GraphicsComponent(SDL2Help::LoadTexture(RESOURCES_PATH + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 500, 700 }, { 0 ,0, 1620, 920}));
+	pauseBox->addComponent(new PositionComponent(Vector(-100, -1000)));
+	pauseBox->addComponent(new GraphicsComponent(SDL2Help::LoadTexture(RESOURCES_PATH + "Backgrounds//WoodenBack.png", m_renderer), { 0, 0, 500, 700 }, { 0 ,0, 1800, 1100}));
 	pauseBox->addComponent(new SelectionBoxComponent(true));
 
 	addToSystems(pauseBox);
@@ -277,44 +381,14 @@ void EntityManager::createCursor(int index, Vector startPosition, SDL_Texture* t
 
 
 /// <summary>
-/// Adds a start entity to the relevant systems and the master entity list.
-/// </summary>
-/// <param name="startPosition">The position of the start point.</param>
-/// <param name="texture">The texture the start point will use.</param>
-/// <param name="destRect">The dest rectangle the texture will use.</param>
-/// <param name="animStart">The position of the first frame.</param>
-/// <param name="animEnd">The position of the final frame.</param>
-/// <param name="collider">The start points collider.</param>
-/// <returns></returns>
-void EntityManager::createStart(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider)
-{
-	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
-	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
-
-	Entity* start = new Entity();
-	start->setId("start");
-	start->addComponent(new PositionComponent(startPosition));
-	start->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	start->addComponent(new AnimationComponent(animStart, animEnd));
-	start->addComponent(new CollisionComponent(collider, "start"));
-
-	addToSystems(start);
-	m_entities.push_back(start);
-}
-
-
-
-/// <summary>
 /// Adds a goal entity to the relevant systems and the master entity list.
 /// </summary>
 /// <param name="startPosition">The position of the goal point.</param>
 /// <param name="texture">The texture the goal point will use.</param>
 /// <param name="destRect">The dest rectangle the texture will use.</param>
-/// <param name="animStart">The position of the first frame.</param>
-/// <param name="animEnd">The position of the final frame.</param>
 /// <param name="collider">The goal points collider.</param>
 /// <returns></returns>
-void EntityManager::createGoal(Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider)
+void EntityManager::createGoal(Vector startPosition, SDL_Rect collider, SDL_Texture * texture, SDL_Rect destRect)
 {
 	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
 	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
@@ -322,8 +396,10 @@ void EntityManager::createGoal(Vector startPosition, SDL_Texture * texture, SDL_
 	Entity* goal = new Entity();
 	goal->setId("goal");
 	goal->addComponent(new PositionComponent(startPosition));
-	goal->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	goal->addComponent(new AnimationComponent(animStart, animEnd));
+	if (texture != nullptr)
+	{
+		goal->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	}	
 	goal->addComponent(new CollisionComponent(collider, "goal"));
 
 	addToSystems(goal);
@@ -369,6 +445,29 @@ void EntityManager::createImage(Vector position, SDL_Texture * texture, SDL_Rect
 	image->setId("image");
 	image->addComponent(new PositionComponent(position));
 	image->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+
+	addToSystems(image);
+	m_entities.push_back(image);
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="position"></param>
+/// <param name="texture"></param>
+/// <param name="destRect"></param>
+void EntityManager::createAnimatedImage(Vector position, SDL_Texture * texture, SDL_Rect destRect, Vector firstFrame, Vector lastFrame)
+{
+	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
+	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
+
+	Entity* image = new Entity();
+	image->setId("animImage");
+	image->addComponent(new PositionComponent(position));
+	image->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	image->addComponent(new AnimationComponent(firstFrame, lastFrame));
 
 	addToSystems(image);
 	m_entities.push_back(image);
@@ -618,6 +717,23 @@ std::vector<Entity*> EntityManager::getEntitiesWithTag(std::string id)
 
 
 /// <summary>
+/// Removes the passed entity from the master entity list and from all associated systems.
+/// </summary>
+/// <param name="entity"></param>
+void EntityManager::removeEntity(Entity * entity)
+{
+	m_entities.erase(std::find(m_entities.begin(), m_entities.end(), entity), m_entities.end());
+
+	for (std::pair<std::string, System*> pair : m_systems)
+	{
+		System* system = pair.second;
+		system->removeEntity(entity);
+	}
+}
+
+
+
+/// <summary>
 /// 
 /// </summary>
 void EntityManager::addToSystems(Entity* entity)
@@ -655,7 +771,7 @@ void EntityManager::addToSystems(Entity* entity)
 	/// <summary>
 	/// Add entity to the UIControlSystem.
 	/// </summary>
-	if (entity->getComponent("BUTTON") != nullptr || entity->getComponent("FUNC_BUTTON") != nullptr)
+ 	if (entity->getComponent("BUTTON") != nullptr || entity->getComponent("FUNC_BUTTON") != nullptr)
 	{
 		//	Create system if it hasn't been created yet.
 		if (m_systems["UI_CONTROL"] == nullptr)
