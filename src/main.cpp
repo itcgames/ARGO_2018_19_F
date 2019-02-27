@@ -10,11 +10,14 @@
 #include "Game.h"
 #include <iostream> 
 #include <SDL_mixer.h>
+#include <random>
+#include <chrono>
 
 //	Entry point.
 int main(int argc, char* argv[])
 {
 	//	Init Everything.
+	srand(time(NULL));
 	SDL_Init(SDL_INIT_EVERYTHING);
 	Mix_AllocateChannels(30);
 	TTF_Init();

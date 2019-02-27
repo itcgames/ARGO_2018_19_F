@@ -20,14 +20,17 @@ AICursorControlSystem::~AICursorControlSystem()
 /// <param name="picking"></param>
 void AICursorControlSystem::update(double dt, bool picking)
 {
-	float x = 800;
-	float y = 800;
+	
+	if (random == false)
+	{
+		x = rand() % 1600;
+		y = rand() % 900;
+		random = true;
+	}
 
-	//x = rand() % 1600;
-	//y = rand() % 900;
 
 	Vector v = { x,y };
-	Vector vAdd = { 0.5f,0.5f };
+	Vector vAdd = { 5.0f,5.0f };
 
 	bool pick = true;
 
@@ -51,14 +54,48 @@ void AICursorControlSystem::update(double dt, bool picking)
 					{
 							position1->setPos(position2->getPos());
 							
-							while (position2->getPos().x < v.x)
+							if (position2->getPos().x <= v.x - 5 || position2->getPos().x >= v.x + 5 && m_right == false)
 							{
-								Vector newVec = { position2->getPos().x + vAdd.y, position2->getPos().y + vAdd.y };
-								//position2->setPos(newVec);
+								if (position2->getPos().x < v.x)
+								{
+									Vector newVec = { position2->getPos().x + vAdd.x, position2->getPos().y };
+									position2->setPos(newVec);
+									position1->setPos(newVec);
+								}
+								else if (position2->getPos().x > v.x)
+								{
+									Vector newVec = { position2->getPos().x - vAdd.x, position2->getPos().y };
+									position2->setPos(newVec);
+									position1->setPos(newVec);
+								}
+								
 							}
-							//position2->setPos(v);
-							placed->setPlaced();
+							else
+							{
+								m_right = true;
+							}
+							if ((position2->getPos().y <= v.y + 1 || position2->getPos().y >= v.y - 1) && m_right == true)
+							{
+								 if (position2->getPos().y < v.y)
+								{
+									Vector newVec = { position2->getPos().x, position2->getPos().y + vAdd.y };
+									position2->setPos(newVec);
+									position1->setPos(newVec);
+								}
+								else if (position2->getPos().y > v.y)
+								{
+									Vector newVec = { position2->getPos().x, position2->getPos().y - vAdd.y };
+									position2->setPos(newVec);
+									position1->setPos(newVec);
+								}
+							}
 
+							 if (position2->getPos().x <= v.x + 5 && position2->getPos().x >= v.x - 5 && position2->getPos().y <= v.y + 5 && position2->getPos().y >= v.y - 5)
+							{
+								placed->setPlaced();
+								random = false;
+								m_right = false;
+							}
 							//std::cout << position1
 
 

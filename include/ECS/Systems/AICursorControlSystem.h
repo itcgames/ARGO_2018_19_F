@@ -19,6 +19,10 @@ public:
 
 private:
 	Grid m_grid;
+	float x = 0;
+	float y = 0;
+	bool random = false;
+	bool m_right = false;
 };
 
 #endif // AI_CURSOR_CONTROL_SYSTEM_
