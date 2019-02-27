@@ -192,9 +192,6 @@ std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWid
 			continue;
 		}
 
-		int locationX = m_location.x;
-		int locationY = m_location.y;
-
 		if (m_location.x == m_goal.x && m_location.y == m_goal.y)
 		{
 			m_nodes[m_grid[m_location.x][m_location.y]->getIndex()][m_location.z]->setStatus(m_closeNode);
@@ -202,47 +199,67 @@ std::vector<Vector> Grid::processPath(Vector & start, Vector & goal, int charWid
 			break;
 		}
 
+		// calculate neighbours - we only check non diagonal tiles so only 4 is needed
 		for (int i = 0; i < 4; i++)
 		{
+			// returns a vector which is adjacent to the current location
 			Vector newLocation = m_location + m_nextCell[(Direction)i];
 			if (!m_grid[newLocation.x][newLocation.y]->getTraversable())
 			{
-				goto endLoop;
+				goto endLoop; // if the neighbour can't be accesed ignore it
 			}
 
+			// bools to check if the neighbour will cause the character to be at the roof or on a ground tile
 			bool onGround = false;
 			bool onCeiling = false;
 
 			if (!m_grid[newLocation.x][newLocation.y + 1]->getTraversable())
 			{
-				onGround = true;
+				onGround = true; // if the tile below the neighbour cant be accesed
 			}
 			if (newLocation.y - 1 < 0)
 			{
-				onCeiling = true;
+				onCeiling = true; // if the location is beyond the roof then that node is at the top
 			}
 
 			int jumpLength = m_nodes[m_grid[m_location.x][m_location.y]->getIndex()][m_location.z]->getJumpValue();
 			short newJumpLength = jumpLength;
 			if (onCeiling)
 			{
-				if (newLocation.x != m_location.x)
-				{
-					newJumpLength = std::max(jumpHeight * 2 + 1, jumpLength + 1);
-				}
-				else
-				{
-					newJumpLength = std::max(jumpHeight * 2, jumpLength + 2);
-				}
+				newJumpLength = (newLocation.x != m_location.x) ? std::max(jumpHeight * 2 + 1, jumpLength + 1) : std::max(jumpHeight * 2, jumpLength + 2);
 			}
 			else if (onGround)
 			{
 				newJumpLength = 0;
 			}
-			else if (newLocation.y < m_location.y)
+			else if (newLocation.y > m_location.y) // neighbour above
 			{
-
+				if (jumpLength < 2)
+				{
+					newJumpLength = 3;
+				}
+				else
+				{
+					newJumpLength = jumpLength % 2 == 0 ? (std::max(jumpLength + 2,2)) : (std::max(jumpLength + 1, 2));
+				}
 			}
+			else if(newLocation.y < m_location.y)
+			{
+				newJumpLength = jumpLength % 2 == 0 ? (std::max(jumpHeight * 2, jumpLength + 2)) : (std::max(jumpHeight * 2, jumpLength + 1));
+			}
+			else if(!onGround && newLocation.x != m_location.x)
+			{
+				newJumpLength = jumpLength + 1;
+			}
+
+			// if jump value is odd charater just moved in the x direction or the character is falling and the neighbour is above
+			if ((jumpLength % 2 != 0 && newLocation.x != m_location.x) || (jumpLength >= jumpHeight * 2 && newLocation.y > m_location.y)
+				|| (newJumpLength >= jumpHeight * 2 + (jumpHeight * 2) && newLocation.x != m_location.x && (newJumpLength - (jumpHeight * 2 + (jumpHeight * 2)) % 8 != 3)))
+			{
+				continue;
+			}
+
+
 		}
 
 	endLoop:
