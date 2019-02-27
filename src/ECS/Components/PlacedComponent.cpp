@@ -4,7 +4,7 @@
 
 PlacedComponent::PlacedComponent()
 {
-	m_id = ("PLACED");
+	m_id = "PLACED";
 }
 
 

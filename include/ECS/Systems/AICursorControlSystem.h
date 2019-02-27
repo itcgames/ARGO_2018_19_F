@@ -15,7 +15,7 @@ class AICursorControlSystem :
 public:
 	AICursorControlSystem();
 	~AICursorControlSystem();
-	virtual void update(double dt, bool picking);// override;
+	void update(double dt, bool picking);// override;
 
 private:
 	Grid m_grid;

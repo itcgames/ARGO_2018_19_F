@@ -21,7 +21,7 @@ void CharacterControlSystem::update(double dt, SDL_Event e)
 		//  Handle inputs.
 		Vector acceleration;
 
-		if (entity->getId() != "pauseBox" && entity->getId() != "cursor")
+		if (entity->getId() != "pauseBox" && entity->getId() != "AI_cursor")
 		{
 			Vector velocity = physicsComponent->getVelocity();
 

@@ -121,6 +121,7 @@ void EntityManager::PlatMove(Vector startPosition, SDL_Texture * texture, SDL_Re
 	platMove->addComponent(new PositionComponent(startPosition));
 	platMove->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	platMove->addComponent(new CollisionComponent(collider, "platform"));
+	platMove->addComponent(new PlacedComponent());
 
 	addToSystems(platMove);
 	m_entities.push_back(platMove);
@@ -210,11 +211,12 @@ void EntityManager::createSelectionBox(Vector startPosition, SDL_Texture* textur
 void EntityManager::createCursor(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
 {
 	Entity* cursor = new Entity();
-	cursor->setId("cursor");
+	cursor->setId("AI_cursor");
 	cursor->addComponent(new PositionComponent(startPosition));
 	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	cursor->addComponent(new CollisionComponent(collider, "cursor"));
 	cursor->addComponent(new ControllerComponent(0));
+	cursor->addComponent(new PlacedComponent());
 
 	addToSystems(cursor);
 	m_entities.push_back(cursor);
@@ -484,11 +486,15 @@ UIControlSystem * EntityManager::getUIControlSystem()
 	return (UIControlSystem*) m_systems["UI_CONTROL"];
 }
 
-//AICursorControlSystem * EntityManager::getAICursorControlSystem()
-//{
-//	//return (AICursorControlSystem*) m_systems[""]
-//
-//}
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+AICursorControlSystem * EntityManager::getAICursorControlSystem()
+{
+	return (AICursorControlSystem*)m_systems["AI_CURSOR"];
+
+}
 
 
 /// <summary>
@@ -592,4 +598,15 @@ void EntityManager::addToSystems(Entity* entity)
 
 		m_systems["AI"]->addEntity(entity);
 	}
+
+	if (entity->getComponent("PLACED") != nullptr)
+	{
+		if (m_systems["AI_CURSOR"] == nullptr)
+		{
+			m_systems["AI_CURSOR"] = new AICursorControlSystem();
+		}
+
+		m_systems["AI_CURSOR"]->addEntity(entity);
+	}
+
 }
