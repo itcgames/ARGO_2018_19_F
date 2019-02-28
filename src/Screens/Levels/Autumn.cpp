@@ -71,6 +71,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	//create Cursor Entity
 	m_entityManager.createCursor(Vector(200, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));
 
+	// Create AI cursor
+	m_entityManager.createAICursor(Vector(500, 200), cursorTexture, SDL2Help::InitRect(0, 0, 256, 256), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));
+
 	m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 
 	//playMusic(".//submodules//Simple-SDL2-Audio//music//highlands.wav", SDL_MIX_MAXVOLUME);
@@ -103,7 +106,7 @@ void Autumn::update(double dt, SDL_Event& e)
 			m_count++;
 		}
 		//m_entityMa
-		//m_entityManager.getCursorControlSystem()->update(dt);
+		m_entityManager.getCursorControlSystem()->update(dt);
 		m_entityManager.getAICursorControlSystem()->update(dt, true);
 	}
 		

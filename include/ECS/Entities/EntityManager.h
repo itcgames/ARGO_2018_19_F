@@ -43,6 +43,7 @@ public:
 	void createBackground(SDL_Texture* texture, SDL_Rect srcRect);
 	void createSelectionBox(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect);
 	void createCursor(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
+	void createAICursor(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 	void createStart(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createGoal(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createLabel(Vector position, std::string text, SDL_Color colour, int width, int height);

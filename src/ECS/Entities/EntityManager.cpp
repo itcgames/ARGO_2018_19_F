@@ -211,11 +211,33 @@ void EntityManager::createSelectionBox(Vector startPosition, SDL_Texture* textur
 void EntityManager::createCursor(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
 {
 	Entity* cursor = new Entity();
-	cursor->setId("AI_cursor");
+	cursor->setId("cursor");
 	cursor->addComponent(new PositionComponent(startPosition));
 	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	cursor->addComponent(new CollisionComponent(collider, "cursor"));
 	cursor->addComponent(new ControllerComponent(0));
+	cursor->addComponent(new PlacedComponent());
+
+	addToSystems(cursor);
+	m_entities.push_back(cursor);
+}
+
+
+/// <summary>
+/// AI cursor that picks up objects and placec them
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+void EntityManager::createAICursor(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity* cursor = new Entity();
+	cursor->setId("AI_cursor");
+	cursor->addComponent(new PositionComponent(startPosition));
+	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	cursor->addComponent(new CollisionComponent(collider, "cursor"));
 	cursor->addComponent(new PlacedComponent());
 
 	addToSystems(cursor);
