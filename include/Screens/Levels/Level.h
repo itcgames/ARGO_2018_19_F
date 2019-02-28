@@ -117,8 +117,9 @@ protected:
 	/// 
 	/// </summary>
 	/// <returns></returns>
-	std::vector<Entity*> spawnNewObstacles()
+	std::vector<Entity*> generateNewObstacles()
 	{
+		m_generatedNewObstacles = true;
 		int i = 0;
 		std::vector<Entity*> newObstacles;
 		while (i++ < 5)
@@ -128,9 +129,9 @@ protected:
 			int newObstacleType = rand() % 100 + 1;
 
 			//	Platform - 20% chance.
-			if (newObstacleType <= 20)
+			if (newObstacleType <= 100)
 			{
-				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "Obstacles//Platforms//Tetris I Rotated.png", m_renderer), {0, 0, 200, 40}, {0, 0, 200, 40}, "I"));
 			}
 			//	Spike - 10% chance.
 			else if (newObstacleType <= 30)
@@ -186,7 +187,8 @@ protected:
 				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
 			}
 		}
-			return newObstacles;
+
+		return newObstacles;
 	}
 
 	virtual void spawnLevelObstacles() = 0;
@@ -196,6 +198,9 @@ protected:
 
 	Vector m_startPos;
 	Vector m_endPos;
+
+	std::vector<Entity*> m_newObstacles;
+	bool m_generatedNewObstacles;
 
 	std::map<std::string, std::vector<std::pair<SDL_Rect, SDL_Texture*>>> m_playerTextures;
 };

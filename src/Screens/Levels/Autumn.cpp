@@ -23,6 +23,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	spawnPlayers(1, false);
 	spawnLevelObstacles();	
 	m_entityManager.createSelectionBox();
+	m_newObstacles = generateNewObstacles();
 }
 
 
@@ -34,10 +35,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt)
 {
 	m_clock += dt;
-	if (m_clock >= 10000 && m_gameInProgress == false)
+	if (m_clock >= 5000 && m_gameInProgress == false)
 	{
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
+		m_generatedNewObstacles = false;
 		SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
 		selectionBox->setIsVisible(false);	
 
@@ -65,6 +67,11 @@ void Autumn::update(double dt)
 		m_clock = 0;
 		SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
 		selectionBox->setIsVisible(true);	
+
+		if (m_generatedNewObstacles == false)
+		{
+			m_newObstacles = generateNewObstacles();
+		}		
 	}
 
 	if (m_startMusic)

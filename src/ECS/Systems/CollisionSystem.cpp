@@ -54,7 +54,7 @@ void CollisionSystem::update(double dt)
 							/// <summary>
 							/// If its a standard platform.
 							/// </summary>
-							if (e2Collision->getSecondaryTag() == "")
+							if (e2Collision->getSecondaryTag() == "" || e2Collision->getSecondaryTag() == "I")
 							{
 								// check the top
 								if (direction == "top")
@@ -181,6 +181,27 @@ void CollisionSystem::update(double dt)
 					}					
 				}				
 			}
+		}
+	}
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+void CollisionSystem::render(SDL_Renderer * renderer)
+{
+	for (Entity* entity : m_entities)
+	{
+		PositionComponent* position = (PositionComponent*)entity->getComponent("POSITION");
+		CollisionComponent* collision = (CollisionComponent*)entity->getComponent("COLLISION");
+
+		if (position != nullptr && collision != nullptr)
+		{
+			SDL_Rect colliderRect = { position->getPos().x, position->getPos().y, collision->getCollider().w, collision->getCollider().h };
+			//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+			//SDL_RenderFillRect(renderer, &colliderRect);
 		}
 	}
 }

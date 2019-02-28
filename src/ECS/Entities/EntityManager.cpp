@@ -302,9 +302,9 @@ Entity* EntityManager::returnPlatform(Vector startPosition, SDL_Texture * textur
 
 	Entity* platform = new Entity();
 	platform->setId("platform");
-	platform->addComponent(new PositionComponent(startPosition));
+	platform->addComponent(new PositionComponent(startPosition));	
+	platform->addComponent(new CollisionComponent(collider, "platform", secondaryTag));			
 	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	platform->addComponent(new CollisionComponent(collider, "platform", secondaryTag));
 
 	if (animated)
 	{

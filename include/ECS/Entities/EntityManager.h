@@ -85,16 +85,16 @@ public:
 	/// <summary>
 	/// Systems.
 	/// </summary>
-	GraphicsSystem * getGraphicsSystem();
-	PhysicsSystem * getPhysicsSystem();
-	CollisionSystem * getCollisionSystem();
-	CharacterControlSystem * getCharacterControlSystem();
-	NetworkSystem * getNetworkSystem();
-	CursorControlSystem * getCursorControlSystem();
-	SelectionBoxSystem * getSelectionBoxSystem();
-	UIGraphicsSystem * getUIGraphicsSystem();
-	UIControlSystem * getUIControlSystem();
-	PlayerStateSystem * getPlayerStateSystem();
+	GraphicsSystem*			 getGraphicsSystem();
+	PhysicsSystem*			 getPhysicsSystem();
+	CollisionSystem*		 getCollisionSystem();
+	CharacterControlSystem*  getCharacterControlSystem();
+	NetworkSystem*			 getNetworkSystem();
+	CursorControlSystem*	 getCursorControlSystem();
+	SelectionBoxSystem*		 getSelectionBoxSystem();
+	UIGraphicsSystem*		 getUIGraphicsSystem();
+	UIControlSystem*		 getUIControlSystem();
+	PlayerStateSystem*		 getPlayerStateSystem();
 
 	/// <summary>
 	/// Entities.

@@ -20,6 +20,7 @@ public:
 	CollisionSystem();
 
 	virtual void update(double dt) override;
+	virtual void render(SDL_Renderer* renderer) override;
 
 private:
 	std::string handleBoxCollision(Vector& p1, SDL_Rect& c1, Vector& p2, SDL_Rect& c2);
