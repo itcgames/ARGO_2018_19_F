@@ -55,6 +55,7 @@
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AICursorControlSystem.cpp" />
     <ClCompile Include="src\ECS\Components\PlacedComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\ObserverSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
@@ -119,5 +120,6 @@
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
     <ClInclude Include="include\ECS\Systems\AICursorControlSystem.h" />
     <ClInclude Include="include\ECS\Components\PlacedComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ObserverSystem.h" />
   </ItemGroup>
 </Project>

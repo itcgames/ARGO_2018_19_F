@@ -16,6 +16,8 @@ ScreenManager::ScreenManager()
 
 		}
 	}
+
+	observer = new ObserverSystem();
 }
 
 
@@ -38,10 +40,13 @@ void ScreenManager::update(double dt, SDL_Event &e)
 	if (m_currentScreen->getID() == "Play")
 	{
 		m_currentScreen->update(dt, e);
+		observer->playMainMusic();
+		
 	}
 	else
 	{
 		m_currentScreen->update(dt);
+		observer->playMenuMusic();
 	}	
 }
 
