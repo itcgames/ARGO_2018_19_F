@@ -12,7 +12,7 @@ void AISystem::update(double dt)
 	{
 		PhysicsComponent* physics = (PhysicsComponent*)entity->getComponent("PHYSICS");
 		Vector accel = physics->getAcceleration();
-		accel.x += .075;
+		//accel.x += .075;
 		physics->setAcceleration(accel);
 		m_grid.update(entity);
 	}

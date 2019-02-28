@@ -44,13 +44,18 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 
 	// Create obstacle entities.
-	m_entityManager.createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+	//m_entityManager.createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 	m_entityManager.createPlatform(Vector(100, 800), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 	m_entityManager.createPlatform(Vector(500, 800), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 	m_entityManager.createPlatform(Vector(600, 600), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 	m_entityManager.createPlatform(Vector(700, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 	m_entityManager.createPlatform(Vector(800, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 	m_entityManager.createPlatform(Vector(900, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+
+
+	m_entityManager.createPlatform(Vector(100, 600), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+	m_entityManager.createPlatform(Vector(500, 400), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
+	m_entityManager.createPlatform(Vector(200, 600), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 
 	//Create Spring entity.
 	//m_entityManager.createSpring(Vector(500, 700), springBoardTexture, SDL2Help::InitRect(0, 0, 512, 512), SDL2Help::InitRect(0, 0, 50, 75), SDL2Help::InitRect(0, 0, 50, 75));
@@ -108,8 +113,6 @@ void Autumn::update(double dt, SDL_Event& e)
 	m_entityManager.getNetworkSystem()->update(dt);
 	
 	//playMusicFromMemory(music, SDL_MIX_MAXVOLUME);
-	
-	
 }
 
 

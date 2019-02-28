@@ -61,6 +61,7 @@ void EntityManager::createAI(Vector startPosition, SDL_Texture * texture, SDL_Re
 	ai->addComponent(new CollisionComponent(collider, "player"));
 	ai->addComponent(new PhysicsComponent());
 	ai->addComponent(new AIComponent());
+	ai->addComponent(new ControllerComponent(0));
 
 	addToSystems(ai);
 	m_entities.push_back(ai);

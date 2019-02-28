@@ -194,8 +194,6 @@
   <ItemGroup>
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\Node.h" />
-    <ClInclude Include="include\AI\NodeComparer.h" />
-    <ClInclude Include="include\AI\NodePriorityQueue.h" />
     <ClInclude Include="include\AI\Tile.h" />
     <ClInclude Include="include\ECS\Components\AIComponent.h" />
     <ClInclude Include="include\ECS\Systems\AISystem.h" />

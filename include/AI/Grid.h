@@ -5,7 +5,7 @@
 #include <stack>
 #include "SDL_ttf.h"
 #include "AI/Tile.h"
-#include "AI/NodePriorityQueue.h"
+#include "AI/Node.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Components/AIComponent.h"
 
@@ -25,29 +25,23 @@ public:
 	void render(SDL_Renderer* renderer);
 	void update(Entity* ai);
 	void processObstacles(CollisionSystem* system);
-	std::vector<std::pair<int, Vector>> processPath(Vector& start, Vector& goal, int charWidth, int charHeight, int jumpHeight);
+	std::shared_ptr<Node> getNextNode(Vector location);
 
 private:
 	std::vector<std::vector<std::shared_ptr<Tile>>> m_grid; // 2d vector of grid tiles
-
-	NodePriorityQueue<int, Vector, std::shared_ptr<Node>> m_open;
-
-	std::vector<std::vector<std::shared_ptr<Node>>> m_nodes; // nodes for the location on the grid
-	std::vector<Vector> m_close;
-	std::vector<int> m_touchedNodes;
+	std::vector<std::shared_ptr<Node>> m_nodes;
+	std::shared_ptr<Node> m_currentTarget;
 
 	Direction m_direction;
-	std::map<Direction, Vector> m_nextCell;
-
 	Vector m_location; // location in the grid
 	Vector m_start;
 	Vector m_goal;
-	int m_width;
-	int m_height;
 
-	int m_openNode = 1;
-	int m_closeNode = 2;
-	int m_closeNodeCounter = 0;
-	int m_stepHeuristic = 2;
+	double m_clock;
+
+	int m_gridWidth;
+	int m_gridHeight;
+	int m_tileWidth;
+	int m_tileHeight;
 };
 #endif // !GRID_H

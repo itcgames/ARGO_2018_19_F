@@ -8,32 +8,43 @@
 class Node
 {
 public:
-	Node();
+	Node(Vector location, int index);
 
 	// getters and setters
-	int getHeuristic();
-	void setHeuristic(int h);
-	int getEstimate();
-	void setEstimate(int e);
-	std::shared_ptr<Node> getParent();
-	void setParent(std::shared_ptr<Node> parent);
-	Vector getParentIndex();
-	void setParentIndex(Vector parentIndex);
-	int getJumpValue();
-	void setJumpValue(int value);
-	int getStatus();
-	void setStatus(int status);
+	void setStart(bool start);
+	bool getStart();
 
-	short m_G; // ??
+	void setGoal(bool start);
+	bool getGoal();
+
+	bool getShouldJump();
+	void setShouldJump(bool jump);
+
+	void setVisited(bool visited);
+	bool getVisited();
+
+	bool getGoBack();
+	void setGoBack(bool status);
+
+	Vector& getLocation();
+	void setLocation(Vector location);
+
+	std::shared_ptr<Node> getNext();
+	void setNext(std::shared_ptr<Node> next);
+
+	std::shared_ptr<Node> getPrevious();
+	void setPrevious(std::shared_ptr<Node> previous);
 
 private:
-	std::shared_ptr<Node> m_parent; // parent node that we got to his node from
-	Vector m_parentIndex; // used to get the parent in neighbours list
-	int m_weight; // weight of the node
-	int m_heuristic; // F - a star hueristic
-	int m_estimate;
-	int m_status; // nodes open / closed status
-	int m_jumpValue; // the current jump distance of the node
+	std::shared_ptr<Node> m_next; // m_next
+	std::shared_ptr<Node> m_previous; // previous node
+	Vector m_location;
+	int m_index;
+	bool m_visited;
+	bool m_start;
+	bool m_goal;
+	bool m_goBack; // visited
+	bool m_shouldJump;
 };
 #endif // !NODE_H
 

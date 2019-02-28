@@ -113,8 +113,6 @@
     <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
-    <ClInclude Include="include\AI\NodeComparer.h" />
-    <ClInclude Include="include\AI\NodePriorityQueue.h" />
     <ClInclude Include="include\AI\Tile.h" />
   </ItemGroup>
 </Project>

@@ -1,66 +1,92 @@
 #include "AI/Node.h"
 
-Node::Node()
+Node::Node(Vector location, int index)
 {
+	m_location = location;
+	m_index = index;
+	m_goal = false;
+	m_start = false;
+	m_shouldJump = false;
 }
 
-
-int Node::getHeuristic()
+void Node::setStart(bool start)
 {
-	return m_heuristic;
+	m_start = start;
 }
 
-void Node::setHeuristic(int h)
+bool Node::getStart()
 {
-	m_heuristic = h;
+	return m_start;
 }
 
-int Node::getEstimate()
+void Node::setGoal(bool start)
 {
-	return m_estimate;
+	m_goal = start;
 }
 
-void Node::setEstimate(int e)
+bool Node::getGoal()
 {
-	m_estimate = e;
+	return m_goal;
 }
 
-std::shared_ptr<Node> Node::getParent()
+bool Node::getShouldJump()
 {
-	return m_parent;
+	return m_shouldJump;
 }
 
-void Node::setParent(std::shared_ptr<Node> parent)
+void Node::setShouldJump(bool jump)
 {
-	m_parent = parent;
+	m_shouldJump = jump;
 }
 
-Vector Node::getParentIndex()
+void Node::setVisited(bool visited)
 {
-	return m_parentIndex;
+	m_visited = visited;
 }
 
-void Node::setParentIndex(Vector parentIndex)
+bool Node::getVisited()
 {
-	m_parentIndex = parentIndex;
+	return m_visited;
 }
 
-int Node::getJumpValue()
+void Node::setGoBack(bool status)
 {
-	return m_jumpValue;
+	m_goBack = status;
 }
 
-void Node::setJumpValue(int value)
+Vector & Node::getLocation()
 {
-	m_jumpValue = value;
+	return m_location;
 }
 
-int Node::getStatus()
+void Node::setLocation(Vector location)
 {
-	return m_status;
+	m_location = location;
 }
 
-void Node::setStatus(int status)
+bool Node::getGoBack()
 {
-	m_status = status;
+	return m_goBack;
+}
+
+std::shared_ptr<Node> Node::getNext()
+{
+	return m_next;
+}
+
+void Node::setNext(std::shared_ptr<Node> next)
+{
+	m_next.reset();
+	m_next = next;
+}
+
+std::shared_ptr<Node> Node::getPrevious()
+{
+	return m_previous;
+}
+
+void Node::setPrevious(std::shared_ptr<Node> previous)
+{
+	m_previous.reset();
+	m_previous = previous;
 }
