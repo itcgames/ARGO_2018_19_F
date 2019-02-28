@@ -7,7 +7,7 @@
 class JumpState : public PlayerState
 {
 public:
-	JumpState() {};
+	JumpState() { m_stateId = "Jump"; };
 	virtual PlayerState* handleState(Entity* entity, ControllerState& state);
 	virtual void update(double dt, Entity* entity);
 	virtual void enter(Entity* entity);

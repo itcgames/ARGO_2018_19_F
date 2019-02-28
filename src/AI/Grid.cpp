@@ -86,7 +86,7 @@ void Grid::processObstacles(CollisionSystem * system)
 		CollisionComponent* collider = (CollisionComponent*)entity->getComponent("COLLISION");
 		PositionComponent* position = (PositionComponent*)entity->getComponent("POSITION");
 
-		if (collider->m_tag != "player" && collider->m_tag != "cursor")
+		if (collider->getMainTag() != "player" && collider->getMainTag() != "cursor")
 		{
 			for (int i = 0; i < m_gridWidth; i++)
 			{
@@ -98,6 +98,7 @@ void Grid::processObstacles(CollisionSystem * system)
 						m_grid[i][j]->getRect()->y + m_grid[i][j]->getRect()->h / 1.25 >= position->getPos().y)
 					{
 						if (entity->getId() == "start")
+
 						{
 							if (j < m_gridHeight - 1)
 							{
@@ -123,6 +124,7 @@ void Grid::processObstacles(CollisionSystem * system)
 						if (entity->getId() == "obstacle" || entity->getId() == "platform")
 						{
 							m_grid[i][j]->fill(255, 0, 0, 255);
+
 							m_grid[i][j]->setTraversable(false);
 						}
 					}
@@ -130,7 +132,6 @@ void Grid::processObstacles(CollisionSystem * system)
 			}
 		}
 	}
-
 
 	for (int i = 0; i < m_gridWidth; i++)
 	{

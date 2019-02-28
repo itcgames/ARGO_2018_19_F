@@ -1,4 +1,5 @@
 #include "States/DeathState.h"
+#include "States/IdleState.h"
 
 /// <summary>
 /// process any input updates then if any parameters are met 
@@ -10,6 +11,16 @@
 /// <returns>default - nullptr, pointer to a PlayerState child</returns>
 PlayerState * DeathState::handleState(Entity * entity, ControllerState & state)
 {
+	PlayerStateComponent* playerStateComponent = (PlayerStateComponent*)entity->getComponent("PLAYER_STATE");
+
+	if (playerStateComponent != nullptr)
+	{
+		if (playerStateComponent->isAlive())
+		{
+			return new IdleState();
+		}
+	}
+
 	return nullptr;
 }
 
@@ -25,16 +36,17 @@ void DeathState::update(double dt, Entity * entity)
 	m_timeToDie += dt;
 	if (m_timeToDie > m_deathAnimation && m_timeToDie <= m_deathAnimation + dt)
 	{
-		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
+		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");		
+		
 		if (animationComponent != nullptr)
 		{
-			Vector firstFrame = Vector(6, 0, 0);
-			Vector lastFrame = Vector(7, 0, 0);
+			Vector firstFrame = Vector(0, 0);
+			Vector lastFrame = Vector(0, 0);
 
 			animationComponent->setFirstFrame(firstFrame);
 			animationComponent->setCurrentFrame(firstFrame);
 			animationComponent->setLastFrame(lastFrame);
-		}
+		}		
 	}
 }
 
@@ -50,8 +62,8 @@ void DeathState::enter(Entity * entity)
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{
-		Vector firstFrame = Vector(6, 0, 0);
-		Vector lastFrame = Vector(7, 0, 0);
+		Vector firstFrame = Vector(0, 0);
+		Vector lastFrame = Vector(0, 0);
 
 		animationComponent->setFirstFrame(firstFrame);
 		animationComponent->setCurrentFrame(firstFrame);

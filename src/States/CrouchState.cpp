@@ -1,5 +1,7 @@
 #include "States/CrouchState.h"
 #include "States/IdleState.h"
+#include "States/VictoryState.h"
+#include "States/DeathState.h"
 
 /// <summary>
 /// process any input updates then if any parameters are met 
@@ -12,12 +14,37 @@
 PlayerState * CrouchState::handleState(Entity* entity, ControllerState& state)
 {
 	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
+	PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
+	GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("GRAPHICS");
+	CollisionComponent* collisionComponent = (CollisionComponent*)entity->getComponent("COLLISION");
+	PlayerStateComponent* playerStateComponent = (PlayerStateComponent*)entity->getComponent("PLAYER_STATE");
+
+	SDL_Rect destRect = graphicsComponent->getDestRect();
+	graphicsComponent->setDestRect({ destRect.x, destRect.y, destRect.w , CROUCH_HEIGHT });
+	SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, CROUCH_HEIGHT };
+	collisionComponent->setCollider(rect);
+	Vector v = { positionComponent->getPos().x, positionComponent->getPos().y + STAND_HEIGHT - CROUCH_HEIGHT };
+	positionComponent->setPos(v);
 
 	// change state
 	if (!state.B)
 	{
+		SDL_Rect destRect = graphicsComponent->getDestRect();
+		graphicsComponent->setDestRect({ destRect.x, destRect.y, destRect.w , STAND_HEIGHT });
+		SDL_Rect rect = { collisionComponent->getCollider().x, collisionComponent->getCollider().y, collisionComponent->getCollider().w, STAND_HEIGHT };
+		collisionComponent->setCollider(rect);
 		// change direction animation
 		return new IdleState();
+	}
+
+	if (playerStateComponent->hasWon())
+	{
+		return new VictoryState();
+	}
+
+	if (!playerStateComponent->isAlive())
+	{
+		return new DeathState();
 	}
 
 	return nullptr;

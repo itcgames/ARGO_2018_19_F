@@ -13,7 +13,6 @@ Game::Game() :
 	SDL_Surface* icon = IMG_Load(".//resources//Logo.png");
 	SDL_SetWindowIcon(m_window, icon);	
 	SDL_FreeSurface(icon);
-
 	
 	//	Add all the screens to the screen manager, and then set the current screen.
 	m_screenManager.addScreen(new Splash(&m_screenManager, m_renderer));			//	done.
@@ -23,10 +22,9 @@ Game::Game() :
 	m_screenManager.addScreen(new Lobby(&m_screenManager, m_renderer));				//	not finished.
 	m_screenManager.addScreen(new LevelSelect(&m_screenManager, m_renderer));		//	done.
 	m_screenManager.addScreen(new Autumn(&m_screenManager, m_renderer));			//	not finished. see also spring, summer, and winter.
-	m_screenManager.addScreen(new Settings(&m_screenManager, m_renderer));			//	done.
 	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));			//	done.
 
-	m_screenManager.goToScreen("Play");
+	m_screenManager.goToScreen("Splash");
 }
 
 
@@ -92,7 +90,7 @@ void Game::run()
 		}
 
 		//	Call game functions.
-		update(deltaTime, e);
+		update(deltaTime);
 		render();
 	}
 }
@@ -103,9 +101,9 @@ void Game::run()
 /// 
 /// </summary>
 /// <param name="dt"></param>
-void Game::update(double dt, SDL_Event &e)
+void Game::update(double dt)
 {
-	m_screenManager.update(dt, e);
+	m_screenManager.update(dt);
 }
 
 

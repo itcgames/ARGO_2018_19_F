@@ -1,15 +1,16 @@
 #ifndef WINTER_H
 #define WINTER_H
 
-#include "Screens/Screen.h"
+#include "Screens/Levels/Level.h"
 
-class Winter : public Screen
+class Winter : public Level
 {
 public:
 	Winter(ScreenManager* screenManager, SDL_Renderer* renderer);
-	virtual void update(double dt, SDL_Event& e) override;
+	virtual void update(double dt) override;
 	virtual void render() override;
 private:
-
+	virtual void spawnLevelObstacles() override;
+	virtual void loadTextures() override;
 };
 #endif // !WINTER_H

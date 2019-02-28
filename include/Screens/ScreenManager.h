@@ -7,6 +7,7 @@
 #include "Networking/TCP_Client.h"
 #include "Networking/UDP_Client.h"
 #include <SDL_mixer.h>
+#include "ECS/Systems/ObserverSystem.h"
 
 class Screen;
 
@@ -17,7 +18,7 @@ public:
 	~ScreenManager();
 
 
-	void update(double dt, SDL_Event &e);
+	void update(double dt);
 	void render();
 
 	void addScreen(Screen* screen);
@@ -33,5 +34,7 @@ private:
 	std::map<std::string, Screen*> m_screens;
 	Screen* m_currentScreen;
 	UDPClient* m_client;
+
+	ObserverSystem *observer;
 };
 #endif // !SCREEN_MANAGER_H

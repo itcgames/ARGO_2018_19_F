@@ -141,18 +141,25 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Components\CursorComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\ObserverSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\PlacedComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\AICursorControlSystem.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\Node.cpp" />
     <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\ItemComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\PlayerStateComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\PlayerStateSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\UIControlSystem.cpp" />
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ButtonComponent.cpp" />
     <ClCompile Include="src\Networking\TCP_Client.cpp" />
     <ClCompile Include="src\ECS\Systems\CursorControlSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\BoxPhysicsSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\BoxPhysicsComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\SelectionBoxSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\SelectionBoxComponent.cpp" />
     <ClCompile Include="src\ECS\Components\AnimationComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ControllerComponent.cpp" />
     <ClCompile Include="src\ECS\Components\CollisionComponent.cpp" />
@@ -180,7 +187,6 @@
     <ClCompile Include="src\Screens\Menu.cpp" />
     <ClCompile Include="src\Screens\ModeSelect.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
-    <ClCompile Include="src\Screens\Settings.cpp" />
     <ClCompile Include="src\Screens\Splash.cpp" />
     <ClCompile Include="src\Screens\Title.cpp" />
     <ClCompile Include="src\ECS\Systems\PhysicsSystem.cpp" />
@@ -192,19 +198,24 @@
     <ClCompile Include="src\States\VictoryState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\CursorComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AICursorControlSystem.h" />
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\Node.h" />
     <ClInclude Include="include\AI\Tile.h" />
     <ClInclude Include="include\ECS\Components\AIComponent.h" />
     <ClInclude Include="include\ECS\Systems\AISystem.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
+    <ClInclude Include="include\ECS\Components\ItemComponent.h" />
+    <ClInclude Include="include\ECS\Components\PlayerStateComponent.h" />
     <ClInclude Include="include\ECS\Components\TextComponent.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
+    <ClInclude Include="include\ECS\Systems\PlayerStateSystem.h" />
     <ClInclude Include="include\Networking\Client.h" />
     <ClInclude Include="include\Networking\TCP_Client.h" />
     <ClInclude Include="include\ECS\Systems\CursorControlSystem.h" />
-    <ClInclude Include="include\ECS\Systems\BoxPhysicsSystem.h" />
-    <ClInclude Include="include\ECS\Components\BoxPhysicsComponent.h" />
+    <ClInclude Include="include\ECS\Systems\SelectionBoxSystem.h" />
+    <ClInclude Include="include\ECS\Components\SelectionBoxComponent.h" />
     <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
     <ClInclude Include="include\ECS\Components\CollisionComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -229,6 +240,7 @@
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\LevelSelect.h" />
     <ClInclude Include="include\Screens\Levels\Autumn.h" />
+    <ClInclude Include="include\Screens\Levels\Level.h" />
     <ClInclude Include="include\Screens\Levels\Spring.h" />
     <ClInclude Include="include\Screens\Levels\Summer.h" />
     <ClInclude Include="include\Screens\Levels\Winter.h" />
@@ -237,7 +249,6 @@
     <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
-    <ClInclude Include="include\Screens\Settings.h" />
     <ClInclude Include="include\Screens\Splash.h" />
     <ClInclude Include="include\Screens\Title.h" />
     <ClInclude Include="include\States\CrouchState.h" />
@@ -247,6 +258,8 @@
     <ClInclude Include="include\States\MovingState.h" />
     <ClInclude Include="include\States\PlayerState.h" />
     <ClInclude Include="include\States\VictoryState.h" />
+    <ClInclude Include="include\ECS\Components\PlacedComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ObserverSystem.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />

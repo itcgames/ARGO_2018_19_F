@@ -28,6 +28,7 @@ void PhysicsSystem::update(double dt)
 			}
 
 			velocity += acceleration * dt;
+
 			if (physicsComponent->getJumping() == false)
 			{
 				velocity *= friction;
@@ -44,7 +45,7 @@ void PhysicsSystem::update(double dt)
 			physicsComponent->setVelocity(velocity);
 			positionComponent->setPos(position);
 
-			acceleration = Vector(0, 0, 0);
+			acceleration = Vector();
 			physicsComponent->setAcceleration(acceleration);
 		}
 

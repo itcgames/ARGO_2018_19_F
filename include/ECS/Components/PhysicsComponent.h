@@ -25,7 +25,9 @@ public:
 	void setAcceleration(Vector& v);
 	void setFriction(Vector& v);
 	void setJumping(bool jump);
-	bool alive = true; 
+
+	void addAcceleration(float x, float y);
+
 	void useGravity(bool g);
 
 private:

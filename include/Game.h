@@ -13,7 +13,6 @@
 #include "Screens/ModeSelect.h"
 #include "Screens/LevelSelect.h"
 #include "Screens/Levels/Winter.h"
-#include "Screens/Settings.h"
 #include "Screens/Credits.h"
 #include "Screens/Lobby.h"
 
@@ -24,7 +23,7 @@ public:
 	~Game();
 	void run();
 private:
-	void update(double dt, SDL_Event &e);
+	void update(double dt);
 	void render();
 
 	SDL_Window* m_window;

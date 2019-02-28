@@ -6,12 +6,9 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
 
-class CursorControlSystem :
-	public System
+class CursorControlSystem : public System
 {
 public:
-	CursorControlSystem();
-	virtual ~CursorControlSystem();
 	virtual void update(double dt) override;	
 };
 #endif // CURSOR_CONTROL_SYSTEM_H

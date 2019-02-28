@@ -8,14 +8,9 @@ PhysicsComponent::PhysicsComponent() :
 	m_maxVelocity(Vector(10, 10)),
 	m_maxJumpVelocity(Vector(5, 5)),
 	m_acceleration(Vector(0, 0, 0)),
-	m_friction(Vector(.95, .99, 0))
+	m_friction(Vector(.95, .95, 0))
 {
 	m_id = "PHYSICS";
-	/*m_velocity = Vector(0,0,0);
-	m_maxVelocity = Vector(10, 10);
-	m_maxJumpVelocity = Vector(5, 5);
-	m_acceleration = Vector(0,0,0);
-	m_friction = Vector(.95,.99,0);*/
 	m_useGravity = true;
 }
 
@@ -31,15 +26,28 @@ Vector & PhysicsComponent::getVelocity()
 }
 
 
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
 Vector & PhysicsComponent::getMaxVelocity()
 {
 	return m_maxVelocity;
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
 Vector & PhysicsComponent::getMaxJumpVelocity()
 {
 	return m_maxJumpVelocity;
 }
+
+
 
 /// <summary>
 /// Getter - return a reference to component accleration
@@ -130,6 +138,19 @@ void PhysicsComponent::setJumping(bool jump)
 
 
 /// <summary>
+/// 
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+void PhysicsComponent::addAcceleration(float x, float y)
+{
+	m_acceleration.x += x;
+	m_acceleration.y += y;
+}
+
+
+
+/// <summary>
 /// Setter - update component gravity value
 /// </summary>
 /// <param name="v">boolean arguement</param>
@@ -137,4 +158,3 @@ void PhysicsComponent::useGravity(bool g)
 {
 	m_useGravity = g;
 }
-
