@@ -28,6 +28,7 @@ void Autumn::update(double dt)
 	m_clock += dt;
 	if (m_clock >= 5000 && m_gameInProgress == false)
 	{
+		m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
 		m_generatedNewObstacles = false;
@@ -47,6 +48,8 @@ void Autumn::update(double dt)
 			//	Reset player position
 			position->setPos(m_startPos);
 		}
+
+
 	}	
 
 	m_entityManager.gameLoop(dt, m_gameInProgress, m_online);

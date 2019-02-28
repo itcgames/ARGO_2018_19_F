@@ -114,17 +114,16 @@ void Grid::processObstacles(CollisionSystem * system)
 						{
 							if (j < m_gridHeight - 1)
 							{
-								m_goal = Vector(i, j + 1);
-								Node newNode = Node(Vector(i, j + 1, 0), m_nodes.size());
+								m_goal = Vector(i, j);
+								Node newNode = Node(Vector(i, j, 0), m_nodes.size());
 								newNode.setGoal(true);
 								m_nodes.push_back(std::make_shared<Node>(newNode));
-								m_grid[i][j + 1]->fill(255, 255, 255, 255);
+								m_grid[i][j]->fill(255, 255, 255, 255);
 							}
 						}
-						if (entity->getId() == "obstacle" || entity->getId() == "platform")
+						if (entity->getId() == "platform")
 						{
 							m_grid[i][j]->fill(255, 0, 0, 255);
-
 							m_grid[i][j]->setTraversable(false);
 						}
 					}

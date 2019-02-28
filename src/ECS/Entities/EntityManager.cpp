@@ -64,6 +64,10 @@ void EntityManager::render()
 			system->render(m_renderer);
 		}
 	}
+	if (getAISystem() != nullptr)
+	{
+		getAISystem()->render(m_renderer);
+	}
 }
 
 
@@ -113,6 +117,7 @@ void EntityManager::playing(double dt, bool online)
 	getCollisionSystem()->update(dt);
 	getPlayerStateSystem()->update(dt);
 	getPhysicsSystem()->update(dt);
+	getAISystem()->update(dt);
 	if (online)
 	{
 		getNetworkSystem()->update(dt);
@@ -169,7 +174,6 @@ void EntityManager::createAI(Vector startPosition, SDL_Texture * texture, SDL_Re
 	ai->addComponent(new CollisionComponent(collider, "player"));
 	ai->addComponent(new PhysicsComponent());
 	ai->addComponent(new AIComponent());
-	ai->addComponent(new ControllerComponent(0));
 
 	addToSystems(ai);
 	m_entities.push_back(ai);

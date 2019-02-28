@@ -58,7 +58,7 @@ public:
 	void render(SDL_Renderer* renderer)
 	{
 		SDL_SetRenderDrawColor(renderer, m_colour.r, m_colour.g, m_colour.b, m_colour.a);
-		SDL_RenderFillRect(renderer, m_rect);
+		SDL_RenderDrawRect(renderer, m_rect);
 	}
 
 private:
