@@ -75,7 +75,6 @@ void Grid::update(Entity * ai)
 		Vector next = Vector(m_currentTarget->getNext()->getLocation().x * m_tileWidth, (m_currentTarget->getNext()->getLocation().y * (m_tileHeight)-m_tileHeight));
 		position->setPos(next);
 	}
-
 }
 
 
@@ -144,15 +143,15 @@ void Grid::processObstacles(CollisionSystem * system)
 			{
 				if (i < m_gridWidth - 1 && i > 0) // if the current index is withing range
 				{
-					if (j < m_gridHeight - 1 && j > 0)
+					if (j < m_gridHeight - 1 && j > 0)// if the current index is withing range
 					{
-						if (!m_grid[i][j + 1]->getTraversable())
+						if (!m_grid[i][j + 1]->getTraversable()) // if the grid tile is a platform
 						{
 							Vector node = Vector(i, j , 0);
 							float distanceToGoal = std::abs(Vector::Distance(node, m_goal));
 							node.z = distanceToGoal;
 							Node newNode = Node(node, m_nodes.size());
-							if (m_grid[i + 1][j + 1]->getTraversable())
+							if (m_grid[i + 1][j + 1]->getTraversable()) // one past and beside platform (edge)
 							{
 								newNode.setShouldJump(true);
 							}
@@ -170,10 +169,11 @@ void Grid::processObstacles(CollisionSystem * system)
 std::shared_ptr<Node> Grid::getNextNode(Vector location)
 {
 	m_location = location;
-	float maxJump = 8;
+	float maxJump = 6;
 	float maxHorizontal = 12;
 	std::shared_ptr<Node> currentNode = m_nodes[m_grid[m_location.x][m_location.y]->getIndex()];
 
+	// check the next immediate node
 	if (currentNode != nullptr)
 	{
 		if (m_nodes[m_grid[m_location.x + 1][m_location.y]->getIndex()] != nullptr)
@@ -186,27 +186,33 @@ std::shared_ptr<Node> Grid::getNextNode(Vector location)
 		}
 	}
 
+	// iterate ahead of the character
 	for (int i = m_location.x - 2; i < m_gridWidth; i++)
 	{
 		if (location.y < maxJump)
 		{
 			maxJump = maxJump - location.y;
 		}
+		//iterate from the ground up to the max jump height
 		for (int j = m_gridHeight - 1; j > m_location.y - maxJump; j--)
 		{
-			if (m_nodes[m_grid[i][j]->getIndex()] != nullptr)
+			if (m_nodes[m_grid[i][j]->getIndex()] != nullptr) // make sure the node you are checking isnt null
 			{
-				std::shared_ptr<Node> nextNode = m_nodes[m_grid[i][j]->getIndex()];
-				if (nextNode != currentNode)
+				std::shared_ptr<Node> nextNode = m_nodes[m_grid[i][j]->getIndex()]; // node from map index
+				if (nextNode != currentNode) // dont check the same node (if possible)
 				{
 					Vector currentLocation = currentNode->getLocation();
 					Vector nextLocation = nextNode->getLocation();
 
-					if (nextLocation.z < currentLocation.z)
+					if (nextLocation.z < currentLocation.z) // weight (distance between) is less that current
 					{
+						if (j > currentLocation.y && currentLocation.y < 6) // if above the next node
+						{
+							maxHorizontal = 16;
+						}
 						if (std::abs(nextLocation.x - currentLocation.x) < maxHorizontal) // it can be reached
 						{
-							if (currentLocation.y < nextLocation.y)
+							if (currentLocation.y < nextLocation.y) // below
 							{
 								currentNode->setNext(nextNode); // set the next node
 								currentNode->setVisited(true); // set this node to be visited
@@ -218,13 +224,10 @@ std::shared_ptr<Node> Grid::getNextNode(Vector location)
 								m_location.y = j;
 								return currentNode;
 							}
-							else if(std::abs(currentLocation.y - nextLocation.y) < maxJump)
+							else if(std::abs(currentLocation.y - nextLocation.y) < maxJump) // jump up
 							{
-								if (currentLocation.y - nextLocation.y < maxJump || std::abs(nextLocation.x - currentLocation.x) > 1)
-								{
-									currentNode->setShouldJump(true);
-								}
 
+								currentNode->setShouldJump(true);
 								currentNode->setNext(nextNode); // set the next node
 								currentNode->setVisited(true); // set this node to be visited
 								nextNode->setPrevious(currentNode); // set the next nodes previous node to be this node
@@ -237,6 +240,7 @@ std::shared_ptr<Node> Grid::getNextNode(Vector location)
 							}
 						}
 					}
+					// cheat to the goal if needed
 					else if (Vector::Distance(currentLocation, m_goal) <= 3)
 					{
 						currentNode->setNext(m_nodes[m_grid[m_goal.x][m_goal.y]->getIndex()]);
@@ -247,6 +251,6 @@ std::shared_ptr<Node> Grid::getNextNode(Vector location)
 		}
 	}
 
-	return currentNode;
+	return currentNode; // return same node if no path detected
 }
 
