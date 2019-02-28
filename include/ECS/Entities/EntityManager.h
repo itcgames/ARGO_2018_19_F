@@ -30,6 +30,7 @@
 #include "ECS/Systems/UIControlSystem.h"
 #include "ECS/Systems/PlayerStateSystem.h"
 #include "ECS/Systems/AICursorControlSystem.h"
+#include "ECS/Systems/ObjectPlacedSystem.h"
 
 class EntityManager
 {
@@ -69,7 +70,7 @@ public:
 	/// Placement entities.
 	/// </summary>
 	void createSelectionBox();
-	void createCursor(int index, Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider);
+	void createCursor(int index);
 	void createAI(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
 	void createAICursor(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 
@@ -102,6 +103,7 @@ public:
 	PlayerStateSystem*		 getPlayerStateSystem();
 	AISystem*				 getAISystem();
 	AICursorControlSystem*	 getAICursorControlSystem();
+	ObjectPlacedSystem*		 getObjectPlacedSystem();
 
 	/// <summary>
 	/// Entities.

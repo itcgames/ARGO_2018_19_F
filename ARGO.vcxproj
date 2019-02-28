@@ -141,6 +141,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\ObjectPlacedSystem.cpp" />
     <ClCompile Include="src\ECS\Components\CursorComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\ObserverSystem.cpp" />
     <ClCompile Include="src\ECS\Components\PlacedComponent.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="include\States\VictoryState.h" />
     <ClInclude Include="include\ECS\Components\PlacedComponent.h" />
     <ClInclude Include="include\ECS\Systems\ObserverSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ObjectPlacedSystem.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />

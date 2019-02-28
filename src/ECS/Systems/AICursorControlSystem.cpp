@@ -93,7 +93,7 @@ void AICursorControlSystem::update(double dt, bool picking)
 
 							 if (position2->getPos().x <= v.x + 5 && position2->getPos().x >= v.x - 5 && position2->getPos().y <= v.y + 5 && position2->getPos().y >= v.y - 5)
 							{
-								placed->setPlaced();
+								placed->setPlaced(true);
 								random = false;
 								m_right = false;
 							}
@@ -147,7 +147,7 @@ void AICursorControlSystem::update(double dt, bool picking)
 
 						if (position2->getPos().x <= v.x + 5 && position2->getPos().x >= v.x - 5 && position2->getPos().y <= v.y + 5 && position2->getPos().y >= v.y - 5)
 						{
-							placed->setPlaced();
+							placed->setPlaced(true);
 							random = false;
 							m_right = false;
 						}

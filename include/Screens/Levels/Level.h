@@ -122,10 +122,10 @@ protected:
 		m_generatedNewObstacles = true;
 		int i = 0;
 		std::vector<Entity*> newObstacles;
-		while (i++ < 5)
+		while (i++ < 4)
 		{
-			int x = rand() % 1400;
-			int y = rand() % 700;
+			int x = rand() % 1000 + 200;
+			int y = rand() % 500 + 200;
 			int newObstacleType = rand() % 100 + 1;
 
 			//	Platform - 20% chance.

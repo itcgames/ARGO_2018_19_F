@@ -12,6 +12,7 @@ void CursorControlSystem::update(double dt)
 	{
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
+		PlacedComponent* placed = (PlacedComponent*)entity->getComponent("PLACED");
 
 		ControllerState currentState = controller->getCurrentState();
 		ControllerState previousState = controller->getPreviousState();
@@ -46,6 +47,7 @@ void CursorControlSystem::update(double dt)
 				v.y = positionComponent->getPos().y - 5;
 				positionComponent->setPos(v);
 			}
+			
 		}
 	}
 }

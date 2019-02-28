@@ -16,6 +16,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	spawnLevelObstacles();	
 	m_entityManager.createSelectionBox();
 	m_newObstacles = generateNewObstacles();
+
+	for (int i = 0; i < 4; i++)
+	{
+		m_entityManager.createCursor(i);
+	}
 }
 
 
@@ -27,7 +32,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt)
 {
 	m_clock += dt;
-	if (m_clock >= 5000 && m_gameInProgress == false)
+	if (m_gameInProgress == false && m_entityManager.getObjectPlacedSystem()->getNumberOfObjectsPlaced() == m_newObstacles.size())
 	{
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
@@ -47,9 +52,11 @@ void Autumn::update(double dt)
 
 			//	Reset player position
 			position->setPos(m_startPos);
+			
+			
 		}
-	}	
 
+	}	
 	m_entityManager.gameLoop(dt, m_gameInProgress, m_online);
 
 	if (m_entityManager.getPlayerStateSystem()->getNumberOfPlayersStillPlaying() <= 0 && m_gameInProgress == true)
@@ -59,11 +66,71 @@ void Autumn::update(double dt)
 		m_clock = 0;
 		SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
 		selectionBox->setIsVisible(true);	
-
+		for (Entity* entity : m_entityManager.getObjectPlacedSystem()->m_entities)
+		{
+			m_entityManager.getObjectPlacedSystem()->removeEntity(entity);
+		}
 		if (m_generatedNewObstacles == false)
 		{
+			
 			m_newObstacles = generateNewObstacles();
+			for (int i = 0; i < 4; i++)
+			{
+				m_entityManager.createCursor(i);
+			}
 		}		
+
+		bool allPlaced = true;
+		for (Entity* entity : m_entityManager.getEntities())
+		{
+			if (entity->getId() == "platform" || entity->getId() == "obstacle")
+			{
+				PlacedComponent *placed = (PlacedComponent*)entity->getComponent("PLACED");
+				if (placed->getPlaced() == false)
+				{
+					allPlaced = false;
+					break;
+
+				}
+
+			}
+		}
+		std::cout << m_clock << std::endl;
+		if (allPlaced || m_clock > 15000)
+		{
+			m_gameInProgress = true;
+			std::vector<Entity*> cursors = m_entityManager.getEntitiesWithTag("cursor");
+			for (Entity* cursor : cursors)
+			{
+				PlacedComponent *placed = (PlacedComponent*)cursor->getComponent("PLACED");
+				if (placed->getPlaced() == true)
+				{
+					m_entityManager.removeEntity(cursor);
+				}
+			}
+
+			for (Entity* obstacle : m_newObstacles)
+			{
+				PlacedComponent* placed = (PlacedComponent*)obstacle->getComponent("PLACED");
+				placed->setPlaced(true);
+			}
+		}
+	}
+
+	if (m_clock > 15000)
+	{
+		m_gameInProgress = true;
+		std::vector<Entity*> cursors = m_entityManager.getEntitiesWithTag("cursor");
+		for (Entity* cursor : cursors)
+		{
+			m_entityManager.removeEntity(cursor);
+		}
+
+		for (Entity* obstacle : m_newObstacles)
+		{
+			PlacedComponent* placed = (PlacedComponent*)obstacle->getComponent("PLACED");
+			placed->setPlaced(true);
+		}
 	}
 }
 

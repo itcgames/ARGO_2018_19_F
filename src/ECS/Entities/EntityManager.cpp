@@ -94,6 +94,7 @@ void EntityManager::gameLoop(double dt, bool gameInProgress, bool online)
 void EntityManager::placement(double dt, bool online)
 {
 	getCursorControlSystem()->update(dt);
+	getCollisionSystem()->update(dt);
 	if (online)
 	{
 		getNetworkSystem()->update(dt);
@@ -387,18 +388,42 @@ void EntityManager::createSelectionBox()
 /// <param name="destRect">The dest rectangle the texture will use.</param>
 /// <param name="collider">The cursor's collider.</param>
 /// <returns></returns>
-void EntityManager::createCursor(int index, Vector startPosition, SDL_Texture* texture, SDL_Rect destRect, SDL_Rect collider)
+void EntityManager::createCursor(int index)
 {
+	SDL_Texture* texture;
+	Vector startPosition;
+	if (index == 0)
+	{
+		texture = SDL2Help::LoadTexture(RESOURCES_PATH + "Cursors//Red_Cursor.png", m_renderer);
+		startPosition = { 400, 100 };
+	}
+	else if (index == 1)
+	{
+		texture = SDL2Help::LoadTexture(RESOURCES_PATH + "Cursors//Blue_Cursor.png", m_renderer);
+		startPosition = { 400, 600 };
+	}
+	else if (index == 2)
+	{
+		texture = SDL2Help::LoadTexture(RESOURCES_PATH + "Cursors//Green_Cursor.png", m_renderer);
+		startPosition = { 1000, 100 };
+	}
+	else
+	{
+		texture = SDL2Help::LoadTexture(RESOURCES_PATH + "Cursors//Yellow_Cursor.png", m_renderer);
+		startPosition = { 1000, 600 };
+	}
 	TextureAttributes attributes = SDL2Help::getTextureAttributes(texture);
 	SDL_Rect srcRect = { 0, 0, attributes.width, attributes.height };
+	SDL_Rect destRect = { 0,0, 200,200 };
 
 	Entity* cursor = new Entity();
 	cursor->setId("cursor");
 	cursor->addComponent(new PositionComponent(startPosition));
 	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
-	cursor->addComponent(new CollisionComponent(collider, "cursor"));
+	cursor->addComponent(new CollisionComponent(destRect, "cursor"));
 	cursor->addComponent(new ControllerComponent(index));
 	cursor->addComponent(new PlacedComponent());
+	cursor->addComponent(new CursorComponent());
 
 	addToSystems(cursor);
 	m_entities.push_back(cursor);
@@ -706,6 +731,11 @@ AICursorControlSystem * EntityManager::getAICursorControlSystem()
 
 }
 
+ObjectPlacedSystem * EntityManager::getObjectPlacedSystem()
+{
+	return (ObjectPlacedSystem*)m_systems["OBJPLACED"];
+}
+
 
 /// <summary>
 /// Returns the PlayerStateSystem.
@@ -969,8 +999,13 @@ void EntityManager::addToSystems(Entity* entity)
 		{
 			m_systems["AI_CURSOR"] = new AICursorControlSystem();
 		}
-
+		if (m_systems["OBJPLACED"] == nullptr)
+		{
+			m_systems["OBJPLACED"] = new ObjectPlacedSystem();
+		}
 		//	Add entity to system.
 		m_systems["AI_CURSOR"]->addEntity(entity);
+		m_systems["OBJPLACED"]->addEntity(entity);
 	}
+
 }

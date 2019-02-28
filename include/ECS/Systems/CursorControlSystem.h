@@ -5,6 +5,7 @@
 #include "ECS/Components/ControllerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/CollisionComponent.h"
+#include "ECS/Components/PlacedComponent.h"
 
 class CursorControlSystem : public System
 {
