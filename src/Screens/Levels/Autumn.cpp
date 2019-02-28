@@ -26,7 +26,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt)
 {
 	m_clock += dt;
-	if (m_clock >= 5000 && m_gameInProgress == false)
+	if (m_clock >= 1000 && m_gameInProgress == false)
 	{
 		m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 		//	Start the playing phase of the game.

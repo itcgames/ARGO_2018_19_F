@@ -3,7 +3,7 @@
 AISystem::AISystem()
 {
 	Vector screen = Vector(1600, 900);
-	m_grid = Grid(screen, 50, 50);
+	m_grid = Grid(screen, 40, 48);
 }
 
 void AISystem::update(double dt)

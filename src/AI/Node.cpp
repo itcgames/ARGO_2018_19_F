@@ -7,6 +7,7 @@ Node::Node(Vector location, int index)
 	m_goal = false;
 	m_start = false;
 	m_shouldJump = false;
+	m_goBack = false;
 }
 
 void Node::setStart(bool start)
