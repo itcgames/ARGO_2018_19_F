@@ -3,32 +3,23 @@
 //	Project
 #include "ECS/Components/Component.h"
 #include "SDL.h"
+#include <vector>
 
 class CollisionComponent : public Component
 {
 public:
-	CollisionComponent(SDL_Rect collider, std::string tag);
+	CollisionComponent(SDL_Rect collider, std::string mainTag, std::string secondaryTag = "");
 
 	SDL_Rect& getCollider();
 	void setCollider(SDL_Rect& collider);
-	bool IsColliding();
-	void setIsColliding(bool isColliding);
-	bool getObstacleCursor();
-	bool getCursorState();
-	void setCursorState(bool b);
-	void setObstacleCursor(bool b);
-	bool getCollectedObj();
-	void setCollectedObj(bool b);
 
-	std::string m_tag;
+	std::string getMainTag();
+	std::string getSecondaryTag();
 
 private:
 	SDL_Rect m_collider;
-	bool m_isColliding;
-	bool m_obstacleCursor;
-	bool m_cursorActive;
-	bool m_collectedObj;
 
-	//bools for collecting and dropping items
+	std::string m_mainTag;
+	std::string m_secondaryTag;
 };
 #endif // !COLLISION_COMPONENT_H

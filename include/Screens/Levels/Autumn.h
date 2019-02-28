@@ -2,7 +2,7 @@
 #define AUTUMN_H
 
 #include "Screens/Levels/Level.h"
-#include <SDL_mixer.h>
+#include "AI/Grid.h"
 
 class Autumn : public Level
 {
@@ -15,8 +15,12 @@ private:
 	virtual void spawnLevelObstacles() override;	
 	virtual void loadTextures() override;
 
-	Mix_Music * m_music;
-	Mix_Chunk * m_effect;
-	bool m_startMusic;
+	bool m_gameInProgress;
+	bool m_online;
+	double m_clock;
+
+	std::vector<Entity*> m_deaths;
+	
+	int m_count;
 };
 #endif // !AUTUMN_H

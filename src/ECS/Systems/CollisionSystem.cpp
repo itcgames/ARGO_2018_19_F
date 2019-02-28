@@ -3,348 +3,183 @@
 /// <summary>
 /// 
 /// </summary>
+CollisionSystem::CollisionSystem()
+{
+	m_spikeSound = Mix_LoadWAV(".//resources//Sounds//spiketrap.wav");
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="dt"></param>
 void CollisionSystem::update(double dt)
 {
 	for (Entity* entity1 : m_entities)
 	{
-		PositionComponent* e1Position = (PositionComponent*)entity1->getComponent("POSITION");
-		PhysicsComponent* e1PhysicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
-		CollisionComponent* e1Collision = (CollisionComponent*)entity1->getComponent("COLLISION");
-		ControllerComponent* e1Controller = (ControllerComponent*)entity1->getComponent("CONTROLLER");
-
-		e1Collision->setIsColliding(false);
-
-		int cursorCount = 0;
+		PositionComponent* e1Position			= (PositionComponent*)entity1->getComponent("POSITION");
+		PhysicsComponent* e1PhysicsComponent	= (PhysicsComponent*)entity1->getComponent("PHYSICS");
+		CollisionComponent* e1Collision			= (CollisionComponent*)entity1->getComponent("COLLISION");
+		ControllerComponent* e1Controller		= (ControllerComponent*)entity1->getComponent("CONTROLLER");
+		PlayerStateComponent* e1StateComponent	= (PlayerStateComponent*)entity1->getComponent("PLAYER_STATE");
+		CursorComponent* e1CursorComponent		= (CursorComponent*)entity1->getComponent("CURSOR");
 
 		for (Entity* entity2 : m_entities)
 		{
-			PositionComponent* e2Position = (PositionComponent*)entity2->getComponent("POSITION");
-			PhysicsComponent* e2PhysicsComponent = (PhysicsComponent*)entity2->getComponent("PHYSICS");
-			CollisionComponent* e2Collision = (CollisionComponent*)entity2->getComponent("COLLISION");
-			ControllerComponent* e2Controller = (ControllerComponent*)entity2->getComponent("CONTROLLER");
-
 			if (entity1 != entity2)
 			{
-				if (e1Position->getPos().x <= e2Position->getPos().x + e2Collision->getCollider().w &&
-					e1Position->getPos().x + e1Collision->getCollider().w >= e2Position->getPos().x &&
-					e1Position->getPos().y <= e2Position->getPos().y + e2Collision->getCollider().h &&
-					e1Position->getPos().y + e1Collision->getCollider().h >= e2Position->getPos().y)
+				PositionComponent* e2Position			= (PositionComponent*)entity2->getComponent("POSITION");
+				PhysicsComponent* e2PhysicsComponent	= (PhysicsComponent*)entity2->getComponent("PHYSICS");
+				CollisionComponent* e2Collision			= (CollisionComponent*)entity2->getComponent("COLLISION");
+			
+				if (e1Position->getPos().x + e1Collision->getCollider().x <= e2Position->getPos().x + e2Collision->getCollider().x + e2Collision->getCollider().w &&
+					e1Position->getPos().x + e1Collision->getCollider().x + e1Collision->getCollider().w >= e2Position->getPos().x + e2Collision->getCollider().x &&
+					e1Position->getPos().y + e1Collision->getCollider().y <= e2Position->getPos().y + e2Collision->getCollider().y + e2Collision->getCollider().h &&
+					e1Position->getPos().y + e1Collision->getCollider().y + e1Collision->getCollider().h >= e2Position->getPos().y + e2Collision->getCollider().y)
 				{
-					if (!e1Collision->IsColliding())
+					/// <summary>
+					/// Collisions involving players
+					/// </summary>
+					if (e1Collision->getMainTag() == "player")
 					{
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "platform")
+						Vector velocity = e1PhysicsComponent->getVelocity();
+						Vector position = e1Position->getPos();
+
+						std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
+
+						//	Collision with a platform.
+						if (e2Collision->getMainTag() == "platform")
 						{
-							e1Collision->setIsColliding(true);
-							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
-							Vector velocity = physicsComponent->getVelocity();
-							Vector position = e1Position->getPos();
+							/// <summary>
+							/// If its a standard platform.
+							/// </summary>
+							if (e2Collision->getSecondaryTag() == "" || e2Collision->getSecondaryTag() == "I")
+							{
+								// check the top
+								if (direction == "top")
+								{
+									position.y = e2Position->getPos().y + e2Collision->getCollider().y - e1Collision->getCollider().h;
+									e1Position->setPos(position);
+									velocity.y = 0;
+									e1PhysicsComponent->setVelocity(velocity);
+									e1PhysicsComponent->setJumping(false);
+								}
+								// check the bottom
+								if (direction == "bottom")
+								{
+									position.y = e2Position->getPos().y + e2Collision->getCollider().y + e2Collision->getCollider().h;
+									e1Position->setPos(position);
+									velocity.y = 0;
+									e1PhysicsComponent->setVelocity(velocity);
+								}
+								// check the left
+								if (direction == "left")
+								{
+									position.x = e2Position->getPos().x + e2Collision->getCollider().x - e1Collision->getCollider().w;
+									e1Position->setPos(position);
+									velocity.x = 0;
+									e1PhysicsComponent->setVelocity(velocity);
+								}
+								// check the right
+								if (direction == "right")
+								{
+									position.x = e2Position->getPos().x + e2Collision->getCollider().x + e2Collision->getCollider().w;
+									e1Position->setPos(position);
+									velocity.x = 0;
+									e1PhysicsComponent->setVelocity(velocity);
+								}
+							}
+							/// <summary>
+							/// If the platform is a spring.
+							/// </summary>
+							else if (e2Collision->getSecondaryTag() == "spring")
+							{
+								// check the top
+								if (direction == "top")
+								{
+									position.y = e2Position->getPos().y - e1Collision->getCollider().h;
+									e1Position->setPos(position);
+									velocity.y = -30;
+									e1PhysicsComponent->setVelocity(velocity);
+									e1PhysicsComponent->setJumping(true);
+								}
+							}
+						}
+						/// <summary>
+						/// Collision with an obstacle.
+						/// </summary>
+						else if (e2Collision->getMainTag() == "obstacle")
+						{
+							//	 If the player is alive.
+							if (e1StateComponent != nullptr && e1StateComponent->isAlive())
+							{
+								//	Kill the player.
+								e1StateComponent->setAlive(false);
 
-							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
-
-
-							// check the top
-							if (direction == "top")
-							{
-								position.y = e2Position->getPos().y - e1Collision->getCollider().h;
-								e1Position->setPos(position);
-								velocity.y = 0;
-								physicsComponent->setVelocity(velocity);
-								physicsComponent->setJumping(false);
-							}
-							// check the bottom
-							if (direction == "bottom")
-							{
-								position.y = e2Position->getPos().y + e2Collision->getCollider().h;
-								e1Position->setPos(position);
-								velocity.y = 0;
-								physicsComponent->setVelocity(velocity);
-							}
-							// check the left
-							if (direction == "left")
-							{
-								position.x = e2Position->getPos().x - e1Collision->getCollider().w;
-								e1Position->setPos(position);
-								velocity.x = 0;
-								physicsComponent->setVelocity(velocity);
-							}
-							// check the right
-							if (direction == "right")
-							{
-								position.x = e2Position->getPos().x + e2Collision->getCollider().w;
-								e1Position->setPos(position);
-								velocity.x = 0;
-								physicsComponent->setVelocity(velocity);
-							}
+								/// <summary>
+								/// If the obstacle was a spike.
+								/// </summary>									
+								if (e2Collision->getSecondaryTag() == "spike")
+								{
+									//	Play the spike sound effect.
+									Mix_PlayChannel(4, m_spikeSound, 0);
+								}
+							}							
 						}
 
 						/// <summary>
-						/// Collision and physics for the
+						/// Collision with the goal.
 						/// </summary>
-						/// <param name="dt"></param>
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "springboard")
+						if (e2Collision->getMainTag() == "goal")
 						{
-							e1Collision->setIsColliding(true);
-							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
-							Vector velocity = physicsComponent->getVelocity();
-							Vector position = e1Position->getPos();
-
-							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
-
-
-							// check the top
-							if (direction == "top")
+							if (e1StateComponent != nullptr)
 							{
-								position.y = e2Position->getPos().y - e1Collision->getCollider().h;
-								e1Position->setPos(position);
-								velocity.y = -30;
-								physicsComponent->setVelocity(velocity);
-								physicsComponent->setJumping(true);
-								e1Collision->setCursorState(true);
+								if (!e1StateComponent->hasWon())
+								{
+									e1StateComponent->setWon(true);
+								}
 							}
-							else
-							{
-								e1Collision->setCursorState(true);
-							}
+						}						
+					}					
+
+					/// <summary>
+					/// Collisions involving the cursor AND a platform OR obstacle.
+					/// </summary>
+					if (e1Collision->getMainTag() == "cursor" && (e2Collision->getMainTag() == "platform" || e2Collision->getMainTag() == "obstacle"))
+					{
+						ControllerState currentState = e1Controller->getCurrentState();
+						ControllerState previousState = e1Controller->getPreviousState();
+
+						// Get the right and bottom of the colliders
+						Vector cursor = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
+						Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
+
+						float top = cursor.y - e2Position->getPos().y;
+						float bottom = entity.y - e1Position->getPos().y;
+						float left = cursor.x - e2Position->getPos().x;
+						float right = entity.x - e1Position->getPos().x;
+							
+						if ((top < bottom)										||
+							(bottom < top && bottom < left && bottom < right)	||
+							(left < right && left < top && left < bottom)		||
+							(right < left && right < top && right < bottom)		&&
+							previousState.A)
+						{
+							e1CursorComponent->flipHoldingObject();
 						}
 
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "obstacle" && !e1Collision->getCursorState())
+						if (e1CursorComponent->isHoldingObject() == true)
 						{
-							PhysicsComponent* physicsComponent = (PhysicsComponent*)entity1->getComponent("PHYSICS");
-							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
-
-							// if it has collided with any side
-							if (direction != "")
-							{
-								std::cout << "you died" << std::endl;
-								if (physicsComponent->alive)
-									Mix_PlayChannel(4, m_spikeSound, 0);
-								physicsComponent->alive = false;
-
-							}
+							e2Position->setPos(e1Position->getPos());
 						}
 
-						if (e1Collision->m_tag == "player" && e2Collision->m_tag == "goal")
+						if (currentState.A && e2Position->getPos() == e1Position->getPos())
 						{
-							std::string direction = handleBoxCollision(e1Position->getPos(), e1Collision->getCollider(), e2Position->getPos(), e2Collision->getCollider());
-
-							// if it has collided with any side
-							if (direction != "")
-							{
-								std::cout << "you win" << std::endl;
-							}
-						}
-
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "springboard" && !e1Collision->getCursorState() && !m_platGrab && !m_obGrab)//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
-						{
-							ControllerState currentState = e1Controller->getCurrentState();
-							ControllerState previousState = e1Controller->getPreviousState();
-
-							// Get the right and bottom of the colliders
-							Vector cursor = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
-
-							float top = cursor.y - e2Position->getPos().y;
-							float bottom = entity.y - e1Position->getPos().y;
-							float left = cursor.x - e2Position->getPos().x;
-							float right = entity.x - e1Position->getPos().x;
-
-							//check the top
-							if (top < bottom && previousState.A)// && !previousState.A ) //top < left && top < right &&
-							{
-								m_grabbed = !m_grabbed;
-								m_springGrab = !m_springGrab;
-							}
-
-							//check the bottom
-							if (bottom < top && bottom < left && bottom < right && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_springGrab = !m_springGrab;
-							}
-
-							//check the left
-							if (left < right && left < top && left < bottom && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_springGrab = !m_springGrab;
-							}
-
-							//check the right
-							if (right < left && right < top && right < bottom && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_springGrab = !m_springGrab;
-							}
-
-							if (m_grabbed == true)
-							{
-								e1Collision->setObstacleCursor(true);
-								e2Position->setPos(e1Position->getPos());
-
-								//e1Collision->setCursorState(true);
-								e1Collision->setCollectedObj(true);
-								std::cout << e2Position->getPos().x << ", " << e1Position->getPos().x << std::endl;
-								std::cout << e2Position->getPos().y << ", " << e1Position->getPos().y << std::endl;
-							}
-
-							if (currentState.Y)
-							{
-								m_grabbed = false;
-							}
-
-							if (m_grabbed == false)
-							{
-								e2Position->setPos(e2Position->getPos());
-							}
-
-							if (currentState.A && e2Position->getPos() == e1Position->getPos())
-							{
-								m_grabbed = false;
-							}
-						}
-
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "platform" && !e1Collision->getCursorState() && !m_obGrab && !m_springGrab)//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
-						{
-							ControllerState currentState = e1Controller->getCurrentState();
-							ControllerState previousState = e1Controller->getPreviousState();
-
-							// Get the right and bottom of the colliders
-							Vector cursor = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
-
-							float top = cursor.y - e2Position->getPos().y;
-							float bottom = entity.y - e1Position->getPos().y;
-							float left = cursor.x - e2Position->getPos().x;
-							float right = entity.x - e1Position->getPos().x;
-
-							//check the top
-							if (top < bottom && previousState.A)// && !previousState.A ) //top < left && top < right &&
-							{
-								m_grabbed = !m_grabbed;
-								m_platGrab = !m_platGrab;
-							}
-
-							//check the bottom
-							if (bottom < top && bottom < left && bottom < right && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_platGrab = !m_platGrab;
-							}
-
-							//check the left
-							if (left < right && left < top && left < bottom && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_platGrab = !m_platGrab;
-							}
-
-							//check the right
-							if (right < left && right < top && right < bottom && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_platGrab = !m_platGrab;
-							}
-
-							if (m_grabbed == true)
-							{
-								e1Collision->setObstacleCursor(true);
-								e2Position->setPos(e1Position->getPos());
-
-								//e1Collision->setCursorState(true);
-								e1Collision->setCollectedObj(true);
-								std::cout << e2Position->getPos().x << ", " << e1Position->getPos().x << std::endl;
-								std::cout << e2Position->getPos().y << ", " << e1Position->getPos().y << std::endl;
-							}
-
-							if (currentState.Y)
-							{
-								m_grabbed = false;
-							}
-
-							if (m_grabbed == false)
-							{
-								e2Position->setPos(e2Position->getPos());
-							}
-
-							if (currentState.A && e2Position->getPos() == e1Position->getPos())
-							{
-								m_grabbed = false;
-							}
-						}
-
-						if (e1Collision->m_tag == "cursor" && e2Collision->m_tag == "obstacle" && !e1Collision->getCursorState() && !m_platGrab && !m_springGrab)//e2Collision->m_tag == "platform" /*|| e2Collision->m_tag == "Obstacle"*/)
-						{
-							ControllerState currentState = e1Controller->getCurrentState();
-							ControllerState previousState = e1Controller->getPreviousState();
-
-							// Get the right and bottom of the colliders
-							Vector cursor = Vector(e1Position->getPos().x + e1Collision->getCollider().w, e1Position->getPos().y + e1Collision->getCollider().h);
-							Vector entity = Vector(e2Position->getPos().x + e2Collision->getCollider().w, e2Position->getPos().y + e2Collision->getCollider().h);
-
-							float top = cursor.y - e2Position->getPos().y;
-							float bottom = entity.y - e1Position->getPos().y;
-							float left = cursor.x - e2Position->getPos().x;
-							float right = entity.x - e1Position->getPos().x;
-
-							//check the top
-							if (top < bottom && previousState.A)// && !previousState.A ) //top < left && top < right &&
-							{
-								m_grabbed = !m_grabbed;
-								m_obGrab = !m_obGrab;
-							}
-
-							//check the bottom
-							if (bottom < top && bottom < left && bottom < right && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_obGrab = !m_obGrab;
-							}
-
-							//check the left
-							if (left < right && left < top && left < bottom && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_obGrab = !m_obGrab;
-							}
-
-							//check the right
-							if (right < left && right < top && right < bottom && previousState.A)
-							{
-								m_grabbed = !m_grabbed;
-								m_obGrab = !m_obGrab;
-							}
-
-							if (m_grabbed == true)
-							{
-								e1Collision->setObstacleCursor(true);
-								e2Position->setPos(e1Position->getPos());
-
-								//e1Collision->setCursorState(true);
-								e1Collision->setCollectedObj(true);
-								std::cout << e2Position->getPos().x << ", " << e1Position->getPos().x << std::endl;
-								std::cout << e2Position->getPos().y << ", " << e1Position->getPos().y << std::endl;
-							}
-
-							if (currentState.Y)
-							{
-								m_grabbed = false;
-							}
-
-							if (m_grabbed == false)
-							{
-								e2Position->setPos(e2Position->getPos());
-							}
-
-							if (currentState.A && e2Position->getPos() == e1Position->getPos())
-							{
-								m_grabbed = false;
-							}
-						}
-
-
-					}
-				}
+							e1CursorComponent->setIsHoldingObject(false);
+						}						
+					}					
+				}				
 			}
 		}
 	}
@@ -352,9 +187,29 @@ void CollisionSystem::update(double dt)
 
 
 
+/// <summary>
+/// 
+/// </summary>
+void CollisionSystem::render(SDL_Renderer * renderer)
+{
+	for (Entity* entity : m_entities)
+	{
+		PositionComponent* position = (PositionComponent*)entity->getComponent("POSITION");
+		CollisionComponent* collision = (CollisionComponent*)entity->getComponent("COLLISION");
+
+		if (position != nullptr && collision != nullptr)
+		{
+			SDL_Rect colliderRect = { position->getPos().x, position->getPos().y, collision->getCollider().w, collision->getCollider().h };
+			//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+			//SDL_RenderFillRect(renderer, &colliderRect);
+		}
+	}
+}
+
+
 
 /// <summary>
-/// function that returns a string
+/// function that returns a string indicating the direction of the collision
 /// </summary>
 /// <param name="p1"></param>
 /// <param name="c1"></param>
@@ -366,8 +221,8 @@ std::string CollisionSystem::handleBoxCollision(Vector & p1, SDL_Rect & c1, Vect
 	std::string direction = "";
 
 	// Get the right and bottom of the colliders
-	Vector player = Vector(p1.x + c1.w, p1.y + c1.h);
-	Vector entity = Vector(p2.x + c2.w, p2.y + c2.h);
+	Vector player = Vector(p1.x  + c1.x + c1.w, p1.y + c1.y + c1.h);
+	Vector entity = Vector(p2.x  + c2.x + c2.w, p2.y + c2.y + c2.h);
 
 	float top = player.y - p2.y;
 	float bottom = entity.y - p1.y;

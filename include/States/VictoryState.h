@@ -7,7 +7,7 @@
 class VictoryState : public PlayerState
 {
 public:
-	VictoryState() {};
+	VictoryState() { m_stateId = "Victory"; };
 	virtual PlayerState* handleState(Entity* entity, ControllerState& state);
 	virtual void update(double dt, Entity* entity);
 	virtual void enter(Entity* entity);

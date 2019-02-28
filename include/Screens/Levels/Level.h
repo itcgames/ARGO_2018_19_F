@@ -1,12 +1,27 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#define MAX_PLAYERS 4
+#define MAX_PLAYERS 1
 
 #include <random>
 
 #include "Screens/Screen.h"
 #include "ECS/Entities/EntityManager.h"
+
+enum ObstacleTypes
+{
+	Spike,
+	Platform,
+	Springboard,
+	Teleporter,
+	Dynamite,
+	Bomb,
+	Nuke,
+	FerrisWheel,
+	BallLauncher,
+	HurleyMachine,
+	Crossbow
+};
 
 class Level : public Screen
 {
@@ -53,19 +68,18 @@ protected:
 		for (int i = 0; i < MAX_PLAYERS; i++)
 		{
 			bool controllable = false;
-			SDL_Texture* texture = randomPlayerTexture(i);
-			TextureAttributes textureAttributes = SDL2Help::getTextureAttributes(texture);
-			SDL_Rect srcRect = { 0, 0, textureAttributes.width, textureAttributes.height };
+			std::pair<SDL_Rect, SDL_Texture*> pair = randomPlayerTexture(i);
+			TextureAttributes textureAttributes = SDL2Help::getTextureAttributes(pair.second);
 			SDL_Rect destRect = { 0, 0, 80, 96 };
-			Vector animStart = {};
-			Vector animEnd = {};
+			Vector animStart = {0, 0};
+			Vector animEnd = {0, 0};
 
 			if (i < controllablePlayers)
 			{
 				controllable = true;
 			}
 
-			m_entityManager.createPlayer(i, m_startPos, texture, srcRect, destRect, animStart, animEnd, destRect, controllable, online);
+			m_entityManager.createPlayer(i, m_startPos, pair.second, pair.first, destRect, animStart, animEnd, destRect, controllable, online);
 		}
 	}
 
@@ -74,7 +88,7 @@ protected:
 	/// </summary>
 	/// <param name="playerNum"></param>
 	/// <returns></returns>
-	virtual SDL_Texture*  randomPlayerTexture(int playerNum)
+	virtual std::pair<SDL_Rect, SDL_Texture*> randomPlayerTexture(int playerNum)
 	{
 		std::string colour;
 		if (playerNum == 0)
@@ -99,6 +113,84 @@ protected:
 		return m_playerTextures[colour][random];
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	std::vector<Entity*> generateNewObstacles()
+	{
+		m_generatedNewObstacles = true;
+		int i = 0;
+		std::vector<Entity*> newObstacles;
+		while (i++ < 5)
+		{
+			int x = rand() % 1400;
+			int y = rand() % 700;
+			int newObstacleType = rand() % 100 + 1;
+
+			//	Platform - 20% chance.
+			if (newObstacleType <= 100)
+			{
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "Obstacles//Platforms//Tetris I Rotated.png", m_renderer), {0, 0, 200, 40}, {0, 0, 200, 40}, "I"));
+			}
+			//	Spike - 10% chance.
+			else if (newObstacleType <= 30)
+			{
+				newObstacles.push_back(m_entityManager.returnObstacle(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Springboard - 10% chance.
+			else if (newObstacleType <= 40)
+			{
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Teleporter - 5% chance.
+			else if (newObstacleType <= 45)
+			{
+				newObstacles.push_back(m_entityManager.returnObstacle(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));;
+			}
+			//	Dynamite - 10% chance.
+			else if (newObstacleType <= 55)
+			{
+				//	A removal object needs to be added, supporting functions are already in place.
+				//	newObstacles.push_back();
+			}
+			//	Bomb - 5% chance.
+			else if (newObstacleType <= 60)
+			{
+				//	A removal object needs to be added, supporting functions are already in place.
+				//	newObstacles.push_back();
+			}
+			//	Nuke - 5% chance.
+			else if (newObstacleType <= 65)
+			{
+				//	A removal object needs to be added, supporting functions are already in place. 
+				//	newObstacles.push_back();
+			}
+			//	Ferriswheel - 10% chance.
+			else if (newObstacleType <= 75)
+			{
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Ball launcher - 5% chance.
+			else if (newObstacleType <= 80)
+			{
+				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
+			}
+			//	Hurley machine - 10% chance.
+			else if (newObstacleType <= 90)
+			{
+				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
+			}
+			//	Crossbow - 10% chance.
+			else if (newObstacleType <= 100)
+			{
+				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
+			}
+		}
+
+		return newObstacles;
+	}
+
 	virtual void spawnLevelObstacles() = 0;
 	virtual void loadTextures() = 0;
 
@@ -107,6 +199,9 @@ protected:
 	Vector m_startPos;
 	Vector m_endPos;
 
-	std::map<std::string, std::vector<SDL_Texture*>> m_playerTextures;
+	std::vector<Entity*> m_newObstacles;
+	bool m_generatedNewObstacles;
+
+	std::map<std::string, std::vector<std::pair<SDL_Rect, SDL_Texture*>>> m_playerTextures;
 };
 #endif // !LEVEL_H

@@ -55,10 +55,10 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 
 	for (Entity* entity : m_entities)
 	{
-		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
-		GraphicsComponent* graphicsComponent = (GraphicsComponent*)entity->getComponent("GRAPHICS");
-		AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
-		ButtonComponent* buttonComponent = (ButtonComponent*)entity->getComponent("BUTTON");
+		PositionComponent* positionComponent	= (PositionComponent*)entity->getComponent("POSITION");
+		GraphicsComponent* graphicsComponent	= (GraphicsComponent*)entity->getComponent("GRAPHICS");
+		AnimationComponent* animationComponent	= (AnimationComponent*)entity->getComponent("ANIMATION");
+		ButtonComponent* buttonComponent		= (ButtonComponent*)entity->getComponent("BUTTON");
 
 		if (buttonComponent == nullptr && graphicsComponent != nullptr && positionComponent != nullptr)
 		{
@@ -78,6 +78,10 @@ void GraphicsSystem::render(SDL_Renderer * renderer)
 				animationComponent->m_centre = { src.x + src.w / 2, src.y + src.h / 2 };
 
 				SDL_RenderCopyEx(renderer, texture, &src, &dest, animationComponent->m_angle, &animationComponent->m_centre, animationComponent->m_flip);
+			}
+			else if (graphicsComponent->getAngle() > 0 || graphicsComponent->getAngle() < 0)
+			{
+				SDL_RenderCopyEx(renderer, texture, &src, &dest, graphicsComponent->getAngle(), graphicsComponent->getCenter(), graphicsComponent->getFlip());
 			}
 			else
 			{

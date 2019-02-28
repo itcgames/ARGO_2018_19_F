@@ -7,7 +7,7 @@
 class DeathState : public PlayerState
 {
 public:
-	DeathState() {};
+	DeathState() { m_stateId = "Death"; };
 	virtual PlayerState* handleState(Entity* entity, ControllerState& state);
 	virtual void update(double dt, Entity* entity);
 	virtual void enter(Entity* entity);

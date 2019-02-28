@@ -1,22 +1,16 @@
 #include "ECS/Systems/CursorControlSystem.h"
 
-
-
-CursorControlSystem::CursorControlSystem()
-{
-}
-
-
-CursorControlSystem::~CursorControlSystem()
-{
-}
-
+/// <summary>
+/// Update method for the cursor controls in the game
+/// The cursor is controlled with the relevant contrller to the player.
+/// This update on;y controls the movement of the cursor.
+/// </summary>
+/// <param name="dt"></param>
 void CursorControlSystem::update(double dt)
 {
 	for (Entity* entity : m_entities)
 	{
 		ControllerComponent* controller = (ControllerComponent*)entity->getComponent("CONTROLLER");
-		CollisionComponent* collisionComponent = (CollisionComponent*)entity->getComponent("COLLISION");
 		PositionComponent* positionComponent = (PositionComponent*)entity->getComponent("POSITION");
 
 		ControllerState currentState = controller->getCurrentState();
@@ -29,7 +23,7 @@ void CursorControlSystem::update(double dt)
 				Vector v = positionComponent->getPos();
 				v.x = positionComponent->getPos().x + 5;
 
-				positionComponent->setPos(v);// += 0.075;
+				positionComponent->setPos(v);
 			}
 			else if (currentState.leftStick.x < -controller->DEAD_ZONE)
 			{

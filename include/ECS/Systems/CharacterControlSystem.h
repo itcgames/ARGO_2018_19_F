@@ -19,11 +19,6 @@ public:
 	CharacterControlSystem();
 	virtual void update(double dt) override;
 
-	PlayerState* m_state = new IdleState();
-
-	const int CROUCH_HEIGHT = 80;
-	const int STAND_HEIGHT  = 96;
-
-	Mix_Chunk * m_jumpSound;
+	PlayerState* m_state;	
 };
 #endif // !CHARACTER_CONTROL_SYSTEM_H

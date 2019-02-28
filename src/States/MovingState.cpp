@@ -2,6 +2,14 @@
 #include "States/IdleState.h"
 #include "States/JumpState.h"
 #include "States/CrouchState.h"
+#include "States/VictoryState.h"
+#include "States/DeathState.h"
+
+MovingState::MovingState()
+{
+	m_stateId = "Moving";
+	m_jumpSound = Mix_LoadWAV("./resources/Sounds/jump.wav");
+}
 
 /// <summary>
 /// process any input updates then if any parameters are met 
@@ -13,12 +21,34 @@
 /// <returns>default - nullptr, pointer to a PlayerState child</returns>
 PlayerState * MovingState::handleState(Entity* entity, ControllerState& state)
 {
+	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
-	Vector leftStick = state.leftStick;
+	PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
+	PlayerStateComponent* playerStateComponent = (PlayerStateComponent*)entity->getComponent("PLAYER_STATE");
+
+	if (state.leftStick.x > controllerComponent->DEAD_ZONE)
+	{
+		animationComponent->m_flip = SDL_FLIP_NONE;
+		if (physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
+		{
+			physicsComponent->addAcceleration(0.075, 0);
+		}
+	}
+	else if (state.leftStick.x < -controllerComponent->DEAD_ZONE)
+	{
+		animationComponent->m_flip = SDL_FLIP_HORIZONTAL;
+		if (physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
+		{
+			physicsComponent->addAcceleration(-0.075, 0);
+		}
+	}
 
 	// switch to jump
 	if (state.A)
 	{
+		physicsComponent->setJumping(true);
+		Mix_PlayChannel(3, m_jumpSound, 0);
+		physicsComponent->addAcceleration(0, -1.5);
 		return new JumpState();
 	}
 
@@ -29,9 +59,19 @@ PlayerState * MovingState::handleState(Entity* entity, ControllerState& state)
 	}
 
 	// switch to idle
-	if (leftStick.x < controllerComponent->DEAD_ZONE && leftStick.x > -controllerComponent->DEAD_ZONE)
+	if (state.leftStick.x < controllerComponent->DEAD_ZONE && state.leftStick.x > -controllerComponent->DEAD_ZONE)
 	{
 		return new IdleState();
+	}
+
+	if (playerStateComponent->hasWon())
+	{
+		return new VictoryState();
+	}
+
+	if (!playerStateComponent->isAlive())
+	{
+		return new DeathState();
 	}
 
 	return nullptr;
@@ -59,8 +99,8 @@ void MovingState::enter(Entity* entity)
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
 	if (animationComponent != nullptr)
 	{
-		Vector firstFrame = Vector(3, 0, 0);
-		Vector lastFrame = Vector(5, 0, 0);
+		Vector firstFrame = Vector(0, 0);
+		Vector lastFrame = Vector(3, 0);
 		animationComponent->setFirstFrame(firstFrame);
 		animationComponent->setCurrentFrame(firstFrame);
 		animationComponent->setLastFrame(lastFrame);

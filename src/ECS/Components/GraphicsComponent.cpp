@@ -7,11 +7,13 @@
 /// <param name="srcRect">srcRect - location on the loaded resource to be rendered</param>
 /// <param name="destRect">destRect - the location and size of the entity in the game world</param>
 /// /// <param name="layer">layer - determines what textures are drawn on top</param>
-GraphicsComponent::GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, int layer) :
+GraphicsComponent::GraphicsComponent(SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, double angle, SDL_Point* center, SDL_RendererFlip flip) :
 	m_texture(texture),
 	m_srcRect(srcRect),
 	m_destRect(destRect),
-	m_layer(layer)
+	m_angle(angle),
+	m_center(center),
+	m_flip(flip)
 {
 	m_id = "GRAPHICS";
 }
@@ -85,11 +87,65 @@ void GraphicsComponent::setDestRect(SDL_Rect rect)
 
 
 /// <summary>
-/// Gets the layer of the texture.
+/// 
 /// </summary>
-/// <returns>Integer</returns>
-int GraphicsComponent::getLayer()
+/// <returns></returns>
+double GraphicsComponent::getAngle()
 {
-	return m_layer;
+	return m_angle;
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="angle"></param>
+void GraphicsComponent::setAngle(double angle)
+{
+	m_angle = angle;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+SDL_Point * GraphicsComponent::getCenter()
+{
+	return m_center;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="center"></param>
+void GraphicsComponent::setCenter(SDL_Point * center)
+{
+	m_center = center;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+SDL_RendererFlip GraphicsComponent::getFlip()
+{
+	return m_flip;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="flip"></param>
+void GraphicsComponent::setFlip(SDL_RendererFlip flip)
+{
+	m_flip = flip;
+}
