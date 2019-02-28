@@ -243,8 +243,12 @@ Entity * EntityManager::returnEmitter(Vector startPosition, SDL_Texture * textur
 	Entity* emitter = new Entity();
 	emitter->setId("emitter");
 	emitter->addComponent(new PositionComponent(startPosition));
-	emitter->addComponent();
+	emitter->addComponent(new GraphicsComponent(texture, srcRect, dest));
+	emitter->addComponent(new CollisionComponent(collider, "emitter"));
+	emitter->addComponent(new AnimationComponent(firstFrame, lastFrame));
 
+	addToSystems(emitter);
+	m_entities.push_back(emitter);
 	return emitter;
 }
 

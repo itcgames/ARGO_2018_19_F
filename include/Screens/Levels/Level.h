@@ -20,8 +20,7 @@ enum ObstacleTypes
 	FerrisWheel,
 	BallLauncher,
 	HurleyMachine,
-	Crossbow,
-	last	//	This must always be the last on the list as it is used for picking one at random.
+	Crossbow
 };
 
 class Level : public Screen
@@ -114,65 +113,80 @@ protected:
 		return m_playerTextures[colour][random];
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
 	std::vector<Entity*> spawnNewObstacles()
 	{
 		int i = 0;
 		std::vector<Entity*> newObstacles;
 		while (i++ < 5)
 		{
-			Vector newObstaclePosition = {rand() % 1400, rand() % 700};
-			ObstacleTypes newObstacleType = static_cast<ObstacleTypes>(rand() % ObstacleTypes::last);
-			switch (newObstacleType)
+			int x = rand() % 1400;
+			int y = rand() % 700;
+			int newObstacleType = rand() % 100 + 1;
+
+			//	Platform - 20% chance.
+			if (newObstacleType <= 20)
 			{
-			case Spike:
-				newObstacles.push_back(m_entityManager.returnObstacle(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "Obstacles//TriggeredSpike//TriggeredSpikeSheet.png", m_renderer), {0 ,0, 20, 100}, {0, 0, 20, 100}, "Spike", true, Vector( 0, 0 ), Vector( 0, 3 )));
-				break;
-
-			case Platform:
-				newObstacles.push_back(m_entityManager.returnPlatform(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {0, 0, }, {0, 0, }));
-				break;
-
-			case Springboard:
-				newObstacles.push_back(m_entityManager.returnPlatform(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, "Spring"));
-				break;
-
-			case Teleporter:
-				newObstacles.push_back(m_entityManager.returnPlatform(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, "Teleporter"));
-				break;
-
-			case Dynamite:
-
-				break;
-			case Bomb:
-
-				break;
-
-			case Nuke:
-				break;
-
-			case FerrisWheel:
-				break;
-
-			case BallLauncher:
-				m_entityManager.createAnimatedImage(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), { 0, 0, }, Vector(), Vector());
-				break;
-
-			case HurleyMachine:
-				m_entityManager.createAnimatedImage(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), { 0, 0, }, Vector(), Vector());
-				break;
-
-			case Crossbow:
-				m_entityManager.createAnimatedImage(newObstaclePosition, SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), { 0, 0, }, Vector(), Vector());
-				break;
-
-			case last:
-				std::cout << "Oops!" << std::endl;
-				break;
-
-			default:
-				break;
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Spike - 10% chance.
+			else if (newObstacleType <= 30)
+			{
+				newObstacles.push_back(m_entityManager.returnObstacle(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Springboard - 10% chance.
+			else if (newObstacleType <= 40)
+			{
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Teleporter - 5% chance.
+			else if (newObstacleType <= 45)
+			{
+				newObstacles.push_back(m_entityManager.returnObstacle(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));;
+			}
+			//	Dynamite - 10% chance.
+			else if (newObstacleType <= 55)
+			{
+				//	A removal object needs to be added, supporting functions are already in place.
+				//	newObstacles.push_back();
+			}
+			//	Bomb - 5% chance.
+			else if (newObstacleType <= 60)
+			{
+				//	A removal object needs to be added, supporting functions are already in place.
+				//	newObstacles.push_back();
+			}
+			//	Nuke - 5% chance.
+			else if (newObstacleType <= 65)
+			{
+				//	A removal object needs to be added, supporting functions are already in place. 
+				//	newObstacles.push_back();
+			}
+			//	Ferriswheel - 10% chance.
+			else if (newObstacleType <= 75)
+			{
+				newObstacles.push_back(m_entityManager.returnPlatform(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}));
+			}
+			//	Ball launcher - 5% chance.
+			else if (newObstacleType <= 80)
+			{
+				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
+			}
+			//	Hurley machine - 10% chance.
+			else if (newObstacleType <= 90)
+			{
+				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
+			}
+			//	Crossbow - 10% chance.
+			else if (newObstacleType <= 100)
+			{
+				newObstacles.push_back(m_entityManager.returnEmitter(Vector(x, y), SDL2Help::LoadTexture(m_resourcesPath + "", m_renderer), {}, {}, Vector(), Vector()));
 			}
 		}
+			return newObstacles;
 	}
 
 	virtual void spawnLevelObstacles() = 0;
