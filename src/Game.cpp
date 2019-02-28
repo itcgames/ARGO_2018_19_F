@@ -26,7 +26,7 @@ Game::Game() :
 	m_screenManager.addScreen(new Settings(&m_screenManager, m_renderer));			//	done.
 	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));			//	done.
 
-	m_screenManager.goToScreen("Splash");
+	m_screenManager.goToScreen("Play");
 }
 
 

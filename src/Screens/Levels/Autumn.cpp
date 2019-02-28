@@ -10,15 +10,6 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_startMusic(true),
 	m_count(0)
 {
-	//music = createAudio(".//resources//Sounds//background.wav", 1, SDL_MIX_MAXVOLUME);
-
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-	{
-		std::cout << "error: " << Mix_GetError() << std::endl;
-	}
-
-	m_music = Mix_LoadMUS(".//resources//Sounds//backgroundMenuMusic.mp3");
-	m_effect = Mix_LoadWAV("./resources//Sounds/background.wav");
 
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
@@ -43,18 +34,11 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	m_entityManager.createPlayer(0, m_startPos, player3Texture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 64, 64), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 64, 64), true);	
 	m_entityManager.createAI(m_startPos, player3Texture, SDL2Help::InitRect(0, 0, 64, 64), SDL2Help::InitRect(0, 0, 64, 64), Vector(0, 0, 0), Vector(1, 0, 0), SDL2Help::InitRect(0, 0, 64, 64));
 
-
-	// Create obstacle entities.
-	//m_entityManager.createObstacle(Vector(800, 800), spikeTexture, SDL2Help::InitRect(0, 0, 142, 163), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-	//m_entityManager.createPlatform(Vector(100, 800), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-	/*m_entityManager.createPlatform(Vector(500, 800), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-	m_entityManager.createPlatform(Vector(600, 600), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-	m_entityManager.createPlatform(Vector(700, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-	m_entityManager.createPlatform(Vector(800, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));*/
-	//m_entityManager.createPlatform(Vector(900, 700), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
-
 	//Test Obstacle
-	m_entityManager.PlatMove(Vector(500, 500), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 200, 200), SDL2Help::InitRect(0, 0, 100, 100));
+	//m_entityManager.PlatMove(Vector(500, 500), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 200, 200), SDL2Help::InitRect(0, 0, 100, 100));
+	
+	m_entityManager.createPlatform(Vector(500, 500), blockTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 50, 50), SDL2Help::InitRect(0, 0, 50, 50));
+	m_entityManager.createObstacle(Vector(100, 500), spikeTexture, SDL2Help::InitRect(0, 0, 1599, 1594), SDL2Help::InitRect(0, 0, 100, 100), SDL2Help::InitRect(0, 0, 100, 100));
 
 	//Create Spring entity.
 	//m_entityManager.createSpring(Vector(500, 700), springBoardTexture, SDL2Help::InitRect(0, 0, 512, 512), SDL2Help::InitRect(0, 0, 50, 75), SDL2Help::InitRect(0, 0, 50, 75));
@@ -76,8 +60,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 
 	m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 
-	//playMusic(".//submodules//Simple-SDL2-Audio//music//highlands.wav", SDL_MIX_MAXVOLUME);
-	//Mix_PlayChannel(-1, m_effect, -1);
+
 }
 
 
@@ -109,12 +92,6 @@ void Autumn::update(double dt, SDL_Event& e)
 		m_entityManager.getCursorControlSystem()->update(dt);
 		m_entityManager.getAICursorControlSystem()->update(dt, true);
 	}
-		
-	if (m_startMusic)
-	{
-		//Mix_PlayChannel(2, m_effect, -1);
-		m_startMusic = false;
-	}
 
 	
 
@@ -123,10 +100,6 @@ void Autumn::update(double dt, SDL_Event& e)
 	m_entityManager.getCollisionSystem()->update(dt);
 	m_entityManager.getGraphicsSystem()->update(dt);
 	m_entityManager.getNetworkSystem()->update(dt);
-	
-	//playMusicFromMemory(music, SDL_MIX_MAXVOLUME);
-	
-	
 }
 
 

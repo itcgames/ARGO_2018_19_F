@@ -84,6 +84,7 @@ void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, 
 	obstacle->addComponent(new PositionComponent(startPosition));
 	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	obstacle->addComponent(new CollisionComponent(collider, "obstacle"));
+	obstacle->addComponent(new PlacedComponent());
 
 	addToSystems(obstacle);
 	m_entities.push_back(obstacle);
@@ -105,6 +106,7 @@ void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, 
 	platform->addComponent(new PositionComponent(startPosition));
 	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	platform->addComponent(new CollisionComponent(collider, "platform"));
+	platform->addComponent(new PlacedComponent());
 
 	addToSystems(platform);
 	m_entities.push_back(platform);
