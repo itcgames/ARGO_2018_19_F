@@ -1,5 +1,11 @@
 #include "ECS/Systems/CursorControlSystem.h"
 
+/// <summary>
+/// Update method for the cursor controls in the game
+/// The cursor is controlled with the relevant contrller to the player.
+/// This update on;y controls the movement of the cursor.
+/// </summary>
+/// <param name="dt"></param>
 void CursorControlSystem::update(double dt)
 {
 	for (Entity* entity : m_entities)

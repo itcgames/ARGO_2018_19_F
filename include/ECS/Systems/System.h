@@ -20,7 +20,8 @@ public:
 	}
 	virtual void update(double dt) {}
 	virtual void render(SDL_Renderer* renderer) {}
-protected:
+
 	std::vector<Entity*> m_entities;
+protected:
 };
 #endif // !SYSTEM_H

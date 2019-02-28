@@ -5,16 +5,8 @@
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	Level(screenManager, renderer, { 100, 700 }, {1300, 400}),
-	m_startMusic(true)
+	m_count(0)
 {
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-	{
-		std::cout << "error: " << Mix_GetError() << std::endl;
-	}
-
-	m_music = Mix_LoadMUS(".//resources//Sounds//backgroundMenuMusic.mp3");
-	m_effect = Mix_LoadWAV(".//resources//Sounds//background.wav");
-
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
 
@@ -72,12 +64,6 @@ void Autumn::update(double dt)
 		{
 			m_newObstacles = generateNewObstacles();
 		}		
-	}
-
-	if (m_startMusic)
-	{
-		//Mix_PlayChannel(2, m_effect, -1);
-		m_startMusic = false;
 	}
 }
 

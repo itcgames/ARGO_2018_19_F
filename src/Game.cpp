@@ -13,7 +13,6 @@ Game::Game() :
 	SDL_Surface* icon = IMG_Load(".//resources//Logo.png");
 	SDL_SetWindowIcon(m_window, icon);	
 	SDL_FreeSurface(icon);
-
 	
 	//	Add all the screens to the screen manager, and then set the current screen.
 	m_screenManager.addScreen(new Splash(&m_screenManager, m_renderer));			//	done.

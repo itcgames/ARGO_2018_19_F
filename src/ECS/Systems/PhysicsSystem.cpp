@@ -28,8 +28,18 @@ void PhysicsSystem::update(double dt)
 			}
 
 			velocity += acceleration * dt;
-			velocity *= friction;
-			position += velocity;
+
+			if (physicsComponent->getJumping() == false)
+			{
+				velocity *= friction;
+				position += velocity;
+			}
+			else
+			{
+				velocity.x *= (friction.x/1.25);
+				velocity.y *= friction.y;
+				position += velocity;
+			}
 			
 			keepOnScreen(position, velocity, collisionComponent->getCollider(), physicsComponent);
 			physicsComponent->setVelocity(velocity);

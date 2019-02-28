@@ -142,6 +142,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Components\CursorComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\ObserverSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\PlacedComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\AICursorControlSystem.cpp" />
+    <ClCompile Include="src\AI\Grid.cpp" />
+    <ClCompile Include="src\AI\Node.cpp" />
+    <ClCompile Include="src\AI\Tile.cpp" />
+    <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />
     <ClCompile Include="src\ECS\Components\ItemComponent.cpp" />
     <ClCompile Include="src\ECS\Components\PlayerStateComponent.cpp" />
@@ -192,6 +200,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\CursorComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AICursorControlSystem.h" />
+    <ClInclude Include="include\AI\Grid.h" />
+    <ClInclude Include="include\AI\Node.h" />
+    <ClInclude Include="include\AI\Tile.h" />
+    <ClInclude Include="include\ECS\Components\AIComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AISystem.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\ItemComponent.h" />
     <ClInclude Include="include\ECS\Components\PlayerStateComponent.h" />
@@ -245,6 +259,8 @@
     <ClInclude Include="include\States\MovingState.h" />
     <ClInclude Include="include\States\PlayerState.h" />
     <ClInclude Include="include\States\VictoryState.h" />
+    <ClInclude Include="include\ECS\Components\PlacedComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ObserverSystem.h" />
     <ClInclude Include="submodules\Angle\Angle.h" />
     <ClInclude Include="submodules\SDL2_Helper\SDL2Helper.h" />
     <ClInclude Include="submodules\Vector\Vector.h" />

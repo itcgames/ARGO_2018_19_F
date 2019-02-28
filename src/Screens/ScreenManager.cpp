@@ -16,6 +16,8 @@ ScreenManager::ScreenManager()
 
 		}
 	}
+
+	observer = new ObserverSystem();
 }
 
 
@@ -36,6 +38,14 @@ ScreenManager::~ScreenManager()
 void ScreenManager::update(double dt)
 {	
 	m_currentScreen->update(dt);
+	if (m_currentScreen->getID() == "Play")
+	{
+		observer->playMainMusic();
+	}
+	else
+	{
+		observer->playMenuMusic();
+	}
 }
 
 
@@ -47,9 +57,6 @@ void ScreenManager::update(double dt)
 void ScreenManager::render()
 {
 	m_currentScreen->render();
-	Mix_Quit();
-	//Mix_CloseAudio();
-	//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 0, 2048);
 }
 
 
@@ -74,8 +81,6 @@ void ScreenManager::goToScreen(std::string screenID)
 	if (screenID == "Play")
 	{
 		Mix_FadeOutChannel(1, 1000);
-		//Mix_Quit();
-		//Mix_FadeInChannel(-1, -1, -1, 0);
 	}
 	m_currentScreen = m_screens[screenID];
 }

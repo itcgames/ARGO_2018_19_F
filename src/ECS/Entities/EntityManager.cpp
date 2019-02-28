@@ -159,6 +159,21 @@ void EntityManager::createPlayer(int playerNum, Vector startPosition, SDL_Textur
 	m_entities.push_back(player);
 }
 
+void EntityManager::createAI(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider)
+{
+	Entity* ai = new Entity();
+	ai->setId("ai");
+	ai->addComponent(new PositionComponent(startPosition));
+	ai->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	ai->addComponent(new AnimationComponent(animStart, animEnd));
+	ai->addComponent(new CollisionComponent(collider, "player"));
+	ai->addComponent(new PhysicsComponent());
+	ai->addComponent(new AIComponent());
+
+	addToSystems(ai);
+	m_entities.push_back(ai);
+}
+
 
 
 /// <summary>
@@ -176,6 +191,7 @@ void EntityManager::createObstacle(Vector startPosition, SDL_Texture * texture, 
 
 	Entity* obstacle = new Entity();
 	obstacle->setId("obstacle");
+	obstacle->addComponent(new PlacedComponent(true));
 	obstacle->addComponent(new PositionComponent(startPosition));
 	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	obstacle->addComponent(new CollisionComponent(collider, "obstacle", secondaryTag));
@@ -209,6 +225,7 @@ Entity* EntityManager::returnObstacle(Vector startPosition, SDL_Texture * textur
 
 	Entity* obstacle = new Entity();
 	obstacle->setId("obstacle");
+	obstacle->addComponent(new PlacedComponent(false));
 	obstacle->addComponent(new PositionComponent(startPosition));
 	obstacle->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	obstacle->addComponent(new CollisionComponent(collider, "obstacle", secondaryTag));
@@ -216,7 +233,7 @@ Entity* EntityManager::returnObstacle(Vector startPosition, SDL_Texture * textur
 	if (animated)
 	{
 		obstacle->addComponent(new AnimationComponent(firstFrame, lastFrame));
-	}
+	}	
 
 	addToSystems(obstacle);
 	m_entities.push_back(obstacle);
@@ -242,6 +259,7 @@ Entity * EntityManager::returnEmitter(Vector startPosition, SDL_Texture * textur
 
 	Entity* emitter = new Entity();
 	emitter->setId("emitter");
+	emitter->addComponent(new PlacedComponent(false));
 	emitter->addComponent(new PositionComponent(startPosition));
 	emitter->addComponent(new GraphicsComponent(texture, srcRect, dest));
 	emitter->addComponent(new CollisionComponent(collider, "emitter"));
@@ -269,18 +287,20 @@ void EntityManager::createPlatform(Vector startPosition, SDL_Texture * texture, 
 
 	Entity* platform = new Entity();
 	platform->setId("platform");
+	platform->addComponent(new PlacedComponent(true));
 	platform->addComponent(new PositionComponent(startPosition));
-	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));	
 	platform->addComponent(new CollisionComponent(collider, "platform", secondaryTag));
 
 	if (animated)
 	{
 		platform->addComponent(new AnimationComponent(firstFrame, lastFrame));
-	}
+	}	
 
 	addToSystems(platform);
 	m_entities.push_back(platform);
 }
+
 
 
 
@@ -302,6 +322,7 @@ Entity* EntityManager::returnPlatform(Vector startPosition, SDL_Texture * textur
 
 	Entity* platform = new Entity();
 	platform->setId("platform");
+	platform->addComponent(new PlacedComponent(false));
 	platform->addComponent(new PositionComponent(startPosition));	
 	platform->addComponent(new CollisionComponent(collider, "platform", secondaryTag));			
 	platform->addComponent(new GraphicsComponent(texture, srcRect, destRect));
@@ -377,6 +398,29 @@ void EntityManager::createCursor(int index, Vector startPosition, SDL_Texture* t
 	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	cursor->addComponent(new CollisionComponent(collider, "cursor"));
 	cursor->addComponent(new ControllerComponent(index));
+	cursor->addComponent(new PlacedComponent());
+
+	addToSystems(cursor);
+	m_entities.push_back(cursor);
+}
+
+
+/// <summary>
+/// AI cursor that picks up objects and placec them
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="texture"></param>
+/// <param name="srcRect"></param>
+/// <param name="destRect"></param>
+/// <param name="collider"></param>
+void EntityManager::createAICursor(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider)
+{
+	Entity* cursor = new Entity();
+	cursor->setId("AI_cursor");
+	cursor->addComponent(new PositionComponent(startPosition));
+	cursor->addComponent(new GraphicsComponent(texture, srcRect, destRect));
+	cursor->addComponent(new CollisionComponent(collider, "cursor"));
+	cursor->addComponent(new PlacedComponent());
 
 	addToSystems(cursor);
 	m_entities.push_back(cursor);
@@ -636,6 +680,11 @@ UIGraphicsSystem * EntityManager::getUIGraphicsSystem()
 	return (UIGraphicsSystem*) m_systems["UI_GRAPHICS"];
 }
 
+AISystem * EntityManager::getAISystem()
+{
+	return (AISystem*)m_systems["AI"];
+}
+
 
 
 /// <summary>
@@ -647,6 +696,15 @@ UIControlSystem * EntityManager::getUIControlSystem()
 	return (UIControlSystem*) m_systems["UI_CONTROL"];
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+AICursorControlSystem * EntityManager::getAICursorControlSystem()
+{
+	return (AICursorControlSystem*)m_systems["AI_CURSOR"];
+
+}
 
 
 /// <summary>
@@ -884,5 +942,35 @@ void EntityManager::addToSystems(Entity* entity)
 
 		//	Add entity to system.
 		m_systems["PLAYER_STATE"]->addEntity(entity);
+	}
+
+	/// <summary>
+	/// Add entity to AISystem.
+	/// </summary>
+	if (entity->getComponent("AI") != nullptr)
+	{
+		//	Create system if it hasn't been created yet.
+		if (m_systems["AI"] == nullptr)
+		{
+			m_systems["AI"] = new AISystem();
+		}
+
+		//	Add entity to system.
+		m_systems["AI"]->addEntity(entity);
+	}
+
+	/// <summary>
+	/// Add entity to AICursorControlSystem.
+	/// </summary>
+	if (entity->getComponent("PLACED") != nullptr)
+	{
+		//	Create system if it hasn't been created yet.
+		if (m_systems["AI_CURSOR"] == nullptr)
+		{
+			m_systems["AI_CURSOR"] = new AICursorControlSystem();
+		}
+
+		//	Add entity to system.
+		m_systems["AI_CURSOR"]->addEntity(entity);
 	}
 }

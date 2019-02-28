@@ -16,6 +16,7 @@
 #include "ECS/Components/FuncButtonComponent.h"
 #include "ECS/Components/PlayerStateComponent.h"
 #include "ECS/Components/SelectionBoxComponent.h"
+#include "ECS/Components/PlacedComponent.h"
 //	Systems.
 #include "ECS/Systems/GraphicsSystem.h"
 #include "ECS/Systems/PhysicsSystem.h"
@@ -25,8 +26,10 @@
 #include "ECS/Systems/SelectionBoxSystem.h"
 #include "ECS/Systems/CursorControlSystem.h"
 #include "ECS/Systems/UIGraphicsSystem.h"
+#include "ECS/Systems/AISystem.h"
 #include "ECS/Systems/UIControlSystem.h"
 #include "ECS/Systems/PlayerStateSystem.h"
+#include "ECS/Systems/AICursorControlSystem.h"
 
 class EntityManager
 {
@@ -67,6 +70,8 @@ public:
 	/// </summary>
 	void createSelectionBox();
 	void createCursor(int index, Vector startPosition, SDL_Texture * texture, SDL_Rect destRect, SDL_Rect collider);
+	void createAI(Vector startPosition, SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect, Vector animStart, Vector animEnd, SDL_Rect collider);
+	void createAICursor(Vector startPosition, SDL_Texture * texture, SDL_Rect srcRect, SDL_Rect destRect, SDL_Rect collider);
 
 	/// <summary>
 	/// Goal entity.
@@ -95,6 +100,8 @@ public:
 	UIGraphicsSystem*		 getUIGraphicsSystem();
 	UIControlSystem*		 getUIControlSystem();
 	PlayerStateSystem*		 getPlayerStateSystem();
+	AISystem*				 getAISystem();
+	AICursorControlSystem*	 getAICursorControlSystem();
 
 	/// <summary>
 	/// Entities.
