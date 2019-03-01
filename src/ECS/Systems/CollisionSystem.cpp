@@ -44,7 +44,7 @@ void CollisionSystem::update(double dt)
 					/// <summary>
 					/// Collisions involving players
 					/// </summary>
-					if (e1Collision->getMainTag() == "player")
+					if (e1Collision->getMainTag() == "player" || e1Collision->getMainTag() == "ai")
 					{
 						Vector velocity = e1PhysicsComponent->getVelocity();
 						Vector position = e1Position->getPos();

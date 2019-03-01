@@ -172,9 +172,10 @@ void EntityManager::createAI(Vector startPosition, SDL_Texture * texture, SDL_Re
 	ai->addComponent(new PositionComponent(startPosition));
 	ai->addComponent(new GraphicsComponent(texture, srcRect, destRect));
 	ai->addComponent(new AnimationComponent(animStart, animEnd));
-	ai->addComponent(new CollisionComponent(collider, "player"));
+	ai->addComponent(new CollisionComponent(collider, "ai"));
 	ai->addComponent(new PhysicsComponent());
 	ai->addComponent(new AIComponent());
+	ai->addComponent(new PlayerStateComponent());
 
 	addToSystems(ai);
 	m_entities.push_back(ai);

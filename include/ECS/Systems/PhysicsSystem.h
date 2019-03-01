@@ -15,6 +15,6 @@ public:
 	void keepOnScreen(Vector& postion, Vector& velocity, SDL_Rect& dimensions, PhysicsComponent* physics);
 
 private:
-	Vector m_gravity = Vector(0,.05,0);
+	const Vector GRAVITY = Vector(0,.05);
 };
 #endif // !PHYSICS_SYSTEM_H

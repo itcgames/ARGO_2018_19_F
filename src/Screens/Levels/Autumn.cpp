@@ -20,6 +20,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 	{
 		m_entityManager.createCursor(i);
 	}
+
 }
 
 
@@ -34,6 +35,7 @@ void Autumn::update(double dt)
 	if (m_clock >= 1000 && m_gameInProgress == false)
 	{
 		m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
+		m_entityManager.getAISystem()->generatePath();
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
 		m_generatedNewObstacles = false;

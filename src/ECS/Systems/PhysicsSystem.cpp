@@ -24,7 +24,7 @@ void PhysicsSystem::update(double dt)
 
 			if (physicsComponent->getGravity())
 			{
-				acceleration += m_gravity;
+				acceleration += GRAVITY;
 			}
 
 			velocity += acceleration * dt;

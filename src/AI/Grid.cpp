@@ -7,6 +7,8 @@ Grid::Grid()
 {
 }
 
+
+
 /// <summary>
 /// 
 /// </summary>
@@ -107,6 +109,7 @@ void Grid::processObstacles(CollisionSystem * system)
 							if (j < m_gridHeight - 1 && ai->getGridLocation().x == 0 && ai->getGridLocation().y == 0)
 							{
 								ai->setGridLocation(i, j + 2);
+								m_start = Vector(i, j + 2);
 								Node newNode = Node(m_start , m_nodes.size());
 								newNode.setStart(true);
 								m_nodes[m_grid[i][j + 2]->getIndex()] = std::make_shared<Node>(newNode);
@@ -141,7 +144,7 @@ void Grid::processObstacles(CollisionSystem * system)
 		{
 			if (m_grid[i][j]->getTraversable())
 			{
-				if (i < m_gridWidth - 1 && i > 0) // if the current index is withing range
+				if (i < m_gridWidth - 1 && i > 0) // if the current index is within range
 				{
 					if (j < m_gridHeight - 1 && j > 0)// if the current index is withing range
 					{
@@ -166,6 +169,13 @@ void Grid::processObstacles(CollisionSystem * system)
 	}
 }
 
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="location"></param>
+/// <returns></returns>
 std::shared_ptr<Node> Grid::getNextNode(Vector location)
 {
 	m_location = location;
@@ -187,16 +197,16 @@ std::shared_ptr<Node> Grid::getNextNode(Vector location)
 	}
 
 	// iterate ahead of the character
-	for (int i = m_location.x - 2; i < m_gridWidth; i++)
+	for (int i = m_location.x; i < m_gridWidth; i++)
 	{
-		if (location.y < maxJump)
+		if (m_location.y < maxJump)
 		{
-			maxJump = maxJump - location.y;
+			maxJump = maxJump - m_location.y;
 		}
 		//iterate from the ground up to the max jump height
-		for (int j = m_gridHeight - 1; j > m_location.y - maxJump; j--)
+		for (int j = m_gridHeight - 1; j > m_location.y - maxJump && j >0; j--)
 		{
-			if (m_nodes[m_grid[i][j]->getIndex()] != nullptr) // make sure the node you are checking isnt null
+			if (m_nodes[m_grid[i][j]->getIndex()] != std::shared_ptr<Node>()) // make sure the node you are checking isnt null
 			{
 				std::shared_ptr<Node> nextNode = m_nodes[m_grid[i][j]->getIndex()]; // node from map index
 				if (nextNode != currentNode) // dont check the same node (if possible)
@@ -277,4 +287,48 @@ Vector Grid::screenToGrid(int x, int y)
 Vector Grid::screenToGrid(Vector& position)
 {
 	return Vector(std::floor((position.x - (int)position.x % m_tileWidth) / m_tileWidth), std::floor((position.y - (int)position.y % m_tileHeight) / m_tileHeight));
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+int Grid::getTileWidth()
+{
+	return m_tileWidth;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+int Grid::getTileHeight()
+{
+	return m_tileHeight;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+Vector Grid::getStart()
+{
+	return m_start;
+}
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+Vector Grid::getGoal()
+{
+	return m_goal;
 }
