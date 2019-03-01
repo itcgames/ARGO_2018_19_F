@@ -5,6 +5,7 @@
 #include "ECS/Components/AIComponent.h"
 #include "AI/Tile.h"
 #include "AI/Grid.h"
+#include "States/IdleState.h"
 
 class AISystem : public System
 {
@@ -16,6 +17,7 @@ public:
 
 private:
 	Grid m_grid;
+	PlayerState* m_state;
 };
 #endif // !AI_SYSTEM_H
 

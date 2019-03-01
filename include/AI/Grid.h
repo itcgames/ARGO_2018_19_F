@@ -27,6 +27,9 @@ public:
 	void processObstacles(CollisionSystem* system);
 	std::shared_ptr<Node> getNextNode(Vector location);
 
+	Vector screenToGrid(int x, int y);
+	Vector screenToGrid(Vector & position);
+
 private:
 	std::vector<std::vector<std::shared_ptr<Tile>>> m_grid; // 2d vector of grid tiles
 	std::vector<std::shared_ptr<Node>> m_nodes;

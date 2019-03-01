@@ -15,10 +15,10 @@ PlayerState * JumpState::handleState(Entity* entity, ControllerState& state)
 {
 	PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
-	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
+	ControllerComponent controllerComponent = ControllerComponent();
 	PlayerStateComponent* playerStateComponent = (PlayerStateComponent*)entity->getComponent("PLAYER_STATE");
 
-	if (state.leftStick.x > controllerComponent->DEAD_ZONE)
+	if (state.leftStick.x > controllerComponent.DEAD_ZONE)
 	{
 		animationComponent->m_flip = SDL_FLIP_NONE;
 		if (physicsComponent->getVelocity().x <= physicsComponent->getMaxJumpVelocity().x)
@@ -26,7 +26,7 @@ PlayerState * JumpState::handleState(Entity* entity, ControllerState& state)
 			physicsComponent->addAcceleration(0.075, 0);
 		}
 	}
-	else if (state.leftStick.x < -controllerComponent->DEAD_ZONE)
+	else if (state.leftStick.x < -controllerComponent.DEAD_ZONE)
 	{
 		animationComponent->m_flip = SDL_FLIP_HORIZONTAL;
 		if (physicsComponent->getVelocity().x >= -physicsComponent->getMaxJumpVelocity().x)

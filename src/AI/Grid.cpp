@@ -254,3 +254,27 @@ std::shared_ptr<Node> Grid::getNextNode(Vector location)
 	return currentNode; // return same node if no path detected
 }
 
+
+
+/// <summary>
+/// Converts screen coordinates to grid coordinates.
+/// </summary>
+/// <param name="x">Integer representing the x component of the coordinates to be converted.</param>
+/// <param name="y">Integer representing the y component of the coordinates to be converted.</param>
+/// <returns>Vector of two integers that represent the grid coordinates.</returns>
+Vector Grid::screenToGrid(int x, int y)
+{
+	return Vector(std::floor((x - x % m_tileWidth) / m_tileWidth), std::floor((y - y % m_tileHeight) / m_tileHeight));
+}
+
+
+
+/// <summary>
+/// Converts screen coordinates to grid coordinates.
+/// </summary>
+/// <param name="position"></param>
+/// <returns>Vector of two integers that represent the grid coordinates.</returns>
+Vector Grid::screenToGrid(Vector& position)
+{
+	return Vector(std::floor((position.x - (int)position.x % m_tileWidth) / m_tileWidth), std::floor((position.y - (int)position.y % m_tileHeight) / m_tileHeight));
+}
