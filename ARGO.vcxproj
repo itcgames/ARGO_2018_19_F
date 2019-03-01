@@ -148,7 +148,6 @@
     <ClCompile Include="src\ECS\Systems\AICursorControlSystem.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\Node.cpp" />
-    <ClCompile Include="src\AI\Tile.cpp" />
     <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="src\ECS\Components\FuncButtonComponent.cpp" />

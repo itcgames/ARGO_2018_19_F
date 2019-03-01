@@ -4,8 +4,7 @@
 /// 
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
-	Level(screenManager, renderer, { 100, 700 }, {1300, 400}),
-	m_count(0)
+	Level(screenManager, renderer, { 100, 700 }, {1300, 400})
 {
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
@@ -31,9 +30,14 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// <param name="dt"></param>
 void Autumn::update(double dt)
 {
-	m_clock += dt;
-	if (m_gameInProgress == false && m_entityManager.getObjectPlacedSystem()->getNumberOfObjectsPlaced() >= m_newObstacles.size())
+	if (m_gameInProgress == false)
 	{
+		m_clock += dt;
+	}
+
+	if (m_clock >= 15000 && m_gameInProgress == false)
+	{
+		m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
 		m_generatedNewObstacles = false;
@@ -52,33 +56,32 @@ void Autumn::update(double dt)
 
 			//	Reset player position
 			position->setPos(m_startPos);
-			m_clock = 0;
-			
-			
 		}
-
 	}	
+
 	m_entityManager.gameLoop(dt, m_gameInProgress, m_online);
 
 	if (m_entityManager.getPlayerStateSystem()->getNumberOfPlayersStillPlaying() <= 0 && m_gameInProgress == true)
 	{
 		//	Start the placement phase of the game.
 		m_gameInProgress = false;
-		m_clock = 0;
+		//m_clock = 0;
 		SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
 		selectionBox->setIsVisible(true);	
 		for (Entity* entity : m_entityManager.getObjectPlacedSystem()->m_entities)
 		{
 			m_entityManager.getObjectPlacedSystem()->removeEntity(entity);
 		}
+
 		if (m_generatedNewObstacles == false)
 		{
-			
+			//m_entityManager.createSelectionBox();
 			m_newObstacles = generateNewObstacles();
 			for (int i = 0; i < 4; i++)
 			{
 				m_entityManager.createCursor(i);
 			}
+			
 		}		
 
 		bool allPlaced = true;
@@ -91,13 +94,11 @@ void Autumn::update(double dt)
 				{
 					allPlaced = false;
 					break;
-
 				}
-
 			}
 		}
-		std::cout << m_clock << std::endl;
-		if (allPlaced || m_clock > 15000)
+	
+		if (allPlaced)
 		{
 			m_gameInProgress = true;
 			std::vector<Entity*> cursors = m_entityManager.getEntitiesWithTag("cursor");
@@ -118,13 +119,22 @@ void Autumn::update(double dt)
 		}
 	}
 
-	if (m_clock > 15000)
+	SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
+
+	if (m_clock > 5000)
+	{
+		selectionBox->setIsVisible(false);
+		//m_entityManager.removeEntity(selectionBox);
+	}
+
+	if (m_clock >= 15000)
 	{
 		m_gameInProgress = true;
 		std::vector<Entity*> cursors = m_entityManager.getEntitiesWithTag("cursor");
 		for (Entity* cursor : cursors)
 		{
 			m_entityManager.removeEntity(cursor);
+			//m_entityManager.removeEntity(m_entityManager.getSelectionBoxSystem());
 		}
 
 		for (Entity* obstacle : m_newObstacles)
@@ -135,12 +145,7 @@ void Autumn::update(double dt)
 		}
 	}
 
-	SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
 	
-	if (m_clock > 3000)
-	{
-		selectionBox->setIsVisible(false);
-	}
 }
 
 

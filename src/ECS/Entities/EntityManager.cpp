@@ -64,6 +64,10 @@ void EntityManager::render()
 			system->render(m_renderer);
 		}
 	}
+	if (getAISystem() != nullptr)
+	{
+		getAISystem()->render(m_renderer);
+	}
 }
 
 
@@ -114,6 +118,7 @@ void EntityManager::playing(double dt, bool online)
 	getCollisionSystem()->update(dt);
 	getPlayerStateSystem()->update(dt);
 	getPhysicsSystem()->update(dt);
+	//getAISystem()->update(dt);
 	if (online)
 	{
 		getNetworkSystem()->update(dt);

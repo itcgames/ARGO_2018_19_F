@@ -9,12 +9,16 @@ class AIComponent : public Component
 public:
 	AIComponent();
 
+	void setGridLocation(int i, int j);
+	Vector& getGridLocation();
+
 	bool m_onPlatform;
 	bool m_onGround;
 	int m_jumpHeight;
-	Vector m_nextMove;
 
 private:
+
+	Vector m_gridLocation;
 };
 
 #endif // !AI_COMPONENT_H

@@ -42,7 +42,6 @@
     <ClCompile Include="src\ECS\Components\TextComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\UIGraphicsSystem.cpp" />
     <ClCompile Include="src\AI\Node.cpp" />
-    <ClCompile Include="src\AI\Tile.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\ECS\Components\AIComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AISystem.cpp" />
@@ -113,12 +112,12 @@
     <ClInclude Include="include\ECS\Systems\UIControlSystem.h" />
     <ClInclude Include="include\ECS\Components\AIComponent.h" />
     <ClInclude Include="include\AI\Node.h" />
-    <ClInclude Include="include\AI\Tile.h" />
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\ECS\Systems\AISystem.h" />
     <ClInclude Include="include\Screens\ModeSelect.h" />
     <ClInclude Include="include\ECS\Components\ButtonComponent.h" />
     <ClInclude Include="include\ECS\Components\FuncButtonComponent.h" />
+    <ClInclude Include="include\AI\Tile.h" />
     <ClInclude Include="include\Screens\Levels\Level.h" />
     <ClInclude Include="include\ECS\Components\PlayerStateComponent.h" />
     <ClInclude Include="include\ECS\Components\SelectionBoxComponent.h" />

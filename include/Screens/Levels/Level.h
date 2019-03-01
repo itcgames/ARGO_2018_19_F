@@ -81,6 +81,18 @@ protected:
 
 			m_entityManager.createPlayer(i, m_startPos, pair.second, pair.first, destRect, animStart, animEnd, destRect, controllable, online);
 		}
+
+		if (MAX_PLAYERS <= 3)
+		{
+			std::pair<SDL_Rect, SDL_Texture*> pair = randomPlayerTexture(MAX_PLAYERS);
+			TextureAttributes textureAttributes = SDL2Help::getTextureAttributes(pair.second);
+			SDL_Rect destRect = { 0, 0, 80, 96 };
+			Vector animStart = { 0, 0 };
+			Vector animEnd = { 0, 0 };
+
+			m_entityManager.createAI(m_startPos, pair.second, pair.first, destRect, animStart, animEnd, destRect);
+		}
+
 	}
 
 	/// <summary>
