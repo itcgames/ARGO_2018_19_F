@@ -1,44 +1,75 @@
 #ifndef TILE_H
 #define TILE_H
 
-#include "Vector/Vector.h"
-#include <vector>
-#include "SDL.h"
-#include <string>
 #include "SDL_ttf.h"
+#include "SDL.h"
+#include "Vector/Vector.h"
 
 class Tile
 {
 public:
-	Tile() {};
-	Tile(int x , int y, int width, int height);
-	void render(SDL_Renderer* renderer);
+	Tile()
+	{
+	}
 
-	void setGoal();
-	void setStart();
-	void setPath();
-	void setTraversable(bool traversable);
-	bool getTraversable();
+	Tile(int x, int y, int width, int height, int index)
+	{
+		if (m_font == nullptr)
+		{
+			m_font = TTF_OpenFont(".//resources//AGENCYR.TTF", 50);
+		}
+		m_rect = new SDL_Rect({ x, y, width, height });
+		m_colour = { 125, 125, 0, 255 };
+		m_location = Vector(x, y);
+		m_traversable = true;
+		m_index = index;
+	}
 
-	SDL_Rect* getRect();
 
-	void setWeight(int weight);
-	int getWeight();
+	SDL_Rect* getRect()
+	{
+		return m_rect;
+	}
 
-	void addNeighbour(Tile* node);
-	std::vector<Tile*>& getNeighbours();
+	bool getTraversable()
+	{
+		return m_traversable;
+	}
+
+	void setTraversable(bool traversable)
+	{
+		m_traversable = traversable;
+	}
+
+	int getIndex()
+	{
+		return m_index;
+	}
+	void setIndex(int index)
+	{
+		m_index = index;
+	}
+
+	void fill(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+	{
+		m_colour = {r,g,b,a};
+	}
+
+	void render(SDL_Renderer* renderer)
+	{
+		SDL_SetRenderDrawColor(renderer, m_colour.r, m_colour.g, m_colour.b, m_colour.a);
+		SDL_RenderDrawRect(renderer, m_rect);
+	}
 
 private:
-	TTF_Font * m_font;
-	Vector parent;
-	Vector m_position;
-	SDL_Rect* m_rect;
-	SDL_Color m_colour;
-	std::vector<Tile*> m_neighbours;
-
-	int m_jumpLength;
-	int m_weight;
 	bool m_traversable;
-	bool m_path;
+	Vector m_location;
+	int m_index;
+
+	// visualisation
+	TTF_Font * m_font;
+	SDL_Color m_colour;
+	SDL_Rect* m_rect; // used for detection of world obstacles
 };
+
 #endif // !TILE_H

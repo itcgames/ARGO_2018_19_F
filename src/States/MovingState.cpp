@@ -22,11 +22,11 @@ MovingState::MovingState()
 PlayerState * MovingState::handleState(Entity* entity, ControllerState& state)
 {
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
-	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
+	ControllerComponent controllerComponent = ControllerComponent();
 	PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 	PlayerStateComponent* playerStateComponent = (PlayerStateComponent*)entity->getComponent("PLAYER_STATE");
 
-	if (state.leftStick.x > controllerComponent->DEAD_ZONE)
+	if (state.leftStick.x > controllerComponent.DEAD_ZONE)
 	{
 		animationComponent->m_flip = SDL_FLIP_NONE;
 		if (physicsComponent->getVelocity().x <= physicsComponent->getMaxVelocity().x)
@@ -34,7 +34,7 @@ PlayerState * MovingState::handleState(Entity* entity, ControllerState& state)
 			physicsComponent->addAcceleration(0.075, 0);
 		}
 	}
-	else if (state.leftStick.x < -controllerComponent->DEAD_ZONE)
+	else if (state.leftStick.x < -controllerComponent.DEAD_ZONE)
 	{
 		animationComponent->m_flip = SDL_FLIP_HORIZONTAL;
 		if (physicsComponent->getVelocity().x >= -physicsComponent->getMaxVelocity().x)
@@ -59,7 +59,7 @@ PlayerState * MovingState::handleState(Entity* entity, ControllerState& state)
 	}
 
 	// switch to idle
-	if (state.leftStick.x < controllerComponent->DEAD_ZONE && state.leftStick.x > -controllerComponent->DEAD_ZONE)
+	if (state.leftStick.x < controllerComponent.DEAD_ZONE && state.leftStick.x > -controllerComponent.DEAD_ZONE)
 	{
 		return new IdleState();
 	}

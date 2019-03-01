@@ -3,57 +3,48 @@
 
 #include <vector>
 #include "Vector/Vector.h"
-#include "SDL.h"
+#include <string>
 
 class Node
 {
 public:
-	Node();
-	Node(Vector& pos);
-	void render(SDL_Renderer* renderer);
+	Node(Vector location, int index);
 
-	void setPosition(Vector& pos);
-	Vector& getPosition();
+	// getters and setters
+	void setStart(bool start);
+	bool getStart();
+
+	void setGoal(bool start);
+	bool getGoal();
+
+	bool getShouldJump();
+	void setShouldJump(bool jump);
+
+	void setVisited(bool visited);
+	bool getVisited();
+
+	bool getGoBack();
+	void setGoBack(bool status);
+
+	Vector& getLocation();
+	void setLocation(Vector location);
+
+	std::shared_ptr<Node> getNext();
+	void setNext(std::shared_ptr<Node> next);
+
+	std::shared_ptr<Node> getPrevious();
+	void setPrevious(std::shared_ptr<Node> previous);
 
 private:
-	Vector m_position;
-
-	typedef int32_t s32;
-
-	inline void DrawCircle(SDL_Renderer *Renderer, s32 _x, s32 _y, s32 radius)
-	{
-		s32 x = radius - 1;
-		s32 y = 0;
-		s32 tx = 1;
-		s32 ty = 1;
-		s32 err = tx - (radius << 1); // shifting bits left by 1 effectively
-									  // doubles the value. == tx - diameter
-		while (x >= y)
-		{
-			//  Each of the following renders an octant of the circle
-			SDL_RenderDrawPoint(Renderer, _x + x, _y - y);
-			SDL_RenderDrawPoint(Renderer, _x + x, _y + y);
-			SDL_RenderDrawPoint(Renderer, _x - x, _y - y);
-			SDL_RenderDrawPoint(Renderer, _x - x, _y + y);
-			SDL_RenderDrawPoint(Renderer, _x + y, _y - x);
-			SDL_RenderDrawPoint(Renderer, _x + y, _y + x);
-			SDL_RenderDrawPoint(Renderer, _x - y, _y - x);
-			SDL_RenderDrawPoint(Renderer, _x - y, _y + x);
-
-			if (err <= 0)
-			{
-				y++;
-				err += ty;
-				ty += 2;
-			}
-			if (err > 0)
-			{
-				x--;
-				tx += 2;
-				err += tx - (radius << 1);
-			}
-		}
-	}
+	std::shared_ptr<Node> m_next; // m_next
+	std::shared_ptr<Node> m_previous; // previous node
+	Vector m_location;
+	int m_index;
+	bool m_visited;
+	bool m_start;
+	bool m_goal;
+	bool m_goBack; // visited
+	bool m_shouldJump;
 };
 #endif // !NODE_H
 

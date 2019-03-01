@@ -4,8 +4,7 @@
 /// 
 /// </summary>
 Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
-	Level(screenManager, renderer, { 100, 700 }, {1300, 400}),
-	m_count(0)
+	Level(screenManager, renderer, { 100, 700 }, {1300, 400})
 {
 	m_screenID = "Play";
 	m_previousScreenID = "ModeSelect";
@@ -32,8 +31,9 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt)
 {
 	m_clock += dt;
-	if (m_gameInProgress == false && m_entityManager.getObjectPlacedSystem()->getNumberOfObjectsPlaced() == m_newObstacles.size())
+	if (m_clock >= 1000 && m_gameInProgress == false)
 	{
+		m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
 		m_generatedNewObstacles = false;
@@ -51,12 +51,10 @@ void Autumn::update(double dt)
 			playerState->setWon(false);
 
 			//	Reset player position
-			position->setPos(m_startPos);
-			
-			
+			position->setPos(m_startPos);						
 		}
-
 	}	
+
 	m_entityManager.gameLoop(dt, m_gameInProgress, m_online);
 
 	if (m_entityManager.getPlayerStateSystem()->getNumberOfPlayersStillPlaying() <= 0 && m_gameInProgress == true)
@@ -90,12 +88,10 @@ void Autumn::update(double dt)
 				{
 					allPlaced = false;
 					break;
-
 				}
-
 			}
 		}
-		std::cout << m_clock << std::endl;
+	
 		if (allPlaced || m_clock > 15000)
 		{
 			m_gameInProgress = true;

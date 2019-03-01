@@ -13,13 +13,13 @@
 PlayerState* IdleState::handleState(Entity* entity, ControllerState& state)
 {
 	AnimationComponent* animationComponent = (AnimationComponent*)entity->getComponent("ANIMATION");
-	ControllerComponent* controllerComponent = (ControllerComponent*)entity->getComponent("CONTROLLER");
+	ControllerComponent controllerComponent = ControllerComponent();
 	PhysicsComponent* physicsComponent = (PhysicsComponent*)entity->getComponent("PHYSICS");
 	PlayerStateComponent* playerStateComponent = (PlayerStateComponent*)entity->getComponent("PLAYER_STATE");
 
 	Vector leftStick = state.leftStick;
 	// moving state
-	if (leftStick.x > controllerComponent->DEAD_ZONE || leftStick.x < -controllerComponent->DEAD_ZONE)
+	if (leftStick.x > controllerComponent.DEAD_ZONE || leftStick.x < -controllerComponent.DEAD_ZONE)
 	{
 		return new MovingState();
 	}
