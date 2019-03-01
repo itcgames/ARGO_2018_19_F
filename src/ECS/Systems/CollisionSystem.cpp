@@ -16,6 +16,7 @@ CollisionSystem::CollisionSystem()
 /// <param name="dt"></param>
 void CollisionSystem::update(double dt)
 {
+	m_clock = dt;
 	for (Entity* entity1 : m_entities)
 	{
 		PositionComponent* e1Position			= (PositionComponent*)entity1->getComponent("POSITION");
@@ -24,6 +25,7 @@ void CollisionSystem::update(double dt)
 		ControllerComponent* e1Controller		= (ControllerComponent*)entity1->getComponent("CONTROLLER");
 		PlayerStateComponent* e1StateComponent	= (PlayerStateComponent*)entity1->getComponent("PLAYER_STATE");
 		CursorComponent* e1CursorComponent		= (CursorComponent*)entity1->getComponent("CURSOR");
+		PlacedComponent* e1placed				= (PlacedComponent*)entity1->getComponent("PLACED");
 
 		for (Entity* entity2 : m_entities)
 		{
@@ -32,6 +34,7 @@ void CollisionSystem::update(double dt)
 				PositionComponent* e2Position			= (PositionComponent*)entity2->getComponent("POSITION");
 				PhysicsComponent* e2PhysicsComponent	= (PhysicsComponent*)entity2->getComponent("PHYSICS");
 				CollisionComponent* e2Collision			= (CollisionComponent*)entity2->getComponent("COLLISION");
+				PlacedComponent* e2placed				= (PlacedComponent*)entity2->getComponent("PLACED");
 			
 				if (e1Position->getPos().x + e1Collision->getCollider().x <= e2Position->getPos().x + e2Collision->getCollider().x + e2Collision->getCollider().w &&
 					e1Position->getPos().x + e1Collision->getCollider().x + e1Collision->getCollider().w >= e2Position->getPos().x + e2Collision->getCollider().x &&
@@ -146,8 +149,9 @@ void CollisionSystem::update(double dt)
 					/// <summary>
 					/// Collisions involving the cursor AND a platform OR obstacle.
 					/// </summary>
-					if (e1Collision->getMainTag() == "cursor" && (e2Collision->getMainTag() == "platform" || e2Collision->getMainTag() == "obstacle"))
+					if (e1Collision->getMainTag() == "cursor" && (e2Collision->getMainTag() == "platform" || e2Collision->getMainTag() == "obstacle") && e2placed->getPlaced() == false)
 					{
+						
 						ControllerState currentState = e1Controller->getCurrentState();
 						ControllerState previousState = e1Controller->getPreviousState();
 
@@ -159,25 +163,25 @@ void CollisionSystem::update(double dt)
 						float bottom = entity.y - e1Position->getPos().y;
 						float left = cursor.x - e2Position->getPos().x;
 						float right = entity.x - e1Position->getPos().x;
-							
-						if ((top < bottom)										||
-							(bottom < top && bottom < left && bottom < right)	||
-							(left < right && left < top && left < bottom)		||
-							(right < left && right < top && right < bottom)		&&
+
+						if (((top < bottom) ||
+							(bottom < top && bottom < left && bottom < right) ||
+							(left < right && left < top && left < bottom) ||
+							(right < left && right < top && right < bottom)) &&
 							previousState.A)
 						{
 							e1CursorComponent->flipHoldingObject();
+							entity1->addLink(entity2);
+
 						}
 
-						if (e1CursorComponent->isHoldingObject() == true)
+
+						if (e1CursorComponent->isHoldingObject() == true && entity1->getLinkedEntities()[0] == entity2)
 						{
 							e2Position->setPos(e1Position->getPos());
 						}
-
-						if (currentState.A && e2Position->getPos() == e1Position->getPos())
-						{
-							e1CursorComponent->setIsHoldingObject(false);
-						}						
+							
+										
 					}					
 				}				
 			}

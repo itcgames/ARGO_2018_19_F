@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 
+
 class Entity
 {
 public:
@@ -23,6 +24,7 @@ public:
 	std::vector<Entity*> getLinkedEntities();
 	void addLink(Entity* entity);
 	void removeLink(Entity* entity);
+	void resetLinks();
 
 protected:
 	std::string m_id;

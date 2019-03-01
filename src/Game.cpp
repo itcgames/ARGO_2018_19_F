@@ -24,7 +24,7 @@ Game::Game() :
 	m_screenManager.addScreen(new Autumn(&m_screenManager, m_renderer));			//	not finished. see also spring, summer, and winter.
 	m_screenManager.addScreen(new Credits(&m_screenManager, m_renderer));			//	done.
 
-	m_screenManager.goToScreen("Play");
+	m_screenManager.goToScreen("Splash");
 }
 
 

@@ -8,7 +8,7 @@ class PlacedComponent : public Component
 public:
 	PlacedComponent(bool placed = false);
 
-	void setPlaced();
+	void setPlaced(bool placed);
 	bool getPlaced();
 
 private:

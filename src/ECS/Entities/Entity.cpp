@@ -117,3 +117,8 @@ void Entity::removeLink(Entity * entity)
 {
 	m_linkedEntities.erase(std::remove(m_linkedEntities.begin(), m_linkedEntities.end(), entity), m_linkedEntities.end());
 }
+
+void Entity::resetLinks()
+{
+	m_linkedEntities = std::vector<Entity*>();
+}

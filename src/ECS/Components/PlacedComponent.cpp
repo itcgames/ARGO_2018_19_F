@@ -14,9 +14,9 @@ PlacedComponent::PlacedComponent(bool placed) :
 /// <summary>
 /// 
 /// </summary>
-void PlacedComponent::setPlaced()
+void PlacedComponent::setPlaced(bool placed)
 {
-	m_placed = !m_placed;
+	m_placed = placed;
 }
 
 
