@@ -118,7 +118,7 @@ void EntityManager::playing(double dt, bool online)
 	getCollisionSystem()->update(dt);
 	getPlayerStateSystem()->update(dt);
 	getPhysicsSystem()->update(dt);
-	//getAISystem()->update(dt);
+	getAISystem()->update(dt);
 	if (online)
 	{
 		getNetworkSystem()->update(dt);
