@@ -31,8 +31,12 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 /// <param name="dt"></param>
 void Autumn::update(double dt)
 {
-	m_clock += dt;
-	if (m_clock >= 1000 && m_gameInProgress == false)
+	if (m_gameInProgress == false)
+	{
+		m_clock += dt;
+	}
+
+	if (m_clock >= 15000 && m_gameInProgress == false)
 	{
 		m_entityManager.getAISystem()->processLevelEntities(m_entityManager.getCollisionSystem());
 		m_entityManager.getAISystem()->generatePath();
@@ -53,7 +57,7 @@ void Autumn::update(double dt)
 			playerState->setWon(false);
 
 			//	Reset player position
-			position->setPos(m_startPos);						
+			position->setPos(m_startPos);
 		}
 	}	
 
@@ -63,21 +67,23 @@ void Autumn::update(double dt)
 	{
 		//	Start the placement phase of the game.
 		m_gameInProgress = false;
-		m_clock = 0;
+		//m_clock = 0;
 		SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
 		selectionBox->setIsVisible(true);	
 		for (Entity* entity : m_entityManager.getObjectPlacedSystem()->m_entities)
 		{
 			m_entityManager.getObjectPlacedSystem()->removeEntity(entity);
 		}
+
 		if (m_generatedNewObstacles == false)
 		{
-			
+			//m_entityManager.createSelectionBox();
 			m_newObstacles = generateNewObstacles();
 			for (int i = 0; i < 4; i++)
 			{
 				m_entityManager.createCursor(i);
 			}
+			
 		}		
 
 		bool allPlaced = true;
@@ -94,7 +100,7 @@ void Autumn::update(double dt)
 			}
 		}
 	
-		if (allPlaced || m_clock > 15000)
+		if (allPlaced)
 		{
 			m_gameInProgress = true;
 			std::vector<Entity*> cursors = m_entityManager.getEntitiesWithTag("cursor");
@@ -115,21 +121,33 @@ void Autumn::update(double dt)
 		}
 	}
 
-	if (m_clock > 15000)
+	SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
+
+	if (m_clock > 5000)
+	{
+		selectionBox->setIsVisible(false);
+		//m_entityManager.removeEntity(selectionBox);
+	}
+
+	if (m_clock >= 15000)
 	{
 		m_gameInProgress = true;
 		std::vector<Entity*> cursors = m_entityManager.getEntitiesWithTag("cursor");
 		for (Entity* cursor : cursors)
 		{
 			m_entityManager.removeEntity(cursor);
+			//m_entityManager.removeEntity(m_entityManager.getSelectionBoxSystem());
 		}
 
 		for (Entity* obstacle : m_newObstacles)
 		{
 			PlacedComponent* placed = (PlacedComponent*)obstacle->getComponent("PLACED");
 			placed->setPlaced(true);
+			m_clock = 0;
 		}
 	}
+
+	
 }
 
 
