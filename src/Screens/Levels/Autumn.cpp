@@ -32,7 +32,7 @@ Autumn::Autumn(ScreenManager* screenManager, SDL_Renderer* renderer) :
 void Autumn::update(double dt)
 {
 	m_clock += dt;
-	if (m_gameInProgress == false && m_entityManager.getObjectPlacedSystem()->getNumberOfObjectsPlaced() == m_newObstacles.size())
+	if (m_gameInProgress == false && m_entityManager.getObjectPlacedSystem()->getNumberOfObjectsPlaced() >= m_newObstacles.size())
 	{
 		//	Start the playing phase of the game.
 		m_gameInProgress = true;
@@ -52,6 +52,7 @@ void Autumn::update(double dt)
 
 			//	Reset player position
 			position->setPos(m_startPos);
+			m_clock = 0;
 			
 			
 		}
@@ -130,7 +131,15 @@ void Autumn::update(double dt)
 		{
 			PlacedComponent* placed = (PlacedComponent*)obstacle->getComponent("PLACED");
 			placed->setPlaced(true);
+			m_clock = 0;
 		}
+	}
+
+	SelectionBoxComponent* selectionBox = (SelectionBoxComponent*)m_entityManager.getEntityById("selection_box")->getComponent("SELECTION_BOX");
+	
+	if (m_clock > 3000)
+	{
+		selectionBox->setIsVisible(false);
 	}
 }
 
