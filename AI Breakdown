@@ -1,0 +1,8 @@
+John    - Grid 33%
+*Note* 
+Intended to implement an A*Star platformer algorithm but was unable to get the priority queue functioning and switched to alternate
+method in the last 2 days of the ARGO project - this greatly affected the others ability to work on implementing
+their portion of the AI system such as ai movement.
+
+Conor   - Cursor 33%
+D.J.    - Movement 33%
